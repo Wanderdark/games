@@ -1247,13 +1247,11 @@ body.tb-mode .hp-outer{opacity:0;pointer-events:none}
             STUDENTS.length = 0;
             names.forEach(n => STUDENTS.push({ name: n, level: 'C' }));
           }
-          // Slotları önceden doldur: isimleri iki sütuna böl
-          const half = Math.ceil(names.length / 2);
-          for (let gi = 0; gi < 2; gi++)
-            for (let si = 0; si < STD_SLOTS; si++) {
-              const idx = gi === 0 ? si : half + si;
-              studentInputs[gi][si] = idx < names.length ? names[idx] : '';
-            }
+          // Slotları önceden doldur: A0,B0,A1,B1,... interleaved
+          let idx = 0;
+          for (let si = 0; si < STD_SLOTS; si++)
+            for (let gi = 0; gi < 2; gi++)
+              studentInputs[gi][si] = idx < names.length ? names[idx++] : '';
         }
       } catch(e) {}
     }
@@ -1279,11 +1277,10 @@ function stdFillAll() {
   try {
     const names = JSON.parse(raw);
     if (!Array.isArray(names) || !names.length) return;
-    const half = Math.ceil(names.length / 2);
-    for (let gi = 0; gi < 2; gi++)
-      for (let si = 0; si < STD_SLOTS; si++) {
-        const idx = gi === 0 ? si : half + si;
-        const val = idx < names.length ? names[idx] : '';
+    let idx = 0;
+    for (let si = 0; si < STD_SLOTS; si++)
+      for (let gi = 0; gi < 2; gi++) {
+        const val = idx < names.length ? names[idx++] : '';
         studentInputs[gi][si] = val;
         const t = document.getElementById(`stdt-${gi}-${si}`);
         if (t) t.textContent = val;
@@ -1681,13 +1678,15 @@ function applyStudentsAndContinue() {
     studentAvatarShown[gi] = groupStudents[gi].map(() => false);
   });
 
-  // localStorage'a kaydet: her iki slottaki tüm isimleri birleştir
+  // localStorage'a kaydet: A0,B0,A1,B1,... interleaved sırayla
   const _allNames = [];
   const _seen = new Set();
-  [0,1].forEach(gi => studentInputs[gi].forEach(n => {
-    const t = n.trim();
-    if (t && !_seen.has(t)) { _seen.add(t); _allNames.push(t); }
-  }));
+  for (let si = 0; si < STD_SLOTS; si++) {
+    for (let gi = 0; gi < 2; gi++) {
+      const t = (studentInputs[gi][si] || '').trim();
+      if (t && !_seen.has(t)) { _seen.add(t); _allNames.push(t); }
+    }
+  }
   if (_allNames.length) localStorage.setItem('teamclash_students', JSON.stringify(_allNames));
 
   document.getElementById('student-overlay').classList.add('hidden');
