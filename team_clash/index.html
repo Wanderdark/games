@@ -1045,7 +1045,9 @@ body.tb-mode .hp-outer{opacity:0;pointer-events:none}
     </div>
     <div id="std-warning"></div>
     <div class="std-actions">
-      <button class="std-start" onclick="applyStudentsAndContinue()">✓ Tamam, Devam Et</button>
+      <button class="std-balance" onclick="stdClearAll()" style="background:linear-gradient(135deg,#7f1d1d,#dc2626)">✕ Clear All</button>
+      <button class="std-balance" onclick="stdFillAll()">↓ Fill All</button>
+      <button class="std-start" onclick="applyStudentsAndContinue()">✓ Tamam</button>
     </div>
   </div>
 </div>
@@ -1258,6 +1260,38 @@ body.tb-mode .hp-outer{opacity:0;pointer-events:none}
     _orig();
   };
 })();
+
+function stdClearAll() {
+  for (let gi = 0; gi < 2; gi++)
+    for (let si = 0; si < STD_SLOTS; si++) {
+      studentInputs[gi][si] = '';
+      const t = document.getElementById(`stdt-${gi}-${si}`);
+      if (t) t.textContent = '';
+      const s = document.getElementById(`std-${gi}-${si}`);
+      if (s) s.classList.add('is-empty');
+    }
+  if (typeof selectStdField === 'function') selectStdField(0, 0);
+}
+
+function stdFillAll() {
+  const raw = localStorage.getItem('teamclash_students');
+  if (!raw) return;
+  try {
+    const names = JSON.parse(raw);
+    if (!Array.isArray(names) || !names.length) return;
+    const half = Math.ceil(names.length / 2);
+    for (let gi = 0; gi < 2; gi++)
+      for (let si = 0; si < STD_SLOTS; si++) {
+        const idx = gi === 0 ? si : half + si;
+        const val = idx < names.length ? names[idx] : '';
+        studentInputs[gi][si] = val;
+        const t = document.getElementById(`stdt-${gi}-${si}`);
+        if (t) t.textContent = val;
+        const s = document.getElementById(`std-${gi}-${si}`);
+        if (s) s.classList.toggle('is-empty', val.trim() === '');
+      }
+  } catch(e) {}
+}
 
 // ══════════════════════════════════════════════════════════
 //  TEAM CLASH — Game Logic
@@ -4064,14 +4098,28 @@ function _switchBgTrack() {
 
 // ── STARTUP ───────────────────────────────────────────────
 window.addEventListener('load', () => {
-  _loadSettings();  // son ayarları localStorage'dan yükle
+  _loadSettings();
 
-  // Web Speech API — İngilizce sesi önceden yükle
+  // Menü müziğini sayfa yüklenince buffer'a al
+  const _preloadAudio = document.getElementById('bg-music');
+  if (_preloadAudio) {
+    _preloadAudio.src = BG_MENU_TRACK;
+    _preloadAudio.load();
+  }
+
+  // İlk kullanıcı etkileşiminde müziği başlat
+  function _onFirstInteraction() {
+    _startBgMusic();
+    document.removeEventListener('click',   _onFirstInteraction);
+    document.removeEventListener('keydown', _onFirstInteraction);
+  }
+  document.addEventListener('click',   _onFirstInteraction);
+  document.addEventListener('keydown', _onFirstInteraction);
+
   if (window.speechSynthesis) {
     _initVoice();
     window.speechSynthesis.onvoiceschanged = _initVoice;
   }
-  // Ana menü gösterilir — oyun showNameOverlay'den başlar
 });
 </script>
 </body>
