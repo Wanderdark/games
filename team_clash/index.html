@@ -4039,6 +4039,7 @@ function _startBgMusic() {
   audio.src    = BG_MENU_TRACK;
   audio.loop   = true;
   audio.volume = BG_MUSIC_FULL;
+  audio.load();
   audio.play().catch(() => { audio._wkStarted = false; });
 }
 

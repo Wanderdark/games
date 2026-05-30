@@ -149,8 +149,7 @@ function buildStdGroupCol(gi){
   col.appendChild(hdr);
   for(let si=0;si<STD_SLOTS;si++){
     const slot=document.createElement('div');
-    const revealed=_slotRevealed[gi]&&_slotRevealed[gi][si];
-    const visibleVal=revealed?studentInputs[gi][si]:'';
+    const visibleVal=studentInputs[gi][si]||'';
     slot.className='std-slot'+(visibleVal.trim()===''?' is-empty':'');
     slot.id=`std-${gi}-${si}`;
     slot.onclick=()=>selectStdField(gi,si);
