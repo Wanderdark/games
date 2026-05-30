@@ -160,14 +160,8 @@ function buildStdGroupCol(gi){
     txt.textContent=visibleVal;
     const cur=document.createElement('span');
     cur.className='std-cursor';
-    const rnd=document.createElement('button');
-    rnd.className='std-rand';
-    rnd.title='Rastgele isim';
-    rnd.textContent='🎲';
-    rnd.onclick=(e)=>{ e.stopPropagation(); assignStdRandom(gi,si); };
     slot.appendChild(txt);
     slot.appendChild(cur);
-    slot.appendChild(rnd);
     col.appendChild(slot);
   }
   return col;
