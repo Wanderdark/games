@@ -3519,6 +3519,7 @@ function _closeCatPreview() {
 }
 
 function openSettings()  {
+  _startBgMusic();
   buildSettingsUI();
   // Ses listesini tazele (tarayıcı sesler geç yükleyebilir)
   if (window.speechSynthesis) {
@@ -4016,6 +4017,7 @@ function _tbContinueRound() {
 
 // ── MAIN MENU ─────────────────────────────────────────────
 function _menuStart() {
+  _startBgMusic();
   document.getElementById('main-menu').classList.add('hidden');
   showNameOverlay(names => {
     teamNames = names;
