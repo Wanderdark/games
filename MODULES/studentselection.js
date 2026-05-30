@@ -140,60 +140,60 @@ let _silentDistributed=false; // gizli dağıtım yapıldı mı
 let absentStudents=new Set(); // bugün devamsız öğrenciler (isim bazlı) — yoklama overlay'den güncellenir
 
 /* ── Overlay oluşturma ──────────────────────────────────── */
-function buildStdGroupCol(gi){
-  const col=document.createElement('div');
-  col.className='std-group-col';
-  const hdr=document.createElement('div');
-  hdr.className='std-group-hdr '+(gi===0?'hdr-a':'hdr-b');
-  hdr.textContent=(gi===0?'🔵 ':'🔴 ')+(teamNames[gi]||(gi===0?'Team A':'Team B'));
-  col.appendChild(hdr);
-  for(let si=0;si<STD_SLOTS;si++){
-    const slot=document.createElement('div');
-    const visibleVal=studentInputs[gi][si]||'';
-    slot.className='std-slot'+(visibleVal.trim()===''?' is-empty':'');
-    slot.id=`std-${gi}-${si}`;
-    slot.onclick=()=>selectStdField(gi,si);
-    slot.ondblclick=(e)=>{ e.stopPropagation(); clearStdSlot(gi,si); };
-    const txt=document.createElement('span');
-    txt.id=`stdt-${gi}-${si}`;
-    txt.textContent=visibleVal;
-    const cur=document.createElement('span');
-    cur.className='std-cursor';
-    slot.appendChild(txt);
-    slot.appendChild(cur);
-    col.appendChild(slot);
-  }
-  return col;
-}
-
-function buildSwapCol(){
-  const col=document.createElement('div');
-  col.className='std-swap-col';
-  const hdr=document.createElement('div');
-  hdr.className='std-swap-hdr';
-  col.appendChild(hdr);
-  for(let si=0;si<STD_SLOTS;si++){
-    const btn=document.createElement('button');
-    btn.className='std-swap-btn';
-    btn.title='Yer değiştir';
-    btn.textContent='⇄';
-    btn.onclick=()=>swapStudents(si);
-    col.appendChild(btn);
-  }
-  return col;
+function _buildStdSlot(gi,si){
+  const visibleVal=studentInputs[gi][si]||'';
+  const slot=document.createElement('div');
+  slot.className='std-slot'+(visibleVal.trim()===''?' is-empty':'');
+  slot.id=`std-${gi}-${si}`;
+  slot.onclick=()=>selectStdField(gi,si);
+  slot.ondblclick=(e)=>{ e.stopPropagation(); clearStdSlot(gi,si); };
+  const txt=document.createElement('span');
+  txt.id=`stdt-${gi}-${si}`;
+  txt.textContent=visibleVal;
+  const cur=document.createElement('span');
+  cur.className='std-cursor';
+  slot.appendChild(txt);
+  slot.appendChild(cur);
+  return slot;
 }
 
 function showStudentOverlay(){
-  // Slotları kapalı başlat — gizli dağıtım ilk zar tuşuna basıldığında yapılır
   _slotRevealed=[[],[]];
   for(let gi=0;gi<2;gi++) for(let si=0;si<STD_SLOTS;si++) _slotRevealed[gi][si]=false;
   _silentDistributed=false;
 
   const cols=document.getElementById('std-cols');
   cols.innerHTML='';
-  cols.appendChild(buildStdGroupCol(0));
-  cols.appendChild(buildSwapCol());
-  cols.appendChild(buildStdGroupCol(1));
+
+  // Başlık satırı
+  const hdrRow=document.createElement('div');
+  hdrRow.className='std-row';
+  ['hdr-a','','hdr-b'].forEach((cls,i)=>{
+    const h=document.createElement('div');
+    if(i===1){ h.className='std-swap-hdr'; }
+    else{
+      h.className='std-group-hdr '+cls;
+      h.textContent=(i===0?'🔵 ':'🔴 ')+(teamNames[i===0?0:1]||(i===0?'Team A':'Team B'));
+    }
+    hdrRow.appendChild(h);
+  });
+  cols.appendChild(hdrRow);
+
+  // Her satır: [slot A] [⇄] [slot B]
+  for(let si=0;si<STD_SLOTS;si++){
+    const row=document.createElement('div');
+    row.className='std-row';
+    row.appendChild(_buildStdSlot(0,si));
+    const btn=document.createElement('button');
+    btn.className='std-swap-btn';
+    btn.title='Yer değiştir';
+    btn.textContent='⇄';
+    btn.onclick=()=>swapStudents(si);
+    row.appendChild(btn);
+    row.appendChild(_buildStdSlot(1,si));
+    cols.appendChild(row);
+  }
+
   document.getElementById('student-overlay').classList.remove('hidden');
   if(typeof buildStdKeyboard==='function') buildStdKeyboard();
   if(typeof selectStdField==='function') selectStdField(0,0);
@@ -206,10 +206,8 @@ function swapStudents(si){
   studentInputs[1][si]=tmp;
   const tmpR=_slotRevealed[0][si];
   _slotRevealed[0][si]=_slotRevealed[1][si];
-  _slotRevealed[1][si]=tmpR;
   [0,1].forEach(gi=>{
-    const revealed=_slotRevealed[gi][si];
-    const val=revealed?studentInputs[gi][si]:'';
+    const val=studentInputs[gi][si]||'';
     const t=document.getElementById(`stdt-${gi}-${si}`);
     if(t) t.textContent=val;
     const s=document.getElementById(`std-${gi}-${si}`);

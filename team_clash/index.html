@@ -414,8 +414,8 @@ body.tb-mode .team-joker-row{display:flex}
 .std-modal{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:18px;padding:24px;width:min(96vw,580px);display:flex;flex-direction:column;gap:12px;max-height:94vh;overflow-y:auto}
 .std-title{font-family:'Barlow Condensed',sans-serif;font-size:clamp(18px,3vw,26px);font-weight:700;letter-spacing:.18em;text-transform:uppercase;text-align:center;color:var(--white)}
 .std-sub{font-size:11px;color:rgba(255,255,255,.45);text-align:center;letter-spacing:.06em}
-.std-cols{display:grid;grid-template-columns:1fr auto 1fr;column-gap:6px}
-.std-group-col{display:flex;flex-direction:column;gap:3px;flex:1}
+.std-cols{display:flex;flex-direction:column;gap:3px}
+.std-row{display:grid;grid-template-columns:1fr auto 1fr;gap:6px;align-items:center}
 .std-group-hdr{font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;margin-bottom:1px}
 .std-group-hdr.hdr-a{color:#4A8AF4}.std-group-hdr.hdr-b{color:#ff5577}
 .std-slot{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:7px;padding:6px 8px;cursor:pointer;font-size:13px;font-family:'Barlow Condensed',sans-serif;letter-spacing:.1em;color:var(--white);min-height:30px;display:flex;align-items:center;gap:4px;transition:background .15s,border-color .15s}
@@ -1272,22 +1272,17 @@ function stdClearAll() {
 }
 
 function stdFillAll() {
-  const raw = localStorage.getItem('teamclash_students');
-  if (!raw) return;
-  try {
-    const names = JSON.parse(raw);
-    if (!Array.isArray(names) || !names.length) return;
-    let idx = 0;
-    for (let si = 0; si < STD_SLOTS; si++)
-      for (let gi = 0; gi < 2; gi++) {
-        const val = idx < names.length ? names[idx++] : '';
-        studentInputs[gi][si] = val;
-        const t = document.getElementById(`stdt-${gi}-${si}`);
-        if (t) t.textContent = val;
-        const s = document.getElementById(`std-${gi}-${si}`);
-        if (s) s.classList.toggle('is-empty', val.trim() === '');
-      }
-  } catch(e) {}
+  const labels = ['A', 'B'];
+  for (let gi = 0; gi < 2; gi++)
+    for (let si = 0; si < STD_SLOTS; si++) {
+      const val = labels[gi] + (si + 1);
+      studentInputs[gi][si] = val;
+      const t = document.getElementById(`stdt-${gi}-${si}`);
+      if (t) t.textContent = val;
+      const s = document.getElementById(`std-${gi}-${si}`);
+      if (s) s.classList.remove('is-empty');
+    }
+  if (typeof selectStdField === 'function') selectStdField(0, 0);
 }
 
 // ══════════════════════════════════════════════════════════
