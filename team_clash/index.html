@@ -1233,6 +1233,34 @@ body.tb-mode .hp-outer{opacity:0;pointer-events:none}
 <script src="taunt.js"></script>
 
 <script>
+// ── localStorage: showStudentOverlay override ─────────────
+(function(){
+  const _orig = showStudentOverlay;
+  showStudentOverlay = function(){
+    const raw = localStorage.getItem('teamclash_students');
+    if (raw) {
+      try {
+        const names = JSON.parse(raw);
+        if (Array.isArray(names) && names.length) {
+          // STUDENTS'ı güncelle — dengeli dağıt kullanabilsin
+          if (typeof STUDENTS !== 'undefined') {
+            STUDENTS.length = 0;
+            names.forEach(n => STUDENTS.push({ name: n, level: 'C' }));
+          }
+          // Slotları önceden doldur: isimleri iki sütuna böl
+          const half = Math.ceil(names.length / 2);
+          for (let gi = 0; gi < 2; gi++)
+            for (let si = 0; si < STD_SLOTS; si++) {
+              const idx = gi === 0 ? si : half + si;
+              studentInputs[gi][si] = idx < names.length ? names[idx] : '';
+            }
+        }
+      } catch(e) {}
+    }
+    _orig();
+  };
+})();
+
 // ══════════════════════════════════════════════════════════
 //  TEAM CLASH — Game Logic
 // ══════════════════════════════════════════════════════════
@@ -1620,6 +1648,15 @@ function applyStudentsAndContinue() {
     studentAvatars[gi]     = groupStudents[gi].map(() => null);
     studentAvatarShown[gi] = groupStudents[gi].map(() => false);
   });
+
+  // localStorage'a kaydet: her iki slottaki tüm isimleri birleştir
+  const _allNames = [];
+  const _seen = new Set();
+  [0,1].forEach(gi => studentInputs[gi].forEach(n => {
+    const t = n.trim();
+    if (t && !_seen.has(t)) { _seen.add(t); _allNames.push(t); }
+  }));
+  if (_allNames.length) localStorage.setItem('teamclash_students', JSON.stringify(_allNames));
 
   document.getElementById('student-overlay').classList.add('hidden');
   _startGame();
