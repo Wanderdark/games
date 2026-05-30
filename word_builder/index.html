@@ -1947,7 +1947,7 @@ input[type=range].st-slider::-moz-range-thumb{width:22px;height:22px;border-radi
       <!-- Sol kolon -->
       <div class="st-group">
         <div class="st-label">Giriş Modu <span id="st-touch-val">DRAG</span></div>
-        <input type="range" class="st-slider" id="st-touch" min="0" max="1" step="1" value="0"
+        <input type="range" class="st-slider" id="st-touch" min="0" max="1" step="1" value="1"
                oninput="updateSettingsDisplay()">
         <div class="st-ticks"><span>DRAG</span><span>TAP</span></div>
       </div>
@@ -6209,7 +6209,7 @@ function startCreditMarquee(){
 
 // ── LITE MODE ── Arka plan efektlerini (stars / nebula / corner-lights) kapat/aç ──
 let liteMode = localStorage.getItem('liteMode') === '1';
-let touchscreenMode = localStorage.getItem('touchscreenMode') === '1';
+let touchscreenMode = localStorage.getItem('touchscreenMode') !== '0'; // varsayılan TAP
 let electricEnabled = localStorage.getItem('electricEnabled') !== '0'; // varsayılan ON
 
 function _applyLiteVisuals(){
