@@ -17,15 +17,15 @@
 // ============================================================
 
 const AVATARS = [
-  {src:'avatars/AV_anime_Nora.png',      facesRight:true},
-  {src:'avatars/AV_anime_Pixie.png',     facesRight:false},
-  {src:'avatars/AV_anime_Mara.png',      facesRight:false},
-  {src:'avatars/AV_anime_Terra.png',     facesRight:true},
-  {src:'avatars/AV_anime_Rex.png',       facesRight:false},
-  {src:'avatars/AV_anime_Orion.png', 	 facesRight:false},
-  {src:'avatars/AV_anime_Blaze.png',     facesRight:false},
-  {src:'avatars/AV_anime_Frost.png',     facesRight:false},
-  {src:'avatars/AV_anime_Louis.png',     facesRight:false},
-  {src:'avatars/AV_anime_Grace.png',     facesRight:false},
+  {src:'avatars/AV_Anime_Nora.png',      facesRight:true},
+  {src:'avatars/AV_Anime_Pixie.png',     facesRight:false},
+  {src:'avatars/AV_Anime_Mara.png',      facesRight:false},
+  {src:'avatars/AV_Anime_Terra.png',     facesRight:true},
+  {src:'avatars/AV_Anime_Rex.png',       facesRight:false},
+  {src:'avatars/AV_Anime_Orion.png', 	 facesRight:false},
+  {src:'avatars/AV_Anime_Blaze.png',     facesRight:false},
+  {src:'avatars/AV_Anime_Frost.png',     facesRight:false},
+  {src:'avatars/AV_Anime_Louis.png',     facesRight:false},
+  {src:'avatars/AV_Anime_Grace.png',     facesRight:false},
   // buraya ekle ↓
 ];
