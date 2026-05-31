@@ -4060,8 +4060,18 @@ function _menuStart() {
 }
 
 function _menuFullscreen() {
-  _startBgMusic(); // user gesture token'ı önce al
+  _startBgMusic();
   toggleFullscreen();
+  // Fullscreen geçişi audio'yu durdurabilir — change event'ında yeniden dene
+  document.addEventListener('fullscreenchange', function _fsHandler() {
+    document.removeEventListener('fullscreenchange', _fsHandler);
+    if (!document.fullscreenElement) return;
+    const audio = document.getElementById('bg-music');
+    if (audio && audio.paused) {
+      audio._wkStarted = false; // retry için sıfırla
+      _startBgMusic();
+    }
+  });
 }
 
 function _startBgMusic() {
@@ -4069,8 +4079,10 @@ function _startBgMusic() {
   const audio = document.getElementById('bg-music');
   if (!audio || audio._wkStarted) return;
   audio._wkStarted = true;
-  audio.src    = BG_MENU_TRACK;
-  audio.loop   = true;
+  if (!audio.src || !audio.src.includes('mainmenu')) {
+    audio.src  = BG_MENU_TRACK;
+    audio.loop = true;
+  }
   audio.volume = BG_MUSIC_FULL;
   audio.play().catch(() => { audio._wkStarted = false; });
 }
