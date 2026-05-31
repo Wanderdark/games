@@ -1767,10 +1767,9 @@ function _setAvatarStates(winnerGi) {
 //   synonyms: eş anlamlılar (şık olmaması gerekenler), imagePath = q[q.length - 1]
 
 function _pickQuestion() {
-  // Aynı kelime birden fazla ünitede varsa sadece birini havuza al (rastgele)
   const seenWords = new Set();
+  const minGrade  = selectedGrades.size > 0 ? Math.min(...selectedGrades) : 0; // döngü dışında hesapla
   const avail = QUESTIONS.reduce((a, q, i) => {
-    const minGrade = selectedGrades.size > 0 ? Math.min(...selectedGrades) : 0;
     const inNormal = !_isCatUnit(q[2]) && selectedGrades.has(q[1]) && selectedUnits.has(q[2]);
     const inCat    = _isCatUnit(q[2]) && selectedCategories.has(q[2]) && q[1] <= minGrade;
     if (!usedQIdx.has(i) && q[q.length - 1] && (inNormal || inCat) && !seenWords.has(q[0])) {
@@ -1779,7 +1778,15 @@ function _pickQuestion() {
     }
     return a;
   }, []);
-  if (!avail.length) { usedQIdx.clear(); return _pickQuestion(); }
+  if (!avail.length) {
+    if (usedQIdx.size === 0) {
+      // Filtre tamamen boş — sonsuz özyinelemeyi önle, tüm üniteleri aç
+      selectedUnits = new Set(QUESTIONS.filter(q => !_isCatUnit(q[2]) && q[1] > 0).map(q => q[2]));
+      selectedGrades = new Set(QUESTIONS.filter(q => !_isCatUnit(q[2]) && q[1] > 0).map(q => q[1]));
+    }
+    usedQIdx.clear();
+    return _pickQuestion();
+  }
   const i = avail[Math.floor(Math.random() * avail.length)];
   usedQIdx.add(i);
   return QUESTIONS[i];
@@ -4069,10 +4076,7 @@ function _startBgMusic() {
   const audio = document.getElementById('bg-music');
   if (!audio || audio._wkStarted) return;
   audio._wkStarted = true;
-  if (!audio.src || !audio.src.includes('mainmenu')) {
-    audio.src  = BG_MENU_TRACK;
-    audio.loop = true;
-  }
+  // src zaten window.load'da set edildi, sadece volume aç ve başlat
   audio.volume = BG_MUSIC_FULL;
   audio.play().catch(() => { audio._wkStarted = false; });
 }
@@ -4136,14 +4140,22 @@ function stdFillAll() {
 
 window.addEventListener('load', () => {
   _loadSettings();
-  _applyStudentModeUI(); // teacher / default mod butonlarını ayarla
+  _applyStudentModeUI();
+
+  // Ana menü müziğini önceden buffer'a al — play() anında hazır olsun (Chrome fix)
+  const audio = document.getElementById('bg-music');
+  if (audio) {
+    audio.src    = BG_MENU_TRACK;
+    audio.loop   = true;
+    audio.volume = 0;       // sessiz yükle, gesture gelince volume açılır
+    audio.load();           // buffering başlasın
+  }
 
   // Web Speech API — İngilizce sesi önceden yükle
   if (window.speechSynthesis) {
     _initVoice();
     window.speechSynthesis.onvoiceschanged = _initVoice;
   }
-  // Ana menü gösterilir — oyun showNameOverlay'den başlar
 });
 </script>
 </body>
