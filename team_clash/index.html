@@ -4036,6 +4036,7 @@ function _secretTap(letter) {
           selectedUnits   = new Set(QUESTIONS.filter(q => !_isCatUnit(q[2])).map(q => q[2]));
         }
         _applyStudentModeUI();
+        _spawnJkDropText('🔑 TEACHER MODE AKTİF', '#4ade80');
       }, 350);
     } else {
       // 3 saniye içinde devam edilmezse sıfırla
@@ -4049,6 +4050,7 @@ function _secretTap(letter) {
 }
 
 function _menuStart() {
+  _startBgMusic(); // PLAY'e basınca da müziği başlat
   document.getElementById('main-menu').classList.add('hidden');
   showNameOverlay(names => {
     teamNames = names;
@@ -4058,8 +4060,8 @@ function _menuStart() {
 }
 
 function _menuFullscreen() {
+  _startBgMusic(); // user gesture token'ı önce al
   toggleFullscreen();
-  _startBgMusic();
 }
 
 function _startBgMusic() {
