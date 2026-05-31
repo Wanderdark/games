@@ -2551,13 +2551,13 @@
   <div class="mm-banner">
     <div class="mm-hex-row">
       <!-- W -->
-      <div class="mm-hex"><div class="mm-hx-border"></div><div class="mm-hx-inner"><span>W</span></div></div>
+      <div class="mm-hex" onclick="_secretTap('W')"><div class="mm-hx-border"></div><div class="mm-hx-inner"><span>W</span></div></div>
       <!-- O -->
-      <div class="mm-hex"><div class="mm-hx-border"></div><div class="mm-hx-inner"><span>O</span></div></div>
+      <div class="mm-hex" onclick="_secretTap('O')"><div class="mm-hx-border"></div><div class="mm-hx-inner"><span>O</span></div></div>
       <!-- R -->
-      <div class="mm-hex"><div class="mm-hx-border"></div><div class="mm-hx-inner"><span>R</span></div></div>
+      <div class="mm-hex" onclick="_secretTap('R')"><div class="mm-hx-border"></div><div class="mm-hx-inner"><span>R</span></div></div>
       <!-- D -->
-      <div class="mm-hex"><div class="mm-hx-border"></div><div class="mm-hx-inner"><span>D</span></div></div>
+      <div class="mm-hex" onclick="_secretTap('D')"><div class="mm-hx-border"></div><div class="mm-hx-inner"><span>D</span></div></div>
       <!-- G -->
       <div class="mm-hex"><div class="mm-hx-border"></div><div class="mm-hx-inner"><span>G</span></div></div>
       <!-- A -->
@@ -2668,9 +2668,14 @@
       <div class="std-kb-row" id="std-kb-3"></div>
     </div>
     <div class="std-actions">
-      <button class="std-clear-all" onclick="clearAllStudents()">✕ CLEAR ALL</button>
-      <button class="std-fill-all"  onclick="fillAllStudents()">⚡ FILL ALL</button>
-      <button class="std-start"     onclick="applyStudentsAndContinue()">✓ Tamam, Devam Et</button>
+      <!-- web modu (default) -->
+      <button id="std-clearall-btn" class="std-clear-all" onclick="clearAllStudents()">✕ CLEAR ALL</button>
+      <button id="std-fillall-btn"  class="std-fill-all"  onclick="fillAllStudents()">⚡ FILL ALL</button>
+      <!-- teacher modu (gizli) -->
+      <button id="att-btn"          class="std-attendance" style="display:none" onclick="openAttendance()">📋 Yoklama</button>
+      <button id="std-balance-btn"  class="std-balance"    style="display:none" onclick="balanceDistribute()">⚖ Dengeli Dağıt</button>
+      <!-- her zaman -->
+      <button class="std-start" onclick="applyStudentsAndContinue()">✓ Tamam, Devam Et</button>
     </div>
   </div>
 </div>
@@ -3036,6 +3041,7 @@
 
 <script src="../MODULES/rgbkeyboard.js"></script>
 <script src="../MODULES/finalscreen.js"></script>
+<script src="names.js" onerror="void 0"></script>
 <script src="questions.js"></script>
 <script>
 /* ── STAR FIELD ── */
@@ -5481,6 +5487,14 @@ function buildStdGroupCol(gi) {
     cur.className = 'std-cursor';
     slot.appendChild(txt);
     slot.appendChild(cur);
+    if(_teacherMode) {
+      const rnd = document.createElement('button');
+      rnd.className = 'std-rand';
+      rnd.title = 'Rastgele öğrenci ata';
+      rnd.textContent = '🎲';
+      rnd.onclick = (e) => { e.stopPropagation(); assignStdRandom(gi, si); };
+      slot.appendChild(rnd);
+    }
     col.appendChild(slot);
   }
   return col;
@@ -5601,7 +5615,29 @@ function fillAllStudents() {
   selectStdField(0, 0);
 }
 
-function balanceDistribute() {} // production'da kullanılmıyor
+function balanceDistribute() {} // production stub — teacher mode'da görünür ama işlevsiz
+
+// Teacher mode zar: aktif öğrenci havuzundan rastgele ata
+function assignStdRandom(gi, si) {
+  const pool = (typeof CLASSES !== 'undefined' && CLASSES.length > 0)
+    ? CLASSES.filter(c => selectedClasses.has(c.id)).flatMap(c => c.students).map(s => s.name || s)
+    : [];
+  if(!pool.length) return;
+  const used = new Set();
+  for(let g = 0; g < groupCount; g++)
+    for(let s = 0; s < STD_SLOTS; s++)
+      if(studentInputs[g][s].trim()) used.add(studentInputs[g][s].trim().toUpperCase());
+  const avail = pool.filter(n => !used.has(n.toUpperCase()));
+  const name  = avail.length > 0 ? avail[Math.floor(Math.random() * avail.length)] : null;
+  if(!name) return;
+  studentInputs[gi][si]  = name;
+  _slotRevealed[gi][si]  = true;
+  const t    = document.getElementById(`stdt-${gi}-${si}`);
+  const slot = document.getElementById(`std-${gi}-${si}`);
+  if(t)    t.textContent = name;
+  if(slot) slot.classList.remove('is-empty');
+  selectStdField(gi, si);
+}
 function _hideDistBadge() {
   const el = document.getElementById('dist-badge');
   if(el) el.style.display = 'none';
@@ -6086,9 +6122,58 @@ let selectedCategories = new Set(
 /** Aktif grup index'lerini döndürür: groupCount=2 → [0,1]  groupCount=3 → [0,1,2] */
 function grpIdxs() { return Array.from({length: groupCount}, (_, i) => i); }
 
-// names.js yok — CLASSES bağımlı fonksiyonlar no-op
+// CLASSES fallback — names.js yüklenemediyse boş dizi
+try { CLASSES; } catch(e) { window.CLASSES = []; }
+
 function syncClassesFromGrades() {}
 function syncGradesFromClasses()  {}
+
+/* ══════════════════════════════════════════════════
+   🔐 TEACHER MODE — Gizli tıklama: W → O → R → D
+   ══════════════════════════════════════════════════ */
+let _teacherMode  = false;
+const _SECRET_SEQ = ['W','O','R','D'];
+let   _secretIdx  = 0;
+let   _secretTimer = null;
+
+function _secretTap(letter) {
+  if(letter === _SECRET_SEQ[_secretIdx]) {
+    _secretIdx++;
+    clearTimeout(_secretTimer);
+    if(_secretIdx === _SECRET_SEQ.length) {
+      _secretIdx = 0;
+      setTimeout(() => {
+        _teacherMode = !_teacherMode; // toggle — tekrar W-O-R-D ile kapatılabilir
+        // CLASSES varsa grade seçimlerini senkronize et
+        if(typeof CLASSES !== 'undefined' && CLASSES.length > 0) {
+          if(_teacherMode) {
+            selectedClasses = new Set(CLASSES.map(c => c.id));
+            selectedGrades  = new Set(CLASSES.map(c => c.grade));
+          }
+        }
+        _applyStudentModeUI();
+        buildGradeSelector();   // teacher: sınıf bazlı / web: grade bazlı
+        buildUnitSelector();
+        showToast(_teacherMode ? '🔓 Teacher Mode aktif' : '🔒 Web Mode', 1800);
+      }, 350);
+    } else {
+      _secretTimer = setTimeout(() => { _secretIdx = 0; }, 3000);
+    }
+  } else {
+    _secretIdx = 0;
+    clearTimeout(_secretTimer);
+    // Yanlış harf — sıfırla ve ilk harfle yeniden dene
+    if(letter === _SECRET_SEQ[0]) { _secretIdx = 1; }
+  }
+}
+
+function _applyStudentModeUI() {
+  const t = _teacherMode;
+  document.getElementById('std-clearall-btn')?.style.setProperty('display', t ? 'none' : '');
+  document.getElementById('std-fillall-btn') ?.style.setProperty('display', t ? 'none' : '');
+  document.getElementById('att-btn')         ?.style.setProperty('display', t ? ''     : 'none');
+  document.getElementById('std-balance-btn') ?.style.setProperty('display', t ? ''     : 'none');
+}
 
 // Sayfa yüklenince kaydedilmiş ayarları geri yükle; yoksa default
 (function initSettings() {
@@ -6109,16 +6194,51 @@ function buildGradeSelector() {
   const grid = document.getElementById('sc-class-grid');
   if(!grid || typeof QUESTIONS === 'undefined') return;
   grid.innerHTML = '';
-  const grades = [...new Set(QUESTIONS.filter(q => q[3] !== 0).map(q => q[3]))].sort((a, b) => a - b);
-  grades.forEach(g => {
-    const cnt = QUESTIONS.filter(q => q[3] === g).length;
-    const btn = document.createElement('button');
-    btn.className = 'sc-class-btn' + (selectedGrades.has(g) ? ' active' : '');
-    btn.innerHTML = g + '<small>' + cnt + ' soru</small>';
-    btn.onclick = (e) => { e.preventDefault(); toggleGrade(g); };
-    grid.appendChild(btn);
-  });
+
+  if(_teacherMode && typeof CLASSES !== 'undefined' && CLASSES.length > 0) {
+    // Teacher mode: sınıf bazlı (7/A, 7/B …)
+    CLASSES.forEach(cls => {
+      const cnt = QUESTIONS.filter(q => q[3] === cls.grade).length;
+      const btn = document.createElement('button');
+      btn.className = 'sc-class-btn' + (selectedClasses.has(cls.id) ? ' active' : '');
+      btn.innerHTML = cls.label + '<small>' + cnt + ' soru</small>';
+      btn.onclick = (e) => { e.preventDefault(); toggleClass(cls.id); };
+      grid.appendChild(btn);
+    });
+  } else {
+    // Web mode: sadece grade numaraları (6, 7, 8)
+    const grades = [...new Set(QUESTIONS.filter(q => q[3] !== 0).map(q => q[3]))].sort((a, b) => a - b);
+    grades.forEach(g => {
+      const cnt = QUESTIONS.filter(q => q[3] === g).length;
+      const btn = document.createElement('button');
+      btn.className = 'sc-class-btn' + (selectedGrades.has(g) ? ' active' : '');
+      btn.innerHTML = g + '<small>' + cnt + ' soru</small>';
+      btn.onclick = (e) => { e.preventDefault(); toggleGrade(g); };
+      grid.appendChild(btn);
+    });
+  }
   updateUnitCount();
+}
+
+function toggleClass(id) {
+  if(selectedClasses.has(id)) {
+    if(selectedClasses.size <= 1) {
+      const warn = document.getElementById('sc-class-warn');
+      if(warn) { warn.textContent = '⚠ En az 1 sınıf seçili olmalı!'; setTimeout(() => { warn.textContent = ''; }, 2000); }
+      return;
+    }
+    selectedClasses.delete(id);
+  } else {
+    selectedClasses.add(id);
+  }
+  // Seçili sınıflardan grade'leri türet
+  if(typeof CLASSES !== 'undefined') {
+    selectedGrades = new Set(CLASSES.filter(c => selectedClasses.has(c.id)).map(c => c.grade));
+  }
+  syncAnimalsAutoSelect();
+  buildGradeSelector();
+  buildUnitSelector();
+  updateDiffLongDesc();
 }
 
 function toggleGrade(g) {
