@@ -680,7 +680,7 @@ const QUESTIONS = [
   ["SPREAD",8,3,"imagelibrary/8/3/26.webp"],
   ["SAUCEPAN",8,3,"imagelibrary/8/3/27.webp"],
   ["GRATER",8,3,"imagelibrary/8/3/28.webp"],
-  ["STRAINER",8,3,"PASTA,"imagelibrary/8/3/29.webp"],
+  ["STRAINER",8,3,"PASTA","imagelibrary/8/3/29.webp"],
   ["BAKING TRAY",8,3,"imagelibrary/8/3/30.webp"],
   ["FLOUR",8,3,"imagelibrary/8/3/31.webp"],
   ["BITTER",8,3,"imagelibrary/8/3/32.webp"],
