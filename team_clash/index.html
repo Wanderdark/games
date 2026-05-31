@@ -4060,18 +4060,8 @@ function _menuStart() {
 }
 
 function _menuFullscreen() {
-  _startBgMusic();
-  toggleFullscreen();
-  // Fullscreen geçişi audio'yu durdurabilir — change event'ında yeniden dene
-  document.addEventListener('fullscreenchange', function _fsHandler() {
-    document.removeEventListener('fullscreenchange', _fsHandler);
-    if (!document.fullscreenElement) return;
-    const audio = document.getElementById('bg-music');
-    if (audio && audio.paused) {
-      audio._wkStarted = false; // retry için sıfırla
-      _startBgMusic();
-    }
-  });
+  _startBgMusic();                          // önce audio — Chrome gesture token'ını burada kullan
+  setTimeout(() => toggleFullscreen(), 80); // fullscreen biraz sonra — gesture window hâlâ açık
 }
 
 function _startBgMusic() {
