@@ -1,0 +1,3355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#150800">
+<title>CLASH OF WORDS</title>
+<style>
+:root{color-scheme:dark}
+@font-face{font-family:'Barlow';font-style:normal;font-weight:400;font-display:swap;src:url('./fonts/barlow-400-vietnamese.woff2') format('woff2');unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB}
+@font-face{font-family:'Barlow';font-style:normal;font-weight:400;font-display:swap;src:url('./fonts/barlow-400-latin-ext.woff2') format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:'Barlow';font-style:normal;font-weight:400;font-display:swap;src:url('./fonts/barlow-400-latin.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Barlow';font-style:normal;font-weight:500;font-display:swap;src:url('./fonts/barlow-500-vietnamese.woff2') format('woff2');unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB}
+@font-face{font-family:'Barlow';font-style:normal;font-weight:500;font-display:swap;src:url('./fonts/barlow-500-latin-ext.woff2') format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:'Barlow';font-style:normal;font-weight:500;font-display:swap;src:url('./fonts/barlow-500-latin.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Barlow';font-style:normal;font-weight:600;font-display:swap;src:url('./fonts/barlow-600-vietnamese.woff2') format('woff2');unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB}
+@font-face{font-family:'Barlow';font-style:normal;font-weight:600;font-display:swap;src:url('./fonts/barlow-600-latin-ext.woff2') format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:'Barlow';font-style:normal;font-weight:600;font-display:swap;src:url('./fonts/barlow-600-latin.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Barlow Condensed';font-style:normal;font-weight:400;font-display:swap;src:url('./fonts/barlowcondensed-400-vietnamese.woff2') format('woff2');unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB}
+@font-face{font-family:'Barlow Condensed';font-style:normal;font-weight:400;font-display:swap;src:url('./fonts/barlowcondensed-400-latin-ext.woff2') format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:'Barlow Condensed';font-style:normal;font-weight:400;font-display:swap;src:url('./fonts/barlowcondensed-400-latin.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Barlow Condensed';font-style:normal;font-weight:600;font-display:swap;src:url('./fonts/barlowcondensed-600-vietnamese.woff2') format('woff2');unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB}
+@font-face{font-family:'Barlow Condensed';font-style:normal;font-weight:600;font-display:swap;src:url('./fonts/barlowcondensed-600-latin-ext.woff2') format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:'Barlow Condensed';font-style:normal;font-weight:600;font-display:swap;src:url('./fonts/barlowcondensed-600-latin.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Barlow Condensed';font-style:normal;font-weight:700;font-display:swap;src:url('./fonts/barlowcondensed-700-vietnamese.woff2') format('woff2');unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB}
+@font-face{font-family:'Barlow Condensed';font-style:normal;font-weight:700;font-display:swap;src:url('./fonts/barlowcondensed-700-latin-ext.woff2') format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:'Barlow Condensed';font-style:normal;font-weight:700;font-display:swap;src:url('./fonts/barlowcondensed-700-latin.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Bebas Neue';font-style:normal;font-weight:400;font-display:swap;src:url('./fonts/bebasneue-400-latin-ext.woff2') format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:'Bebas Neue';font-style:normal;font-weight:400;font-display:swap;src:url('./fonts/bebasneue-400-latin.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+
+/* ── ROOT VARIABLES ── */
+:root{
+  --gold:#FF8C00;--gold-dark:#CC5500;--gold-glow:rgba(255,140,0,.35);
+  --blue-deep:#150800;--panel-bg:rgba(70,20,0,.55);--panel-border:rgba(255,140,0,.18);
+  --red:#E8213A;--green:#1DB954;--white:#FFF4E8;--muted:rgba(255,244,232,.55);
+  --row1:#4A8AF4;--row1-glow:rgba(74,138,244,.4);
+  --row2:#9B59B6;--row2-glow:rgba(155,89,182,.4);
+  --row3:#E8213A;--row3-glow:rgba(232,33,58,.4);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden;font-family:'Barlow',sans-serif;background:var(--blue-deep);color:var(--white)}
+/* body::before scanline kaldırıldı - GPU yükü azaltıldı */
+
+/* ── BACKGROUNDS ── */
+#stars{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+/* Regular twinkle */
+.star{position:absolute;border-radius:50%;background:#fff;will-change:transform,opacity;animation:twinkle var(--d,3s) ease-in-out infinite}
+@keyframes twinkle{0%,100%{opacity:.1}50%{opacity:var(--max,.85)}}
+/* Pulsating stars — filter kaldırıldı (paint→compositor) */
+.star.pulse{animation:starPulse var(--d,4s) ease-in-out infinite}
+@keyframes starPulse{
+  0%,100%{opacity:.08;transform:scale(1)}
+  48%    {opacity:.5;transform:scale(1.6)}
+  50%    {opacity:.9;transform:scale(2.2)}
+  52%    {opacity:.5;transform:scale(1.6)}
+}
+/* Bright slow-pulsing stars — filter kaldırıldı */
+.star.glow{animation:starGlow var(--d,7s) ease-in-out infinite}
+@keyframes starGlow{
+  0%,100%{opacity:.12;transform:scale(1)}
+  50%    {opacity:.9;transform:scale(1.8)}
+}
+/* Shooting star */
+.shooting-star{position:absolute;height:2px;border-radius:9999px;pointer-events:none;
+  background:linear-gradient(90deg,rgba(255,255,255,0) 0%,rgba(255,255,255,.95) 100%);
+  transform-origin:right center;z-index:2}
+@keyframes shootAcross{
+  0%  {opacity:0;transform:rotate(var(--ang,-32deg)) translateX(0)}
+  6%  {opacity:1}
+  88% {opacity:.7}
+  100%{opacity:0;transform:rotate(var(--ang,-32deg)) translateX(var(--dist,-120vw))}
+}
+/* nebula: radial-gradient kullanır, filter:blur YOK → compositor layer döngüsü yok */
+#nebula{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.nblob{position:absolute;border-radius:50%;animation:drift var(--nd,18s) ease-in-out infinite alternate;animation-delay:var(--ndelay,0s)}
+@keyframes drift{0%{transform:translate(0,0) scale(1)}100%{transform:translate(var(--nx,40px),var(--ny,30px)) scale(1.15)}}
+/* corner-lights: statik, animasyon yok → tek seferlik compositor layer */
+#corner-lights{position:fixed;inset:0;z-index:0;pointer-events:none}
+.clight{display:none} /* corner-lights devre dışı - GPU yükü azaltıldı */
+
+/* ── CREDIT MARQUEE ── */
+#credit-marquee{position:fixed;bottom:28px;left:0;width:100%;height:32px;pointer-events:none;z-index:200;overflow:hidden;display:flex;align-items:center}
+#credit-text{position:absolute;white-space:nowrap;font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:.22em;color:var(--gold);text-shadow:0 0 12px var(--gold),0 0 30px rgba(255,140,0,.7);opacity:0;transform:translateX(100vw)}
+@keyframes creditScroll{0%{opacity:0;transform:translateX(100vw)}5%{opacity:1}90%{opacity:1}100%{opacity:0;transform:translateX(-110%)}}
+
+/* ── HELPERS ── */
+.hidden{display:none!important}
+.overlay{position:fixed;inset:0;z-index:9000;background:rgba(10,3,0,.97);display:flex;align-items:center;justify-content:center}
+.ov-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(24px,4vw,40px);color:var(--gold);letter-spacing:.12em;text-shadow:0 0 28px rgba(255,140,0,.6);text-align:center;margin-bottom:18px}
+@keyframes modalIn{0%{opacity:0;transform:scale(.85)}100%{opacity:1;transform:scale(1)}}
+.modal-panel{animation:modalIn .28s cubic-bezier(.175,.885,.32,1.275)}
+
+/* ── SUGGESTIONS PANEL ── */
+#overlay-suggestions{position:fixed;inset:0;z-index:11000;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.82);backdrop-filter:blur(6px)}
+.sugg-box{background:rgba(10,5,0,.97);border:1px solid rgba(255,140,0,.3);border-radius:20px;padding:28px 32px;width:min(680px,92vw);max-height:82vh;display:flex;flex-direction:column;gap:16px;box-shadow:0 0 80px rgba(255,100,0,.15)}
+.sugg-header{display:flex;align-items:center;justify-content:space-between}
+.sugg-title{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:.12em;color:var(--gold)}
+.sugg-close{background:none;border:none;color:var(--muted);font-size:22px;cursor:pointer;line-height:1;padding:4px 8px}
+.sugg-close:hover{color:#fff}
+.sugg-desc{font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:.08em;color:rgba(255,244,232,.45);line-height:1.5}
+.sugg-body{flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:12px;min-height:0}
+.sugg-cat{display:flex;flex-direction:column;gap:6px}
+.sugg-cat-name{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);opacity:.75}
+.sugg-words{display:flex;flex-wrap:wrap;gap:6px}
+.sugg-word{font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:.08em;padding:4px 12px;border-radius:7px;background:rgba(255,140,0,.1);border:1px solid rgba(255,140,0,.25);color:rgba(255,244,232,.85)}
+.sugg-empty{font-family:'Barlow Condensed',sans-serif;font-size:15px;color:var(--muted);text-align:center;padding:24px 0}
+.sugg-footer{display:flex;gap:10px;flex-wrap:wrap}
+.sugg-copy-btn{font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:.12em;padding:10px 24px;background:linear-gradient(135deg,#15803d,#22c55e);border:none;border-radius:10px;color:#fff;cursor:pointer;flex:1}
+.sugg-copy-btn:hover{filter:brightness(1.15)}
+.sugg-clear-btn{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:.1em;padding:10px 18px;background:rgba(220,38,38,.12);border:1px solid rgba(220,38,38,.3);border-radius:10px;color:rgba(248,113,113,.8);cursor:pointer}
+.sugg-clear-btn:hover{background:rgba(220,38,38,.22)}
+.sugg-copied{font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:.1em;color:#4ade80;align-self:center;opacity:0;transition:opacity .3s}
+.sugg-copied.show{opacity:1}
+/* Confirm overlay */
+#overlay-confirm{position:fixed;inset:0;z-index:12000;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.75);backdrop-filter:blur(4px)}
+.confirm-box{background:rgba(15,5,0,.97);border:1.5px solid rgba(232,33,58,.4);border-radius:18px;padding:32px 36px;width:min(400px,90vw);display:flex;flex-direction:column;align-items:center;gap:16px;box-shadow:0 0 60px rgba(232,33,58,.15);animation:modalIn .2s cubic-bezier(.175,.885,.32,1.275)}
+.confirm-title{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.12em;color:#f87171;text-align:center}
+.confirm-msg{font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:600;letter-spacing:.07em;color:rgba(255,244,232,.65);text-align:center;line-height:1.5}
+.confirm-btns{display:flex;gap:10px;width:100%;margin-top:4px}
+.confirm-yes{flex:1;padding:11px;font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;background:linear-gradient(135deg,#991b1b,#ef4444);border:none;border-radius:10px;color:#fff;cursor:pointer;transition:transform .12s}
+.confirm-yes:hover{transform:scale(1.04)}
+.confirm-no{flex:1;padding:11px;font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.18);border-radius:10px;color:var(--muted);cursor:pointer;transition:transform .12s}
+.confirm-no:hover{transform:scale(1.04);color:var(--white)}
+/* Suggestions trigger button */
+.sugg-trigger{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:5px 12px;background:rgba(255,140,0,.07);border:1px solid rgba(255,140,0,.2);border-radius:8px;color:rgba(255,200,100,.6);cursor:pointer;transition:all .2s;position:relative}
+.sugg-trigger:hover{background:rgba(255,140,0,.15);color:var(--gold)}
+.sugg-trigger .sugg-dot{position:absolute;top:-3px;right:-3px;width:8px;height:8px;border-radius:50%;background:#f97316;display:none}
+.sugg-trigger .sugg-dot.visible{display:block}
+
+/* ── FLOAT SCORE ── */
+.float-score{position:fixed;font-family:'Bebas Neue',sans-serif;font-size:clamp(58px,11vw,90px);pointer-events:none;z-index:10500;transform:translate(-50%,-50%);letter-spacing:.05em;text-align:center;line-height:1.05}
+/* Name: always yellow regardless of score type */
+.fs-name{font-size:.36em;letter-spacing:.14em;display:block;margin-bottom:3px;font-family:'Barlow Condensed',sans-serif;font-weight:700;text-transform:uppercase;color:#facc15;text-shadow:0 0 22px rgba(250,204,21,.85),0 0 48px rgba(250,204,21,.35)}
+/* Points: always blue regardless of score type */
+.fs-pts{color:#60a5fa;text-shadow:0 0 28px rgba(96,165,250,.95),0 0 60px rgba(96,165,250,.45)}
+/* Type colours kept for fallback (no-name mode) */
+.float-score.unique{color:#4ade80;text-shadow:0 0 30px rgba(74,222,128,.9)}
+.float-score.common{color:var(--gold);text-shadow:0 0 30px rgba(255,140,0,.9)}
+.float-score.old{color:#94a3b8;text-shadow:0 0 20px rgba(148,163,184,.6)}
+.float-score.bonus{color:#f472b6;text-shadow:0 0 30px rgba(244,114,182,.9)}
+.float-score.invalid{color:var(--red);text-shadow:0 0 20px rgba(232,33,58,.6)}
+
+/* ═══════════════════════════════
+   LOBBY / MAIN MENU SCREEN
+═══════════════════════════════ */
+#screen-lobby{position:fixed;inset:0;z-index:10;display:flex;align-items:center;justify-content:center;overflow:hidden;background-color:rgb(6,2,18)}
+#screen-lobby::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 80% at 50% 50%,rgba(6,2,18,.72) 0%,rgba(6,2,18,.08) 100%);z-index:0;pointer-events:none}
+/* Decorative frame */
+.mn-frame{position:absolute;inset:18px;border:1px solid rgba(255,140,0,.13);border-radius:24px;pointer-events:none;z-index:1;box-shadow:inset 0 0 90px rgba(200,80,0,.07)}
+.mn-frame::before{content:'';position:absolute;inset:-1px;border-radius:24px;background:linear-gradient(135deg,rgba(255,140,0,.22),transparent 40%,transparent 60%,rgba(255,140,0,.12));-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;padding:1px}
+.mn-corner{position:absolute;width:28px;height:28px;border-color:var(--gold);border-style:solid;opacity:.65;pointer-events:none;z-index:2}
+.mn-corner.tl{top:26px;left:26px;border-width:2px 0 0 2px;border-radius:4px 0 0 0}
+.mn-corner.tr{top:26px;right:26px;border-width:2px 2px 0 0;border-radius:0 4px 0 0}
+.mn-corner.bl{bottom:26px;left:26px;border-width:0 0 2px 2px;border-radius:0 0 0 4px}
+.mn-corner.br{bottom:26px;right:26px;border-width:0 2px 2px 0;border-radius:0 0 4px 0}
+.mn-hline{position:absolute;left:54px;right:54px;height:1px;background:linear-gradient(90deg,transparent,rgba(255,140,0,.28),transparent);pointer-events:none;z-index:2}
+.mn-hline.top{top:54px}.mn-hline.bot{bottom:54px}
+/* Content */
+.mn-wrap{position:relative;z-index:3;display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center}
+/* Logo */
+.mn-logo{font-family:'Bebas Neue',sans-serif;font-size:clamp(58px,13vw,118px);color:var(--gold);letter-spacing:.1em;line-height:.9;text-align:center;text-shadow:0 4px 0 var(--gold-dark);animation:mnLogoPulse 3s ease-in-out infinite}
+@keyframes mnLogoPulse{0%,100%{text-shadow:0 0 40px rgba(255,140,0,.4),0 4px 0 var(--gold-dark)}50%{text-shadow:0 0 80px rgba(255,140,0,.8),0 0 140px rgba(255,100,0,.35),0 4px 0 var(--gold-dark)}}
+.mn-sub{font-family:'Barlow Condensed',sans-serif;font-size:clamp(11px,1.5vw,15px);letter-spacing:.32em;text-transform:uppercase;color:rgba(255,244,232,.38);margin-top:2px}
+/* Divider */
+.mn-divider{width:200px;height:1px;background:linear-gradient(90deg,transparent,rgba(255,140,0,.55),transparent);margin:6px 0 4px}
+/* Credit — ADİL FIRAT OKTAV shimmer + breathe + glow */
+.mn-credit-wrap{position:relative;display:inline-block;margin-bottom:20px}
+@keyframes creditShimmer{0%{background-position:250% center}100%{background-position:-150% center}}
+@keyframes creditBreathe{0%,100%{transform:translateY(0) scale(1);letter-spacing:.22em}50%{transform:translateY(-7px) scale(1.055);letter-spacing:.30em}}
+@keyframes creditGlow{0%,100%{filter:drop-shadow(0 0 4px rgba(255,160,0,.8)) drop-shadow(0 0 16px rgba(255,110,0,.5))}50%{filter:drop-shadow(0 0 14px rgba(255,255,180,1)) drop-shadow(0 0 36px rgba(255,200,0,1)) drop-shadow(0 0 80px rgba(255,120,0,.65)) drop-shadow(0 0 130px rgba(255,60,0,.3))}}
+.mn-credit-label{font-family:'Barlow Condensed',sans-serif;font-size:clamp(11px,1.4vw,14px);font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:rgba(255,200,120,.55);display:block;margin-bottom:4px}
+.mn-credit{font-family:'Barlow Condensed',sans-serif;font-size:clamp(18px,3vw,26px);font-weight:700;letter-spacing:.22em;text-transform:uppercase;background:linear-gradient(90deg,#7a3e00 0%,#ffd700 18%,#ffffff 44%,#ffe566 54%,#ffd700 74%,#7a3e00 100%);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:creditShimmer 2.4s linear infinite,creditBreathe 3.8s ease-in-out infinite,creditGlow 3.8s ease-in-out infinite}
+/* Constellation particles around credit */
+.cr-star{position:absolute;pointer-events:none;animation:crStarAnim var(--dur) ease-out forwards;color:#ffd700;text-shadow:0 0 6px #ffd700,0 0 14px rgba(255,150,0,.8)}
+@keyframes crStarAnim{0%{opacity:0;transform:translate(0,0) scale(.4)}20%{opacity:1;transform:translate(var(--tx1),var(--ty1)) scale(1)}80%{opacity:.9;transform:translate(var(--tx2),var(--ty2)) scale(.8)}100%{opacity:0;transform:translate(var(--tx2),calc(var(--ty2) - 14px)) scale(.3)}}
+/* Stars inside menu */
+.mn-star{position:absolute;border-radius:50%;background:#fff;pointer-events:none;z-index:1;animation:mnStarTwinkle var(--dur) var(--del) ease-in-out infinite}
+@keyframes mnStarTwinkle{0%,100%{opacity:.06;transform:scale(.7)}50%{opacity:var(--op);transform:scale(1.5);box-shadow:0 0 var(--gl) #fff,0 0 calc(var(--gl)*2.5) rgba(255,200,120,.5)}}
+/* Shooting stars */
+.mn-shoot{position:absolute;pointer-events:none;z-index:3;width:var(--len);height:2px;border-radius:2px;background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,220,150,.95) 60%,#fff 100%);box-shadow:0 0 6px rgba(255,200,100,.9),0 0 14px rgba(255,160,60,.7);transform:rotate(var(--ang,28deg));transform-origin:right center;animation:mnShootAnim var(--dur) ease-in forwards}
+@keyframes mnShootAnim{0%{opacity:0;transform:rotate(var(--ang,28deg)) translateX(0)}8%{opacity:1}85%{opacity:.9}100%{opacity:0;transform:rotate(var(--ang,28deg)) translateX(var(--dist,-60vw))}}
+/* Falling sparks */
+.mn-leaf{position:absolute;top:-30px;pointer-events:none;z-index:2;border-radius:var(--br);background:var(--lc);box-shadow:0 0 8px var(--lc),0 0 20px var(--lg);animation:mnLeafFall var(--dur) var(--del) linear forwards}
+@keyframes mnLeafFall{
+  0%  {opacity:0;transform:translateY(0)    translateX(0px)    rotate(0deg)   scale(.3)}
+  8%  {opacity:var(--op)}
+  25% {transform:translateY(25vh)  translateX(var(--s1)) rotate(calc(var(--rot)*.25))}
+  50% {transform:translateY(50vh)  translateX(var(--s2)) rotate(calc(var(--rot)*.5))}
+  75% {transform:translateY(75vh)  translateX(var(--s3)) rotate(calc(var(--rot)*.75))}
+  92% {opacity:var(--op)}
+  100%{opacity:0;transform:translateY(102vh) translateX(var(--s4)) rotate(var(--rot))  scale(.6)}
+}
+/* Play button */
+.mn-play{padding:15px 64px;font-family:'Bebas Neue',sans-serif;font-size:clamp(22px,4vw,34px);letter-spacing:.18em;background:linear-gradient(135deg,#b84800,#ff8c00);border:none;border-radius:14px;color:#fff;cursor:pointer;box-shadow:0 6px 28px rgba(204,85,0,.45);transition:transform .15s,box-shadow .15s;animation:mnPlayPulse 2.2s ease-in-out infinite;margin-top:4px}
+@keyframes mnPlayPulse{0%,100%{box-shadow:0 6px 28px rgba(204,85,0,.45)}50%{box-shadow:0 6px 44px rgba(255,120,0,.8),0 0 0 6px rgba(255,100,0,.1)}}
+.mn-play:hover{transform:translateY(-3px);animation:none;box-shadow:0 12px 44px rgba(255,120,0,.75)}
+.mn-play:active{transform:scale(.97)}
+.mn-settings-btn{padding:10px 22px;font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;background:rgba(255,255,255,.05);border:1.5px solid rgba(255,255,255,.18);border-radius:11px;color:rgba(255,244,232,.55);cursor:pointer;transition:all .18s;margin-top:4px}
+.mn-settings-btn:hover{background:rgba(255,140,0,.12);border-color:rgba(255,140,0,.45);color:var(--gold)}
+
+/* ── SETTINGS OVERLAY ── */
+#overlay-game-settings{position:fixed;inset:0;z-index:11500;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.82);backdrop-filter:blur(8px)}
+.settings-box{background:linear-gradient(145deg,#1a0800,#0d0400);border:1.5px solid rgba(255,140,0,.35);border-radius:24px;padding:36px 40px 32px;width:min(520px,92vw);display:flex;flex-direction:column;gap:28px;box-shadow:0 0 80px rgba(255,100,0,.12);animation:modalIn .25s cubic-bezier(.175,.885,.32,1.275)}
+.settings-title{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:.15em;color:var(--gold);text-align:center}
+.settings-row{display:flex;flex-direction:column;gap:10px}
+.settings-label{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,200,100,.65)}
+.settings-label span{float:right;font-size:16px;letter-spacing:.08em;color:var(--gold)}
+.settings-slider-wrap{position:relative;padding:4px 0}
+.settings-slider{-webkit-appearance:none;appearance:none;width:100%;height:6px;border-radius:3px;background:rgba(255,255,255,.1);outline:none;cursor:pointer}
+.settings-slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,#ff8c00,#ffb347);border:2px solid rgba(255,255,255,.3);cursor:pointer;box-shadow:0 0 10px rgba(255,140,0,.5);transition:transform .12s}
+.settings-slider::-webkit-slider-thumb:hover{transform:scale(1.15)}
+.settings-slider::-moz-range-thumb{width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,#ff8c00,#ffb347);border:2px solid rgba(255,255,255,.3);cursor:pointer;box-shadow:0 0 10px rgba(255,140,0,.5)}
+.settings-ticks{display:flex;justify-content:space-between;margin-top:6px}
+.settings-ticks span{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;letter-spacing:.08em;color:rgba(255,244,232,.35)}
+.settings-close-btn{padding:12px;font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:.15em;background:linear-gradient(135deg,#b84800,#ff8c00);border:none;border-radius:12px;color:#fff;cursor:pointer;transition:transform .12s;margin-top:4px}
+.settings-close-btn:hover{transform:translateY(-2px)}
+
+/* ═══════════════════════════════
+   GAME SCREEN (category display)
+═══════════════════════════════ */
+#screen-game{position:fixed;inset:0;z-index:10;display:flex;flex-direction:column;align-items:center;padding:16px 16px 60px;gap:12px;overflow:hidden}
+.game-header{width:100%;max-width:900px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.game-logo{font-family:'Bebas Neue',sans-serif;font-size:clamp(20px,3vw,32px);letter-spacing:.1em;color:var(--gold);text-shadow:0 0 20px var(--gold-glow);display:flex;align-items:baseline;gap:14px}
+.game-designer{font-family:'Barlow Condensed',sans-serif;font-size:clamp(9px,1.1vw,13px);font-weight:400;letter-spacing:.08em;color:rgba(255,255,255,.55);text-shadow:none;white-space:nowrap}
+.game-designer strong{font-weight:700;color:#fff;text-shadow:0 0 14px rgba(255,255,255,.9),0 0 32px rgba(255,255,255,.4);letter-spacing:.1em}
+.round-info{display:flex;align-items:center;gap:10px}
+.round-badge{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:5px 14px;border-radius:8px;background:rgba(255,140,0,.12);border:1.5px solid rgba(255,140,0,.35);color:var(--gold)}
+.dbl-badge{font-family:'Bebas Neue',sans-serif;font-size:clamp(16px,2.8vw,24px);letter-spacing:.16em;color:#facc15;text-shadow:0 0 24px rgba(250,204,21,.9),0 0 50px rgba(250,204,21,.4);animation:dblPulse 1s ease-in-out infinite}
+@keyframes dblPulse{0%,100%{opacity:1}50%{opacity:.6}}
+
+/* Category cards grid */
+.categories-grid{width:100%;max-width:900px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px;flex:1;min-height:0}
+.cat-card{border-radius:16px;padding:18px 14px 14px;display:flex;flex-direction:column;gap:8px;border:2px solid;position:relative;overflow:hidden;transition:transform .15s,box-shadow .15s;cursor:default}
+.cat-card:hover{transform:translateY(-2px)}
+.cat-card.row1{border-color:rgba(74,138,244,.5);background:linear-gradient(145deg,rgba(74,138,244,.12),rgba(74,138,244,.04));box-shadow:0 4px 30px rgba(74,138,244,.15)}
+.cat-card.row2{border-color:rgba(155,89,182,.5);background:linear-gradient(145deg,rgba(155,89,182,.12),rgba(155,89,182,.04));box-shadow:0 4px 30px rgba(155,89,182,.15)}
+.cat-card.row3{border-color:rgba(232,33,58,.5);background:linear-gradient(145deg,rgba(232,33,58,.12),rgba(232,33,58,.04));box-shadow:0 4px 30px rgba(232,33,58,.15)}
+.cat-row-label{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;opacity:.65}
+.cat-card.row1 .cat-row-label{color:var(--row1)}
+.cat-card.row2 .cat-row-label{color:var(--row2)}
+.cat-card.row3 .cat-row-label{color:var(--row3)}
+/* .cat-name ve .cat-name-tr kaldırıldı — thumbnail içinde kategori adı gömülü */
+.cat-tr-bottom{font-family:'Barlow Condensed',sans-serif;font-size:clamp(13px,1.6vw,17px);font-weight:600;letter-spacing:.1em;color:var(--white);opacity:.55;text-align:center;margin-bottom:4px}
+.cat-card.row1 .cat-name{color:var(--row1);text-shadow:0 0 24px var(--row1-glow)}
+.cat-card.row2 .cat-name{color:var(--row2);text-shadow:0 0 24px var(--row2-glow)}
+.cat-card.row3 .cat-name{color:var(--row3);text-shadow:0 0 24px var(--row3-glow)}
+.cat-players{font-family:'Barlow Condensed',sans-serif;font-size:clamp(15px,2vw,19px);font-weight:700;letter-spacing:.08em;color:#FFB300;text-align:center;line-height:1.5;text-shadow:0 0 10px rgba(255,179,0,.8),0 0 24px rgba(255,140,0,.4)}
+.cat-thumb{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;padding:18px;opacity:.75;pointer-events:none;user-select:none;filter:brightness(1.05) saturate(1.1);transition:opacity .3s}
+.cat-card:hover .cat-thumb{opacity:.9}
+
+/* Bonus card */
+.bonus-area{width:100%;max-width:900px;flex-shrink:0}
+.bonus-card{border-radius:14px;padding:12px 20px;border:2px solid rgba(255,140,0,.5);background:linear-gradient(145deg,rgba(255,140,0,.12),rgba(255,140,0,.04));display:flex;align-items:center;justify-content:space-between;gap:14px;box-shadow:0 4px 20px rgba(255,140,0,.12)}
+.bonus-label{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);opacity:.7;white-space:nowrap}
+.bonus-rule{font-family:'Bebas Neue',sans-serif;font-size:clamp(20px,3.5vw,30px);color:var(--gold);letter-spacing:.1em;text-shadow:0 0 30px rgba(255,140,0,.9),0 0 60px rgba(255,140,0,.5);flex:1;text-align:center;animation:bonusBlink 1.8s ease-in-out infinite}
+@keyframes bonusBlink{0%,100%{opacity:.65}50%{opacity:1}}
+.bonus-pts{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:.1em;color:var(--gold);background:rgba(255,140,0,.18);border:1px solid rgba(255,140,0,.4);border-radius:8px;padding:4px 10px;white-space:nowrap}
+
+/* LET'S START button */
+.lets-start-btn{font-family:'Bebas Neue',sans-serif;font-size:clamp(20px,3.5vw,30px);letter-spacing:.18em;padding:14px 52px;background:linear-gradient(135deg,#15803d,#22c55e);border:none;border-radius:14px;color:#fff;cursor:pointer;box-shadow:0 6px 28px rgba(34,197,94,.4);transition:transform .12s,box-shadow .15s;flex-shrink:0;align-self:center}
+.lets-start-btn:hover{transform:translateY(-3px) scale(1.03);box-shadow:0 10px 40px rgba(34,197,94,.6)}
+.lets-start-btn:active{transform:scale(.96)}
+.start-row{display:flex;align-items:center;justify-content:center;gap:12px;align-self:center;flex-shrink:0}
+.mid-scores-btn{font-family:'Bebas Neue',sans-serif;font-size:clamp(16px,2.5vw,22px);letter-spacing:.14em;padding:14px 24px;background:rgba(255,140,0,.1);border:1.5px solid rgba(255,140,0,.4);border-radius:14px;color:var(--gold);cursor:pointer;transition:transform .12s,background .15s;flex-shrink:0}
+.mid-scores-btn:hover{background:rgba(255,140,0,.2);transform:translateY(-2px)}
+.mid-scores-btn:active{transform:scale(.96)}
+
+/* ═══════════════════════════════
+   SETTINGS OVERLAY
+═══════════════════════════════ */
+#overlay-game-settings .settings-box{background:linear-gradient(145deg,#2D0E00,#120500);border:1.5px solid var(--gold);border-radius:24px;padding:30px 32px 26px;width:min(96vw,480px);box-shadow:0 0 80px rgba(255,140,0,.2)}
+.class-grid{display:flex;flex-direction:column;gap:10px}
+.class-btn{width:100%;padding:16px 20px;font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;background:rgba(255,255,255,.05);border:1.5px solid rgba(255,140,0,.25);border-radius:12px;color:var(--white);cursor:pointer;transition:background .14s,border-color .14s,transform .1s;text-align:left}
+.class-btn:hover{background:rgba(255,140,0,.12);border-color:rgba(255,140,0,.6);transform:translateX(4px)}
+.class-btn.selected{background:rgba(255,140,0,.18);border-color:var(--gold);color:var(--gold)}
+
+/* ═══════════════════════════════
+   STUDENT SELECT OVERLAY
+═══════════════════════════════ */
+#overlay-student-select .ss-box{background:linear-gradient(145deg,#2D0E00,#120500);border:1.5px solid var(--gold);border-radius:24px;padding:28px 28px 24px;width:min(98vw,860px);max-height:92vh;display:flex;flex-direction:column;gap:14px;overflow:hidden}
+.ss-sub{font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:.1em;color:var(--muted);text-align:center;margin-top:-8px}
+.ss-class-pool{display:flex;flex-wrap:wrap;gap:8px;padding:12px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:12px;overflow-y:auto;max-height:200px;flex-shrink:0}
+.ss-chip{font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:700;letter-spacing:.1em;padding:7px 14px;border-radius:8px;border:1.5px solid rgba(255,255,255,.15);background:rgba(255,255,255,.06);color:var(--white);cursor:pointer;transition:all .13s;user-select:none}
+.ss-chip:hover{border-color:rgba(255,140,0,.5);background:rgba(255,140,0,.1)}
+.ss-chip.selected{border-color:var(--green);background:rgba(29,185,84,.18);color:#4ade80}
+.ss-chip.disabled{opacity:.3;cursor:not-allowed}
+/* Pair stilleri — student select */
+.ss-chip.paired-hidden{display:none!important}
+.ss-chip.pairing-source{border-color:#a78bfa!important;background:rgba(139,92,246,.22)!important;color:#c4b5fd!important;animation:pairingPulse .85s ease-in-out infinite}
+@keyframes pairingPulse{0%,100%{box-shadow:0 0 5px rgba(139,92,246,.4)}50%{box-shadow:0 0 18px rgba(139,92,246,.85),inset 0 0 8px rgba(139,92,246,.12)}}
+.ss-chip.pair-chip{background:rgba(139,92,246,.18)!important;border-color:rgba(139,92,246,.6)!important;color:#c4b5fd!important;display:inline-flex!important;align-items:center;gap:7px}
+.ss-chip.pair-chip:hover{background:rgba(139,92,246,.3)!important;border-color:#a78bfa!important}
+.ss-pair-amp{opacity:.55;font-weight:400}
+.ss-pair-x{background:none;border:none;color:rgba(255,255,255,.35);cursor:pointer;font-size:16px;padding:0 0 0 2px;line-height:1;transition:color .1s;flex-shrink:0}
+.ss-pair-x:hover{color:#f87171}
+.ss-pair-hint{font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:.1em;color:#a78bfa;text-align:center;min-height:16px;margin-top:-6px}
+/* PAIR WITH button */
+.pair-with-btn{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:9px 18px;background:rgba(139,92,246,.08);border:1.5px solid rgba(139,92,246,.4);border-radius:10px;color:#a78bfa;cursor:pointer;transition:all .14s}
+.pair-with-btn:hover:not(:disabled){background:rgba(139,92,246,.2);border-color:#a78bfa;transform:translateY(-1px)}
+.pair-with-btn:disabled{opacity:.28;cursor:not-allowed}
+.pair-with-btn.active{background:rgba(239,68,68,.1)!important;border-color:rgba(239,68,68,.45)!important;color:#fca5a5!important}
+/* Pair chip stilleri — seat assign pool */
+.sa-pool-chip.sa-pair-chip{border-color:rgba(139,92,246,.55)!important;background:rgba(139,92,246,.14)!important;color:#c4b5fd!important;display:flex;align-items:center;gap:6px}
+.sa-pool-chip.sa-pair-chip:hover:not(.assigned){border-color:#a78bfa!important;background:rgba(139,92,246,.28)!important}
+/* Pair chip stilleri — row zone içi */
+.sa-rchip.sa-rchip-pair{border-color:rgba(139,92,246,.55)!important;background:rgba(139,92,246,.15)!important;color:#c4b5fd!important}
+.sa-rchip .sa-pair-amp,.sa-pool-chip .sa-pair-amp{opacity:.55;font-weight:400}
+.ss-count-row{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-shrink:0}
+.ss-count{font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700;letter-spacing:.1em;color:var(--muted)}
+.ss-count.ready{color:#4ade80}
+.ss-count.limit-warn{color:#f87171;animation:limitShake .35s ease}
+@keyframes limitShake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.ss-continue-btn{font-family:'Barlow Condensed',sans-serif;font-size:17px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:12px 28px;background:linear-gradient(135deg,#CC5500,#FF8C00);border:none;border-radius:11px;color:#fff;cursor:pointer;transition:transform .12s,box-shadow .15s;box-shadow:0 4px 18px rgba(204,85,0,.4)}
+.ss-continue-btn:disabled{opacity:.35;cursor:not-allowed;transform:none!important;box-shadow:none!important}
+.ss-continue-btn:not(:disabled):hover{transform:translateY(-2px);box-shadow:0 7px 28px rgba(204,85,0,.6)}
+
+/* ═══════════════════════════════
+   SEAT ASSIGN OVERLAY — yeniden tasarlandı
+═══════════════════════════════ */
+#overlay-seat-assign .sa-box{background:linear-gradient(145deg,#2D0E00,#120500);border:1.5px solid var(--gold);border-radius:24px;padding:28px 32px 24px;width:min(98vw,880px);display:flex;flex-direction:column;gap:14px;position:relative}
+.sa-header-row{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.sa-header-row .ov-title{margin:0}
+.sa-header-btns{display:flex;gap:8px}
+.sa-reset-btn{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:9px 16px;background:transparent;border:1.5px solid rgba(255,255,255,.18);border-radius:10px;color:var(--muted);cursor:pointer;transition:all .14s}
+.sa-reset-btn:hover{border-color:rgba(255,255,255,.45);color:var(--white)}
+.sa-auto-btn{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:9px 20px;background:rgba(255,140,0,.12);border:1.5px solid rgba(255,140,0,.45);border-radius:10px;color:var(--gold);cursor:pointer;transition:all .14s}
+.sa-auto-btn:hover{background:rgba(255,140,0,.25);border-color:var(--gold);transform:translateY(-1px)}
+.sa-blackboard{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);text-align:center;padding:8px;background:rgba(34,197,94,.06);border:1px solid rgba(34,197,94,.2);border-radius:8px}
+/* Row Zones */
+.sa-rows-container{display:flex;flex-direction:column;gap:8px}
+.sa-row-zone{display:flex;align-items:center;gap:14px;padding:12px 16px;border-radius:14px;border:2px dashed rgba(255,255,255,.14);background:rgba(255,255,255,.03);transition:border-color .15s,background .15s,box-shadow .15s;min-height:68px}
+.sa-row-zone.zone-target{border-color:var(--gold)!important;border-style:solid!important;background:rgba(255,140,0,.1)!important;animation:seatPulse 1s ease-in-out infinite;cursor:pointer}
+@keyframes seatPulse{0%,100%{box-shadow:0 0 10px rgba(255,140,0,.3)}50%{box-shadow:0 0 22px rgba(255,140,0,.7)}}
+.sa-row-zone[data-r="0"].zone-filled{border-style:solid;border-color:rgba(74,138,244,.45);background:rgba(74,138,244,.06)}
+.sa-row-zone[data-r="1"].zone-filled{border-style:solid;border-color:rgba(155,89,182,.45);background:rgba(155,89,182,.06)}
+.sa-row-zone[data-r="2"].zone-filled{border-style:solid;border-color:rgba(232,33,58,.45);background:rgba(232,33,58,.06)}
+.sa-row-zone-lbl{min-width:74px;display:flex;flex-direction:column;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-weight:700;letter-spacing:.14em;font-size:12px;text-transform:uppercase;line-height:1.4;border-right:1px solid rgba(255,255,255,.1);padding-right:14px;flex-shrink:0}
+.sa-row-zone-sub{font-size:8px;opacity:.5;font-weight:400;letter-spacing:.1em;margin-top:1px}
+.sa-row-zone-chips{display:flex;flex-wrap:wrap;gap:8px;align-items:center;flex:1;padding:4px 6px;min-height:36px}
+.sa-rz-empty{font-family:'Barlow Condensed';font-size:12px;letter-spacing:.12em;color:rgba(255,255,255,.18);pointer-events:none}
+.sa-rchip{font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:700;letter-spacing:.08em;padding:5px 8px 5px 12px;border-radius:8px;display:flex;align-items:center;gap:6px;border:1.5px solid}
+.sa-row-zone[data-r="0"] .sa-rchip{border-color:rgba(74,138,244,.55);background:rgba(74,138,244,.14);color:#93b4f8}
+.sa-row-zone[data-r="1"] .sa-rchip{border-color:rgba(155,89,182,.55);background:rgba(155,89,182,.14);color:#c49ddb}
+.sa-row-zone[data-r="2"] .sa-rchip{border-color:rgba(232,33,58,.55);background:rgba(232,33,58,.14);color:#f87171}
+.sa-rchip-x{background:none;border:none;color:rgba(255,255,255,.3);cursor:pointer;font-size:18px;line-height:1;padding:0 2px;transition:color .12s;flex-shrink:0}
+.sa-rchip-x:hover{color:#f87171}
+.sa-pool-chip.pool-selected{border-color:var(--gold)!important;background:rgba(255,140,0,.22)!important;color:var(--gold)!important;transform:translateY(-2px);box-shadow:0 0 14px rgba(255,140,0,.45)}
+/* Pool */
+.sa-instruction{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:.1em;color:var(--muted);text-align:center;transition:color .2s;min-height:18px}
+.sa-instruction.active{color:var(--gold)}
+.sa-pool{display:flex;flex-wrap:wrap;gap:8px;padding:12px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:12px;min-height:52px}
+.sa-pool-chip{font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700;letter-spacing:.1em;padding:8px 16px;border-radius:9px;border:1.5px solid rgba(255,255,255,.18);background:rgba(255,255,255,.06);color:var(--white);cursor:pointer;transition:all .13s;user-select:none}
+.sa-pool-chip:hover:not(.assigned){border-color:rgba(255,140,0,.6);background:rgba(255,140,0,.14);color:var(--gold)}
+.sa-pool-chip.assigned{opacity:.28;cursor:not-allowed;text-decoration:line-through}
+.sa-start-btn{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.16em;padding:14px;background:linear-gradient(135deg,#15803d,#22c55e);border:none;border-radius:12px;color:#fff;cursor:pointer;transition:transform .12s,box-shadow .15s;box-shadow:0 4px 20px rgba(34,197,94,.35);width:100%}
+.sa-start-btn:disabled{opacity:.35;cursor:not-allowed}
+.sa-start-btn:not(:disabled):hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(34,197,94,.55)}
+
+/* ═══════════════════════════════
+   GUEST STUDENTS OVERLAY
+═══════════════════════════════ */
+#overlay-guest .gs-box{background:linear-gradient(145deg,#0e0518,#06020e);border:1.5px solid var(--gold);border-radius:24px;padding:22px 26px 18px;width:min(98vw,760px);max-height:94vh;display:flex;flex-direction:column;gap:11px;overflow:hidden}
+.gs-sub{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;letter-spacing:.1em;color:var(--muted);text-align:center}
+.gs-slots{display:grid;grid-template-columns:1fr 1fr;gap:5px;flex-shrink:0}
+.gs-slot{display:flex;align-items:center;gap:10px;padding:7px 12px;border-radius:9px;border:1.5px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);cursor:pointer;transition:border-color .12s,background .12s,box-shadow .12s;min-height:42px}
+.gs-slot:hover:not(.active){border-color:rgba(255,140,0,.3);background:rgba(255,140,0,.05)}
+.gs-slot.active{border-color:var(--gold);background:rgba(255,140,0,.1);box-shadow:0 0 12px rgba(255,140,0,.22)}
+.gs-slot-num{font-family:'Bebas Neue',sans-serif;font-size:15px;color:rgba(255,255,255,.28);min-width:18px;text-align:center;flex-shrink:0}
+.gs-slot.active .gs-slot-num{color:var(--gold)}
+.gs-slot-text{font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700;letter-spacing:.07em;color:rgba(255,255,255,.82);flex:1;min-height:1em}
+.gs-slot:not(.active) .gs-slot-text.empty{color:rgba(255,255,255,.2)}
+@keyframes gsCursor{0%,100%{opacity:1}50%{opacity:0}}
+.gs-cursor{animation:gsCursor .75s step-end infinite;color:var(--gold);font-weight:400}
+/* Plain keyboard */
+.plain-kb{display:flex;flex-direction:column;gap:5px;align-items:center;flex-shrink:0}
+.plain-kb-row{display:flex;gap:4px;justify-content:center}
+.plain-kb-key{font-family:'Bebas Neue',sans-serif;font-size:clamp(12px,2vw,17px);width:clamp(28px,4.8vw,42px);height:clamp(32px,5.2vw,44px);background:rgba(15,8,28,.9);border:1.5px solid rgba(255,255,255,.11);border-radius:7px;color:rgba(255,255,255,.78);cursor:pointer;display:flex;align-items:center;justify-content:center;user-select:none;transition:background .08s,transform .06s,border-color .08s}
+.plain-kb-key:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.26);transform:translateY(-1px)}
+.plain-kb-key:active{transform:translateY(2px)!important;background:rgba(255,255,255,.2)!important}
+.plain-kb-key.pkb-wide{width:clamp(40px,6.5vw,58px)}
+.plain-kb-key.pkb-space{width:clamp(80px,14vw,140px);font-size:clamp(8px,1.2vw,11px);letter-spacing:.16em;color:rgba(255,255,255,.38)}
+.plain-kb-key.pkb-del{color:#f87171;border-color:rgba(232,33,58,.22);background:rgba(20,3,6,.9)}
+.plain-kb-key.pkb-nav{width:clamp(72px,11vw,110px);font-size:clamp(8px,1.2vw,11px);letter-spacing:.1em;color:rgba(255,255,255,.5);border-color:rgba(255,255,255,.14)}
+.plain-kb-key.pkb-nav:hover{color:var(--gold);border-color:rgba(255,140,0,.45)}
+/* Guest overlay footer */
+.gs-footer{display:flex;gap:10px;flex-shrink:0}
+.gs-cancel-btn{font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;letter-spacing:.12em;padding:10px 20px;background:transparent;border:1.5px solid rgba(255,255,255,.18);border-radius:10px;color:var(--muted);cursor:pointer;transition:all .14s}
+.gs-cancel-btn:hover{border-color:rgba(255,255,255,.42);color:var(--white)}
+.gs-confirm-btn{font-family:'Bebas Neue',sans-serif;font-size:19px;letter-spacing:.14em;padding:10px 28px;background:linear-gradient(135deg,#15803d,#22c55e);border:none;border-radius:10px;color:#fff;cursor:pointer;flex:1;transition:transform .12s,box-shadow .15s;box-shadow:0 4px 16px rgba(34,197,94,.3)}
+.gs-confirm-btn:hover{transform:translateY(-2px);box-shadow:0 7px 24px rgba(34,197,94,.5)}
+/* "MİSAFİR EKLE" button in student select */
+.gs-open-btn{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:9px 18px;background:rgba(250,204,21,.07);border:1.5px solid rgba(250,204,21,.38);border-radius:10px;color:#facc15;cursor:pointer;transition:all .14s}
+.gs-open-btn:hover{background:rgba(250,204,21,.18);border-color:#facc15;transform:translateY(-1px)}
+/* Guest chip distinction in pool */
+.ss-chip.gs-chip::after{content:' ✦';font-size:10px;opacity:.7}
+/* RENAME button */
+.ss-rename-btn{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:9px 18px;background:rgba(255,140,0,.1);border:1.5px solid rgba(255,140,0,.4);border-radius:10px;color:var(--gold);cursor:pointer;transition:all .14s}
+.ss-rename-btn:hover{background:rgba(255,140,0,.25);border-color:var(--gold);transform:translateY(-1px)}
+/* RENAME OVERLAY */
+#overlay-rename{z-index:12500}
+.rn-box{background:linear-gradient(145deg,#1a0800,#0d0400);border:1.5px solid rgba(255,140,0,.35);border-radius:24px;padding:28px 32px 24px;width:min(760px,96vw);display:flex;flex-direction:column;align-items:center;gap:14px;box-shadow:0 0 80px rgba(255,100,0,.14)}
+.rn-display-wrap{background:rgba(0,0,0,.4);border:2px solid rgba(255,140,0,.28);border-radius:14px;padding:14px 40px;width:100%;text-align:center;min-height:72px;display:flex;align-items:center;justify-content:center}
+.rn-display{font-family:'Bebas Neue',sans-serif;font-size:clamp(32px,6vw,52px);letter-spacing:.14em;color:var(--gold);text-shadow:0 0 28px rgba(255,140,0,.6)}
+.rn-cancel-btn{font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:10px 28px;background:transparent;border:1.5px solid rgba(255,255,255,.18);border-radius:10px;color:var(--muted);cursor:pointer;transition:all .14s}
+.rn-cancel-btn:hover{border-color:rgba(255,255,255,.42);color:var(--white)}
+/* TUTORIAL BUTTON */
+.mn-tutorial-btn{padding:10px 36px;font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.15);border-radius:11px;color:rgba(255,244,232,.45);cursor:pointer;transition:all .18s;margin-top:2px}
+.mn-tutorial-btn:hover{background:rgba(255,140,0,.1);border-color:rgba(255,140,0,.4);color:var(--gold)}
+/* TUTORIAL OVERLAY */
+#overlay-tutorial{z-index:11800;background:rgba(0,0,0,.88);backdrop-filter:blur(8px)}
+.tut-box{background:linear-gradient(160deg,#1c0900,#0a0300);border:1.5px solid rgba(255,140,0,.3);border-radius:24px;width:min(700px,96vw);max-height:88vh;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 0 100px rgba(255,80,0,.12)}
+.tut-header{display:flex;align-items:center;justify-content:space-between;padding:22px 28px 16px;border-bottom:1px solid rgba(255,140,0,.15);flex-shrink:0}
+.tut-title{font-family:'Bebas Neue',sans-serif;font-size:30px;letter-spacing:.14em;color:var(--gold);text-shadow:0 0 24px rgba(255,140,0,.5)}
+.tut-close{background:none;border:none;color:var(--muted);font-size:24px;cursor:pointer;line-height:1;padding:2px 8px;transition:color .15s}
+.tut-close:hover{color:#fff}
+.tut-body{overflow-y:auto;padding:20px 28px 28px;display:flex;flex-direction:column;gap:16px}
+.tut-section{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:16px;padding:16px 20px;display:flex;flex-direction:column;gap:8px}
+.tut-section-title{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:.14em;color:var(--gold);display:flex;align-items:center;gap:10px}
+.tut-section-title span{font-size:20px}
+.tut-p{font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:500;letter-spacing:.06em;color:rgba(255,244,232,.75);line-height:1.55}
+.tut-p b{color:var(--white);font-weight:700}
+.tut-p em{color:var(--gold);font-style:normal;font-weight:700}
+/* Score table */
+.tut-table{width:100%;border-collapse:collapse;margin-top:4px}
+.tut-table th{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);padding:6px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,.1)}
+.tut-table td{font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:600;letter-spacing:.06em;padding:7px 10px;border-bottom:1px solid rgba(255,255,255,.05);color:rgba(255,244,232,.8)}
+.tut-table td:last-child{text-align:right;font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:.1em}
+.tut-pts-unique{color:#4ade80}
+.tut-pts-common{color:var(--gold)}
+.tut-pts-old{color:#94a3b8}
+.tut-pts-invalid{color:#f87171}
+.tut-pts-bonus{color:#c084fc}
+.tut-row-badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
+.tut-badge{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:.1em;padding:4px 12px;border-radius:7px}
+.tut-badge.r1{background:rgba(74,138,244,.15);border:1px solid rgba(74,138,244,.4);color:#93b4f8}
+.tut-badge.r2{background:rgba(155,89,182,.15);border:1px solid rgba(155,89,182,.4);color:#c49ddb}
+.tut-badge.r3{background:rgba(232,33,58,.15);border:1px solid rgba(232,33,58,.4);color:#f87171}
+.tut-badge.bonus{background:rgba(255,140,0,.12);border:1px solid rgba(255,140,0,.35);color:var(--gold)}
+.tut-badge.dbl{background:rgba(250,204,21,.12);border:1px solid rgba(250,204,21,.4);color:#facc15}
+/* TEACHER MODE TOAST */
+#teacher-toast{position:fixed;bottom:32px;left:50%;transform:translateX(-50%) translateY(80px);z-index:99999;background:linear-gradient(135deg,#14532d,#22c55e);border:1.5px solid #4ade80;border-radius:14px;padding:13px 28px;font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#fff;text-shadow:0 0 12px rgba(74,222,128,.8);box-shadow:0 8px 32px rgba(34,197,94,.45);pointer-events:none;opacity:0;transition:transform .35s cubic-bezier(.175,.885,.32,1.275),opacity .35s ease}
+#teacher-toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+#teacher-toast.hide{transform:translateX(-50%) translateY(80px);opacity:0;transition:transform .3s ease,opacity .3s ease}
+
+/* ═══════════════════════════════
+   DOUBLE POINTS OVERLAY
+═══════════════════════════════ */
+#overlay-double-points{z-index:9800;cursor:pointer}
+.dbl-content{text-align:center;animation:modalIn .4s cubic-bezier(.175,.885,.32,1.275)}
+.dbl-big{font-family:'Bebas Neue',sans-serif;font-size:clamp(56px,14vw,110px);letter-spacing:.06em;line-height:.9;color:#facc15;text-shadow:0 0 60px rgba(250,204,21,1),0 0 120px rgba(250,204,21,.6);animation:dblPulse .8s ease-in-out infinite}
+.dbl-sub{font-family:'Barlow Condensed',sans-serif;font-size:clamp(16px,2.5vw,24px);font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.75);margin-top:14px}
+.dbl-tap{font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-top:22px}
+
+/* ═══════════════════════════════
+   IN-GAME TIMER (game screen içinde)
+═══════════════════════════════ */
+#in-game-timer{display:flex;flex-direction:column;align-items:center;gap:8px;padding:18px 52px;background:rgba(255,255,255,.04);border:2px solid rgba(255,140,0,.28);border-radius:20px;flex-shrink:0;align-self:center}
+.igt-label{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--muted)}
+.igt-number{font-family:'Bebas Neue',sans-serif;font-size:clamp(72px,14vw,110px);line-height:1;letter-spacing:.02em;color:var(--green);text-shadow:0 0 40px rgba(29,185,84,.7);transition:color .3s,text-shadow .3s;cursor:default;user-select:none}
+.igt-number.urgent{color:#ff5577;text-shadow:0 0 40px rgba(255,85,119,.8);animation:numUrgent .45s ease-in-out infinite}
+.igt-number.early-stop{cursor:pointer;animation:earlyStopPulse 1s ease-in-out infinite}
+@keyframes earlyStopPulse{0%,100%{text-shadow:0 0 40px rgba(29,185,84,.7)}50%{text-shadow:0 0 70px rgba(29,185,84,1),0 0 120px rgba(29,185,84,.4)}}
+@keyframes numUrgent{0%,100%{opacity:1}50%{opacity:.5}}
+.igt-bar-wrap{width:min(60vw,380px);height:9px;background:rgba(255,255,255,.1);border-radius:5px;overflow:hidden}
+#igt-bar{height:100%;width:100%;border-radius:5px;background:var(--green);transition:width .25s linear,background .3s}
+.igt-timeup{font-family:'Bebas Neue',sans-serif;font-size:clamp(38px,8vw,64px);color:var(--red);letter-spacing:.06em;text-shadow:0 0 40px rgba(232,33,58,.9);animation:timeupPulse .7s ease-in-out infinite;text-align:center}
+@keyframes timeupPulse{0%,100%{opacity:.7}50%{opacity:1}}
+
+/* ═══════════════════════════════
+   CHECK PHASE OVERLAY
+═══════════════════════════════ */
+#overlay-check{z-index:9600;flex-direction:column;gap:0;align-items:stretch;padding:0;overflow:hidden;background:rgba(8,2,0,.98)}
+/* Top bar */
+.check-topbar{background:rgba(20,6,0,.92);padding:7px 18px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;border-bottom:1px solid rgba(255,140,0,.14);gap:12px}
+.check-cat-badge{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;padding:4px 11px;border-radius:7px;background:rgba(255,140,0,.11);border:1px solid rgba(255,140,0,.3);color:var(--gold);white-space:nowrap}
+.check-topbar-bonus{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;letter-spacing:.12em;color:rgba(255,244,232,.35);flex:1;text-align:center}
+/* Check screen countdown ring — next to player name */
+.check-timer-ring{position:relative;width:68px;height:68px;border-radius:50%;flex-shrink:0;
+  background:conic-gradient(var(--tc,rgba(249,115,22,1)) var(--tp,100%),rgba(255,255,255,.07) 0);
+  display:flex;align-items:center;justify-content:center}
+.check-timer-ring::before{content:'';position:absolute;inset:7px;background:rgba(10,2,0,.96);border-radius:50%}
+.check-timer-num{position:relative;z-index:1;font-family:'Bebas Neue',sans-serif;font-size:24px;color:rgba(255,255,255,.88);letter-spacing:.04em}
+@keyframes checkTimerPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.22)}}
+.check-timer-ring.urgent .check-timer-num{color:#f87171;animation:checkTimerPulse .45s ease-in-out infinite}
+/* Center */
+.check-center{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;padding:8px 24px;min-height:0}
+/* Name + timer on same row */
+.check-name-row{display:flex;align-items:center;justify-content:center;gap:18px;width:100%}
+/* Category + progress on same row */
+.check-cat-row{display:flex;align-items:center;gap:16px;margin-top:2px}
+.check-bonus-side{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:clamp(16px,2.8vw,26px);letter-spacing:.12em;text-transform:uppercase;
+  color:#facc15;text-shadow:0 0 18px rgba(250,204,21,.7);white-space:nowrap;flex-shrink:0}
+.check-progress-info{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:.1em;color:var(--muted);white-space:nowrap}
+/* TIME UP flash overlay (inside overlay-check) */
+.check-timeup{position:absolute;inset:0;z-index:9700;display:flex;align-items:center;justify-content:center;
+  background:rgba(220,38,38,.15);backdrop-filter:blur(3px)}
+@keyframes timeupPop{0%{transform:scale(.35);opacity:0}70%{transform:scale(1.08)}100%{transform:scale(1);opacity:1}}
+.check-timeup-text{font-family:'Bebas Neue',sans-serif;font-size:clamp(88px,18vw,160px);letter-spacing:.08em;
+  color:#f87171;text-shadow:0 0 60px rgba(248,113,113,.95),0 0 130px rgba(248,113,113,.5);
+  animation:timeupPop .32s cubic-bezier(.175,.885,.32,1.275) forwards}
+/* Player callout */
+.check-come-strip{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:.45em;text-transform:uppercase;color:rgba(255,244,232,.32);text-align:center}
+/* Name brake-stop entrance: flies in from right, overshoots, brakes to centre */
+@keyframes nameSlideIn{
+  0%  {transform:translateX(115vw) skewX(-10deg) scaleX(1.08);opacity:0;filter:blur(6px)}
+  18% {opacity:1;filter:blur(0)}
+  68% {transform:translateX(-26px) skewX(-1deg) scaleX(.97)}
+  80% {transform:translateX(10px)  skewX(.5deg)  scaleX(1.01)}
+  90% {transform:translateX(-4px)  skewX(0)      scaleX(1)}
+  100%{transform:translateX(0)     skewX(0)      scaleX(1);opacity:1}
+}
+@keyframes seatFadeIn{
+  0%  {opacity:0;transform:translateY(6px)}
+  100%{opacity:1;transform:translateY(0)}
+}
+.check-player-name{font-family:'Bebas Neue',sans-serif;font-size:clamp(56px,11vw,100px);letter-spacing:.04em;line-height:1;color:var(--white);text-align:center}
+.check-player-name.pair-name{font-size:clamp(36px,7vw,68px);letter-spacing:.06em}
+.check-player-name.name-enter{animation:nameSlideIn .52s cubic-bezier(.12,.9,.25,1) forwards}
+.check-player-name.row1{text-shadow:0 0 50px rgba(74,138,244,.6),0 0 110px rgba(74,138,244,.22)}
+.check-player-name.row2{text-shadow:0 0 50px rgba(155,89,182,.6),0 0 110px rgba(155,89,182,.22)}
+.check-player-name.row3{text-shadow:0 0 50px rgba(232,33,58,.6),0 0 110px rgba(232,33,58,.22)}
+.check-seat-info{font-family:'Barlow Condensed',sans-serif;font-size:clamp(12px,1.6vw,15px);font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);text-align:center;margin-top:-2px}
+.check-seat-info.seat-enter{animation:seatFadeIn .35s ease-out .38s both}
+/* Category block */
+.check-cat-block{display:flex;align-items:center;justify-content:center;gap:12px;padding:9px 28px;border-radius:14px;border:1.5px solid;background:rgba(255,255,255,.03);margin-top:2px}
+.check-cat-block.row1{border-color:rgba(74,138,244,.4);box-shadow:0 0 26px rgba(74,138,244,.07)}
+.check-cat-block.row2{border-color:rgba(155,89,182,.4);box-shadow:0 0 26px rgba(155,89,182,.07)}
+.check-cat-block.row3{border-color:rgba(232,33,58,.4);box-shadow:0 0 26px rgba(232,33,58,.07)}
+.check-cat-mini-label{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:var(--muted);flex-shrink:0;white-space:nowrap}
+.check-cat-name-big{font-family:'Bebas Neue',sans-serif;font-size:clamp(26px,5vw,46px);letter-spacing:.07em;line-height:1}
+.check-cat-tr{font-family:'Barlow Condensed',sans-serif;font-size:.52em;font-weight:600;letter-spacing:.1em;opacity:.6;margin-left:4px}
+.check-cat-block.row1 .check-cat-name-big{color:var(--row1);text-shadow:0 0 22px var(--row1-glow)}
+.check-cat-block.row2 .check-cat-name-big{color:var(--row2);text-shadow:0 0 22px var(--row2-glow)}
+.check-cat-block.row3 .check-cat-name-big{color:var(--row3);text-shadow:0 0 22px var(--row3-glow)}
+/* Word input */
+.check-word-wrap{background:rgba(255,255,255,.05);border:2px solid rgba(255,140,0,.32);border-radius:16px;padding:12px 44px;min-width:min(74vw,480px);text-align:center;min-height:76px;display:flex;align-items:center;justify-content:center;margin-top:4px;transition:border-color .2s,box-shadow .2s}
+.check-word-text{font-family:'Bebas Neue',sans-serif;font-size:clamp(46px,9vw,74px);letter-spacing:.08em;color:rgba(255,244,232,.22);line-height:1;min-height:1em}
+.check-word-text.has-text{color:var(--gold);text-shadow:0 0 30px rgba(255,140,0,.55)}
+/* ── RGB GAMER KEYBOARD ── */
+.check-keyboard{display:flex;flex-direction:column;gap:6px;align-items:center;width:100%;max-width:730px;flex-shrink:0;padding:16px 22px 22px;align-self:center;background:rgba(3,1,10,.9);border-radius:22px;border:1px solid rgba(255,255,255,.055);box-shadow:0 10px 40px rgba(0,0,0,.8),inset 0 1px 0 rgba(255,255,255,.04)}
+.kb-row{display:flex;gap:5px;justify-content:center}
+/* Rainbow wave animation — period must match wavePeriod in buildKeyboard() JS */
+@keyframes rgbWave{
+  0%  {border-color:hsl(0,88%,54%);  box-shadow:0 4px 0 rgba(0,0,0,.75),0 0 11px hsl(0,100%,50%),  inset 0 0 10px rgba(255,0,0,.07)}
+  12% {border-color:hsl(44,90%,54%); box-shadow:0 4px 0 rgba(0,0,0,.75),0 0 11px hsl(44,100%,50%),  inset 0 0 10px rgba(255,200,0,.07)}
+  25% {border-color:hsl(100,82%,48%);box-shadow:0 4px 0 rgba(0,0,0,.75),0 0 11px hsl(100,100%,44%), inset 0 0 10px rgba(80,255,0,.07)}
+  38% {border-color:hsl(162,82%,46%);box-shadow:0 4px 0 rgba(0,0,0,.75),0 0 11px hsl(162,100%,42%), inset 0 0 10px rgba(0,255,160,.07)}
+  50% {border-color:hsl(200,88%,54%);box-shadow:0 4px 0 rgba(0,0,0,.75),0 0 11px hsl(200,100%,50%), inset 0 0 10px rgba(0,150,255,.07)}
+  62% {border-color:hsl(248,90%,64%);box-shadow:0 4px 0 rgba(0,0,0,.75),0 0 11px hsl(248,100%,60%), inset 0 0 10px rgba(60,0,255,.07)}
+  75% {border-color:hsl(285,88%,62%);box-shadow:0 4px 0 rgba(0,0,0,.75),0 0 11px hsl(285,100%,58%), inset 0 0 10px rgba(180,0,255,.07)}
+  88% {border-color:hsl(330,88%,58%);box-shadow:0 4px 0 rgba(0,0,0,.75),0 0 11px hsl(330,100%,54%), inset 0 0 10px rgba(255,0,160,.07)}
+  100%{border-color:hsl(360,88%,54%);box-shadow:0 4px 0 rgba(0,0,0,.75),0 0 11px hsl(360,100%,50%), inset 0 0 10px rgba(255,0,0,.07)}
+}
+@keyframes rgbDelPulse{
+  0%,100%{border-color:rgba(232,33,58,.55); box-shadow:0 4px 0 rgba(0,0,0,.75),0 0 8px rgba(232,33,58,.45)}
+  50%    {border-color:rgba(255,60,80,1);   box-shadow:0 4px 0 rgba(0,0,0,.75),0 0 22px rgba(255,60,80,.95),inset 0 0 14px rgba(255,50,70,.14)}
+}
+@keyframes rgbSubmitPulse{
+  0%,100%{border-color:rgba(34,197,94,.5); box-shadow:0 4px 0 rgba(0,0,0,.75),0 0 8px rgba(34,197,94,.4)}
+  50%    {border-color:rgba(74,222,128,1); box-shadow:0 4px 0 rgba(0,0,0,.75),0 0 26px rgba(74,222,128,.95),inset 0 0 14px rgba(74,222,128,.14)}
+}
+@keyframes rgbSurePulse{
+  0%,100%{border-color:rgba(234,179,8,.55); box-shadow:0 4px 0 rgba(0,0,0,.75),0 0 10px rgba(234,179,8,.45)}
+  50%    {border-color:rgba(253,224,71,1);  box-shadow:0 4px 0 rgba(0,0,0,.75),0 0 30px rgba(253,224,71,.95),inset 0 0 14px rgba(253,224,71,.18)}
+}
+/* Lit flash — triggered by pointerdown */
+@keyframes keyFlash{0%{background:rgba(255,255,255,.35)}100%{background:rgba(8,3,18,.92)}}
+.kb-key{font-family:'Bebas Neue',sans-serif;font-size:clamp(16px,2.8vw,24px);width:clamp(36px,6.5vw,56px);height:clamp(40px,7vw,58px);background:rgba(8,3,18,.92);border:2px solid rgba(255,255,255,.1);border-radius:9px;color:rgba(255,255,255,.88);cursor:pointer;display:flex;align-items:center;justify-content:center;user-select:none;letter-spacing:.04em;position:relative;animation:rgbWave 3s linear infinite;animation-delay:var(--kd,0s);transition:transform .06s,filter .07s}
+.kb-key:hover{filter:brightness(1.85);transform:translateY(-2px)}
+.kb-key:active{transform:translateY(3px)!important;filter:brightness(3)!important;box-shadow:0 1px 0 rgba(0,0,0,.75),0 0 22px rgba(255,255,255,.5),inset 0 0 16px rgba(255,255,255,.2)!important}
+.kb-key.kb-lit{animation:keyFlash .18s ease-out forwards,rgbWave 3s linear infinite;filter:brightness(2.5);transform:translateY(2px)}
+.kb-key.kb-wide{width:clamp(54px,9vw,82px)}
+.kb-key.kb-space{width:clamp(120px,22vw,220px);font-size:clamp(11px,1.6vw,13px);letter-spacing:.22em;color:rgba(255,255,255,.5)}
+.kb-key.kb-del{font-size:clamp(14px,2.2vw,20px);background:rgba(20,3,6,.95);color:#ff6b7a;animation:rgbDelPulse 1.5s ease-in-out infinite}
+/* kb-main-section: rows 1+2 left, tall ENTER right */
+.kb-main-section{display:flex;gap:6px;align-items:stretch;justify-content:center}
+.kb-letter-rows{display:flex;flex-direction:column;gap:6px}
+.kb-key.kb-submit{
+  width:clamp(62px,10vw,90px);height:auto;flex-direction:column;gap:3px;
+  font-size:clamp(12px,1.9vw,17px);letter-spacing:.12em;
+  background:rgba(4,16,8,.95);color:#4ade80;
+  animation:rgbSubmitPulse 1.4s ease-in-out infinite;
+  border-radius:12px}
+.kb-key.kb-submit:hover{filter:brightness(1.7);transform:translateX(-2px)}
+.kb-key.kb-submit:active{transform:translateX(3px)!important}
+.kb-submit-arrow{font-size:.8em;opacity:.6;line-height:1}
+.kb-key.kb-submit.kb-sure{animation:rgbSurePulse .65s ease-in-out infinite!important;background:rgba(20,14,1,.95)!important;color:#facc15!important;letter-spacing:.18em}
+
+/* Word result feedback panel */
+.check-result{position:fixed;inset:0;z-index:9650;background:rgba(0,0,0,.75);display:flex;align-items:center;justify-content:center;animation:fadeIn .15s ease}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.wr-panel{text-align:center;padding:36px 44px;border-radius:22px;animation:modalIn .25s cubic-bezier(.175,.885,.32,1.275);min-width:320px}
+.wr-panel.valid{background:linear-gradient(145deg,#0a2d18,#051a0e);border:2px solid rgba(34,197,94,.5);box-shadow:0 0 50px rgba(34,197,94,.2)}
+.wr-panel.invalid{background:linear-gradient(145deg,#2d0a0a,#1a0505);border:2px solid rgba(232,33,58,.5);box-shadow:0 0 50px rgba(232,33,58,.2)}
+.wr-status{font-family:'Bebas Neue',sans-serif;font-size:clamp(38px,8vw,60px);letter-spacing:.1em;line-height:1}
+.wr-panel.valid .wr-status{color:#4ade80;text-shadow:0 0 30px rgba(74,222,128,.8)}
+.wr-panel.invalid .wr-status{color:#f87171;text-shadow:0 0 30px rgba(248,113,113,.8)}
+.wr-word{font-family:'Barlow Condensed',sans-serif;font-size:clamp(18px,3vw,26px);font-weight:700;letter-spacing:.12em;color:var(--white);margin:6px 0}
+.wr-score{font-family:'Bebas Neue',sans-serif;font-size:clamp(44px,10vw,72px);margin:8px 0}
+.wr-panel.valid .wr-score{color:var(--gold);text-shadow:0 0 30px rgba(255,140,0,.8)}
+.wr-score-detail{font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:.1em;color:var(--muted);line-height:1.6}
+.wr-bonus-tag{display:inline-block;margin-top:8px;padding:4px 12px;border-radius:6px;background:rgba(244,114,182,.18);border:1px solid rgba(244,114,182,.4);color:#f472b6;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:.12em}
+.wr-override-row{display:flex;gap:10px;margin-top:18px;justify-content:center}
+.wr-suggest-row{margin-top:14px;padding:10px 16px;border-radius:10px;background:rgba(251,191,36,.08);border:1.5px solid rgba(251,191,36,.35);display:flex;flex-direction:column;align-items:center;gap:8px;animation:fadeIn .2s ease}
+.wr-suggest-label{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:600;letter-spacing:.1em;color:rgba(251,191,36,.7);text-transform:uppercase}
+.wr-suggest-word{font-family:'Bebas Neue',sans-serif;font-size:clamp(22px,4vw,32px);letter-spacing:.1em;color:#fbbf24;text-shadow:0 0 16px rgba(251,191,36,.5)}
+.wr-suggest-btn{padding:8px 20px;font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;background:linear-gradient(135deg,#92400e,#d97706);border:none;border-radius:8px;color:#fff;cursor:pointer;transition:transform .12s}
+.wr-suggest-btn:hover{transform:scale(1.05)}
+.wr-accept-btn{padding:10px 22px;font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;background:linear-gradient(135deg,#15803d,#22c55e);border:none;border-radius:10px;color:#fff;cursor:pointer;transition:transform .12s}
+.wr-accept-btn:hover{transform:scale(1.05)}
+.wr-reject-btn{padding:10px 22px;font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;background:linear-gradient(135deg,#991b1b,#ef4444);border:none;border-radius:10px;color:#fff;cursor:pointer;transition:transform .12s}
+.wr-reject-btn:hover{transform:scale(1.05)}
+
+/* ═══════════════════════════════
+   ROUND SUMMARY OVERLAY
+═══════════════════════════════ */
+#overlay-round-summary{z-index:9800}
+.rs-box{background:linear-gradient(145deg,#2D0E00,#120500);border:1.5px solid var(--gold);border-radius:24px;padding:28px 30px 24px;width:min(98vw,680px);max-height:88vh;display:flex;flex-direction:column;gap:14px;box-shadow:0 0 80px rgba(255,140,0,.18),0 24px 60px rgba(0,0,0,.6)}
+.rs-header{display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.rs-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(22px,3.5vw,34px);color:var(--gold);letter-spacing:.1em;text-shadow:0 0 22px rgba(255,140,0,.6)}
+.rs-dbl-tag{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:.14em;padding:4px 10px;border-radius:6px;background:rgba(250,204,21,.18);border:1px solid rgba(250,204,21,.4);color:#facc15}
+.rs-next-btn{font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:9px 20px;background:linear-gradient(135deg,#CC5500,#FF8C00);border:none;border-radius:10px;color:#fff;cursor:pointer;transition:transform .12s;box-shadow:0 3px 14px rgba(204,85,0,.4)}
+.rs-next-btn:hover{transform:scale(1.05)}
+.rs-end-btn{font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:9px 16px;background:rgba(232,33,58,.12);border:1px solid rgba(232,33,58,.38);color:#f87171;border-radius:10px;cursor:pointer;transition:background .12s}
+.rs-end-btn:hover{background:rgba(232,33,58,.25)}
+.rs-list{display:flex;flex-direction:column;gap:7px;overflow-y:auto;flex:1;min-height:0}
+.rs-row{display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:12px;background:rgba(255,255,255,.04);border:1px solid rgba(255,140,0,.1);animation:rsRowIn .3s ease both}
+@keyframes rsRowIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.rs-rank{font-family:'Bebas Neue',sans-serif;font-size:20px;width:24px;text-align:center;flex-shrink:0;color:var(--muted)}
+.rs-row.rs-top{background:rgba(255,140,0,.08);border-color:rgba(255,140,0,.4)}
+.rs-row.rs-top .rs-rank{color:var(--gold)}
+.rs-name{font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700;letter-spacing:.1em;width:90px;flex-shrink:0;color:var(--white)}
+.rs-word{font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:700;letter-spacing:.12em;flex:1;color:var(--gold)}
+.rs-word.invalid{color:rgba(255,255,255,.3);text-decoration:line-through;font-weight:400}
+.rs-tag{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:.12em;padding:3px 8px;border-radius:5px;flex-shrink:0}
+.rs-tag.unique{background:rgba(74,222,128,.18);border:1px solid rgba(74,222,128,.4);color:#4ade80}
+.rs-tag.common{background:rgba(255,140,0,.18);border:1px solid rgba(255,140,0,.4);color:var(--gold)}
+.rs-tag.old{background:rgba(148,163,184,.1);border:1px solid rgba(148,163,184,.25);color:#94a3b8}
+.rs-tag.invalid{background:rgba(232,33,58,.1);border:1px solid rgba(232,33,58,.25);color:#f87171}
+.rs-tag.bonus{background:rgba(244,114,182,.18);border:1px solid rgba(244,114,182,.4);color:#f472b6}
+.rs-pts{font-family:'Bebas Neue',sans-serif;font-size:24px;width:54px;text-align:right;flex-shrink:0;color:var(--gold)}
+.rs-pts.zero{color:rgba(255,255,255,.25)}
+.rs-total{font-family:'Barlow Condensed',sans-serif;font-size:12px;color:var(--muted);width:56px;text-align:right;flex-shrink:0;letter-spacing:.06em}
+
+/* ═══════════════════════════════
+   GAME OVER OVERLAY
+═══════════════════════════════ */
+/* ═══════════════════════════════
+   FINAL SCREEN
+═══════════════════════════════ */
+#overlay-game-over{z-index:9900}
+.go-box{background:linear-gradient(145deg,#0a0418,#04020a);border:2px solid var(--gold);border-radius:28px;padding:26px 30px 22px;width:min(98vw,1280px);max-height:96vh;display:flex;flex-direction:column;gap:14px;box-shadow:0 0 120px rgba(255,140,0,.18),0 30px 80px rgba(0,0,0,.85)}
+.go-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,5vw,48px);color:var(--gold);letter-spacing:.14em;text-shadow:0 0 40px rgba(255,140,0,.85);text-align:center}
+.go-subtitle{font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);text-align:center;margin-top:-8px}
+/* Grid */
+.go-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(138px,1fr));gap:10px;overflow:hidden}
+/* Card */
+.go-card{background:rgba(255,255,255,.04);border:1.5px solid rgba(255,140,0,.1);border-radius:14px;padding:14px 10px 12px;display:flex;flex-direction:column;align-items:center;gap:7px;text-align:center;animation:finalCardIn .45s ease-out both}
+@keyframes finalCardIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.go-card.fc-1st{background:rgba(255,140,0,.13);border-color:var(--gold);box-shadow:0 0 32px rgba(255,140,0,.22),inset 0 0 18px rgba(255,140,0,.05)}
+.go-card.fc-2nd{background:rgba(192,192,192,.09);border-color:rgba(192,192,192,.48);box-shadow:0 0 20px rgba(192,192,192,.1)}
+.go-card.fc-3rd{background:rgba(205,127,50,.09);border-color:rgba(205,127,50,.42);box-shadow:0 0 20px rgba(205,127,50,.1)}
+/* Cup */
+.fc-cup{font-size:clamp(22px,3.5vw,34px);line-height:1}
+.go-card.fc-1st .fc-cup,.go-card.fc-2nd .fc-cup,.go-card.fc-3rd .fc-cup{animation:fcCupPulse 1.5s ease-in-out infinite}
+@keyframes fcCupPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.2)}}
+.fc-rank-num{font-family:'Bebas Neue',sans-serif;font-size:16px;color:rgba(255,255,255,.28);line-height:1}
+/* Name */
+.fc-name{font-family:'Barlow Condensed',sans-serif;font-size:clamp(13px,1.8vw,17px);font-weight:700;letter-spacing:.07em;color:var(--white);line-height:1.25;word-break:break-word}
+.go-card.fc-1st .fc-name{color:var(--gold);animation:fcGlow1 1.6s ease-in-out infinite}
+.go-card.fc-2nd .fc-name{color:#e8e8e8;animation:fcGlow2 1.8s ease-in-out infinite}
+.go-card.fc-3rd .fc-name{color:#d4956a;animation:fcGlow3 2s ease-in-out infinite}
+@keyframes fcGlow1{0%,100%{text-shadow:0 0 14px rgba(255,140,0,.65),0 0 28px rgba(255,140,0,.3)}50%{text-shadow:0 0 26px rgba(255,180,0,1),0 0 52px rgba(255,140,0,.65)}}
+@keyframes fcGlow2{0%,100%{text-shadow:0 0 10px rgba(200,200,200,.45)}50%{text-shadow:0 0 22px rgba(230,230,230,.9)}}
+@keyframes fcGlow3{0%,100%{text-shadow:0 0 10px rgba(205,127,50,.45)}50%{text-shadow:0 0 22px rgba(225,155,85,.9)}}
+/* Stars */
+.fc-stars{display:flex;gap:3px;justify-content:center;font-size:clamp(13px,1.8vw,18px);line-height:1}
+.fc-star-filled{color:#facc15;text-shadow:0 0 7px rgba(250,204,21,.9),0 0 14px rgba(250,204,21,.4)}
+.fc-star-empty{color:rgba(255,255,255,.1)}
+/* Score */
+.fc-score{font-family:'Bebas Neue',sans-serif;font-size:clamp(13px,1.8vw,18px);color:rgba(255,255,255,.5);letter-spacing:.06em}
+/* Badges */
+.fc-badges{display:flex;flex-wrap:wrap;gap:3px;justify-content:center;min-height:16px}
+.fc-badge{font-family:'Barlow Condensed',sans-serif;font-size:8px;font-weight:700;letter-spacing:.1em;padding:2px 6px;border-radius:4px;text-transform:uppercase;border:1px solid}
+.fc-badge.b-score{background:rgba(255,140,0,.15);color:#fbbf24;border-color:rgba(255,140,0,.35)}
+.fc-badge.b-unique{background:rgba(96,165,250,.14);color:#93c5fd;border-color:rgba(96,165,250,.3)}
+.fc-badge.b-words{background:rgba(74,222,128,.13);color:#4ade80;border-color:rgba(74,222,128,.28)}
+/* Mini stats row */
+.fc-stats{display:flex;gap:4px;justify-content:center;flex-wrap:wrap}
+.fc-stat{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:600;letter-spacing:.05em;padding:2px 7px;border-radius:4px;background:rgba(255,255,255,.07);color:rgba(255,255,255,.6);border:1px solid rgba(255,255,255,.1)}
+/* Footer */
+.go-play-again-btn{font-family:'Bebas Neue',sans-serif;font-size:21px;letter-spacing:.16em;padding:13px;background:linear-gradient(135deg,#CC5500,#FF8C00);border:none;border-radius:12px;color:#fff;cursor:pointer;transition:transform .12s,box-shadow .15s;box-shadow:0 4px 20px rgba(204,85,0,.4);flex-shrink:0}
+.go-play-again-btn:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(204,85,0,.6)}
+.go-play-again-btn:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(204,85,0,.6)}
+
+/* ═══════════════════════════════
+   ROW RESULTS OVERLAY
+═══════════════════════════════ */
+#overlay-row-results{z-index:9700}
+.rr-box{background:linear-gradient(145deg,#2D0E00,#120500);border:1.5px solid var(--gold);border-radius:24px;padding:24px 28px 22px;width:min(98vw,860px);display:flex;flex-direction:column;gap:14px;box-shadow:0 0 80px rgba(255,140,0,.18),0 24px 60px rgba(0,0,0,.6)}
+.rr-header{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;flex-shrink:0;flex-wrap:wrap}
+.rr-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(22px,4vw,36px);letter-spacing:.1em;line-height:1}
+.rr-title.row1{color:var(--row1);text-shadow:0 0 22px var(--row1-glow)}
+.rr-title.row2{color:var(--row2);text-shadow:0 0 22px var(--row2-glow)}
+.rr-title.row3{color:var(--row3);text-shadow:0 0 22px var(--row3-glow)}
+.rr-cat-label{font-family:'Barlow Condensed',sans-serif;font-size:clamp(12px,2vw,17px);font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin-top:2px}
+.rr-cat-label.row1{color:var(--row1)}
+.rr-cat-label.row2{color:var(--row2)}
+.rr-cat-label.row3{color:var(--row3)}
+/* 3 player cards side by side */
+.rr-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.rr-card{background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.1);border-radius:16px;padding:16px 12px 14px;display:flex;flex-direction:column;align-items:center;gap:5px;text-align:center;animation:rsRowIn .35s ease both}
+.rr-seat-lbl{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.rr-name{font-family:'Barlow Condensed',sans-serif;font-size:clamp(15px,2.5vw,21px);font-weight:700;letter-spacing:.1em;color:var(--white)}
+.rr-word{font-family:'Bebas Neue',sans-serif;font-size:clamp(20px,3.8vw,34px);letter-spacing:.06em;line-height:1;padding:8px 10px;border-radius:10px;width:100%;margin-top:2px}
+.rr-word.unique{color:#4ade80;background:rgba(74,222,128,.08);border:1px solid rgba(74,222,128,.28)}
+.rr-word.common{color:var(--gold);background:rgba(255,140,0,.08);border:1px solid rgba(255,140,0,.28)}
+.rr-word.old{color:#94a3b8;background:rgba(148,163,184,.06);border:1px solid rgba(148,163,184,.18)}
+.rr-word.invalid{color:rgba(255,255,255,.22);background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08)}
+.rr-tag{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:3px 10px;border-radius:5px}
+@keyframes rrTagPulse{0%,100%{opacity:.65}50%{opacity:1}}
+@keyframes rrTopGlow{0%,100%{opacity:.82;text-shadow:0 0 18px rgba(255,140,0,.5)}50%{opacity:1;text-shadow:0 0 48px rgba(255,140,0,1),0 0 90px rgba(255,140,0,.45)}}
+.rr-tag.unique{background:rgba(74,222,128,.18);border:1px solid rgba(74,222,128,.4);color:#4ade80;animation:rrTagPulse 1.2s ease-in-out infinite}
+.rr-tag.common{background:rgba(255,140,0,.18);border:1px solid rgba(255,140,0,.4);color:var(--gold)}
+.rr-tag.old{background:rgba(148,163,184,.1);border:1px solid rgba(148,163,184,.25);color:#94a3b8}
+.rr-tag.invalid{background:rgba(232,33,58,.1);border:1px solid rgba(232,33,58,.25);color:#f87171}
+.rr-bonus{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:.12em;padding:2px 8px;border-radius:5px;background:rgba(244,114,182,.18);border:1px solid rgba(244,114,182,.4);color:#f472b6;animation:rrTagPulse 1.2s ease-in-out infinite}
+.rr-streak{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;padding:2px 8px;border-radius:5px;background:rgba(255,140,0,.14);border:1px solid rgba(255,140,0,.35);color:#ffb347}
+.rr-pts{font-family:'Bebas Neue',sans-serif;font-size:clamp(30px,6vw,50px);color:var(--gold);letter-spacing:.04em;line-height:1;margin-top:2px}
+.rr-pts.zero{color:rgba(255,255,255,.22)}
+.rr-pts.top-score{animation:rrTopGlow 1.3s ease-in-out infinite}
+.rr-total{font-family:'Barlow Condensed',sans-serif;font-size:12px;color:var(--muted);letter-spacing:.08em}
+.rr-next-btn{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.16em;padding:14px;background:linear-gradient(135deg,#CC5500,#FF8C00);border:none;border-radius:12px;color:#fff;cursor:pointer;transition:transform .12s,box-shadow .15s;box-shadow:0 4px 20px rgba(204,85,0,.4);width:100%;flex-shrink:0}
+.rr-next-btn:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(204,85,0,.6)}
+
+/* ═══════════════════════════════
+   FIXED BUTTONS
+═══════════════════════════════ */
+#fs-btn{position:fixed;top:14px;right:14px;z-index:9950;background:rgba(255,140,0,.08);border:1.5px solid rgba(255,255,255,.5);border-radius:8px;color:rgba(255,244,232,.6);width:34px;height:34px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:17px;transition:color .15s,background .15s,border-color .15s,transform .1s;padding:0;backdrop-filter:none}
+#fs-btn:hover{color:var(--gold);background:rgba(255,140,0,.18);border-color:var(--gold)}
+#fs-btn:active{transform:scale(.88)}
+#end-game-btn{position:fixed;top:14px;right:56px;z-index:9950;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:rgba(70,20,0,.75);border:1px solid rgba(248,113,113,.4);color:rgba(248,113,113,.75);border-radius:8px;height:34px;padding:0 13px;cursor:pointer;backdrop-filter:none;transition:background .15s,border-color .15s,color .15s,transform .1s;display:none}
+#end-game-btn.visible{display:flex;align-items:center;gap:5px}
+#end-game-btn:hover{background:rgba(185,28,28,.22);border-color:#f87171;color:#f87171}
+
+/* ── STREAK BADGE ── */
+#streak-badge{display:flex;align-items:center;gap:6px;background:rgba(255,100,0,.18);border:1.5px solid rgba(255,140,0,.55);border-radius:20px;padding:4px 14px 4px 10px;font-family:'Bebas Neue',sans-serif;font-size:clamp(16px,2.5vw,22px);letter-spacing:.08em;color:#ffb347;text-shadow:0 0 12px rgba(255,140,0,.7);animation:streakPop .35s cubic-bezier(.175,.885,.32,1.275);white-space:nowrap;pointer-events:none;flex-shrink:0}
+@keyframes streakPop{from{opacity:0;transform:translateX(-50%) scale(.6)}to{opacity:1;transform:translateX(-50%) scale(1)}}
+
+/* ── WORD STAMP ANIMATION ── */
+#word-stamp{position:fixed;inset:0;z-index:9700;display:flex;align-items:center;justify-content:center;pointer-events:none}
+.stamp-text{font-family:'Bebas Neue',sans-serif;font-size:clamp(72px,14vw,130px);letter-spacing:.12em;border:8px solid;border-radius:12px;padding:10px 32px;opacity:0;transform:scale(1.6) rotate(-12deg);animation:stampDrop .55s cubic-bezier(.2,.85,.4,1.1) forwards}
+.stamp-text.stamp-valid{color:rgba(74,222,128,.92);border-color:rgba(74,222,128,.85);text-shadow:0 0 40px rgba(74,222,128,.6);box-shadow:0 0 60px rgba(74,222,128,.25)}
+.stamp-text.stamp-invalid{color:rgba(248,113,113,.92);border-color:rgba(248,113,113,.85);text-shadow:0 0 40px rgba(248,113,113,.6);box-shadow:0 0 60px rgba(248,113,113,.25)}
+.stamp-text.stamp-bonus{color:rgba(200,130,255,.95);border-color:rgba(180,100,255,.85);text-shadow:0 0 30px rgba(180,100,255,.9),0 0 60px rgba(200,130,255,.5);box-shadow:0 0 80px rgba(160,80,255,.35)}
+@keyframes stampDrop{0%{opacity:0;transform:scale(1.6) rotate(-12deg)}35%{opacity:1;transform:scale(.95) rotate(-6deg)}60%{transform:scale(1.04) rotate(-6deg)}80%{transform:scale(.98) rotate(-6deg)}100%{opacity:1;transform:scale(1) rotate(-6deg)}}
+
+/* ── CONFETTI ── */
+#confetti-canvas{position:fixed;inset:0;z-index:9800;pointer-events:none}
+</style>
+</head>
+<body>
+
+<!-- ── BACKGROUNDS ── -->
+<div id="stars"></div>
+<div id="nebula"></div>
+<div id="corner-lights"></div>
+
+<!-- ── GLOBAL FX LAYERS ── -->
+<canvas id="confetti-canvas"></canvas>
+<div id="word-stamp"></div>
+
+<!-- ── CREDIT MARQUEE ── -->
+<div id="credit-marquee"><span id="credit-text">✦  Designed by ADİL FIRAT OKTAV  ✦</span></div>
+
+<!-- ════════════════════════════════
+     SCREEN: LOBBY
+════════════════════════════════ -->
+<div id="screen-lobby">
+  <!-- Decorative frame -->
+  <div class="mn-frame"></div>
+  <div class="mn-corner tl"></div>
+  <div class="mn-corner tr"></div>
+  <div class="mn-corner bl"></div>
+  <div class="mn-corner br"></div>
+  <div class="mn-hline top"></div>
+  <div class="mn-hline bot"></div>
+  <!-- Content -->
+  <div class="mn-wrap">
+    <div class="mn-logo"><span onclick="_secretTap('C')">C</span><span onclick="_secretTap('L')">L</span><span onclick="_secretTap('A')">A</span><span onclick="_secretTap('S')">S</span><span onclick="_secretTap('H')">H</span><br>OF WORDS</div>
+    <div class="mn-sub">A Word Category Game</div>
+    <div class="mn-divider"></div>
+    <div class="mn-credit-wrap" id="creditWrap">
+      <span class="mn-credit-label">Designed by</span>
+      <div class="mn-credit">ADİL FIRAT OKTAV</div>
+    </div>
+    <button class="mn-play" onclick="onMenuPlay()">▶ &nbsp;PLAY</button>
+    <button class="mn-tutorial-btn" onclick="openTutorial()">? &nbsp;HOW TO PLAY</button>
+    <button class="mn-settings-btn" onclick="openGameSettings()">⚙ SETTINGS</button>
+  </div>
+</div>
+
+<!-- ════════════════════════════════
+     SCREEN: GAME (category display)
+════════════════════════════════ -->
+<div id="screen-game" class="hidden">
+  <div class="game-header">
+    <div class="game-logo">CLASH OF WORDS <span class="game-designer">Designed by <strong>ADİL FIRAT OKTAV</strong></span></div>
+    <div class="round-info">
+      <div id="dbl-badge" class="dbl-badge hidden">⚡ DOUBLE POINTS ⚡</div>
+      <div class="round-badge" id="round-badge">ROUND 1</div>
+    </div>
+  </div>
+  <div class="categories-grid" id="categories-grid"></div>
+  <div class="bonus-area" id="bonus-area"></div>
+  <div class="start-row" id="lets-start-btn">
+    <button class="mid-scores-btn" onclick="showMidScores()">📊 SCORES</button>
+    <button class="lets-start-btn" style="margin:0" onclick="onLetsStart()">LET'S START ▶</button>
+  </div>
+  <!-- In-game timer — LET'S START yerine görünür, kategoriler arkada kalır -->
+  <div id="in-game-timer" class="hidden">
+    <div class="igt-label">TIME REMAINING</div>
+    <div class="igt-number" id="igt-number">30</div>
+    <div class="igt-bar-wrap"><div id="igt-bar"></div></div>
+    <div class="igt-timeup hidden" id="igt-timeup">TIME'S UP!</div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════
+     OVERLAY: SETTINGS
+════════════════════════════════ -->
+<div id="overlay-settings" class="overlay hidden">
+  <div class="settings-box modal-panel">
+    <div class="ov-title">SELECT CLASS</div>
+    <div class="class-grid" id="class-grid"></div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════
+     OVERLAY: STUDENT SELECT
+════════════════════════════════ -->
+<div id="overlay-student-select" class="overlay hidden">
+  <div class="ss-box modal-panel">
+    <div class="ov-title">SELECT PLAYERS</div>
+    <div id="ss-sub" class="ss-sub">Öğrencilere tıkla — min 3, her sıraya en az 1 · Sınıf: <strong id="ss-class-name" style="color:var(--gold)"></strong></div>
+    <div class="ss-class-pool" id="ss-class-pool"></div>
+    <div class="ss-count-row">
+      <div class="ss-count" id="ss-count">0 seçildi</div>
+      <button id="ss-rename-btn" class="ss-rename-btn hidden" onclick="openRenameOverlay()">✎ RENAME</button>
+      <button class="pair-with-btn" id="pair-with-btn" onclick="onPairWithBtn()" disabled>⚭ PAIR WITH</button>
+      <button id="gs-open-overlay-btn" class="gs-open-btn" onclick="openGuestOverlay()">✦ MİSAFİR EKLE</button>
+      <button class="ss-continue-btn" id="ss-continue-btn" disabled onclick="openSeatAssign()">KOLTUK ATAMASINA GEÇ →</button>
+    </div>
+    <div class="ss-pair-hint" id="ss-pair-hint"></div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════
+     OVERLAY: SEAT ASSIGNMENT
+════════════════════════════════ -->
+<!-- ════════════════════════════════
+     OVERLAY: GUEST STUDENTS
+════════════════════════════════ -->
+<div id="overlay-guest" class="overlay hidden">
+  <div class="gs-box modal-panel">
+    <div class="ov-title">MİSAFİR ÖĞRENCİLER</div>
+    <div class="gs-sub">İsimleri yaz — boş bırakılanlar eklenmez · Misafirler ✦ ile işaretlenir</div>
+    <div class="gs-slots" id="gs-slots"></div>
+    <div id="gs-keyboard"></div>
+    <div class="gs-footer">
+      <button class="gs-cancel-btn" onclick="closeGuestOverlay()">İPTAL</button>
+      <button class="gs-confirm-btn" onclick="confirmGuests()">✓ EKLE</button>
+    </div>
+  </div>
+</div>
+
+<div id="overlay-seat-assign" class="overlay hidden">
+  <div class="sa-box modal-panel">
+    <div class="sa-header-row">
+      <div class="ov-title">SEAT ASSIGNMENT</div>
+      <div class="sa-header-btns">
+        <button class="sa-reset-btn" onclick="resetSeats()">↺ RESET</button>
+        <button class="sa-auto-btn" onclick="autoDistribute()">⚡ AUTO DISTRIBUTE</button>
+      </div>
+    </div>
+    <div class="sa-blackboard">📋  BLACKBOARD / TEACHER DESK</div>
+    <div class="sa-rows-container" id="sa-grid-rows"></div>
+    <div class="sa-instruction" id="sa-instruction">Bir öğrenci seç — ardından sırasına tıkla</div>
+    <div class="sa-pool" id="sa-pool"></div>
+    <button class="sa-start-btn" id="sa-start-btn" disabled onclick="startGame()">✓  HAZIR — OYUNU BAŞLAT</button>
+  </div>
+</div>
+
+<!-- ════════════════════════════════
+     OVERLAY: DOUBLE POINTS
+════════════════════════════════ -->
+<div id="overlay-double-points" class="overlay hidden" onclick="closeDoublePoints()">
+  <div class="dbl-content">
+    <div class="dbl-big">⚡ DOUBLE<br>POINTS ⚡</div>
+    <div class="dbl-sub">All scores × 2 this round!</div>
+    <div class="dbl-tap">Tap to continue</div>
+  </div>
+</div>
+
+<!-- overlay-timer kaldırıldı: timer artık game screen içinde (#in-game-timer) -->
+
+<!-- ════════════════════════════════
+     OVERLAY: CHECK PHASE
+════════════════════════════════ -->
+<div id="overlay-check" class="overlay hidden">
+  <!-- Top bar: category · bonus · progress -->
+  <div class="check-topbar">
+    <span class="check-cat-badge" id="check-cat-badge">ROW 1 — ANIMALS</span>
+    <span class="check-topbar-bonus" style="flex:1"></span>
+    <span class="check-progress-info" id="check-progress-info">1 / 9</span>
+  </div>
+  <!-- Center: player spotlight + category + word input -->
+  <div class="check-center">
+    <div class="check-come-strip">▶  GEL  /  COME UP  ◀</div>
+    <!-- Name + timer ring on same row -->
+    <div class="check-name-row">
+      <div id="streak-badge" style="display:none"></div>
+      <div class="check-player-name row1" id="check-player-name">—</div>
+      <div class="check-timer-ring" id="check-timer-ring">
+        <span class="check-timer-num" id="check-timer-num">30</span>
+      </div>
+    </div>
+    <!-- Category block + progress badge on same row -->
+    <div class="check-cat-row">
+      <div class="check-cat-block row1" id="check-cat-block">
+        <span class="check-cat-mini-label">CATEGORY</span>
+        <span class="check-cat-name-big" id="check-cat-name-big">ANIMALS</span>
+      </div>
+      <span class="check-bonus-side" id="check-bonus-side"></span>
+    </div>
+    <div class="check-word-wrap">
+      <div class="check-word-text" id="check-word-text">_</div>
+    </div>
+  </div>
+  <div class="check-keyboard" id="check-keyboard"></div>
+  <!-- TIME UP flash — shown when countdown hits 0 -->
+  <div class="check-timeup hidden" id="check-timeup">
+    <div class="check-timeup-text">TIME UP!</div>
+  </div>
+</div>
+
+<!-- Word result panel (inside check overlay, absolute) -->
+<div class="check-result hidden" id="check-result" onclick="onResultTap()">
+  <div class="wr-panel" id="wr-panel">
+    <div class="wr-status" id="wr-status">VALID!</div>
+    <div class="wr-word" id="wr-word"></div>
+    <div class="wr-score" id="wr-score">+300</div>
+    <div class="wr-score-detail" id="wr-score-detail"></div>
+    <div id="wr-bonus-tag" class="wr-bonus-tag hidden">+100 BONUS</div>
+    <div class="wr-suggest-row hidden" id="wr-suggest-row">
+      <div class="wr-suggest-label">Bunu mu istedin? / Did you mean?</div>
+      <div class="wr-suggest-word" id="wr-suggest-word"></div>
+      <button class="wr-suggest-btn" onclick="onAcceptSuggestion()">✓ EVET, BU KELİMEYİ KABUL ET</button>
+    </div>
+    <div class="wr-override-row hidden" id="wr-override-row">
+      <button class="wr-reject-btn" onclick="onOverrideReject()">✗ REJECT (0 pts)</button>
+      <button class="wr-accept-btn" onclick="onOverrideAccept()">✓ ACCEPT ANYWAY</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════
+     OVERLAY: ROW RESULTS
+════════════════════════════════ -->
+<div id="overlay-row-results" class="overlay hidden">
+  <div class="rr-box modal-panel">
+    <div class="rr-header">
+      <div>
+        <div class="rr-title row1" id="rr-title">ROW 1 RESULTS</div>
+        <div class="rr-cat-label row1" id="rr-cat-label">ANIMALS</div>
+      </div>
+    </div>
+    <div class="rr-cards" id="rr-cards"></div>
+    <button class="rr-next-btn" id="rr-next-btn" onclick="onRowResultsNext()">▶ NEXT ROW</button>
+  </div>
+</div>
+
+<!-- ════════════════════════════════
+     OVERLAY: ROUND SUMMARY
+════════════════════════════════ -->
+<div id="overlay-round-summary" class="overlay hidden">
+  <div class="rs-box modal-panel">
+    <div class="rs-header">
+      <div>
+        <div class="rs-title" id="rs-title">ROUND 1 SCORES</div>
+        <div id="rs-dbl-tag" class="rs-dbl-tag hidden">⚡ DOUBLE POINTS</div>
+      </div>
+      <div style="display:flex;gap:8px">
+        <button class="rs-end-btn" onclick="triggerEndGame()">END GAME</button>
+        <button class="rs-next-btn" onclick="nextRound()">NEXT ROUND ▶</button>
+      </div>
+    </div>
+    <div class="rs-list" id="rs-list"></div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════
+     OVERLAY: GAME OVER
+════════════════════════════════ -->
+<div id="overlay-game-over" class="overlay hidden">
+  <div class="go-box modal-panel">
+    <div class="go-title">🏆 FINAL RESULTS</div>
+    <div class="go-subtitle" id="go-subtitle">— — —</div>
+    <div class="go-grid" id="go-grid"></div>
+    <div style="display:flex;gap:10px;justify-content:center;margin-top:4px">
+      <button class="sugg-trigger" id="sugg-trigger" onclick="showSuggestions()">📋 ÖNERİLER<span class="sugg-dot" id="sugg-dot"></span></button>
+      <button class="go-play-again-btn" onclick="restartGame()">▶ YENİ OYUN</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════
+     OVERLAY: MID-GAME SCORES
+════════════════════════════════ -->
+<div id="overlay-mid-scores" class="overlay hidden" onclick="hideMidScores()">
+  <div class="go-box modal-panel" onclick="event.stopPropagation()">
+    <div class="go-title">📊 CURRENT SCORES</div>
+    <div class="go-subtitle" id="ms-subtitle">— — —</div>
+    <div class="go-grid" id="ms-grid"></div>
+    <button class="go-play-again-btn" style="background:linear-gradient(135deg,#1e40af,#3b82f6);box-shadow:0 6px 28px rgba(59,130,246,.4)" onclick="hideMidScores()">✕ KAPAT</button>
+  </div>
+</div>
+
+<!-- FULLSCREEN BUTTON -->
+<button id="fs-btn" onclick="toggleFS()" title="Toggle Fullscreen">⛶</button>
+
+<!-- END GAME BUTTON -->
+<button id="end-game-btn" onclick="triggerEndGame()">■ END GAME</button>
+
+<!-- SETTINGS OVERLAY -->
+<div id="overlay-game-settings" class="hidden">
+  <div class="settings-box">
+    <div class="settings-title">⚙ SETTINGS</div>
+    <div class="settings-row">
+      <div class="settings-label">ROUND TIME <span id="lbl-round-time">32s</span></div>
+      <div class="settings-slider-wrap">
+        <input type="range" class="settings-slider" id="slider-round-time" min="0" max="2" step="1" value="1"
+          oninput="onRoundTimeChange(this.value)">
+      </div>
+      <div class="settings-ticks"><span>32s</span><span>60s</span><span>90s</span></div>
+    </div>
+    <div class="settings-row">
+      <div class="settings-label">TYPING TIME <span id="lbl-typing-time">30s</span></div>
+      <div class="settings-slider-wrap">
+        <input type="range" class="settings-slider" id="slider-typing-time" min="0" max="1" step="1" value="0"
+          oninput="onTypingTimeChange(this.value)">
+      </div>
+      <div class="settings-ticks"><span>30s</span><span>45s</span></div>
+    </div>
+    <button class="settings-close-btn" onclick="closeGameSettings()">KAYDET & KAPAT</button>
+  </div>
+</div>
+
+<!-- CONFIRM OVERLAY -->
+<div id="overlay-confirm" class="hidden">
+  <div class="confirm-box">
+    <div class="confirm-title">⚠ EMİN MİSİN?</div>
+    <div class="confirm-msg" id="confirm-msg">Bu işlemi geri alamazsın.</div>
+    <div class="confirm-btns">
+      <button class="confirm-no" onclick="hideConfirm()">İPTAL</button>
+      <button class="confirm-yes" id="confirm-yes-btn">EVET, SİL</button>
+    </div>
+  </div>
+</div>
+
+<!-- SUGGESTIONS PANEL -->
+<div id="overlay-suggestions" class="hidden">
+  <div class="sugg-box modal-panel">
+    <div class="sugg-header">
+      <div class="sugg-title">📋 EKLEME ÖNERİLERİ</div>
+      <button class="sugg-close" onclick="hideSuggestions()">✕</button>
+    </div>
+    <div class="sugg-desc">Oyun sırasında listede olmayan ama öğretmen tarafından kabul edilen kelimeler. "KOPYALA" ile kodu al, word_categories.js dosyasına yapıştır.</div>
+    <div class="sugg-body" id="sugg-body"></div>
+    <div class="sugg-footer">
+      <button class="sugg-copy-btn" onclick="copySuggestions()">KOPYALA</button>
+      <button class="sugg-clear-btn" onclick="clearSuggestions()">TEMİZLE</button>
+      <span class="sugg-copied" id="sugg-copied">✓ Kopyalandı!</span>
+    </div>
+  </div>
+</div>
+
+<!-- OVERLAY: TUTORIAL -->
+<div id="overlay-tutorial" class="overlay hidden">
+  <div class="tut-box modal-panel">
+    <div class="tut-header">
+      <div class="tut-title">HOW TO PLAY</div>
+      <button class="tut-close" onclick="closeTutorial()">✕</button>
+    </div>
+    <div class="tut-body">
+
+      <!-- AMAÇ -->
+      <div class="tut-section">
+        <div class="tut-section-title"><span>🎯</span> AMAÇ</div>
+        <div class="tut-p">Her turda ekrana gelen kategoriyi gör, o kategoriye uygun bir kelime bul. <em>Kimsenin aklına gelmeyen</em> kelimeyi yazan en yüksek puanı kazanır. En çok puan toplayan oyuncu oyunu kazanır!</div>
+      </div>
+
+      <!-- KURULUM -->
+      <div class="tut-section">
+        <div class="tut-section-title"><span>👥</span> KURULUM</div>
+        <div class="tut-p">Oyuncular başlamadan önce <b>3 gruba</b> ayrılır:</div>
+        <div class="tut-row-badges">
+          <span class="tut-badge r1">ROW 1 — ÖN SIRALAR</span>
+          <span class="tut-badge r2">ROW 2 — ORTA SIRALAR</span>
+          <span class="tut-badge r3">ROW 3 — ARKA SIRALAR</span>
+        </div>
+        <div class="tut-p" style="margin-top:8px">Her grubun <b>farklı bir kategorisi</b> vardır. Aynı gruptaki oyuncular birbirleriyle rekabet eder — o yüzden farklı kelimeler bulmak kritiktir!</div>
+      </div>
+
+      <!-- TUR AKIŞI -->
+      <div class="tut-section">
+        <div class="tut-section-title"><span>🃏</span> TUR AKIŞI</div>
+        <div class="tut-p"><b>1.</b> Ekrana her sıra için bir <em>kategori kartı</em> açılır (ör: ROW 1 → ANIMALS, ROW 2 → COLOURS, ROW 3 → JOBS).</div>
+        <div class="tut-p"><b>2.</b> Altta bir <em>BONUS</em> kategorisi görünür — bu turu geçerli olan ek koşul (ör: STARTS WITH A, 4 LETTERS, CONTAINS L).</div>
+        <div class="tut-p"><b>3.</b> <em>LET's START</em> butonuna basılır ve geri sayım başlar. Oyuncular süre dolmadan zihinlerinde bir kelime belirler — kimseye söylemezler!</div>
+        <div class="tut-p"><b>4.</b> Süre dolunca <em>CHECK aşaması</em> başlar: her oyuncu sırayla tahtaya gelir, kategorisine uygun kelimesini klavyeyle yazar ve <b>SUBMIT</b> ile onaylar.</div>
+      </div>
+
+
+    </div>
+  </div>
+</div>
+
+<div id="teacher-toast">🎓 TEACHER MODE ACTIVE</div>
+
+<!-- OVERLAY: RENAME PLAYER -->
+<div id="overlay-rename" class="overlay hidden">
+  <div class="rn-box modal-panel">
+    <div class="ov-title" style="font-size:26px;margin-bottom:2px">RENAME PLAYER</div>
+    <div class="rn-display-wrap">
+      <div class="rn-display" id="rn-display">—</div>
+    </div>
+    <div id="rn-keyboard"></div>
+    <button class="rn-cancel-btn" onclick="closeRenameOverlay()">CANCEL</button>
+  </div>
+</div>
+
+<script src="names.js" onerror="void 0"></script>
+<script src="rgbkeyboard.js"></script>
+<script src="word_categories.js"></script>
+<script>
+// ═══════════════════════════════════════════════════════
+//  CLASH OF WORDS — Game Logic
+// ═══════════════════════════════════════════════════════
+
+// ── TEACHER MODE — gizli C-L-A-S-H tıklaması ─────────
+let _teacherMode = false;
+try { CLASSES; } catch(e) { window.CLASSES = []; }
+
+const _SECRET_SEQ = ['C','L','A','S'];
+let _secretIdx  = 0;
+let _secretTimer = null;
+
+function _secretTap(l){
+  if(l===_SECRET_SEQ[_secretIdx]){
+    _secretIdx++;
+    clearTimeout(_secretTimer);
+    if(_secretIdx===_SECRET_SEQ.length){
+      _secretIdx=0;
+      setTimeout(()=>{
+        _teacherMode=true;
+        const logo=document.querySelector('.mn-logo');
+        if(logo){ logo.style.transition='color .4s'; logo.style.color='#4ade80';
+          setTimeout(()=>{ logo.style.color=''; logo.style.transition=''; },900); }
+        _applyTeacherModeUI();
+        _showTeacherToast();
+      },350);
+    } else {
+      _secretTimer=setTimeout(()=>{ _secretIdx=0; },3000);
+    }
+  } else {
+    _secretIdx=0;
+    clearTimeout(_secretTimer);
+  }
+}
+
+function openTutorial(){ show('overlay-tutorial'); }
+function closeTutorial(){ hide('overlay-tutorial'); }
+
+function _applyTeacherModeUI(){
+  const btn=document.getElementById('gs-open-overlay-btn');
+  if(btn) btn.classList.toggle('hidden', !_teacherMode);
+}
+
+function _showTeacherToast(){
+  const t=document.getElementById('teacher-toast'); if(!t) return;
+  t.classList.remove('hide'); t.classList.add('show');
+  setTimeout(()=>{ t.classList.remove('show'); t.classList.add('hide'); },3000);
+}
+
+// ── CATEGORY DATA ────────────────────────────────────────
+const CAT_TR = {
+  "ANIMALS":        "HAYVANLAR",
+  "PLACES":         "YERLER",
+  "GAMES/SPORTS":   "OYUN/SPOR",
+  "COUNTRIES":      "ÜLKELER",
+  "FRUIT/VEGETABLES": "MEYVE/SEBZE",
+  "BEVERAGES":      "İÇECEKLER",
+  "ACTIONS":        "FİİLLER",
+  "ADJECTIVES":     "SIFATLAR",
+  "JOBS":           "MESLEKLER",
+  "ILLNESSES":      "HASTALIKLAR",
+  "LESSONS":        "DERSLER",
+  "NATIONALITIES":  "MİLLİYETLER",
+  "DAILY ROUTINE":  "GÜNLÜK RUTIN",
+  "COLOURS":        "RENKLER",
+  "BODY PARTS":     "VÜCUT PARÇALARI",
+  "MOVIE TYPES":    "FİLM TÜRLERİ",
+  "TIME":           "ZAMAN",
+  "PARTIES":        "PARTİLER",
+  "SCHOOL OBJECTS": "OKUL EŞYAları",
+  "FURNITURE":      "MOBİLYA",
+  "VEHICLES":       "TAŞITLAR",
+  "CLOTHING":       "KIYAFETler",
+};
+function catTR(en){ return CAT_TR[en]||''; }
+
+const CAT_THUMB = {
+  "ANIMALS":          "THUMBNAILS/animals.png",
+  "PLACES":           "THUMBNAILS/places.png",
+  "GAMES/SPORTS":     "THUMBNAILS/games.png",
+  "COUNTRIES":        "THUMBNAILS/countries.png",
+  "FRUIT/VEGETABLES": "THUMBNAILS/fruit.png",
+  "BEVERAGES":        "THUMBNAILS/beverages.png",
+  "JOBS":             "THUMBNAILS/jobs.png",
+  "ILLNESSES":        "THUMBNAILS/illnesses.png",
+  "SCHOOL OBJECTS":   "THUMBNAILS/school.png",
+  "FURNITURE":        "THUMBNAILS/furniture.png",
+  "ACTIONS":          "THUMBNAILS/actions.png",
+  "ADJECTIVES":       "THUMBNAILS/adjectives.png",
+  "LESSONS":          "THUMBNAILS/lessons.png",
+  "NATIONALITIES":    "THUMBNAILS/nationalities.png",
+  "DAILY ROUTINE":    "THUMBNAILS/dailyroutine.png",
+  "COLOURS":          "THUMBNAILS/colours.png",
+  "BODY PARTS":       "THUMBNAILS/bodyparts.png",
+  "MOVIE TYPES":      "THUMBNAILS/movietypes.png",
+  "TIME":             "THUMBNAILS/time.png",
+  "PARTIES":          "THUMBNAILS/parties.png",
+  "VEHICLES":         "THUMBNAILS/vehicles.png",
+  "CLOTHING":         "THUMBNAILS/clothing.png",
+};
+function catThumb(en){ return CAT_THUMB[en]||null; }
+
+const MAIN_CATEGORIES = [
+  "ANIMALS","PLACES","GAMES/SPORTS","COUNTRIES",
+  "FRUIT/VEGETABLES","BEVERAGES","ACTIONS","ADJECTIVES",
+  "JOBS","ILLNESSES","LESSONS","NATIONALITIES","DAILY ROUTINE",
+  "COLOURS","BODY PARTS","MOVIE TYPES","TIME","PARTIES",
+  "SCHOOL OBJECTS","FURNITURE","VEHICLES","CLOTHING"
+];
+const BONUS_CATEGORIES = [
+  "STARTS WITH A","STARTS WITH E","STARTS WITH M","STARTS WITH S",
+  "STARTS WITH T","STARTS WITH C","4 LETTERS","5 LETTERS","6 LETTERS",
+  "MORE THAN 6 LETTERS","2 WORDS","CONTAINS L","CONTAINS P"
+];
+
+// ── GAME STATE ───────────────────────────────────────────
+let selectedClass  = null;
+let selectedPlayers = [];    // [{name,level}]
+let pairs = [];              // [[name1, name2], ...] — çiftler
+let _pairingMode   = false;  // pair seçimi aktif mi
+let _pairingSource = null;   // kaynak öğrenci adı
+let _lastSelected  = null;   // en son seçilen öğrenci adı
+let seats = [[],[],[]];      // seats[row0-2] = [playerName, ...]
+let _selectedFromPool = null; // seating pool'dan seçilen id
+
+let roundNumber      = 0;
+let categoryHistory  = [];   // prevent repeats
+let bonusHistory     = [];
+let wordHistory      = new Set(); // all accepted words from past rounds
+let playerScores     = {};   // {name: totalScore}
+let playerWordCount  = {};   // {name: toplam doğru kelime sayısı}
+let playerUniqueCount= {};   // {name: unique (300pt) kelime sayısı}
+let playerBonusCount = {};   // {name: bonus kazandığı kelime sayısı}
+let playerStreak     = {};   // {name: ardışık doğru sayısı}
+
+let currentRound = { row1:'', row2:'', row3:'', bonus:'', isDouble: false };
+let rowOrder         = [];   // order rows are called, e.g. [2,3,1]
+let currentRowPhaseIdx = 0;  // index into rowOrder
+let rowCheckQueue    = [];   // [{playerName,row,rowCategory}] for current row
+let rowCheckIdx      = 0;    // student index within current row
+let roundSubmissions = {};   // {name: {word, accepted, bonusApplies, score?, type?}}
+let pendingOverride  = null; // while teacher is deciding
+
+let timerInterval  = null;
+let timeLeft       = 32;
+let timerAudio     = null;
+let _resultLocked  = false;
+let _autoDismissTimer = null;
+let _checkTimerInterval = null;
+let _checkTimeLeft = 30;
+
+// ── SETTINGS ─────────────────────────────────────────────
+const SETTINGS_KEY = 'cow_settings';
+const ROUND_TIME_OPTS  = [32, 60, 90];
+const TYPING_TIME_OPTS = [30, 45];
+let _roundTimeSecs  = 32;
+let _typingTimeSecs = 30;
+
+function loadSettings(){
+  try{
+    const s=JSON.parse(localStorage.getItem(SETTINGS_KEY)||'{}');
+    if(ROUND_TIME_OPTS.includes(s.roundTime))  _roundTimeSecs =s.roundTime;
+    if(TYPING_TIME_OPTS.includes(s.typingTime)) _typingTimeSecs=s.typingTime;
+  }catch(e){}
+  applySettingsToUI();
+}
+function saveSettings(){
+  localStorage.setItem(SETTINGS_KEY,JSON.stringify({roundTime:_roundTimeSecs,typingTime:_typingTimeSecs}));
+}
+function applySettingsToUI(){
+  const ri=ROUND_TIME_OPTS.indexOf(_roundTimeSecs);
+  const ti=TYPING_TIME_OPTS.indexOf(_typingTimeSecs);
+  const sr=document.getElementById('slider-round-time');
+  const st=document.getElementById('slider-typing-time');
+  if(sr) sr.value=ri>=0?ri:1;
+  if(st) st.value=ti>=0?ti:0;
+  const lr=document.getElementById('lbl-round-time');
+  const lt=document.getElementById('lbl-typing-time');
+  if(lr) lr.textContent=_roundTimeSecs+'s';
+  if(lt) lt.textContent=_typingTimeSecs+'s';
+}
+function onRoundTimeChange(idx){
+  _roundTimeSecs=ROUND_TIME_OPTS[+idx]||32;
+  const l=document.getElementById('lbl-round-time'); if(l) l.textContent=_roundTimeSecs+'s';
+}
+function onTypingTimeChange(idx){
+  _typingTimeSecs=TYPING_TIME_OPTS[+idx]||30;
+  const l=document.getElementById('lbl-typing-time'); if(l) l.textContent=_typingTimeSecs+'s';
+}
+function openGameSettings(){ applySettingsToUI(); show('overlay-game-settings'); }
+function closeGameSettings(){ saveSettings(); hide('overlay-game-settings'); }
+
+// ── BACKGROUND ───────────────────────────────────────────
+(function spawnStars(){
+  const c=document.getElementById('stars');
+  const rnd=(a,b)=>a+Math.random()*(b-a);
+
+  // ── Regular twinkle stars (40 adet — INP için azaltıldı)
+  for(let i=0;i<40;i++){
+    const s=document.createElement('div');
+    s.className='star';
+    const sz=rnd(.6,2.8);
+    s.style.cssText=`left:${rnd(0,100)}%;top:${rnd(0,100)}%;width:${sz}px;height:${sz}px;--d:${rnd(2,6)}s;--max:${rnd(.3,.85)};animation-delay:${-rnd(0,6)}s`;
+    c.appendChild(s);
+  }
+
+  // ── Pulsating stars (8 adet — INP için azaltıldı)
+  for(let i=0;i<8;i++){
+    const s=document.createElement('div');
+    s.className='star pulse';
+    const sz=rnd(2,4.5);
+    s.style.cssText=`left:${rnd(0,100)}%;top:${rnd(0,100)}%;width:${sz}px;height:${sz}px;--d:${rnd(2.5,5.5)}s;animation-delay:${-rnd(0,6)}s`;
+    c.appendChild(s);
+  }
+
+  // ── Bright slow-glow stars (5 adet — INP için azaltıldı)
+  for(let i=0;i<5;i++){
+    const s=document.createElement('div');
+    s.className='star glow';
+    const sz=rnd(2.5,5);
+    s.style.cssText=`left:${rnd(0,100)}%;top:${rnd(0,100)}%;width:${sz}px;height:${sz}px;--d:${rnd(5,10)}s;animation-delay:${-rnd(0,10)}s`;
+    c.appendChild(s);
+  }
+
+  // ── Shooting star sistemi — her 10-15 sn'de bir ateşle
+  function spawnShootingStar(){
+    const star=document.createElement('div');
+    star.className='shooting-star';
+    // Sağ üst çeyrekten başla, uzunluk 100-240px, açı -25° ile -40° arası
+    const len=rnd(100,240);
+    const ang=rnd(-40,-22);
+    // Açıya göre ne kadar yol gideceğini hesapla (ekranı tam geçsin)
+    const dist=-(rnd(90,130))+'vw';
+    const startX=rnd(30,105);   // % — sağdan başlaması için %30+ başla
+    const startY=rnd(-2,45);    // % — ekranın üst yarısı
+    star.style.cssText=`
+      left:${startX}%;top:${startY}%;
+      width:${len}px;
+      --ang:${ang}deg;
+      --dist:${dist};
+      animation:shootAcross ${rnd(1100,1800).toFixed(0)}ms ease-in forwards`;
+    c.appendChild(star);
+    star.addEventListener('animationend',()=>star.remove(),{once:true});
+  }
+
+  function scheduleShootingStar(){
+    setTimeout(()=>{
+      spawnShootingStar();
+      scheduleShootingStar();   // kendini tekrar zamanla
+    }, rnd(10000,15000));
+  }
+  scheduleShootingStar();
+
+})();
+(function spawnNebula(){
+  const n=document.getElementById('nebula');
+  [{c:'255,100,0',x:'-10%',y:'10%',w:'65vw',h:'65vh',a:.10,nd:22,nx:'30px',ny:'20px',d:0},
+   {c:'180,40,0', x:'50%', y:'50%',w:'60vw',h:'55vh',a:.07,nd:18,nx:'-25px',ny:'35px',d:-8},
+   {c:'255,140,0',x:'20%', y:'70%',w:'50vw',h:'45vh',a:.06,nd:26,nx:'20px',ny:'-20px',d:-5}]
+  .forEach(b=>{
+    const el=document.createElement('div');el.className='nblob';
+    /* radial-gradient: merkez yoğun, kenarlara doğru şeffaflaşır — filter:blur olmadan yumuşak efekt */
+    el.style.cssText=`background:radial-gradient(ellipse at center,rgba(${b.c},${b.a}) 0%,transparent 70%);left:${b.x};top:${b.y};width:${b.w};height:${b.h};--nd:${b.nd}s;--nx:${b.nx};--ny:${b.ny};animation-delay:${b.d}s`;
+    n.appendChild(el);
+  });
+})();
+(function spawnCornerLights(){
+  const cl=document.getElementById('corner-lights');
+  [{c:'#FF8C00',t:-200,l:-200},{c:'#C03080',b:-200,r:-200},{c:'#FF4500',t:-150,r:-150}].forEach(o=>{
+    const d=document.createElement('div');d.className='clight';
+    d.style.cssText=`background:${o.c};width:400px;height:400px;`+
+      (o.t!==undefined?`top:${o.t}px;`:'')+(o.b!==undefined?`bottom:${o.b}px;`:'')+
+      (o.l!==undefined?`left:${o.l}px;`:'')+(o.r!==undefined?`right:${o.r}px;`:'');
+    cl.appendChild(d);
+  });
+})();
+
+// ── MAIN MENU EFFECTS (Hideo Kojima Mode) ────────────────
+const _menuFX=[];
+function stopMenuEffects(){ _menuFX.forEach(id=>clearInterval(id)); _menuFX.length=0; }
+
+function _mnStarfield(){
+  const el=document.getElementById('screen-lobby'); if(!el) return;
+  // Remove old mn-stars first
+  el.querySelectorAll('.mn-star').forEach(s=>s.remove());
+  for(let i=0;i<80;i++){
+    const s=document.createElement('div'); s.className='mn-star';
+    const r=Math.random(), size=r<.70?1:r<.90?2:3;
+    const dur=1.2+Math.random()*3.5, del=-(Math.random()*dur);
+    const op=size===1?.3+Math.random()*.4:size===2?.55+Math.random()*.35:.82+Math.random()*.18;
+    const gl=size===1?'3px':size===2?'5px':'9px';
+    s.style.cssText=`left:${Math.random()*100}%;top:${Math.random()*100}%;width:${size}px;height:${size}px;--dur:${dur}s;--del:${del}s;--op:${op};--gl:${gl}`;
+    el.appendChild(s);
+  }
+}
+
+function _mnSpawnShoot(){
+  const el=document.getElementById('screen-lobby'); if(!el||el.classList.contains('hidden')) return;
+  const s=document.createElement('div'); s.className='mn-shoot';
+  // Sol üstten sağ alta: başlangıç sol+üst bölge, pozitif dist (sağa gider)
+  const startX=-5+Math.random()*30;   // vw — sol taraf
+  const startY= 2+Math.random()*40;   // vh — üst yarı
+  const len=70+Math.random()*130;
+  const dist=`${55+Math.random()*40}vw`;   // sağa doğru
+  const dur=0.55+Math.random()*0.55;
+  const ang=22+Math.random()*18;           // pozitif açı → sağ-aşağı
+  s.style.cssText=`left:${startX}vw;top:${startY}vh;--len:${len}px;--dist:${dist};--dur:${dur}s;--ang:${ang}deg`;
+  el.appendChild(s);
+  setTimeout(()=>s.remove(),dur*1000+300);
+}
+
+const _LEAF_C=[
+  ['rgba(255,210,0,.7)','rgba(255,170,0,.35)'],
+  ['rgba(255,140,30,.65)','rgba(200,80,0,.3)'],
+  ['rgba(255,240,150,.55)','rgba(255,200,60,.22)'],
+  ['rgba(255,80,40,.5)','rgba(180,30,0,.22)'],
+  ['rgba(255,200,180,.45)','rgba(220,100,60,.2)'],
+];
+const _LEAF_BR=['50% 0 50% 0','0 50% 0 50%','50%','40% 60% 40% 60%','30% 70% 60% 40%'];
+function _mnSpawnLeaf(){
+  const el=document.getElementById('screen-lobby'); if(!el||el.classList.contains('hidden')) return;
+  const [lc,lg]=_LEAF_C[Math.floor(Math.random()*_LEAF_C.length)];
+  const br=_LEAF_BR[Math.floor(Math.random()*_LEAF_BR.length)];
+  const w=6+Math.random()*11, h=w*(.5+Math.random()*.6);
+  const dur=5+Math.random()*6, del=-(Math.random()*2);
+  const op=.45+Math.random()*.45, rot=(Math.random()>.5?1:-1)*(200+Math.random()*300);
+  const amp=55+Math.random()*80, dir=Math.random()>.5?1:-1;
+  const s1=`${dir*amp*.3}px`,s2=`${-dir*amp*.1}px`,s3=`${dir*amp*.6}px`,s4=`${-dir*amp*.2}px`;
+  const leaf=document.createElement('div'); leaf.className='mn-leaf';
+  leaf.style.cssText=`left:${Math.random()*100}vw;width:${w}px;height:${h}px;--br:${br};--lc:${lc};--lg:${lg};--dur:${dur}s;--del:${del}s;--op:${op};--rot:${rot}deg;--s1:${s1};--s2:${s2};--s3:${s3};--s4:${s4}`;
+  el.appendChild(leaf);
+  setTimeout(()=>leaf.remove(),(dur+Math.abs(del))*1000+500);
+}
+
+const _CR_SYM=['✦','✧','⋆','·','★','✨'];
+function _mnSpawnCreditStar(){
+  const wrap=document.getElementById('creditWrap'); if(!wrap||wrap.closest('.hidden')) return;
+  // offsetWidth/Height okumak layout thrash yapar — sabit değer kullan
+  const w=wrap._cw||(wrap._cw=wrap.offsetWidth||200);
+  const h=wrap._ch||(wrap._ch=wrap.offsetHeight||28);
+  const s=document.createElement('span'); s.className='cr-star';
+  s.textContent=_CR_SYM[Math.floor(Math.random()*_CR_SYM.length)];
+  const x0=Math.random()*w, y0=Math.random()*h;
+  const tx1=(Math.random()-.5)*32, ty1=(Math.random()-.5)*22;
+  const tx2=(Math.random()-.5)*55, ty2=-22-Math.random()*32;
+  const dur=1.4+Math.random()*1.6;
+  s.style.cssText=`left:${x0}px;top:${y0}px;--tx1:${tx1}px;--ty1:${ty1}px;--tx2:${tx2}px;--ty2:${ty2}px;--dur:${dur}s;font-size:${7+Math.random()*9}px`;
+  wrap.appendChild(s);
+  setTimeout(()=>s.remove(),dur*1000);
+}
+
+function startMenuEffects(){
+  stopMenuEffects();
+  _mnStarfield();
+  // İlk yapraklar — ekran boş görünmesin
+  for(let i=0;i<16;i++) setTimeout(_mnSpawnLeaf,i*200);
+  _menuFX.push(setInterval(_mnSpawnLeaf,450));
+  // Kayan yıldızlar
+  setTimeout(()=>{
+    _mnSpawnShoot();
+    _menuFX.push(setInterval(()=>{
+      _mnSpawnShoot();
+      if(Math.random()<.35) setTimeout(_mnSpawnShoot,280+Math.random()*350);
+    },3200+Math.random()*2000));
+  },900+Math.random()*1200);
+  // Credit constellation
+  _menuFX.push(setInterval(_mnSpawnCreditStar,700));
+}
+
+function onMenuPlay(){
+  stopMenuEffects();
+  if(_teacherMode && CLASSES.length>0){
+    openSettings();
+  } else {
+    openWebStudentSelect();
+  }
+}
+
+// Sayfa yüklendiğinde menü efektlerini başlat
+window.addEventListener('load', ()=>{ loadSettings(); startMenuEffects(); _applyTeacherModeUI(); });
+
+// Müzik: tarayıcı autoplay'i bloklar, ilk etkileşimde başlat
+(function(){
+  let _musicStarted=false;
+  function _tryStartMusic(){
+    if(_musicStarted) return;
+    _musicStarted=true;
+    playMenuMusic();
+    ['click','touchstart','keydown'].forEach(e=>document.removeEventListener(e,_tryStartMusic));
+  }
+  ['click','touchstart','keydown'].forEach(e=>document.addEventListener(e,_tryStartMusic,{once:false}));
+})();
+
+// ── CREDIT MARQUEE ───────────────────────────────────────
+let creditStarted = false;
+function startCreditMarquee(){
+  if(creditStarted) return; creditStarted=true;
+  const el=document.getElementById('credit-text');
+  function fire(){
+    el.style.animation='none'; void el.offsetWidth;
+    el.style.animation='creditScroll 10s linear forwards';
+    const next=(120+Math.floor(Math.random()*61))*1000;
+    setTimeout(fire,10000+next);
+  }
+  setTimeout(fire,3000);
+}
+
+// ── SETTINGS ─────────────────────────────────────────────
+function openSettings(){
+  playMenuMusic();
+  const grid=document.getElementById('class-grid'); grid.innerHTML='';
+  CLASSES.forEach(cls=>{
+    const btn=document.createElement('button');
+    btn.className='class-btn';
+    btn.textContent=`${cls.label}  —  ${cls.students.length} students`;
+    btn.onclick=()=>selectClass(cls);
+    grid.appendChild(btn);
+  });
+  show('overlay-settings');
+}
+
+function selectClass(cls){
+  selectedClass=cls;
+  const sub=document.getElementById('ss-sub');
+  if(sub) sub.innerHTML=`Öğrencilere tıkla — min 3, her sıraya en az 1 · Sınıf: <strong style="color:var(--gold)">${cls.label}</strong>`;
+  buildStudentPool();
+  hide('overlay-settings');
+  show('overlay-student-select');
+}
+
+function openWebStudentSelect(){
+  playMenuMusic();
+  selectedClass=null;
+  const sub=document.getElementById('ss-sub');
+  if(sub) sub.innerHTML='Oynamasını istediğiniz sayıda öğrenciyi aktifleştirin · Seçtikten sonra <span style="color:var(--gold)">RENAME</span> ile isim yazabilirsiniz';
+  buildStudentPool();
+  show('overlay-student-select');
+}
+
+// ── STUDENT SELECT ───────────────────────────────────────
+function buildStudentPool(){
+  selectedPlayers=[]; pairs=[];
+  _pairingMode=false; _pairingSource=null; _lastSelected=null;
+  const pool=document.getElementById('ss-class-pool'); pool.innerHTML='';
+  if(_teacherMode && selectedClass){
+    selectedClass.students.forEach(s=>{
+      const chip=document.createElement('button');
+      chip.className='ss-chip';
+      chip.textContent=s.name;
+      chip.dataset.name=s.name;
+      chip.onclick=()=>togglePlayer(s,chip);
+      pool.appendChild(chip);
+    });
+  } else {
+    const saved=_loadStudentNames();
+    for(let i=1;i<=18;i++){
+      const nm=saved[i-1]||`STUDENT ${i}`;
+      const s={name:nm,level:null};
+      const chip=document.createElement('button');
+      chip.className='ss-chip';
+      chip.textContent=nm;
+      chip.dataset.name=nm;
+      chip.dataset.slot=i;
+      chip.onclick=()=>togglePlayer(s,chip);
+      pool.appendChild(chip);
+    }
+  }
+  updateSSCount();
+}
+
+function togglePlayer(s,chip){
+  // ── Pairing mode: bu tıklama partner seçimi ──
+  if(_pairingMode){
+    if(s.name===_pairingSource){ cancelPairing(); return; }
+    if(pairs.some(([a,b])=>a===s.name||b===s.name)){
+      chip.classList.add('disabled'); setTimeout(()=>chip.classList.remove('disabled'),300); return;
+    }
+    if(!selectedPlayers.find(p=>p.name===s.name)){
+      selectedPlayers.push(s); chip.classList.add('selected');
+    }
+    createPair(_pairingSource,s.name);
+    return;
+  }
+  // ── Normal toggle ──
+  const idx=selectedPlayers.findIndex(p=>p.name===s.name);
+  if(idx>=0){
+    // Çiftli öğrenciyi deselect → çifti boz ve her ikisini kaldır
+    const pe=pairs.find(([a,b])=>a===s.name||b===s.name);
+    if(pe){
+      const partner=pe[0]===s.name?pe[1]:pe[0];
+      breakPair(pe[0],pe[1],null);
+      [s.name,partner].forEach(nm=>{
+        const i=selectedPlayers.findIndex(p=>p.name===nm);
+        if(i>=0) selectedPlayers.splice(i,1);
+        const c=document.querySelector(`.ss-chip[data-name="${nm}"]`);
+        if(c) c.classList.remove('selected');
+      });
+      if(_lastSelected===s.name||_lastSelected===partner) _lastSelected=null;
+    } else {
+      selectedPlayers.splice(idx,1);
+      chip.classList.remove('selected');
+      if(_lastSelected===s.name) _lastSelected=null;
+    }
+  } else {
+    if((selectedPlayers.length - pairs.length) >= 9){
+      showSSLimitWarning(); return;
+    }
+    selectedPlayers.push(s);
+    chip.classList.add('selected');
+    _lastSelected=s.name;
+  }
+  updateSSCount();
+}
+
+function showSSLimitWarning(){
+  const el=document.getElementById('ss-count');
+  el.textContent='Maksimum 9 birim! (Çift = 1 birim)';
+  el.className='ss-count limit-warn';
+  setTimeout(()=>updateSSCount(),1800);
+}
+
+function updateSSCount(){
+  const n=selectedPlayers.length;
+  const pc=pairs.length;
+  const units=n-pc;
+  const el=document.getElementById('ss-count');
+  let txt=n===0?'Henüz seçilmedi':`${n} öğrenci seçildi`;
+  if(pc>0) txt+=` · ${pc} çift`;
+  if(units>0) txt+=` · ${units} birim`;
+  el.textContent=txt;
+  el.className='ss-count'+(n>=3?' ready':'');
+  document.getElementById('ss-continue-btn').disabled=(n<3);
+  _updatePairWithBtn();
+  // RENAME butonu: sadece web modunda, tekil seçim varsa
+  const rnBtn=document.getElementById('ss-rename-btn');
+  if(rnBtn){
+    const inPair=_lastSelected&&pairs.some(([a,b])=>a===_lastSelected||b===_lastSelected);
+    const canRename=!_teacherMode&&_lastSelected&&!inPair;
+    rnBtn.classList.toggle('hidden',!canRename);
+  }
+}
+
+// ── PAIR WITH ─────────────────────────────────────────────
+function _updatePairWithBtn(){
+  const btn=document.getElementById('pair-with-btn'); if(!btn) return;
+  if(_pairingMode){
+    btn.textContent='✕ İPTAL'; btn.classList.add('active'); btn.disabled=false;
+  } else {
+    btn.textContent='⚭ PAIR WITH'; btn.classList.remove('active');
+    btn.disabled=!_lastSelected;
+  }
+}
+
+function onPairWithBtn(){
+  if(_pairingMode){ cancelPairing(); } else { startPairing(); }
+}
+
+function startPairing(){
+  if(!_lastSelected) return;
+  _pairingMode=true; _pairingSource=_lastSelected;
+  const chip=document.querySelector(`.ss-chip[data-name="${_pairingSource}"]`);
+  if(chip) chip.classList.add('pairing-source');
+  const hint=document.getElementById('ss-pair-hint');
+  if(hint) hint.textContent=`"${_pairingSource}" ile eşlenecek öğrenciyi seç`;
+  _updatePairWithBtn();
+}
+
+function cancelPairing(){
+  const src=_pairingSource;
+  _pairingMode=false; _pairingSource=null;
+  if(src){
+    const chip=document.querySelector(`.ss-chip[data-name="${src}"]`);
+    if(chip) chip.classList.remove('pairing-source');
+  }
+  const hint=document.getElementById('ss-pair-hint');
+  if(hint) hint.textContent='';
+  _updatePairWithBtn();
+}
+
+function createPair(n1,n2){
+  pairs.push([n1,n2]);
+  // Bireysel chip'leri gizle
+  [n1,n2].forEach(nm=>{
+    const c=document.querySelector(`.ss-chip[data-name="${nm}"]`);
+    if(c){ c.classList.add('paired-hidden'); c.classList.remove('pairing-source'); }
+  });
+  // Pair chip ekle
+  const pool=document.getElementById('ss-class-pool');
+  const pchip=document.createElement('button');
+  pchip.className='ss-chip pair-chip selected';
+  pchip.dataset.pair=`${n1}|||${n2}`;
+  const sn1=n1.replace(/'/g,"\\'"), sn2=n2.replace(/'/g,"\\'");
+  pchip.innerHTML=`${n1} <span class="ss-pair-amp">&</span> ${n2}&nbsp;<button class="ss-pair-x" onclick="breakPair('${sn1}','${sn2}',event)">×</button>`;
+  pool.appendChild(pchip);
+  _pairingMode=false; _pairingSource=null; _lastSelected=null;
+  const hint=document.getElementById('ss-pair-hint');
+  if(hint) hint.textContent='';
+  updateSSCount();
+}
+
+function breakPair(n1,n2,evt){
+  if(evt) evt.stopPropagation();
+  const idx=pairs.findIndex(([a,b])=>a===n1&&b===n2||a===n2&&b===n1);
+  if(idx>=0) pairs.splice(idx,1);
+  // Pair chip'i kaldır
+  const pchip=document.querySelector(`.ss-chip.pair-chip[data-pair="${n1}|||${n2}"]`);
+  if(pchip) pchip.remove();
+  // Bireysel chip'leri geri getir
+  [n1,n2].forEach(nm=>{
+    const c=document.querySelector(`.ss-chip[data-name="${nm}"]`);
+    if(c) c.classList.remove('paired-hidden');
+  });
+  updateSSCount();
+}
+
+// ── GUEST STUDENTS ────────────────────────────────────────
+const GS_MAX     = 10;
+const GS_MAX_LEN = 16;
+let _gsNames     = [];
+let _gsActive    = 0;
+let _gsKbHandler = null;
+
+function openGuestOverlay(){
+  _gsNames   = Array(GS_MAX).fill('');
+  _gsActive  = 0;
+  _buildGuestSlots();
+  _buildGuestKeyboard();
+  show('overlay-guest');
+  gsSelectSlot(0);
+  _gsKbHandler=(e)=>{
+    if(document.getElementById('overlay-guest').classList.contains('hidden')) return;
+    if(e.key==='Backspace'){e.preventDefault();gsOnKey('⌫');}
+    else if(e.key===' '){e.preventDefault();gsOnKey(' ');}
+    else if(e.key==='Enter'||e.key==='Tab'){e.preventDefault();gsMoveSlot(1);}
+    else if(e.key==='ArrowRight'){e.preventDefault();gsMoveSlot(1);}
+    else if(e.key==='ArrowLeft'){e.preventDefault();gsMoveSlot(-1);}
+    else if(e.key==='Escape'){e.preventDefault();closeGuestOverlay();}
+    else if(e.key.length===1&&/[a-zA-ZçÇğĞıİöÖşŞüÜ\-]/.test(e.key)){gsOnKey(e.key.toUpperCase());}
+  };
+  document.addEventListener('keydown',_gsKbHandler);
+}
+
+function closeGuestOverlay(){
+  hide('overlay-guest');
+  if(_gsKbHandler){document.removeEventListener('keydown',_gsKbHandler);_gsKbHandler=null;}
+}
+
+function _buildGuestSlots(){
+  const wrap=document.getElementById('gs-slots'); wrap.innerHTML='';
+  for(let i=0;i<GS_MAX;i++){
+    const slot=document.createElement('div');
+    slot.className='gs-slot'; slot.id=`gs-slot-${i}`;
+    slot.onclick=()=>gsSelectSlot(i);
+    slot.innerHTML=`<span class="gs-slot-num">${i+1}</span><span class="gs-slot-text empty" id="gs-stext-${i}">—</span>`;
+    wrap.appendChild(slot);
+  }
+}
+
+function gsSelectSlot(i){
+  _gsActive=Math.max(0,Math.min(GS_MAX-1,i));
+  document.querySelectorAll('.gs-slot').forEach((s,idx)=>s.classList.toggle('active',idx===_gsActive));
+  _gsRenderAllSlots();
+}
+
+function gsMoveSlot(dir){ gsSelectSlot(_gsActive+dir); }
+
+function _gsRenderSlot(i){
+  const el=document.getElementById(`gs-stext-${i}`);
+  if(!el) return;
+  const name=_gsNames[i];
+  if(i===_gsActive){
+    el.innerHTML=(name||'')+'<span class="gs-cursor">|</span>';
+    el.classList.remove('empty');
+  } else {
+    if(name){ el.textContent=name; el.classList.remove('empty'); }
+    else    { el.textContent='—'; el.classList.add('empty'); }
+  }
+}
+
+function _gsRenderAllSlots(){ for(let i=0;i<GS_MAX;i++) _gsRenderSlot(i); }
+
+function gsOnKey(k){
+  if(k==='⌫'){
+    _gsNames[_gsActive]=_gsNames[_gsActive].slice(0,-1);
+  } else if(k===' '){
+    if(_gsNames[_gsActive].length<GS_MAX_LEN) _gsNames[_gsActive]+=' ';
+  } else {
+    if(_gsNames[_gsActive].length<GS_MAX_LEN) _gsNames[_gsActive]+=k;
+  }
+  _gsRenderSlot(_gsActive);
+}
+
+function _buildGuestKeyboard(){
+  const kb=document.getElementById('gs-keyboard');
+  kb.innerHTML=''; kb.className='plain-kb';
+  const rows=[
+    ['Q','W','E','R','T','Y','U','I','O','P','⌫'],
+    ['A','S','D','F','G','H','J','K','L'],
+    ['Z','X','C','V','B','N','M',' ']
+  ];
+  rows.forEach(row=>{
+    const rowEl=document.createElement('div');
+    rowEl.className='plain-kb-row';
+    row.forEach(k=>{
+      const btn=document.createElement('button');
+      btn.className='plain-kb-key';
+      if(k==='⌫'){btn.classList.add('pkb-wide','pkb-del');btn.textContent='⌫';}
+      else if(k===' '){btn.classList.add('pkb-space');btn.textContent='SPACE';}
+      else{btn.textContent=k;}
+      btn.addEventListener('click',()=>gsOnKey(k));
+      rowEl.appendChild(btn);
+    });
+    kb.appendChild(rowEl);
+  });
+  // Navigasyon satırı
+  const navRow=document.createElement('div');
+  navRow.className='plain-kb-row';
+  [['← ÖNCEKİ',-1],['SONRAKİ →',1]].forEach(([label,dir])=>{
+    const btn=document.createElement('button');
+    btn.className='plain-kb-key pkb-nav';
+    btn.textContent=label;
+    btn.onclick=()=>gsMoveSlot(dir);
+    navRow.appendChild(btn);
+  });
+  kb.appendChild(navRow);
+}
+
+function confirmGuests(){
+  const existing=new Set(selectedPlayers.map(p=>p.name.toUpperCase()));
+  const pool=document.getElementById('ss-class-pool');
+  let added=0;
+  _gsNames.forEach(n=>{
+    const name=n.trim().replace(/\s+/g,' ').toUpperCase();
+    if(!name||existing.has(name)) return;
+    if((selectedPlayers.length - pairs.length) >= 9){ showSSLimitWarning(); return; }
+    const student={name,level:null};
+    selectedPlayers.push(student);
+    existing.add(name);
+    added++;
+    // Pool chip — pre-selected (already in selectedPlayers)
+    const chip=document.createElement('button');
+    chip.className='ss-chip gs-chip selected';
+    chip.textContent=name;
+    chip.dataset.name=name;
+    chip.onclick=()=>togglePlayer(student,chip);
+    pool.appendChild(chip);
+  });
+  updateSSCount();
+  closeGuestOverlay();
+}
+
+// ── RENAME PLAYER (web modu) ──────────────────────────────
+let _rnTargetName = null;
+let _rnText       = '';
+let _rnKbHandler  = null;
+
+function openRenameOverlay(){
+  if(!_lastSelected) return;
+  _rnTargetName=_lastSelected;
+  _rnText=(_lastSelected.startsWith('STUDENT ')?'':_lastSelected);
+  _updateRnDisplay();
+  RGBKeyboard.build('rn-keyboard', _rnOnKey);
+  _rnKbHandler=(e)=>{
+    if(document.getElementById('overlay-rename').classList.contains('hidden')) return;
+    if(e.key==='Escape'){e.preventDefault();closeRenameOverlay();return;}
+    if(e.key==='Backspace'){e.preventDefault();_rnOnKey('⌫');return;}
+    if(e.key===' '){e.preventDefault();_rnOnKey(' ');return;}
+    if(e.key==='Enter'){e.preventDefault();_rnOnKey('SUBMIT');return;}
+    if(e.key.length===1&&/[a-zA-ZçÇğĞıİöÖşŞüÜ\-]/.test(e.key)) _rnOnKey(e.key.toUpperCase());
+  };
+  document.addEventListener('keydown',_rnKbHandler);
+  show('overlay-rename');
+}
+
+function closeRenameOverlay(){
+  hide('overlay-rename');
+  if(_rnKbHandler){document.removeEventListener('keydown',_rnKbHandler);_rnKbHandler=null;}
+}
+
+function _rnOnKey(k){
+  if(k==='SUBMIT'){
+    if(!_rnText.trim()){RGBKeyboard.setSure(true);return;}
+    _applyRename();return;
+  }
+  RGBKeyboard.setSure(false);
+  if(k==='⌫'){_rnText=_rnText.slice(0,-1);}
+  else if(k===' '){if(_rnText.length<20)_rnText+=' ';}
+  else{if(_rnText.length<20)_rnText+=k;}
+  _updateRnDisplay();
+}
+
+function _updateRnDisplay(){
+  const el=document.getElementById('rn-display');
+  if(el) el.textContent=_rnText||'—';
+}
+
+function _applyRename(){
+  const newName=_rnText.trim().toUpperCase();
+  if(!newName||!_rnTargetName){closeRenameOverlay();return;}
+  const oldName=_rnTargetName;
+  // selectedPlayers objesini güncelle
+  const p=selectedPlayers.find(p=>p.name===oldName);
+  if(p) p.name=newName;
+  // DOM chip'ini güncelle
+  const allChips=document.querySelectorAll('.ss-chip');
+  const chip=Array.from(allChips).find(c=>c.dataset.name===oldName);
+  if(chip){chip.textContent=newName;chip.dataset.name=newName;}
+  _lastSelected=newName;
+  closeRenameOverlay();
+  updateSSCount();
+  _saveStudentNames();
+}
+
+function _saveStudentNames(){
+  const names=Array(18).fill(null);
+  document.querySelectorAll('#ss-class-pool .ss-chip[data-slot]').forEach(c=>{
+    const slot=parseInt(c.dataset.slot);
+    if(slot>=1&&slot<=18) names[slot-1]=c.dataset.name;
+  });
+  try{ localStorage.setItem('cow_student_names',JSON.stringify(names)); }catch(e){}
+}
+
+function _loadStudentNames(){
+  try{ return JSON.parse(localStorage.getItem('cow_student_names'))||[]; }
+  catch(e){ return []; }
+}
+
+// ── SEAT ASSIGNMENT ───────────────────────────────────────
+function openSeatAssign(){
+  seats=[[],[],[]];
+  _selectedFromPool=null;
+  hide('overlay-student-select');
+  buildSeatGrid();
+  show('overlay-seat-assign');
+}
+
+function buildSeatGrid(){
+  const wrap=document.getElementById('sa-grid-rows'); wrap.innerHTML='';
+  const rowInfo=[
+    ['ROW 1','FRONT','var(--row1)'],
+    ['ROW 2','MIDDLE','var(--row2)'],
+    ['ROW 3','BACK','var(--row3)']
+  ];
+  [0,1,2].forEach(r=>{
+    const zone=document.createElement('div');
+    zone.className='sa-row-zone'; zone.dataset.r=r;
+    zone.onclick=()=>onRowZoneClick(r);
+    const lbl=document.createElement('div');
+    lbl.className='sa-row-zone-lbl';
+    lbl.style.color=rowInfo[r][2];
+    lbl.innerHTML=`<span>${rowInfo[r][0]}</span><span class="sa-row-zone-sub">${rowInfo[r][1]}</span>`;
+    const chips=document.createElement('div');
+    chips.className='sa-row-zone-chips'; chips.id=`row-chips-${r}`;
+    chips.innerHTML=`<span class="sa-rz-empty">boş — öğrenci seç</span>`;
+    zone.appendChild(lbl);
+    zone.appendChild(chips);
+    wrap.appendChild(zone);
+  });
+  buildPool();
+}
+
+function _pairPoolId(n1,n2){ return ('pair_'+n1+'_AND_'+n2).replace(/\s+/g,'_'); }
+function _pairPoolKey(n1,n2){ return `PAIR:${n1}|||${n2}`; }
+
+function buildPool(){
+  const pool=document.getElementById('sa-pool'); pool.innerHTML='';
+  const pairedNames=new Set(pairs.flat());
+  // Pair chip'leri önce
+  pairs.forEach(([n1,n2])=>{
+    const chip=document.createElement('div');
+    chip.className='sa-pool-chip sa-pair-chip';
+    chip.id=`pool-chip-${_pairPoolId(n1,n2)}`;
+    chip.innerHTML=`${n1} <span class="sa-pair-amp">&</span> ${n2}`;
+    chip.onclick=()=>onPoolChipClick(_pairPoolKey(n1,n2));
+    pool.appendChild(chip);
+  });
+  // Bireysel chip'ler
+  selectedPlayers.forEach(p=>{
+    if(pairedNames.has(p.name)) return;
+    const chip=document.createElement('div');
+    chip.className='sa-pool-chip';
+    chip.id=`pool-chip-${p.name.replace(/\s+/g,'_')}`;
+    chip.textContent=p.name;
+    chip.onclick=()=>onPoolChipClick(p.name);
+    pool.appendChild(chip);
+  });
+  updatePoolChips();
+}
+
+/* Row zone tıklandı — seçili öğrenci/çifti o row'a ata */
+function onRowZoneClick(r){
+  if(!_selectedFromPool) return;
+  const isPair=_selectedFromPool.startsWith('PAIR:');
+  const names=isPair?_selectedFromPool.slice(5).split('|||'):[_selectedFromPool];
+  // Önceki row'dan kaldır
+  names.forEach(nm=>seats.forEach(arr=>{ const i=arr.indexOf(nm); if(i>=0) arr.splice(i,1); }));
+  // Yeni row'a ekle
+  names.forEach(nm=>seats[r].push(nm));
+  _selectedFromPool=null;
+  renderAllRowChips();
+  updatePoolChips();
+  updateSaInstruction();
+  checkSeatsDone();
+}
+
+/* Bir row'daki chip'leri yeniden çiz (pair-aware) */
+function renderRowChips(r){
+  const cont=document.getElementById(`row-chips-${r}`);
+  if(!cont) return;
+  const zone=cont.closest('.sa-row-zone');
+  if(seats[r].length===0){
+    cont.innerHTML=`<span class="sa-rz-empty">boş — öğrenci seç</span>`;
+    zone&&zone.classList.remove('zone-filled');
+    return;
+  }
+  cont.innerHTML='';
+  const rendered=new Set();
+  seats[r].forEach(name=>{
+    if(rendered.has(name)) return;
+    const pe=pairs.find(([a,b])=>(a===name||b===name)&&seats[r].includes(a)&&seats[r].includes(b));
+    if(pe){
+      const [a,b]=pe; rendered.add(a); rendered.add(b);
+      const chip=document.createElement('div');
+      chip.className='sa-rchip sa-rchip-pair';
+      const sa=a.replace(/'/g,"\\'");
+      chip.innerHTML=`<span>${a} <span class="sa-pair-amp">&</span> ${b}</span><button class="sa-rchip-x" onclick="removePairFromRow(${r},'${sa}',event)">×</button>`;
+      cont.appendChild(chip);
+    } else {
+      rendered.add(name);
+      const chip=document.createElement('div');
+      chip.className='sa-rchip';
+      const sn=name.replace(/'/g,"\\'");
+      chip.innerHTML=`<span>${name}</span><button class="sa-rchip-x" onclick="removeFromRow(${r},'${sn}',event)">×</button>`;
+      cont.appendChild(chip);
+    }
+  });
+  zone&&zone.classList.add('zone-filled');
+}
+
+function renderAllRowChips(){ [0,1,2].forEach(r=>renderRowChips(r)); }
+
+/* Row'dan tekli öğrenci kaldır */
+function removeFromRow(r,name,evt){
+  if(evt) evt.stopPropagation();
+  const i=seats[r].indexOf(name);
+  if(i>=0) seats[r].splice(i,1);
+  renderRowChips(r); updatePoolChips(); updateSaInstruction(); checkSeatsDone();
+}
+
+/* Row'dan çift kaldır */
+function removePairFromRow(r,n1,evt){
+  if(evt) evt.stopPropagation();
+  const pe=pairs.find(([a,b])=>a===n1||b===n1);
+  if(!pe){ removeFromRow(r,n1,evt); return; }
+  pe.forEach(n=>{ const i=seats[r].indexOf(n); if(i>=0) seats[r].splice(i,1); });
+  renderRowChips(r); updatePoolChips(); updateSaInstruction(); checkSeatsDone();
+}
+
+/* Pool chip tıklandı — seç veya deselect (tekli veya pair id) */
+function onPoolChipClick(id){
+  const assigned=new Set(seats.flat());
+  if(id.startsWith('PAIR:')){
+    const [n1,n2]=id.slice(5).split('|||');
+    if(assigned.has(n1)||assigned.has(n2)) return;
+  } else {
+    if(assigned.has(id)) return;
+  }
+  _selectedFromPool=(_selectedFromPool===id)?null:id;
+  updatePoolChips();
+  updateSaInstruction();
+  [0,1,2].forEach(r=>{
+    const zone=document.querySelector(`.sa-row-zone[data-r="${r}"]`);
+    if(zone) zone.classList.toggle('zone-target',!!_selectedFromPool);
+  });
+}
+
+function updateSaInstruction(){
+  const el=document.getElementById('sa-instruction');
+  const allAssigned=seats.flat().length===selectedPlayers.length;
+  if(_selectedFromPool){
+    const label=_selectedFromPool.startsWith('PAIR:')?
+      _selectedFromPool.slice(5).replace('|||',' & '):_selectedFromPool;
+    el.textContent=`"${label}" seçildi — hangi sıra?`;
+    el.classList.add('active');
+  } else if(allAssigned){
+    el.textContent='✓ Tüm öğrenciler atandı — başlayabilirsin!';
+    el.classList.add('active');
+  } else {
+    el.textContent='Bir öğrenci veya çifti seç — ardından sırasına tıkla';
+    el.classList.remove('active');
+  }
+}
+
+function updatePoolChips(){
+  const assigned=new Set(seats.flat());
+  const pairedNames=new Set(pairs.flat());
+  // Bireysel chip'ler
+  selectedPlayers.forEach(p=>{
+    if(pairedNames.has(p.name)) return;
+    const chip=document.getElementById(`pool-chip-${p.name.replace(/\s+/g,'_')}`);
+    if(!chip) return;
+    chip.classList.toggle('assigned',assigned.has(p.name));
+    chip.classList.toggle('pool-selected',_selectedFromPool===p.name);
+  });
+  // Pair chip'ler
+  pairs.forEach(([n1,n2])=>{
+    const chip=document.getElementById(`pool-chip-${_pairPoolId(n1,n2)}`);
+    if(!chip) return;
+    const pkey=_pairPoolKey(n1,n2);
+    chip.classList.toggle('assigned',assigned.has(n1)||assigned.has(n2));
+    chip.classList.toggle('pool-selected',_selectedFromPool===pkey);
+  });
+}
+
+function checkSeatsDone(){
+  // Her row'da en az 1 öğrenci VE tüm seçili öğrenciler atanmış olmalı
+  const rowsFull=seats.every(r=>r.length>=1);
+  const allPlaced=seats.flat().length===selectedPlayers.length;
+  document.getElementById('sa-start-btn').disabled=!(rowsFull&&allPlaced);
+}
+
+function resetSeats(){
+  seats=[[],[],[]];
+  _selectedFromPool=null;
+  renderAllRowChips();
+  [0,1,2].forEach(r=>{
+    const zone=document.querySelector(`.sa-row-zone[data-r="${r}"]`);
+    if(zone) zone.classList.remove('zone-target','zone-filled');
+  });
+  updatePoolChips(); updateSaInstruction(); checkSeatsDone();
+}
+
+function autoDistribute(){
+  seats=[[],[],[]];
+  const pairedNames=new Set(pairs.flat());
+  // Unit = [name] veya [name1, name2] — çiftler bir arada kalır
+  const units=[];
+  pairs.forEach(([n1,n2])=>units.push([n1,n2]));
+  selectedPlayers.forEach(p=>{ if(!pairedNames.has(p.name)) units.push([p.name]); });
+  const shuffled=[...units].sort(()=>Math.random()-.5);
+  shuffled.forEach((unit,i)=>unit.forEach(nm=>seats[i%3].push(nm)));
+  _selectedFromPool=null;
+  renderAllRowChips();
+  [0,1,2].forEach(r=>{
+    const zone=document.querySelector(`.sa-row-zone[data-r="${r}"]`);
+    if(zone) zone.classList.remove('zone-target');
+  });
+  updatePoolChips(); updateSaInstruction(); checkSeatsDone();
+}
+
+// ── GAME START ────────────────────────────────────────────
+function startGame(){
+  playerScores={}; playerWordCount={}; playerUniqueCount={}; playerBonusCount={}; playerStreak={};
+  selectedPlayers.forEach(p=>{
+    playerScores[p.name]=0; playerWordCount[p.name]=0; playerUniqueCount[p.name]=0; playerBonusCount[p.name]=0; playerStreak[p.name]=0;
+  });
+  roundNumber=0; categoryHistory=[]; bonusHistory=[]; wordHistory=new Set();
+  stopMenuMusic();
+  hide('overlay-seat-assign');
+  show('screen-game'); hide('screen-lobby');
+  startMainGameMusic();
+  document.getElementById('end-game-btn').classList.add('visible');
+  startCreditMarquee();
+  newRound();
+}
+
+// ── ROUND SETUP ───────────────────────────────────────────
+function newRound(){
+  roundNumber++;
+  currentRound.isDouble=(roundNumber%5===0);
+
+  // Pick 3 main categories (no recent repeats)
+  const picks=[];
+  for(const _row of [1,2,3]){
+    let cat; let tries=0;
+    do{ cat=MAIN_CATEGORIES[Math.floor(Math.random()*MAIN_CATEGORIES.length)]; tries++; }
+    while((picks.includes(cat)||categoryHistory.slice(-6).includes(cat)) && tries<40);
+    picks.push(cat);
+  }
+  categoryHistory.push(...picks);
+  if(categoryHistory.length>9) categoryHistory=categoryHistory.slice(-9);
+
+  // Pick bonus — tekrar etmesin ve bu round'un kategorilerinde mümkün olsun
+  let bonus; let bt=0;
+  do{
+    bonus=BONUS_CATEGORIES[Math.floor(Math.random()*BONUS_CATEGORIES.length)];
+    bt++;
+  } while(bt<40 && (
+    bonusHistory.slice(-3).includes(bonus) ||
+    !isBonusPossibleForCategories(bonus, picks)
+  ));
+  bonusHistory.push(bonus);
+  if(bonusHistory.length>6) bonusHistory=bonusHistory.slice(-6);
+
+  currentRound.row1=picks[0]; currentRound.row2=picks[1]; currentRound.row3=picks[2];
+  currentRound.bonus=bonus;
+
+  buildRoundScreen();
+
+  if(currentRound.isDouble){ show('overlay-double-points'); }
+}
+
+/* Bir row'daki isimleri pair-aware formatla → "ALİ  ·  EWYN & ZEYNO  ·  HASAN" */
+function formatRowNames(rowIdx){
+  const rowSeats=seats[rowIdx];
+  const rendered=new Set(); const parts=[];
+  rowSeats.forEach(name=>{
+    if(rendered.has(name)) return;
+    const pe=pairs.find(([a,b])=>(a===name||b===name)&&rowSeats.includes(a)&&rowSeats.includes(b));
+    if(pe){ const[a,b]=pe; rendered.add(a); rendered.add(b); parts.push(`${a} & ${b}`); }
+    else  { rendered.add(name); parts.push(name); }
+  });
+  return parts.join('  ·  ');
+}
+
+/* Row öğrencilerini unit listesine dönüştür (pair = 1 unit) */
+function buildRowUnits(rowSeats,row,cat){
+  const rendered=new Set(); const units=[];
+  rowSeats.forEach(name=>{
+    if(rendered.has(name)) return;
+    const pe=pairs.find(([a,b])=>(a===name||b===name)&&rowSeats.includes(a)&&rowSeats.includes(b));
+    if(pe){
+      const[a,b]=pe; rendered.add(a); rendered.add(b);
+      units.push({playerName:`${a} & ${b}`,names:[a,b],isPair:true,row,rowCategory:cat});
+    } else {
+      rendered.add(name);
+      units.push({playerName:name,names:[name],isPair:false,row,rowCategory:cat});
+    }
+  });
+  return units;
+}
+
+function buildRoundScreen(){
+  document.getElementById('round-badge').textContent=`ROUND ${roundNumber}`;
+  const dbl=document.getElementById('dbl-badge');
+  if(currentRound.isDouble) dbl.classList.remove('hidden'); else dbl.classList.add('hidden');
+
+  // Build category cards
+  const grid=document.getElementById('categories-grid'); grid.innerHTML='';
+  [{row:1,cat:currentRound.row1},{row:2,cat:currentRound.row2},{row:3,cat:currentRound.row3}].forEach(({row,cat})=>{
+    const card=document.createElement('div');
+    card.className=`cat-card row${row} modal-panel`;
+    const tr=catTR(cat);
+    const th=catThumb(cat);
+    card.innerHTML=`${th?`<img class="cat-thumb" src="${th}" alt="" draggable="false">`:''}
+      <div class="cat-row-label">ROW ${row}</div>
+      <div style="flex:1"></div>
+      ${tr?`<div class="cat-tr-bottom">(${tr})</div>`:`<div class="cat-tr-bottom">(${cat})</div>`}
+      <div class="cat-players">${formatRowNames(row-1)}</div>`;
+    grid.appendChild(card);
+  });
+
+  // Build bonus card
+  const ba=document.getElementById('bonus-area');
+  ba.innerHTML=`<div class="bonus-card modal-panel"><span class="bonus-label">BONUS</span><span class="bonus-rule">${currentRound.bonus}</span><span class="bonus-pts">+100 PTS</span></div>`;
+}
+
+function closeDoublePoints(){ hide('overlay-double-points'); }
+
+// ── TIMER ─────────────────────────────────────────────────
+function onLetsStart(){
+  roundSubmissions={};
+  pauseMainGameMusic();
+  // Timer game screen içinde görünür — kategoriler arkada kalır
+  document.getElementById('lets-start-btn').classList.add('hidden');
+  const igt=document.getElementById('in-game-timer');
+  igt.classList.remove('hidden');
+  document.getElementById('igt-timeup').classList.add('hidden');
+  document.getElementById('igt-number').classList.remove('urgent');
+  document.getElementById('igt-number').style.display='';
+  startTimer();
+}
+
+function startTimer(){
+  timeLeft=_roundTimeSecs;
+  updateTimerUI();
+  // İlk 5 sn geçince early-stop aktif
+  const numEl=document.getElementById('igt-number');
+  numEl.classList.remove('early-stop');
+  numEl.onclick=null;
+  setTimeout(()=>{
+    if(timerInterval===null) return; // timer zaten bitmişse iptal
+    numEl.classList.add('early-stop');
+    numEl.onclick=earlyStopTimer;
+  },5000);
+  // Load and play timer sound
+  try{
+    timerAudio=new Audio('./sounds/timer.wav');
+    timerAudio.loop=true;
+    timerAudio.play().catch(()=>{});
+  }catch(e){}
+  timerInterval=setInterval(()=>{
+    timeLeft--;
+    updateTimerUI();
+    if(timeLeft<=0){ clearInterval(timerInterval); timerAudio&&timerAudio.pause(); showTimeUp(); }
+  },1000);
+}
+
+function earlyStopTimer(){
+  if(timerInterval===null) return;
+  clearInterval(timerInterval); timerInterval=null;
+  timerAudio&&timerAudio.pause();
+  const numEl=document.getElementById('igt-number');
+  numEl.classList.remove('early-stop'); numEl.onclick=null;
+  showTimeUp();
+}
+
+function updateTimerUI(){
+  const el=document.getElementById('igt-number');
+  el.textContent=timeLeft;
+  const bar=document.getElementById('igt-bar');
+  const dur=_roundTimeSecs;
+  bar.style.width=(timeLeft/dur*100)+'%';
+  const pct=timeLeft/dur;
+  if(pct>0.5) bar.style.background='var(--green)';
+  else if(pct>0.2) bar.style.background='#f59e0b';
+  else bar.style.background='#ef4444';
+  if(timeLeft<=Math.min(10,Math.ceil(dur/3))) el.classList.add('urgent'); else el.classList.remove('urgent');
+}
+
+function showTimeUp(){
+  const numEl=document.getElementById('igt-number');
+  numEl.classList.remove('early-stop'); numEl.onclick=null;
+  numEl.style.display='none';
+  document.getElementById('igt-timeup').classList.remove('hidden');
+  setTimeout(()=>{
+    // Timer'ı gizle, LET'S START butonunu hazır et (bir sonraki tur için)
+    document.getElementById('in-game-timer').classList.add('hidden');
+    document.getElementById('lets-start-btn').classList.remove('hidden');
+    document.getElementById('igt-number').style.display='';
+    resumeMainGameMusic();
+    startCheckPhase();
+  },1800);
+}
+
+// ── CHECK PHASE ───────────────────────────────────────────
+function startCheckPhase(){
+  const base=(roundNumber-1)%3;
+  rowOrder=[(base%3)+1,((base+1)%3)+1,((base+2)%3)+1];
+  currentRowPhaseIdx=0;
+  buildKeyboard();
+  startNextRowPhase();
+}
+
+function startNextRowPhase(){
+  if(currentRowPhaseIdx>=rowOrder.length){ finalizeRoundHistory(); showRoundSummary(); return; }
+  const row=rowOrder[currentRowPhaseIdx];
+  const rowSeats=[...seats[row-1]];
+  shuffle(rowSeats);
+  const cat=[currentRound.row1,currentRound.row2,currentRound.row3][row-1];
+  rowCheckQueue=buildRowUnits(rowSeats,row,cat);
+  shuffle(rowCheckQueue); // unit bazında karıştır
+  rowCheckIdx=0;
+  showNextCheckInRow();
+}
+
+function showNextCheckInRow(){
+  if(rowCheckIdx>=rowCheckQueue.length){ showRowResults(); return; }
+  const entry=rowCheckQueue[rowCheckIdx];
+  const nameEl=document.getElementById('check-player-name');
+  nameEl.textContent=entry.playerName;
+  // Restart brake-stop entrance animation for each new player
+  nameEl.className='check-player-name row'+entry.row+(entry.isPair?' pair-name':'');
+  void nameEl.offsetWidth;                                   // force reflow
+  nameEl.classList.add('name-enter');
+  document.getElementById('check-cat-badge').textContent=`ROW ${entry.row} — ${entry.rowCategory}`;
+  const catBlock=document.getElementById('check-cat-block');
+  catBlock.className='check-cat-block row'+entry.row;
+  const _tr=catTR(entry.rowCategory);
+  const _catEl=document.getElementById('check-cat-name-big');
+  _catEl.innerHTML=entry.rowCategory+(_tr?`<span class="check-cat-tr"> / ${_tr}</span>`:'');
+  document.getElementById('check-progress-info').textContent=`${rowCheckIdx+1} / ${rowCheckQueue.length}`;
+  document.getElementById('check-bonus-side').textContent=`✦ BONUS: ${currentRound.bonus}`;
+  // Streak badge
+  const streakEl=document.getElementById('streak-badge');
+  const curStreak=Math.max(...entry.names.map(n=>playerStreak[n]||0));
+  if(curStreak>=2){
+    streakEl.style.display='flex';
+    streakEl.innerHTML=`🔥 ${curStreak} STREAK`;
+    streakEl.style.animation='none'; void streakEl.offsetWidth; streakEl.style.animation='';
+  } else { streakEl.style.display='none'; }
+  clearCheckInput();
+  show('overlay-check');
+  startCheckTimer();
+}
+
+function clearCheckInput(){
+  const el=document.getElementById('check-word-text');
+  el.textContent='_'; el.className='check-word-text';
+  _typedWord='';
+  _confirmEmpty=false;
+  resetSubmitBtn();
+}
+
+function resetSubmitBtn(){
+  const btn=document.querySelector('.kb-key.kb-submit');
+  if(!btn) return;
+  btn.innerHTML='SUBMIT<span class="kb-submit-arrow">↵</span>';
+  btn.classList.remove('kb-sure');
+}
+
+let _typedWord='';
+let _confirmEmpty=false;
+
+function buildKeyboard(){
+  // Wave period must match @keyframes rgbWave duration in CSS (3s)
+  const wavePeriod=3, waveSpan=10;
+  const rowColOffset=[0, 0.5, 1.0];
+
+  const kb=document.getElementById('check-keyboard'); kb.innerHTML='';
+
+  function makeKey(k, ri, ci){
+    const btn=document.createElement('button');
+    btn.className='kb-key';
+    if(k==='⌫'){ btn.classList.add('kb-wide','kb-del'); }
+    if(k===' '){ btn.classList.add('kb-space'); btn.textContent='SPACE'; }
+    else { btn.textContent=k; }
+    // RGB wave delay — letter/space only
+    if(k!=='⌫'){
+      const colPos=k===' '?4.5:(rowColOffset[ri]+ci);
+      btn.style.setProperty('--kd',(-(colPos/waveSpan)*wavePeriod).toFixed(2)+'s');
+    }
+    btn.addEventListener('pointerdown',()=>{
+      btn.classList.add('kb-lit');
+      setTimeout(()=>btn.classList.remove('kb-lit'),200);
+    });
+    btn.onclick=()=>onKeyPress(k);
+    return btn;
+  }
+
+  // ── Row 0: Q…P + ⌫ (full width top row)
+  const r0=document.createElement('div'); r0.className='kb-row';
+  ['Q','W','E','R','T','Y','U','I','O','P','⌫'].forEach((k,ci)=>r0.appendChild(makeKey(k,0,ci)));
+  kb.appendChild(r0);
+
+  // ── Main section: letter rows 1-2 left  +  tall SUBMIT (Enter) right
+  const mainSec=document.createElement('div'); mainSec.className='kb-main-section';
+
+  const letterRows=document.createElement('div'); letterRows.className='kb-letter-rows';
+  [['A','S','D','F','G','H','J','K','L'],
+   ['Z','X','C','V','B','N','M',' ']].forEach((row,ri)=>{
+    const r=document.createElement('div'); r.className='kb-row';
+    row.forEach((k,ci)=>r.appendChild(makeKey(k,ri+1,ci)));
+    letterRows.appendChild(r);
+  });
+
+  // Tall Enter / SUBMIT key
+  const enter=document.createElement('button');
+  enter.className='kb-key kb-submit';
+  enter.innerHTML='SUBMIT<span class="kb-submit-arrow">↵</span>';
+  enter.addEventListener('pointerdown',()=>{
+    enter.classList.add('kb-lit');
+    setTimeout(()=>enter.classList.remove('kb-lit'),200);
+  });
+  enter.onclick=()=>onKeyPress('SUBMIT');
+
+  mainSec.appendChild(letterRows);
+  mainSec.appendChild(enter);
+  kb.appendChild(mainSec);
+}
+
+function onKeyPress(k){
+  if(k==='⌫'){
+    if(_confirmEmpty){ _confirmEmpty=false; resetSubmitBtn(); return; }
+    _typedWord=_typedWord.slice(0,-1);
+  } else if(k==='SUBMIT'){
+    submitWord(); return;
+  } else {
+    // Any letter/space typed while in SURE? mode: cancel confirm and type normally
+    if(_confirmEmpty){ _confirmEmpty=false; resetSubmitBtn(); }
+    _typedWord+=k;
+  }
+  updateCheckDisplay();
+}
+
+function updateCheckDisplay(){
+  const el=document.getElementById('check-word-text');
+  if(_typedWord.trim()){ el.textContent=_typedWord; el.className='check-word-text has-text'; }
+  else { el.textContent='_'; el.className='check-word-text'; }
+}
+
+function submitWord(){
+  const word=_typedWord.trim();
+  if(!word){
+    if(!_confirmEmpty){
+      // First empty submit → show SURE?
+      _confirmEmpty=true;
+      const btn=document.querySelector('.kb-key.kb-submit');
+      if(btn){ btn.innerHTML='SURE?<span class="kb-submit-arrow">?</span>'; btn.classList.add('kb-sure'); }
+    } else {
+      // Second empty submit → skip student (no answer recorded)
+      _confirmEmpty=false;
+      resetSubmitBtn();
+      const entry=rowCheckQueue[rowCheckIdx];
+      roundSubmissions[entry.playerName]={word:'',accepted:false,skipped:true};
+      rowCheckIdx++;
+      showNextCheckInRow();
+    }
+    return;
+  }
+  // Word typed — reset confirm state just in case
+  _confirmEmpty=false;
+  resetSubmitBtn();
+  const entry=rowCheckQueue[rowCheckIdx];
+  const valid=isWordValidForCategory(entry.rowCategory,word);
+  if(valid){
+    roundSubmissions[entry.playerName]={word,accepted:true,bonusApplies:checkBonusRule(currentRound.bonus,word.toUpperCase().trim())};
+    showRecordConfirm(word,true,null);
+  } else {
+    showRecordConfirm(word,false,entry);
+  }
+}
+
+function _playFX(file){try{const a=new Audio(file);a.volume=1;a.play();}catch(e){}}
+
+// ── DID YOU MEAN? ─────────────────────────────────────────
+function levenshtein(a,b){
+  const m=a.length,n=b.length;
+  const dp=Array.from({length:m+1},(_,i)=>Array.from({length:n+1},(_,j)=>i===0?j:j===0?i:0));
+  for(let i=1;i<=m;i++) for(let j=1;j<=n;j++)
+    dp[i][j]=a[i-1]===b[j-1]?dp[i-1][j-1]:1+Math.min(dp[i-1][j],dp[i][j-1],dp[i-1][j-1]);
+  return dp[m][n];
+}
+
+function findClosestMatch(typed,category){
+  const words=WORD_CATEGORIES[category];
+  if(!words||!words.length) return null;
+  const t=typed.toUpperCase().trim();
+  if(t.length<=5) return null;   // 5 harf ve altı → öneri yok, doğru yazsın
+  const tNoSp=t.replace(/\s+/g,'');
+  const maxDist=2;
+  let best=null,bestDist=Infinity;
+  for(const w of words){
+    if(w===t) continue;
+    // Boşluk normalize edilince zaten eşleşiyorsa → öneri gösterme (isWordValidForCategory zaten kabul eder)
+    if(w.replace(/\s+/g,'')===tNoSp) continue;
+    const d=levenshtein(t,w);
+    if(d<bestDist){ bestDist=d; best=w; }
+  }
+  return bestDist<=maxDist?best:null;
+}
+
+let _pendingSuggestion=null; // kabul edilecek öneri kelimesi
+
+function _showStamp(isValid, isBonus=false){
+  const el=document.getElementById('word-stamp');
+  el.innerHTML='';
+  const s=document.createElement('div');
+  if(!isValid)        s.className='stamp-text stamp-invalid';
+  else if(isBonus)    s.className='stamp-text stamp-bonus';
+  else                s.className='stamp-text stamp-valid';
+  s.textContent=isValid?(isBonus?'BONUS!':'CORRECT'):'WRONG';
+  el.appendChild(s);
+  setTimeout(()=>{ el.innerHTML=''; },900);
+}
+
+function _updateStreak(names,correct){
+  names.forEach(nm=>{
+    if(correct) playerStreak[nm]=(playerStreak[nm]||0)+1;
+    else playerStreak[nm]=0;
+  });
+}
+
+function showRecordConfirm(word,valid,entry){
+  stopCheckTimer();
+  const panel=document.getElementById('wr-panel');
+  document.getElementById('wr-word').textContent=word.toUpperCase();
+  document.getElementById('wr-bonus-tag').classList.add('hidden');
+  document.getElementById('wr-suggest-row').classList.add('hidden');
+  _pendingSuggestion=null;
+  const overrideRow=document.getElementById('wr-override-row');
+  overrideRow.classList.add('hidden');
+  const _curPlayerName=rowCheckQueue[rowCheckIdx]?.playerName;
+  const _bonusApplies=valid&&_curPlayerName&&roundSubmissions[_curPlayerName]?.bonusApplies;
+  _showStamp(valid, _bonusApplies);
+  if(valid){
+    _playFX('sounds/correct.wav');
+    const _curEntry=rowCheckQueue[rowCheckIdx];
+    if(_curEntry) _updateStreak(_curEntry.names, true);
+    pendingOverride=null;
+    // Stamp gösterildi, overlay açmadan direkt geç
+    if(_autoDismissTimer) clearTimeout(_autoDismissTimer);
+    _autoDismissTimer=setTimeout(()=>{
+      _autoDismissTimer=null;
+      rowCheckIdx++;
+      showNextCheckInRow();
+    },900);
+  } else {
+    _playFX('sounds/wrong.wav');
+    if(entry) _updateStreak(entry.names, false);
+    panel.className='wr-panel invalid';
+    document.getElementById('wr-status').textContent='NOT IN LIST';
+    document.getElementById('wr-score').textContent='?';
+    document.getElementById('wr-score-detail').textContent='Teacher: accept or reject this word';
+    overrideRow.classList.remove('hidden');
+    pendingOverride={word,entry};
+    // Did you mean?
+    const suggestRow=document.getElementById('wr-suggest-row');
+    const category=entry?.rowCategory||null;
+    const suggestion=category?findClosestMatch(word,category):null;
+    if(suggestion){
+      _pendingSuggestion=suggestion;
+      document.getElementById('wr-suggest-word').textContent=suggestion;
+      suggestRow.classList.remove('hidden');
+    } else {
+      _pendingSuggestion=null;
+      suggestRow.classList.add('hidden');
+    }
+  }
+  _resultLocked=false;
+  if(!valid) show('check-result');  // valid → sadece stamp, overlay açılmaz
+}
+
+function onResultTap(){
+  if(_resultLocked) return;
+  if(!document.getElementById('wr-override-row').classList.contains('hidden')) return;
+  if(_autoDismissTimer){clearTimeout(_autoDismissTimer);_autoDismissTimer=null;}
+  hide('check-result');
+  rowCheckIdx++;
+  showNextCheckInRow();
+}
+
+function onOverrideAccept(){
+  if(!pendingOverride) return;
+  const {word,entry}=pendingOverride;
+  saveSuggestion(entry.rowCategory, word);   // ← localStorage'a kaydet
+  roundSubmissions[entry.playerName]={word,accepted:true,bonusApplies:checkBonusRule(currentRound.bonus,word.toUpperCase().trim())};
+  hide('check-result');
+  document.getElementById('wr-panel').className='wr-panel valid';
+  document.getElementById('wr-status').textContent='ACCEPTED ✓';
+  document.getElementById('wr-score').textContent='';
+  document.getElementById('wr-score-detail').textContent='Score revealed after row ends';
+  document.getElementById('wr-override-row').classList.add('hidden');
+  pendingOverride=null;
+  _resultLocked=true;
+  show('check-result');
+  setTimeout(()=>{_resultLocked=false;hide('check-result');rowCheckIdx++;showNextCheckInRow();},1200);
+}
+
+function onAcceptSuggestion(){
+  if(!_pendingSuggestion||!pendingOverride) return;
+  const {entry}=pendingOverride;
+  const word=_pendingSuggestion;
+  saveSuggestion(entry.rowCategory, word);
+  roundSubmissions[entry.playerName]={word,accepted:true,bonusApplies:checkBonusRule(currentRound.bonus,word)};
+  _updateStreak(entry.names, true);
+  _pendingSuggestion=null; pendingOverride=null;
+  document.getElementById('wr-suggest-row').classList.add('hidden');
+  document.getElementById('wr-override-row').classList.add('hidden');
+  const panel=document.getElementById('wr-panel');
+  panel.className='wr-panel valid';
+  document.getElementById('wr-status').textContent='ACCEPTED ✓';
+  document.getElementById('wr-word').textContent=word;
+  document.getElementById('wr-score').textContent='';
+  document.getElementById('wr-score-detail').textContent='Score revealed after row ends';
+  _resultLocked=true;
+  show('check-result');
+  setTimeout(()=>{_resultLocked=false;hide('check-result');rowCheckIdx++;showNextCheckInRow();},1200);
+}
+
+function onOverrideReject(){
+  if(!pendingOverride) return;
+  const {word,entry}=pendingOverride;
+  roundSubmissions[entry.playerName]={word,accepted:false};
+  pendingOverride=null;
+  hide('check-result');
+  rowCheckIdx++;
+  showNextCheckInRow();
+}
+
+// ── ROW RESULTS ───────────────────────────────────────────
+function showRowResults(){
+  stopCheckTimer();
+  hide('overlay-check');
+  const row=rowOrder[currentRowPhaseIdx];
+  const cat=[currentRound.row1,currentRound.row2,currentRound.row3][row-1];
+  // Ensure all students in this row have an entry
+  rowCheckQueue.forEach(entry=>{
+    if(!roundSubmissions[entry.playerName])
+      roundSubmissions[entry.playerName]={word:'—',accepted:false,bonusApplies:false};
+  });
+  // Word frequency across entire round so far (cross-row common detection)
+  const wordFreq={};
+  Object.values(roundSubmissions).forEach(s=>{
+    if(s.accepted&&s.word&&s.word!=='—'){
+      const w=s.word.toUpperCase().trim();
+      wordFreq[w]=(wordFreq[w]||0)+1;
+    }
+  });
+  // Score each student in this row now that we know all words
+  const cards=rowCheckQueue.map((entry,i)=>{
+    const name=entry.playerName;
+    const sub=roundSubmissions[name];
+    if(!sub||!sub.accepted){
+      sub&&(sub.score={base:0,bonusPts:0,total:0,type:'invalid',bonusApplies:false});
+      return {name,word:'—',type:'invalid',pts:0,bonusApplies:false,streak:Math.max(...entry.names.map(n=>playerStreak[n]||0))};
+    }
+    const w=sub.word.toUpperCase().trim();
+    const wKey=canonicalWord(w); // boşuksuz+stemlenmiş (NUT=NUTS, GLUESTICK=GLUE STICK)
+    let base=0,type='';
+    if(wordHistory.has(wKey)){base=100;type='old';}
+    else if(wordFreq[w]>1||wordFreq[wKey]>1){base=200;type='common';}
+    else{base=300;type='unique';}
+    const bonusPts=sub.bonusApplies?100:0;
+    const total=(base+bonusPts)*(currentRound.isDouble?2:1);
+    sub.score={base,bonusPts,total,type,bonusApplies:sub.bonusApplies};
+    sub.type=type;
+    // Pair veya tekil — entry.names'teki herkese aynı skoru yaz
+    entry.names.forEach(nm=>{
+      playerScores[nm]=(playerScores[nm]||0)+total;
+      if(total>0){
+        playerWordCount[nm]=(playerWordCount[nm]||0)+1;
+        if(type==='unique')      playerUniqueCount[nm]=(playerUniqueCount[nm]||0)+1;
+        if(sub.bonusApplies)     playerBonusCount[nm]=(playerBonusCount[nm]||0)+1;
+      }
+    });
+    if(total>0) setTimeout(()=>spawnFloatScore(total,type,sub.bonusApplies,name,i),400+i*160);
+    const streak=Math.max(...entry.names.map(n=>playerStreak[n]||0));
+    return {name,word:sub.word,type,pts:total,bonusApplies:sub.bonusApplies,streak};
+  });
+  // Play score reveal SFX once, in sync with the first float
+  if(cards.some(c=>c.pts>0)) setTimeout(playScoreRevealSFX,400);
+  buildRowResultsOverlay(row,cat,cards);
+  show('overlay-row-results');
+}
+
+function buildRowResultsOverlay(row,cat,cards){
+  const rowCls='row'+row;
+  const tagLabels={unique:'UNIQUE',common:'SHARED',old:'USED BEFORE',invalid:'NO ANSWER'};
+  document.getElementById('rr-title').textContent=`ROW ${row} RESULTS`;
+  document.getElementById('rr-title').className='rr-title '+rowCls;
+  document.getElementById('rr-cat-label').textContent=cat;
+  document.getElementById('rr-cat-label').className='rr-cat-label '+rowCls;
+  const isLastRow=(currentRowPhaseIdx>=rowOrder.length-1);
+  document.getElementById('rr-next-btn').textContent=isLastRow?'▶ ROUND SUMMARY':'▶ NEXT ROW';
+  // Top-score tespiti: tek kazanan varsa glow, eşitlik varsa yok
+  const maxPts=Math.max(...cards.map(c=>c.pts));
+  const topCount=cards.filter(c=>c.pts===maxPts&&c.pts>0).length;
+  const cardsEl=document.getElementById('rr-cards'); cardsEl.innerHTML='';
+  cards.forEach((c,i)=>{
+    const card=document.createElement('div');
+    card.className='rr-card'; card.style.animationDelay=(i*130)+'ms';
+    const bonusHtml=c.bonusApplies?`<div class="rr-bonus">+BONUS</div>`:'';
+    const streakHtml=(c.streak>=2)?`<div class="rr-streak">🔥 ${c.streak} STREAK</div>`:'';
+    const ptsDisp=c.pts>0?'+'+c.pts:'0';
+    const isTop=c.pts===maxPts&&topCount===1&&c.pts>0;
+    card.innerHTML=`
+      <div class="rr-name">${c.name}</div>
+      <div class="rr-word ${c.type}">${c.word.toUpperCase()}</div>
+      <div class="rr-tag ${c.type}">${tagLabels[c.type]||'—'}</div>
+      ${bonusHtml}${streakHtml}
+      <div class="rr-pts${c.pts===0?' zero':''}${isTop?' top-score':''}">${ptsDisp}</div>
+      <div class="rr-total">Σ ${playerScores[c.name]||0}</div>`;
+    cardsEl.appendChild(card);
+  });
+}
+
+function onRowResultsNext(){
+  hide('overlay-row-results');
+  currentRowPhaseIdx++;
+  if(currentRowPhaseIdx>=rowOrder.length){
+    finalizeRoundHistory();
+    showRoundSummary();
+  } else {
+    startNextRowPhase();
+  }
+}
+
+// ── ROUND HISTORY UPDATE ─────────────────────────────────
+function finalizeRoundHistory(){
+  // Add accepted words to history (for "old" detection in future rounds)
+  Object.values(roundSubmissions).forEach(s=>{
+    if(s.accepted&&s.word&&s.word!=='—') wordHistory.add(canonicalWord(s.word));
+  });
+  // Ensure all players have a record (safety net)
+  selectedPlayers.forEach(p=>{
+    if(!roundSubmissions[p.name])
+      roundSubmissions[p.name]={word:'—',accepted:false,score:{total:0},type:'invalid',bonusApplies:false};
+    if(!roundSubmissions[p.name].score)
+      roundSubmissions[p.name].score={total:0};
+  });
+}
+
+// ── ROUND SUMMARY ─────────────────────────────────────────
+function showRoundSummary(){
+  hide('overlay-check'); hide('overlay-row-results');
+  document.getElementById('rs-title').textContent=`ROUND ${roundNumber} SCORES`;
+  const dblTag=document.getElementById('rs-dbl-tag');
+  if(currentRound.isDouble) dblTag.classList.remove('hidden'); else dblTag.classList.add('hidden');
+
+  // Sort by round points desc
+  const entries=Object.entries(roundSubmissions).map(([name,sub])=>({name,sub,pts:sub.score.total||0}));
+  entries.sort((a,b)=>b.pts-a.pts);
+
+  const list=document.getElementById('rs-list'); list.innerHTML='';
+  entries.forEach(({name,sub,pts},i)=>{
+    const row=document.createElement('div');
+    row.className='rs-row'+(i===0?' rs-top':'');
+    row.style.animationDelay=(i*60)+'ms';
+    const tag=sub.type||'invalid';
+    const tagLabel=tag==='unique'?'UNIQUE':tag==='common'?'COMMON':tag==='old'?'OLD':'INVALID';
+    row.innerHTML=`
+      <div class="rs-rank">${i+1}</div>
+      <div class="rs-name">${name}</div>
+      <div class="rs-word${!sub.accepted?' invalid':''}">${sub.word||'—'}</div>
+      <span class="rs-tag ${tag}">${tagLabel}</span>
+      ${sub.bonusApplies?'<span class="rs-tag bonus">BONUS</span>':''}
+      <div class="rs-pts${pts===0?' zero':''}">${pts>0?'+'+pts:'0'}</div>
+      <div class="rs-total">Σ ${playerScores[name]||0}</div>
+    `;
+    list.appendChild(row);
+  });
+  show('overlay-round-summary');
+}
+
+function nextRound(){
+  hide('overlay-round-summary');
+  hide('screen-game');
+  show('screen-game');
+  newRound();
+}
+
+// ── GAME OVER ─────────────────────────────────────────────
+function triggerEndGame(){
+  hide('overlay-round-summary');
+  showGameOver();
+}
+
+/* ── Yıldız hesaplama ── */
+function calculateStars(){
+  const totalRows=roundNumber*3;
+  let topN_score=1, topN_unique=1;
+  if(totalRows>=9){ topN_score=3; topN_unique=3; }
+  else if(totalRows>=6){ topN_score=2; topN_unique=2; }
+  const topN_words=3;
+
+  const names=selectedPlayers.map(p=>p.name);
+
+  // Beraberlikleri dahil et: rank ≤ N olan herkesi al
+  function topNWithTies(sorted, valFn, n){
+    const winners=new Set(); let lastVal=null; let distinctRanks=0;
+    for(const nm of sorted){
+      const v=valFn(nm);
+      if(v<=0) break;
+      if(v!==lastVal){ distinctRanks++; lastVal=v; }
+      if(distinctRanks<=n) winners.add(nm); else break;
+    }
+    return winners;
+  }
+
+  const byScore  =[...names].sort((a,b)=>(playerScores[b]||0)-(playerScores[a]||0));
+  const byUnique =[...names].sort((a,b)=>(playerUniqueCount[b]||0)-(playerUniqueCount[a]||0));
+  const byWords  =[...names].sort((a,b)=>(playerWordCount[b]||0)-(playerWordCount[a]||0));
+
+  const scoreWinners =topNWithTies(byScore, n=>playerScores[n]||0,  topN_score);
+  const uniqueWinners=topNWithTies(byUnique,n=>playerUniqueCount[n]||0, topN_unique);
+  const wordWinners  =topNWithTies(byWords, n=>playerWordCount[n]||0,   topN_words);
+
+  const stars={};
+  names.forEach(nm=>{
+    let s=0;
+    if((playerScores[nm]||0)>0) s++;           // base
+    if(scoreWinners.has(nm))  s++;             // skor sıralaması
+    if(uniqueWinners.has(nm)) s++;             // unique kelime
+    if(wordWinners.has(nm))   s++;             // en çok kelime
+    stars[nm]=s;
+  });
+
+  // Pair'lerin ikisi de aynı yıldızı alsın (zaten skor aynı ama unique/word eşit olmayabilir)
+  pairs.forEach(([n1,n2])=>{
+    const mx=Math.max(stars[n1]||0,stars[n2]||0);
+    stars[n1]=mx; stars[n2]=mx;
+  });
+
+  return { stars, scoreWinners, uniqueWinners, wordWinners, byScore };
+}
+
+/* ── Sıralama rank'ı (beraberlikte aynı rank) ── */
+function getRanks(byScore){
+  const ranks={};
+  let rank=1; let lastPts=null; let lastRank=1;
+  byScore.forEach((nm,i)=>{
+    const pts=playerScores[nm]||0;
+    if(pts!==lastPts){ lastRank=rank; lastPts=pts; }
+    ranks[nm]=lastRank;
+    rank++;
+  });
+  return ranks;
+}
+
+function showGameOver(){
+  hide('overlay-check'); hide('overlay-row-results');
+  document.getElementById('in-game-timer').classList.add('hidden');
+  stopMainGameMusic();
+  document.getElementById('end-game-btn').classList.remove('visible');
+  try{ const _fs=new Audio('sounds/finalscreen.wav'); _fs.volume=1; _fs.play(); }catch(e){}
+  launchConfetti();
+
+  const totalRows=roundNumber*3;
+  document.getElementById('go-subtitle').textContent=
+    `${roundNumber} Round · ${totalRows} Row · ${selectedPlayers.length} Öğrenci`;
+
+  const {stars,scoreWinners,uniqueWinners,wordWinners,byScore}=calculateStars();
+  buildScoreGrid(document.getElementById('go-grid'),{stars,scoreWinners,uniqueWinners,wordWinners,byScore});
+  show('overlay-game-over');
+}
+
+function buildScoreGrid(grid, {stars,scoreWinners,uniqueWinners,wordWinners,byScore}){
+  const cups={1:'🥇',2:'🥈',3:'🥉'};
+  const medalClass={1:'fc-1st',2:'fc-2nd',3:'fc-3rd'};
+  const ranks=getRanks(byScore);
+  grid.innerHTML='';
+  byScore.forEach((nm,i)=>{
+    const rank=ranks[nm];
+    const pts=playerScores[nm]||0;
+    const s=stars[nm]||0;
+    const card=document.createElement('div');
+    card.className=`go-card ${medalClass[rank]||''}`;
+    card.style.animationDelay=(i*55)+'ms';
+    const cupHtml=cups[rank]
+      ?`<div class="fc-cup">${cups[rank]}</div>`
+      :`<div class="fc-rank-num">${rank}</div>`;
+    const starsHtml=Array.from({length:4},(_,si)=>
+      `<span class="${si<s?'fc-star-filled':'fc-star-empty'}">${si<s?'★':'☆'}</span>`
+    ).join('');
+    const badges=[];
+    if(scoreWinners.has(nm))  badges.push('<span class="fc-badge b-score">SKOR</span>');
+    if(uniqueWinners.has(nm)) badges.push('<span class="fc-badge b-unique">UNIQUE</span>');
+    if(wordWinners.has(nm))   badges.push('<span class="fc-badge b-words">KELİME</span>');
+    const streak=playerStreak[nm]||0;
+    const bonus =playerBonusCount[nm]||0;
+    const uniq  =playerUniqueCount[nm]||0;
+    const statsItems=[];
+    if(streak>=2) statsItems.push(`<span class="fc-stat">🔥 ${streak}</span>`);
+    if(bonus>0)   statsItems.push(`<span class="fc-stat">⭐ ${bonus}</span>`);
+    if(uniq>0)    statsItems.push(`<span class="fc-stat">💡 ${uniq}</span>`);
+    const statsHtml=statsItems.length?`<div class="fc-stats">${statsItems.join('')}</div>`:'';
+    card.innerHTML=`
+      ${cupHtml}
+      <div class="fc-name">${nm}</div>
+      <div class="fc-stars">${starsHtml}</div>
+      <div class="fc-score">${pts} PTS</div>
+      ${statsHtml}
+      <div class="fc-badges">${badges.join('')}</div>`;
+    grid.appendChild(card);
+  });
+}
+
+function showMidScores(){
+  if(roundNumber===0) return; // henüz hiç round oynanmadıysa açma
+  const {stars,scoreWinners,uniqueWinners,wordWinners,byScore}=calculateStars();
+  document.getElementById('ms-subtitle').textContent=
+    `${roundNumber} Round · ${roundNumber*3} Row · ${selectedPlayers.length} Öğrenci`;
+  buildScoreGrid(document.getElementById('ms-grid'),{stars,scoreWinners,uniqueWinners,wordWinners,byScore});
+  show('overlay-mid-scores');
+}
+
+function hideMidScores(){
+  hide('overlay-mid-scores');
+}
+
+function restartGame(){
+  hide('overlay-game-over'); hide('screen-game'); show('screen-lobby');
+  stopMainGameMusic(); stopMenuMusic();
+  playMenuMusic();
+  startMenuEffects();
+  selectedClass=null; selectedPlayers=[]; pairs=[]; _pairingMode=false; _pairingSource=null; _lastSelected=null; seats=[[],[],[]]; _selectedFromPool=null;
+  roundNumber=0; wordHistory=new Set(); playerScores={}; playerWordCount={}; playerUniqueCount={}; playerBonusCount={}; playerStreak={}; categoryHistory=[]; bonusHistory=[];
+  document.getElementById('end-game-btn').classList.remove('visible');
+}
+
+// ── CHECK SCREEN COUNTDOWN TIMER ──────────────────────────
+function startCheckTimer(){
+  stopCheckTimer();
+  const dur=_typingTimeSecs;
+  _checkTimeLeft=dur;
+  _updateCheckTimer(dur,dur);
+  _checkTimerInterval=setInterval(()=>{
+    _checkTimeLeft--;
+    _updateCheckTimer(_checkTimeLeft,dur);
+    if(_checkTimeLeft<=0){
+      stopCheckTimer();
+      _showCheckTimeUp();
+    }
+  },1000);
+}
+
+function stopCheckTimer(){
+  if(_checkTimerInterval){clearInterval(_checkTimerInterval);_checkTimerInterval=null;}
+}
+
+function _showCheckTimeUp(){
+  // Restart the CSS animation (in case it was already shown once)
+  const overlay=document.getElementById('check-timeup');
+  const txt=overlay?overlay.querySelector('.check-timeup-text'):null;
+  if(overlay){
+    overlay.classList.remove('hidden');
+    if(txt){ txt.style.animation='none'; void txt.offsetWidth; txt.style.animation=''; }
+  }
+  setTimeout(()=>{
+    if(overlay) overlay.classList.add('hidden');
+    // Skip student → advance
+    const entry=rowCheckQueue[rowCheckIdx];
+    if(entry) roundSubmissions[entry.playerName]={word:'',accepted:false,skipped:true};
+    _confirmEmpty=false; resetSubmitBtn();
+    rowCheckIdx++;
+    showNextCheckInRow();
+  },1000);
+}
+
+function _updateCheckTimer(left,dur){
+  const ring=document.getElementById('check-timer-ring');
+  const num=document.getElementById('check-timer-num');
+  if(!ring||!num) return;
+  const urgThresh=Math.min(10,Math.ceil(dur/3));
+  const pct=(Math.max(left,0)/dur*100).toFixed(1)+'%';
+  ring.style.setProperty('--tp',pct);
+  if(left<=urgThresh){
+    ring.style.setProperty('--tc','rgba(248,113,113,1)');
+    ring.classList.add('urgent');
+  } else {
+    ring.style.setProperty('--tc','rgba(249,115,22,1)');
+    ring.classList.remove('urgent');
+  }
+  num.textContent=Math.max(left,0);
+}
+
+// ── EKLEME ÖNERİLERİ ─────────────────────────────────────
+const SUGG_KEY = 'cow_suggestions_v2';
+
+function saveSuggestion(category, word){
+  const w = word.toUpperCase().trim();
+  if(!w || !category) return;
+  // Zaten listede varsa kaydetme
+  if(WORD_CATEGORIES[category] && WORD_CATEGORIES[category].includes(w)) return;
+  const data = JSON.parse(localStorage.getItem(SUGG_KEY)||'{}');
+  if(!data[category]) data[category]=[];
+  if(!data[category].includes(w)) data[category].push(w);
+  localStorage.setItem(SUGG_KEY, JSON.stringify(data));
+  // Bildirim noktasını göster
+  const dot = document.getElementById('sugg-dot');
+  if(dot) dot.classList.add('visible');
+}
+
+function _getSuggestions(){
+  return JSON.parse(localStorage.getItem(SUGG_KEY)||'{}');
+}
+
+function showSuggestions(){
+  const data = _getSuggestions();
+  const body = document.getElementById('sugg-body');
+  body.innerHTML = '';
+  const cats = Object.keys(data).filter(c=>data[c].length>0);
+  if(cats.length===0){
+    body.innerHTML='<div class="sugg-empty">Henüz kayıtlı öneri yok.</div>';
+  } else {
+    cats.forEach(cat=>{
+      const div=document.createElement('div'); div.className='sugg-cat';
+      const nm=document.createElement('div'); nm.className='sugg-cat-name';
+      nm.textContent=cat+(catTR(cat)?` / ${catTR(cat)}`:'');
+      const wr=document.createElement('div'); wr.className='sugg-words';
+      data[cat].forEach(w=>{
+        const chip=document.createElement('span'); chip.className='sugg-word';
+        chip.textContent=w; wr.appendChild(chip);
+      });
+      div.appendChild(nm); div.appendChild(wr);
+      body.appendChild(div);
+    });
+  }
+  document.getElementById('sugg-copied').classList.remove('show');
+  show('overlay-suggestions');
+}
+
+function hideSuggestions(){
+  hide('overlay-suggestions');
+}
+
+function copySuggestions(){
+  const data = _getSuggestions();
+  const cats = Object.keys(data).filter(c=>data[c].length>0);
+  if(cats.length===0) return;
+  let out = '// ── EKLEME ÖNERİLERİ ──────────────────────────────────────\n';
+  out += '// Oyun sırasında öğretmen tarafından kabul edilen kelimeler.\n';
+  out += '// İlgili kategorinin listesine "büyük harfle" ekleyin.\n\n';
+  cats.forEach(cat=>{
+    const words = data[cat].map(w=>`"${w}"`).join(', ');
+    out += `// ${cat}:\n${words}\n\n`;
+  });
+  navigator.clipboard.writeText(out).then(()=>{
+    const el=document.getElementById('sugg-copied');
+    el.classList.add('show');
+    setTimeout(()=>el.classList.remove('show'),2200);
+  }).catch(()=>{
+    // Fallback: textarea + execCommand
+    const ta=document.createElement('textarea');
+    ta.value=out; ta.style.position='fixed'; ta.style.opacity='0';
+    document.body.appendChild(ta); ta.select();
+    document.execCommand('copy'); ta.remove();
+    const el=document.getElementById('sugg-copied');
+    el.classList.add('show');
+    setTimeout(()=>el.classList.remove('show'),2200);
+  });
+}
+
+function clearSuggestions(){
+  showConfirm('Tüm önerileri kalıcı olarak silmek istediğine emin misin?', ()=>{
+    localStorage.removeItem(SUGG_KEY);
+    const dot=document.getElementById('sugg-dot');
+    if(dot) dot.classList.remove('visible');
+    // DOM'u da sıfırla — sadece overlay kapatmak yetmez
+    const body=document.getElementById('sugg-body');
+    if(body) body.innerHTML='<div class="sugg-empty">Henüz kayıtlı öneri yok.</div>';
+    hide('overlay-suggestions');
+  });
+}
+
+let _confirmCallback=null;
+function showConfirm(msg, onYes){
+  _confirmCallback=onYes;
+  document.getElementById('confirm-msg').textContent=msg;
+  document.getElementById('confirm-yes-btn').onclick=()=>{ const cb=_confirmCallback; hideConfirm(); cb&&cb(); };
+  show('overlay-confirm');
+}
+function hideConfirm(){
+  hide('overlay-confirm');
+  _confirmCallback=null;
+}
+
+// Sayfa açılışında kaydedilmiş öneri varsa nokta göster
+window.addEventListener('load',()=>{
+  const data=_getSuggestions();
+  if(Object.values(data).some(a=>a.length>0)){
+    const dot=document.getElementById('sugg-dot');
+    if(dot) dot.classList.add('visible');
+  }
+});
+
+// ── SCORE REVEAL SFX (Web Audio — no file needed) ─────────
+function playScoreRevealSFX(){
+  try{
+    const ctx=new(window.AudioContext||window.webkitAudioContext)();
+    // Quick ascending C-E-G arpeggio — 3 notes, 80 ms apart
+    [[0,523],[75,659],[150,784]].forEach(([ms,hz])=>{
+      const osc=ctx.createOscillator();
+      const g=ctx.createGain();
+      osc.connect(g); g.connect(ctx.destination);
+      osc.type='sine';
+      osc.frequency.value=hz;
+      const t=ctx.currentTime+ms/1000;
+      g.gain.setValueAtTime(0,t);
+      g.gain.linearRampToValueAtTime(0.2,t+0.022);
+      g.gain.exponentialRampToValueAtTime(0.001,t+0.42);
+      osc.start(t); osc.stop(t+0.42);
+    });
+    // Subtle shimmer overtone on top (1.5× G5)
+    const osc2=ctx.createOscillator();
+    const g2=ctx.createGain();
+    osc2.connect(g2); g2.connect(ctx.destination);
+    osc2.type='sine';
+    osc2.frequency.value=1175; // D6 — sparkle top
+    const t2=ctx.currentTime+0.14;
+    g2.gain.setValueAtTime(0,t2);
+    g2.gain.linearRampToValueAtTime(0.07,t2+0.03);
+    g2.gain.exponentialRampToValueAtTime(0.001,t2+0.5);
+    osc2.start(t2); osc2.stop(t2+0.5);
+  }catch(e){}
+}
+
+// ── FLOATING SCORE ────────────────────────────────────────
+// dirIdx: 0=sol-yukarı, 1=düz-yukarı, 2=sağ-yukarı
+// name: undefined ise eski random mod
+function spawnFloatScore(pts,type,bonusApplies,name,dirIdx){
+  const el=document.createElement('div');
+  el.className='float-score '+(bonusApplies?'bonus':type);
+  const nameHtml=name?`<span class="fs-name">${name}</span>`:'';
+  el.innerHTML=`${nameHtml}<span class="fs-pts">+${pts}</span>`;
+  let x,y,tdx,tdy;
+  if(dirIdx!==undefined){
+    // Row sonucu: 3 yön, merkezden başla
+    x=window.innerWidth/2;
+    y=window.innerHeight*0.52;
+    const dirs=[[-200,-155],[0,-210],[200,-155]];
+    [tdx,tdy]=dirs[dirIdx%3];
+  } else {
+    // Eski random mod (geriye uyumluluk)
+    x=window.innerWidth*(.35+Math.random()*.3);
+    y=window.innerHeight*(.35+Math.random()*.25);
+    const d=(Math.random()>.5?1:-1);
+    tdx=d*70; tdy=-140;
+  }
+  el.style.left=x+'px'; el.style.top=y+'px';
+  document.body.appendChild(el);
+  const t0=performance.now(),dur=1900;
+  (function frame(now){
+    const t=Math.min((now-t0)/dur,1);
+    const ease=1-Math.pow(1-t,3);
+    el.style.transform=`translate(-50%,-50%) translate(${ease*tdx}px,${ease*tdy}px) scale(${1-ease*.28})`;
+    el.style.opacity=t<.08?t/.08:t>.65?1-(t-.65)/.35:1;
+    if(t<1) requestAnimationFrame(frame); else el.remove();
+  })(t0);
+}
+
+// ── FULLSCREEN ────────────────────────────────────────────
+function toggleFS(){
+  const btn=document.getElementById('fs-btn');
+  if(!document.fullscreenElement){
+    document.documentElement.requestFullscreen().catch(()=>{});
+  } else {
+    document.exitFullscreen().catch(()=>{});
+  }
+}
+document.addEventListener('fullscreenchange',()=>{
+  const btn=document.getElementById('fs-btn');
+  if(btn) btn.textContent=document.fullscreenElement?'⊡':'⛶';
+});
+
+// ── MAIN MENU MUSIC ───────────────────────────────────────
+const menuAudio=new Audio('./sounds/mainmenu.wav');
+menuAudio.loop=true;
+menuAudio.volume=0.55;
+menuAudio.preload='none';
+
+function playMenuMusic(){
+  menuAudio.currentTime=0;
+  menuAudio.play().catch(()=>{});
+}
+function stopMenuMusic(){
+  menuAudio.pause();
+  menuAudio.currentTime=0;
+}
+
+// ── MAIN GAME MUSIC ───────────────────────────────────────
+const MAIN_TRACKS=['sounds/main1.wav','sounds/main2.wav','sounds/main3.wav','sounds/main4.wav','sounds/main5.wav'];
+let mainTrackIdx=0;
+let mainGameAudio=null;
+let mainGameMusicOn=false;
+
+function _loadAndPlayMainTrack(){
+  if(!mainGameMusicOn) return;
+  if(mainGameAudio){mainGameAudio.onended=null;mainGameAudio.pause();mainGameAudio=null;}
+  mainGameAudio=new Audio('./'+MAIN_TRACKS[mainTrackIdx]);
+  mainGameAudio.volume=0.48;
+  mainGameAudio.onended=()=>{
+    mainTrackIdx=(mainTrackIdx+1)%MAIN_TRACKS.length;
+    _loadAndPlayMainTrack();
+  };
+  mainGameAudio.play().catch(()=>{});
+}
+function startMainGameMusic(){
+  mainGameMusicOn=true; mainTrackIdx=0;
+  _loadAndPlayMainTrack();
+}
+function pauseMainGameMusic(){
+  if(mainGameAudio) mainGameAudio.pause();
+}
+function resumeMainGameMusic(){
+  mainGameMusicOn=true;
+  // Restart current track from top (user said that's fine)
+  _loadAndPlayMainTrack();
+}
+function stopMainGameMusic(){
+  mainGameMusicOn=false;
+  if(mainGameAudio){mainGameAudio.onended=null;mainGameAudio.pause();mainGameAudio=null;}
+}
+
+// ── UTILITY ──────────────────────────────────────────────
+function show(id){ document.getElementById(id)?.classList.remove('hidden'); }
+function hide(id){ document.getElementById(id)?.classList.add('hidden'); }
+function shuffle(arr){ for(let i=arr.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]]; } return arr; }
+
+// ── CONFETTI ──────────────────────────────────────────────
+function launchConfetti(){
+  const canvas=document.getElementById('confetti-canvas');
+  const ctx=canvas.getContext('2d');
+  canvas.width=window.innerWidth; canvas.height=window.innerHeight;
+  const COLORS=['#ffb347','#4ade80','#60a5fa','#f472b6','#c084fc','#fb923c','#facc15','#34d399'];
+  const pieces=Array.from({length:160},()=>({
+    x:Math.random()*canvas.width, y:Math.random()*-canvas.height*0.5-20,
+    r:Math.random()*7+4, vx:(Math.random()-0.5)*3.5, vy:Math.random()*4+2,
+    color:COLORS[Math.floor(Math.random()*COLORS.length)],
+    rot:Math.random()*360, rv:(Math.random()-0.5)*8,
+    shape:Math.random()<0.5?'rect':'circle', w:Math.random()*8+5, h:Math.random()*14+6,
+    opacity:1
+  }));
+  let frame; let elapsed=0;
+  const DURATION=5000; const start=performance.now();
+  function tick(now){
+    elapsed=now-start;
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    const fade=elapsed>3500?1-((elapsed-3500)/(DURATION-3500)):0;
+    pieces.forEach(p=>{
+      p.x+=p.vx; p.y+=p.vy; p.rot+=p.rv; p.vy+=0.08;
+      p.opacity=Math.max(0,1-fade);
+      ctx.save(); ctx.globalAlpha=p.opacity; ctx.fillStyle=p.color;
+      ctx.translate(p.x,p.y); ctx.rotate(p.rot*Math.PI/180);
+      if(p.shape==='rect'){ ctx.fillRect(-p.w/2,-p.h/2,p.w,p.h); }
+      else{ ctx.beginPath(); ctx.arc(0,0,p.r,0,Math.PI*2); ctx.fill(); }
+      ctx.restore();
+    });
+    if(elapsed<DURATION) frame=requestAnimationFrame(tick);
+    else ctx.clearRect(0,0,canvas.width,canvas.height);
+  }
+  if(frame) cancelAnimationFrame(frame);
+  frame=requestAnimationFrame(tick);
+}
+</script>
+</body>
+</html>
