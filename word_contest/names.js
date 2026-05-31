@@ -21,7 +21,7 @@
 const CLASSES = [
   {
     id: '7A',
-    label: '7/A',
+    label: '7',
     grade: 7,
     // pairs: Aynı grupta kalması zorunlu çiftler (🔗 ile gösterilir)
     pairs: [
@@ -49,7 +49,7 @@ const CLASSES = [
   },
   {
     id: '6B',
-    label: '6/B',
+    label: '6',
     grade: 6,
     pairs: [
       // ['ZEYNO', 'EWYN'],  // Bu satırdaki çiftler aynı gruba yazılır, aktif etmek için baştaki // kaldır
@@ -76,7 +76,7 @@ const CLASSES = [
   },
   {
     id: '8B',
-    label: '8/B',
+    label: '8',
     grade: 8,
     pairs: [
       // ['DEFNE', 'İPEK'],  //  Bu satırdaki çiftler aynı gruba yazılır, aktif etmek için baştaki // kaldır
