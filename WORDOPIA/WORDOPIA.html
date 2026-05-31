@@ -4532,6 +4532,7 @@ function showStudentOverlay(){
   document.getElementById('student-overlay').classList.remove('hidden');
   buildStdKeyboard();
   selectStdField(0,0);
+  _applyStudentModeUI();
 }
 
 function selectStdField(gi,si){
@@ -4599,9 +4600,12 @@ function pickStdRandom(){
 function balanceDistribute(silent=false){
   const LEVEL_PTS={S:6,A:5,B:4,C:3,D:2,F:1};
   const LEVEL_ORDER=['S','A','B','C','D','F'];
-  const pool=getActiveStudents().length>0?getActiveStudents():
-             (typeof STUDENTS!=='undefined')?STUDENTS:
-             (typeof RANDOM_NAMES!=='undefined')?RANDOM_NAMES.map(n=>({name:n,level:'C'})):[];
+  let pool=getActiveStudents();
+  // Fallback: selectedClasses ile eşleşme yoksa tüm CLASSES öğrencilerini kullan
+  if(!pool.length && typeof CLASSES!=='undefined' && CLASSES.length>0)
+    pool=CLASSES.flatMap(c=>c.students).filter(s=>s.name&&s.name.trim()!=='');
+  if(!pool.length) pool=(typeof STUDENTS!=='undefined')?STUDENTS:
+                        (typeof RANDOM_NAMES!=='undefined')?RANDOM_NAMES.map(n=>({name:n,level:'C'})):[];
   if(!pool.length){ _silentDistributed=false; return; }
 
   // Seviyeye göre sırala (yüksek → düşük), aynı seviyedekiler karışsın
