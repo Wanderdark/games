@@ -81,12 +81,6 @@ header{width:100%;max-width:720px;display:flex;align-items:center;justify-conten
 #music-btn:active{transform:scale(.88)}
 #music-btn.muted{color:rgba(255,140,0,0.35);border-color:rgba(255,140,0,0.15)}
 
-/* ── LITE MODE BUTTON ── */
-#lite-btn{position:fixed;top:30px;right:218px;z-index:9950;background:rgba(255,140,0,0.08);border:1.5px solid rgba(255,255,255,0.45);border-radius:8px;color:rgba(255,255,255,0.55);width:38px;height:38px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:13px;font-family:'Barlow Condensed',sans-serif;font-weight:700;letter-spacing:.04em;transition:color .15s,background .15s,border-color .15s,transform .1s;padding:0}
-#lite-btn:hover{color:#fff;background:rgba(255,255,255,0.15);border-color:rgba(255,255,255,0.8)}
-#lite-btn:active{transform:scale(.88)}
-#lite-btn.lite-on{background:rgba(100,160,255,0.15);border-color:rgba(120,180,255,0.7);color:rgba(150,200,255,0.9)}
-#lite-btn.lite-on:hover{background:rgba(100,160,255,0.25);border-color:rgba(150,210,255,1);color:#b8d8ff}
 #end-game-btn{
   position:fixed;top:30px;right:78px;z-index:9950;
   font-family:'Barlow Condensed',sans-serif;
@@ -1115,6 +1109,70 @@ header{width:100%;max-width:720px;display:flex;align-items:center;justify-conten
 /* Kenarlık */
 #switch-overlay.team-a-next .sw-modal{border:1px solid rgba(74,138,244,.4);box-shadow:0 0 80px rgba(0,0,0,.6),0 0 40px rgba(74,138,244,.15),inset 0 0 30px rgba(0,0,0,.3)}
 #switch-overlay.team-b-next .sw-modal{border:1px solid rgba(232,33,58,.4);box-shadow:0 0 80px rgba(0,0,0,.6),0 0 40px rgba(232,33,58,.15),inset 0 0 30px rgba(0,0,0,.3)}
+
+/* ── GAME TUTORIAL MODALS ── */
+#gtut-overlay{position:fixed;inset:0;z-index:10200;background:rgba(2,8,30,0.82);display:flex;align-items:center;justify-content:center;backdrop-filter:blur(6px)}
+#gtut-overlay.hidden{display:none}
+.gtut-modal{
+  width:min(92vw,400px);
+  background:linear-gradient(160deg,#0f1c3f,#07101f);
+  border:1.5px solid rgba(255,140,0,.35);border-radius:20px;
+  padding:24px 26px 20px;
+  box-shadow:0 0 60px rgba(0,0,0,.8),0 0 24px rgba(255,140,0,.12);
+  display:flex;flex-direction:column;align-items:center;gap:10px;
+  animation:modalIn .3s cubic-bezier(.34,1.56,.64,1);
+}
+.gtut-lang-row{display:flex;gap:6px;align-self:flex-end}
+.gtut-lang-btn{padding:3px 11px;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:.1em;border-radius:6px;border:1.5px solid rgba(255,140,0,.25);background:transparent;color:rgba(255,244,232,.35);cursor:pointer;transition:all .15s}
+.gtut-lang-btn.active{background:rgba(255,140,0,.18);border-color:var(--gold);color:var(--gold)}
+.gtut-lang-btn:hover:not(.active){border-color:rgba(255,140,0,.5);color:rgba(255,244,232,.7)}
+.gtut-icon{font-size:40px;line-height:1}
+.gtut-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(20px,3.5vw,28px);color:var(--gold);letter-spacing:.14em;text-align:center}
+.gtut-text{font-family:'Barlow Condensed',sans-serif;font-size:clamp(13px,1.8vw,15px);color:rgba(240,244,255,.75);line-height:1.6;letter-spacing:.03em;text-align:center}
+.gtut-text strong{color:rgba(240,244,255,.95)}
+.gtut-btn{width:100%;padding:11px;font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;background:linear-gradient(135deg,#CC5500,#FF8C00);border:none;border-radius:11px;color:#fff;cursor:pointer;box-shadow:0 4px 16px rgba(204,85,0,.4);transition:transform .15s,box-shadow .15s;margin-top:4px}
+.gtut-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(204,85,0,.55)}
+/* İkinci modal — ekran ortasında, büyük */
+#gtut-tip{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:10200;
+  width:min(88vw,440px);
+  background:linear-gradient(160deg,#0f1c3f,#07101f);
+  border:1.5px solid rgba(255,140,0,.4);border-radius:20px;
+  padding:28px 30px 22px;
+  display:flex;flex-direction:column;align-items:center;gap:12px;
+  box-shadow:0 0 60px rgba(0,0,0,.85),0 0 24px rgba(255,140,0,.15);
+  animation:modalIn .3s cubic-bezier(.34,1.56,.64,1);
+}
+#gtut-tip.hidden{display:none}
+#gtut-tip-icon{font-size:44px;line-height:1}
+#gtut-tip-text{font-family:'Barlow Condensed',sans-serif;font-size:clamp(15px,2.2vw,18px);
+  color:rgba(240,244,255,.85);text-align:center;line-height:1.6;letter-spacing:.03em}
+#gtut-tip-text strong{color:var(--gold)}
+#gtut-tip-close{padding:11px 40px;font-family:'Barlow Condensed',sans-serif;font-size:17px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;background:linear-gradient(135deg,#CC5500,#FF8C00);border:none;border-radius:11px;color:#fff;cursor:pointer;box-shadow:0 4px 16px rgba(204,85,0,.4);transition:transform .15s,box-shadow .15s}
+#gtut-tip-close:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(204,85,0,.55)}
+
+/* ── BONUS HINT (tek seferlik) ── */
+#bonus-hint{position:fixed;inset:0;z-index:10100;display:flex;align-items:center;justify-content:center}
+#bonus-hint.hidden{display:none}
+.bh-modal{
+  width:min(92vw,420px);
+  background:linear-gradient(160deg,#0f1c3f,#07101f);
+  border:1.5px solid rgba(255,140,0,.35);border-radius:22px;
+  padding:26px 28px 22px;
+  box-shadow:0 0 60px rgba(0,0,0,.8),0 0 30px rgba(255,140,0,.1);
+  display:flex;flex-direction:column;align-items:center;gap:10px;
+  animation:modalIn .3s cubic-bezier(.34,1.56,.64,1);
+}
+.bh-lang-row{display:flex;gap:6px;align-self:flex-end}
+.bh-lang-btn{padding:3px 12px;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:.1em;border-radius:6px;border:1.5px solid rgba(255,140,0,.25);background:transparent;color:rgba(255,244,232,.35);cursor:pointer;transition:all .15s}
+.bh-lang-btn.active{background:rgba(255,140,0,.18);border-color:var(--gold);color:var(--gold)}
+.bh-lang-btn:hover:not(.active){border-color:rgba(255,140,0,.5);color:rgba(255,244,232,.7)}
+.bh-icon{font-size:38px;line-height:1}
+.bh-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(20px,3.5vw,28px);color:var(--gold);letter-spacing:.14em;text-align:center}
+.bh-text{font-family:'Barlow Condensed',sans-serif;font-size:clamp(13px,1.8vw,15px);color:rgba(240,244,255,.7);line-height:1.6;letter-spacing:.03em;text-align:center}
+.bh-text strong{color:rgba(240,244,255,.95)}
+.bh-strip{margin-top:4px;padding:8px 16px;border-radius:10px;border:1.5px solid rgba(255,140,0,.4);background:rgba(255,140,0,.08);font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:.1em;color:var(--gold);text-align:center}
+.bh-btn{margin-top:6px;width:100%;padding:11px;font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;background:linear-gradient(135deg,#CC5500,#FF8C00);border:none;border-radius:11px;color:#fff;cursor:pointer;box-shadow:0 4px 16px rgba(204,85,0,.4);transition:transform .15s,box-shadow .15s}
+.bh-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(204,85,0,.55)}
 .sw-eyebrow{
   font-family:'Barlow Condensed',sans-serif;font-size:11px;
   letter-spacing:.35em;text-transform:uppercase;color:rgba(255,255,255,.38);
@@ -1463,25 +1521,45 @@ body.avatars-active #hp-area{display:none}
 #tutorial-overlay.hidden{display:none}
 .tut-modal{
   position:relative;
-  width:min(96vw,680px);max-height:90vh;
-  background:linear-gradient(145deg,#0d1a3a,#060e24);
-  border:1.5px solid rgba(255,140,0,.25);border-radius:24px;
-  display:flex;flex-direction:column;overflow:hidden;
+  width:min(94vw,560px);
+  background:linear-gradient(160deg,#0f1c3f,#07101f);
+  border:1.5px solid rgba(255,140,0,.22);border-radius:28px;
+  display:flex;flex-direction:column;align-items:center;
+  padding:32px 36px 28px;gap:0;
   box-shadow:0 0 80px rgba(255,140,0,.1);
 }
-.tut-header{padding:24px 28px 16px;flex-shrink:0;text-align:center;border-bottom:1px solid rgba(255,140,0,.12)}
-.tut-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(26px,4vw,40px);color:var(--gold);letter-spacing:.14em;line-height:1}
-.tut-subtitle{font-family:'Barlow Condensed',sans-serif;font-size:13px;color:rgba(240,244,255,.4);letter-spacing:.14em;text-transform:uppercase;margin-top:4px}
-.tut-body{padding:22px 28px;overflow-y:auto;flex:1;display:flex;flex-direction:column;gap:18px}
-.tut-section{display:flex;gap:14px;align-items:flex-start}
-.tut-icon{font-size:28px;flex-shrink:0;width:44px;text-align:center;margin-top:2px}
-.tut-text h3{font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:4px}
-.tut-text p{font-family:'Barlow Condensed',sans-serif;font-size:14px;color:rgba(240,244,255,.65);line-height:1.55;letter-spacing:.03em}
-.tut-text p strong{color:rgba(240,244,255,.9)}
-.tut-divider{height:1px;background:linear-gradient(90deg,transparent,rgba(255,140,0,.2),transparent);flex-shrink:0}
-.tut-footer{padding:16px 28px 20px;flex-shrink:0;text-align:center;border-top:1px solid rgba(255,140,0,.12)}
-.tut-close{padding:12px 48px;font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;background:linear-gradient(135deg,#CC5500,#FF8C00);border:none;border-radius:12px;color:#fff;cursor:pointer;box-shadow:0 4px 20px rgba(204,85,0,.4);transition:transform .15s,box-shadow .15s}
-.tut-close:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(204,85,0,.55)}
+/* Lang toggle */
+.tut-lang-row{display:flex;gap:6px;align-self:flex-end;margin-bottom:20px}
+.tut-lang-btn{padding:4px 14px;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:.1em;border-radius:7px;border:1.5px solid rgba(255,140,0,.25);background:transparent;color:rgba(255,244,232,.35);cursor:pointer;transition:all .15s}
+.tut-lang-btn.active{background:rgba(255,140,0,.18);border-color:var(--gold);color:var(--gold)}
+.tut-lang-btn:hover:not(.active){border-color:rgba(255,140,0,.5);color:rgba(255,244,232,.7)}
+/* Step number badge */
+.tut-step-badge{
+  width:56px;height:56px;border-radius:50%;
+  background:linear-gradient(135deg,#CC5500,#FF8C00);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Bebas Neue',sans-serif;font-size:28px;color:#fff;
+  box-shadow:0 4px 20px rgba(204,85,0,.5);
+  margin-bottom:16px;flex-shrink:0;
+}
+/* Card icon */
+.tut-card-icon{font-size:52px;margin-bottom:12px;line-height:1}
+/* Card title */
+.tut-card-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(22px,4vw,32px);color:var(--gold);letter-spacing:.14em;text-align:center;margin-bottom:14px;line-height:1}
+/* Card text */
+.tut-card-text{font-family:'Barlow Condensed',sans-serif;font-size:clamp(14px,2vw,16px);color:rgba(240,244,255,.7);line-height:1.6;letter-spacing:.03em;text-align:center;min-height:80px}
+.tut-card-text strong{color:rgba(240,244,255,.95)}
+/* Dot indicators */
+.tut-dots{display:flex;gap:8px;margin-top:24px;margin-bottom:22px}
+.tut-dot{width:10px;height:10px;border-radius:50%;background:rgba(255,140,0,.2);border:1.5px solid rgba(255,140,0,.3);transition:background .25s,transform .25s}
+.tut-dot.active{background:var(--gold);border-color:var(--gold);transform:scale(1.25)}
+/* Nav buttons */
+.tut-nav{display:flex;gap:12px;width:100%}
+.tut-prev{flex:0 0 auto;padding:11px 20px;font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700;letter-spacing:.1em;background:rgba(255,140,0,.08);border:1.5px solid rgba(255,140,0,.25);border-radius:12px;color:rgba(255,244,232,.5);cursor:pointer;transition:all .15s}
+.tut-prev:hover:not(:disabled){background:rgba(255,140,0,.16);border-color:rgba(255,140,0,.5);color:var(--gold)}
+.tut-prev:disabled{opacity:.25;cursor:default}
+.tut-next{flex:1;padding:12px;font-family:'Barlow Condensed',sans-serif;font-size:17px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;background:linear-gradient(135deg,#CC5500,#FF8C00);border:none;border-radius:12px;color:#fff;cursor:pointer;box-shadow:0 4px 20px rgba(204,85,0,.4);transition:transform .15s,box-shadow .15s}
+.tut-next:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(204,85,0,.55)}
 .mn-defaults{font-family:'Barlow Condensed',sans-serif;font-size:11px;color:var(--muted);opacity:.45;letter-spacing:.08em;margin-top:4px}
 
 /* ── SETTINGS OVERLAY ── */
@@ -1595,6 +1673,15 @@ input[type=range].st-slider::-moz-range-thumb{width:22px;height:22px;border-radi
 /* ── WORD QUIZ OVERLAY ── */
 #word-quiz-overlay{position:fixed;inset:0;z-index:9200;background:rgba(2,8,30,0.93);display:flex;align-items:center;justify-content:center;backdrop-filter:blur(10px)}
 #word-quiz-overlay.hidden{display:none}
+#wq-hint{position:absolute;bottom:0;left:0;right:0;padding:14px 24px;
+  display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;
+  background:rgba(255,140,0,0.07);border-top:1px solid rgba(255,140,0,.18);}
+#wq-hint.hidden{display:none}
+#wq-hint-text{font-family:'Barlow Condensed',sans-serif;font-size:clamp(13px,1.8vw,16px);
+  color:rgba(240,244,255,.65);letter-spacing:.03em;line-height:1.5;text-align:center}
+#wq-hint-text strong{color:var(--gold)}
+#wq-hint-ok{flex-shrink:0;padding:8px 22px;font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;background:rgba(255,140,0,.12);border:1.5px solid rgba(255,140,0,.35);border-radius:9px;color:var(--gold);cursor:pointer;transition:background .15s}
+#wq-hint-ok:hover{background:rgba(255,140,0,.25)}
 .wq-modal{background:linear-gradient(145deg,#2D0E00,#120500);border:1.5px solid var(--gold);border-radius:24px;padding:24px 26px 20px;width:min(96vw,500px);max-height:88vh;display:flex;flex-direction:column;box-shadow:0 0 80px rgba(255,140,0,0.12)}
 .wq-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(22px,4vw,34px);letter-spacing:.08em;text-align:center;margin-bottom:2px}
 .wq-title.wq-ta{color:#4A8AF4;text-shadow:0 0 28px rgba(74,138,244,.7)}
@@ -1878,6 +1965,46 @@ input[type=range].st-slider::-moz-range-thumb{width:22px;height:22px;border-radi
   </div>
 </div>
 
+<!-- Game Tutorial Step 1 — oyun başlamadan önce -->
+<div id="gtut-overlay" class="hidden">
+  <div class="gtut-modal">
+    <div class="gtut-lang-row">
+      <button class="gtut-lang-btn active" id="gtut-btn-en" onclick="setGtutLang('en')">EN</button>
+      <button class="gtut-lang-btn" id="gtut-btn-tr" onclick="setGtutLang('tr')">TR</button>
+    </div>
+    <div class="gtut-icon">🔤</div>
+    <div class="gtut-title" id="gtut-title">Build a Word!</div>
+    <div class="gtut-text" id="gtut-text"></div>
+    <button class="gtut-btn" id="gtut-btn-ok" onclick="closeGtut()">GOT IT!</button>
+  </div>
+</div>
+
+<!-- Game Tutorial Step 2 — ilk kelimeden sonra -->
+<div id="gtut-tip" class="hidden">
+  <div class="gtut-lang-row">
+    <button class="gtut-lang-btn active" id="gtut-tip-btn-en" onclick="setGtutTipLang('en')">EN</button>
+    <button class="gtut-lang-btn" id="gtut-tip-btn-tr" onclick="setGtutTipLang('tr')">TR</button>
+  </div>
+  <div id="gtut-tip-icon">🎉</div>
+  <div id="gtut-tip-text"></div>
+  <button id="gtut-tip-close" onclick="closeGtutTip()">GOT IT!</button>
+</div>
+
+<!-- Bonus Hint — tek seferlik, ilk GET READY'de görünür -->
+<div id="bonus-hint" class="hidden">
+  <div class="bh-modal">
+    <div class="bh-lang-row">
+      <button class="bh-lang-btn active" id="bh-btn-en" onclick="setBhLang('en')">EN</button>
+      <button class="bh-lang-btn" id="bh-btn-tr" onclick="setBhLang('tr')">TR</button>
+    </div>
+    <div class="bh-icon">⭐</div>
+    <div class="bh-title" id="bh-title">Category Bonus</div>
+    <div class="bh-text" id="bh-text"></div>
+    <div class="bh-strip" id="bh-strip">🏆 Bonus Category — 2× Damage</div>
+    <button class="bh-btn" id="bh-btn-ok" onclick="closeBonusHint()">GOT IT!</button>
+  </div>
+</div>
+
 <!-- Round Summary: shown after both teams finish a round -->
 <div id="round-summary" class="hidden">
   <div class="rsum-box">
@@ -1946,83 +2073,18 @@ input[type=range].st-slider::-moz-range-thumb{width:22px;height:22px;border-radi
 <!-- Tutorial Overlay -->
 <div id="tutorial-overlay" class="hidden">
   <div class="tut-modal">
-    <div class="tut-header">
-      <div class="tut-title">📖 HOW TO PLAY</div>
-      <div class="tut-subtitle">Word Builder — Quick Guide</div>
+    <div class="tut-lang-row">
+      <button class="tut-lang-btn active" id="tut-btn-en" onclick="setTutLang('en')">EN</button>
+      <button class="tut-lang-btn" id="tut-btn-tr" onclick="setTutLang('tr')">TR</button>
     </div>
-    <div class="tut-body">
-
-      <div class="tut-section">
-        <div class="tut-icon">🎯</div>
-        <div class="tut-text">
-          <h3>Objective</h3>
-          <p>Two teams compete to build words from a <strong>letter grid</strong>. Each valid word deals <strong>HP damage</strong> to the opposing team. The team that reduces the enemy's HP to zero wins!</p>
-        </div>
-      </div>
-
-      <div class="tut-divider"></div>
-
-      <div class="tut-section">
-        <div class="tut-icon">🔤</div>
-        <div class="tut-text">
-          <h3>Building a Word</h3>
-          <p>Tap or drag letters on the grid to select them in order. Letters must be <strong>adjacent</strong> to each other (horizontally, vertically or diagonally). Tap <strong>✓ SUBMIT</strong> when your word is ready — or tap a selected letter again to deselect it.</p>
-        </div>
-      </div>
-
-      <div class="tut-divider"></div>
-
-      <div class="tut-section">
-        <div class="tut-icon">⏱</div>
-        <div class="tut-text">
-          <h3>Timer</h3>
-          <p>Each team has a limited time per round. Build as many words as you can before the clock runs out! The faster you play, the more damage you deal.</p>
-        </div>
-      </div>
-
-      <div class="tut-divider"></div>
-
-      <div class="tut-section">
-        <div class="tut-icon">⭐</div>
-        <div class="tut-text">
-          <h3>Category Bonus</h3>
-          <p>Some words belong to a <strong>bonus category</strong>. Finding one triggers a special bonus that deals extra damage — watch for the golden flash!</p>
-        </div>
-      </div>
-
-      <div class="tut-divider"></div>
-
-      <div class="tut-section">
-        <div class="tut-icon">🃏</div>
-        <div class="tut-text">
-          <h3>Joker</h3>
-          <p>Each team gets <strong>one Joker per turn</strong>. Use it to add any letter that's not on the grid — handy for completing a tricky word. Joker letters score <strong>0 points</strong> on their own.</p>
-        </div>
-      </div>
-
-      <div class="tut-divider"></div>
-
-      <div class="tut-section">
-        <div class="tut-icon">❌</div>
-        <div class="tut-text">
-          <h3>Wrong Answers</h3>
-          <p>Submitting <strong>3 wrong words in a row</strong> triggers a warning. One more mistake after that costs your team <strong>HP</strong> — so choose carefully!</p>
-        </div>
-      </div>
-
-      <div class="tut-divider"></div>
-
-      <div class="tut-section">
-        <div class="tut-icon">🏆</div>
-        <div class="tut-text">
-          <h3>Winning</h3>
-          <p>Drain the opposing team's HP completely to win the match. If time runs out with both teams still standing, the team with <strong>more HP remaining</strong> wins!</p>
-        </div>
-      </div>
-
-    </div>
-    <div class="tut-footer">
-      <button class="tut-close" onclick="closeTutorial()">GOT IT — LET'S PLAY!</button>
+    <div class="tut-step-badge" id="tut-step-num">1</div>
+    <div class="tut-card-icon" id="tut-card-icon">🎯</div>
+    <div class="tut-card-title" id="tut-card-title">Objective</div>
+    <div class="tut-card-text" id="tut-card-text"></div>
+    <div class="tut-dots" id="tut-dots"></div>
+    <div class="tut-nav">
+      <button class="tut-prev" id="tut-prev" onclick="tutNav(-1)">←</button>
+      <button class="tut-next" id="tut-next" onclick="tutNav(1)">NEXT →</button>
     </div>
   </div>
 </div>
@@ -2097,6 +2159,7 @@ input[type=range].st-slider::-moz-range-thumb{width:22px;height:22px;border-radi
     <div class="st-modal-foot">
       <div class="st-foot-row">
         <button class="st-defaults-btn" onclick="applyDefaults()">↺ DEFAULTS</button>
+        <button class="st-defaults-btn" onclick="resetTutorials()" style="border-color:rgba(100,180,255,.35);color:rgba(120,200,255,.7)">↺ RESET TUTORIAL</button>
         <button class="st-back" onclick="settingsSave()">✓ Save & Back</button>
       </div>
     </div>
@@ -2249,6 +2312,9 @@ input[type=range].st-slider::-moz-range-thumb{width:22px;height:22px;border-radi
 
 <!-- Word Quiz Overlay -->
 <div id="word-quiz-overlay" class="hidden">
+  <div id="wq-hint" class="hidden">
+    <div id="wq-hint-text">💡 Öğrenciler bu kelimelerin Türkçelerini biliyorlarsa rakiplerine <strong>ekstra puan üstünlüğü</strong> sağlayacaklar! Doğru cevapların sağ tarafına <strong>✓ tick</strong> koyun.</div>
+  </div>
   <div class="wq-modal">
     <div class="wq-title wq-ta" id="wq-title">TEAM A FINISHES!</div>
     <div class="wq-sub">Can your students name the Turkish meanings? Tick each correct answer.</div>
@@ -2302,7 +2368,6 @@ input[type=range].st-slider::-moz-range-thumb{width:22px;height:22px;border-radi
   <img id="game-avatar-img-b" src="">
 </div>
 <div id="now-playing">♪ —</div>
-<button id="lite-btn" onclick="toggleLiteMode()" title="Lite Mod — arka plan efektlerini kapat/aç">LITE</button>
 <button id="music-btn" onclick="toggleMusicMute()" title="Müziği Kapat/Aç">🔊</button>
 <button id="end-game-btn" onclick="toggleEndConfirm()">⏹ END</button>
 <div id="end-confirm">
@@ -2941,6 +3006,7 @@ function triggerValidWord(word,base,adjBonus,total){
   totalScore+=total; roundScore+=total; wordsFound++; comboCount++;
   usedWords.add(word);
   wrongStreak=0; lastWrongTime=0; // geçerli kelime streak'i sıfırlar
+  if(wordsFound===1 && !localStorage.getItem('wb_tut_game2')) showGtutTip();
   // TURN BASED: aktif öğrenciye puan ekle
   if(playStyle==='TURN_BASED'){
     const st=groupStudents[currentTeam];
@@ -3249,6 +3315,17 @@ let timerStart=null, timerRAF=null, lastTick=-1;
 
 function startTimer(){timerStart=performance.now();cancelAnimationFrame(timerRAF);lastTick=-1;tickTimer();}
 function stopTimer(){cancelAnimationFrame(timerRAF);timerRAF=null;}
+let _timerPausedElapsed=0;
+function pauseTimer(){
+  if(timerRAF===null) return;
+  _timerPausedElapsed=(performance.now()-timerStart)/1000;
+  cancelAnimationFrame(timerRAF); timerRAF=null;
+}
+function resumeTimer(){
+  if(timerRAF!==null) return;
+  timerStart=performance.now()-_timerPausedElapsed*1000;
+  lastTick=-1; tickTimer();
+}
 
 function tickTimer(){
   if(gameOver) return;
@@ -3387,7 +3464,6 @@ function triggerElectricShock(){
 
 function runElectricWave(){
   if(gameOver) return;
-  if(liteMode) return; // lite modda elektrik yok
   if(!electricEnabled) return; // settings'ten kapatıldıysa yok
   electricCells=[]; warningCells=[]; updateElectricDisplay();
   const candidates=[];
@@ -3499,7 +3575,6 @@ function triggerBoardFire(){
 
 function startFlameTile(){
   stopFlameTile();
-  if(liteMode) return; // lite modda alev tile yok
   _flameTileInterval=setInterval(spawnFlamingTile, 5000);
 }
 
@@ -3790,7 +3865,128 @@ function showSwitchOverlay(nextTeam, cb, eyebrow){
   }
   setScoresBtn(true);
   overlay.classList.remove('hidden');
-  overlayCountdown(document.getElementById('sw-cont-btn'),()=>{ changeBgMusic(); overlay.classList.add('hidden'); cb(); });
+  // İlk açılışta bonus hint göster — countdown'ı hint kapanana kadar beklet
+  if(!localStorage.getItem('wb_hint_bonus_shown')){
+    localStorage.setItem('wb_hint_bonus_shown','1');
+    showBonusHint(()=>{
+      overlayCountdown(document.getElementById('sw-cont-btn'),()=>{ changeBgMusic(); overlay.classList.add('hidden'); cb(); });
+    });
+  } else {
+    overlayCountdown(document.getElementById('sw-cont-btn'),()=>{ changeBgMusic(); overlay.classList.add('hidden'); cb(); });
+  }
+}
+
+/* ── BONUS HINT ── */
+let _bhLang='en', _bhCb=null;
+const BH_CONTENT={
+  en:{
+    title:'Category Bonus',
+    text:'Each round has an active <strong>Bonus Category</strong>. Any word you find that belongs to that category deals <strong>2× damage</strong> to the opposing team. Check the category strip on the screen!',
+    strip:'🏆 Bonus Category — 2× Damage',
+    btn:'GOT IT!'
+  },
+  tr:{
+    title:'Kategori Bonusu',
+    text:'Her turda aktif bir <strong>Bonus Kategorisi</strong> vardır. O kategoriye ait bir kelime bulursan rakip takıma <strong>2× hasar</strong> verirsin. Ekrandaki kategori şeridini takip et!',
+    strip:'🏆 Bonus Kategorisi — 2× Hasar',
+    btn:'ANLADIM!'
+  }
+};
+
+function showBonusHint(cb){
+  _bhCb=cb; _bhLang='en';
+  document.getElementById('bonus-hint').classList.remove('hidden');
+  _bhRender();
+}
+
+function closeBonusHint(){
+  document.getElementById('bonus-hint').classList.add('hidden');
+  if(_bhCb){ _bhCb(); _bhCb=null; }
+}
+
+function setBhLang(lang){
+  _bhLang=lang;
+  document.getElementById('bh-btn-en').classList.toggle('active',lang==='en');
+  document.getElementById('bh-btn-tr').classList.toggle('active',lang==='tr');
+  _bhRender();
+}
+
+function _bhRender(){
+  const c=BH_CONTENT[_bhLang];
+  document.getElementById('bh-title').textContent=c.title;
+  document.getElementById('bh-text').innerHTML=c.text;
+  document.getElementById('bh-strip').textContent=c.strip;
+  document.getElementById('bh-btn-ok').textContent=c.btn;
+}
+
+/* ── GAME TUTORIAL ── */
+let _gtutLang='en', _gtutCb=null;
+
+const GTUT_STEP1={
+  en:{title:'Build a Word!',    text:'Select letters from the board to form a word. If you pick letters that are <strong>adjacent</strong> (up · down · left · right · diagonal), you earn a <strong>BONUS</strong>! Press ✓ SUBMIT when ready.'},
+  tr:{title:'Kelime Oluştur!', text:'Tahtadan harfleri seçerek bir kelime oluştur. <strong>Yanyana</strong> (sağ · sol · yukarı · aşağı · çapraz) harfler seçersen <strong>BONUS</strong> puan alırsın! Hazır olunca ✓ SUBMIT\'e bas.'},
+};
+
+const GTUT_TIP={
+  en:{text:'<strong>Great job!</strong> You made your first word! Keep going — and keep an eye on the timer!', btn:'GOT IT!'},
+  tr:{text:'<strong>Tebrikler!</strong> İlk kelimeni yaptın! Aynen böyle devam et ve sürene dikkat et!', btn:'DEVAM ET →'},
+};
+let _gtutTipLang='en';
+
+function showGtutStep1(cb){
+  if(localStorage.getItem('wb_tut_game1')){ cb(); return; }
+  localStorage.setItem('wb_tut_game1','1');
+  _gtutCb=cb; _gtutLang='en';
+  document.getElementById('gtut-overlay').classList.remove('hidden');
+  _gtutRender();
+}
+
+function closeGtut(){
+  document.getElementById('gtut-overlay').classList.add('hidden');
+  if(_gtutCb){ _gtutCb(); _gtutCb=null; }
+}
+
+function setGtutLang(lang){
+  _gtutLang=lang;
+  document.getElementById('gtut-btn-en').classList.toggle('active',lang==='en');
+  document.getElementById('gtut-btn-tr').classList.toggle('active',lang==='tr');
+  _gtutRender();
+}
+
+function _gtutRender(){
+  const c=GTUT_STEP1[_gtutLang];
+  document.getElementById('gtut-title').textContent=c.title;
+  document.getElementById('gtut-text').innerHTML=c.text;
+  document.getElementById('gtut-btn-ok').textContent=_gtutLang==='tr'?'ANLADIM!':'GOT IT!';
+}
+
+function _renderGtutTip(){
+  const c=GTUT_TIP[_gtutTipLang];
+  document.getElementById('gtut-tip-text').innerHTML=c.text;
+  document.getElementById('gtut-tip-close').textContent=c.btn;
+  document.getElementById('gtut-tip-btn-en').classList.toggle('active',_gtutTipLang==='en');
+  document.getElementById('gtut-tip-btn-tr').classList.toggle('active',_gtutTipLang==='tr');
+}
+
+function setGtutTipLang(lang){
+  _gtutTipLang=lang;
+  _renderGtutTip();
+}
+
+function showGtutTip(){
+  const tip=document.getElementById('gtut-tip');
+  if(!tip) return;
+  localStorage.setItem('wb_tut_game2','1');
+  _gtutTipLang='en';
+  _renderGtutTip();
+  tip.classList.remove('hidden');
+  pauseTimer();
+}
+
+function closeGtutTip(){
+  const tip=document.getElementById('gtut-tip');
+  if(tip) tip.classList.add('hidden');
+  resumeTimer();
 }
 
 function showRoundSummary(cb){
@@ -3899,8 +4095,10 @@ function startTeamTurn(team){
         av.classList.toggle('avatar-idle',   gi!==team);
       }
     });
-    startTimer(); electricCount=1; runElectricWave(); startFlameTile();
-    startCreditMarquee(); // ilk tur başladığında marquee'yi başlat (tek sefer)
+    showGtutStep1(()=>{
+      startTimer(); electricCount=1; runElectricWave(); startFlameTile();
+      startCreditMarquee(); // ilk tur başladığında marquee'yi başlat (tek sefer)
+    });
   });
 }
 
@@ -4010,9 +4208,10 @@ function setPlayStyle(ps){
   document.getElementById('st-ps-turn').classList.toggle('active', ps==='TURN_BASED');
   document.getElementById('st-ps-val').textContent=ps==='RANDOM'?'Random':'Turn Based';
   const isTurn=(ps==='TURN_BASED');
-  // Avatar mode ve Sınıf sadece Turn Based'de görünür
+  // Avatar mode sadece Turn Based'de görünür — seçilince TEAM default
   const avGroup=document.getElementById('st-avatar-mode-group');
   if(avGroup) avGroup.style.display=isTurn?'':'none';
+  if(isTurn) setAvatarMode('team');
 }
 
 function setAvatarMode(mode){
@@ -4067,6 +4266,12 @@ function applySettings(){
     if(s.avatarMode) setAvatarMode(s.avatarMode);
     updateSettingsDisplay();
   } catch(e){}
+}
+
+function resetTutorials(){
+  ['wb_tut_game1','wb_tut_game2','wb_tut_quiz','wb_hint_bonus_shown'].forEach(k=>localStorage.removeItem(k));
+  const btn=document.querySelector('[onclick="resetTutorials()"]');
+  if(btn){ btn.textContent='✓ DONE!'; setTimeout(()=>btn.textContent='↺ RESET TUTORIAL',1500); }
 }
 
 function applyDefaults(){
@@ -4728,12 +4933,79 @@ function menuSettings(){
   document.getElementById('settings-overlay').classList.remove('hidden');
 }
 
+const TUT_STEPS = [
+  {
+    icon:'🎯',
+    en:{title:'Objective',        text:'Two teams compete to build words from a <strong>letter board</strong>. Each valid word deals <strong>HP damage</strong> to the opposing team. The team that reduces the enemy\'s HP to zero wins!'},
+    tr:{title:'Amaç',             text:'İki takım, oyun tahtasında kelimeler oluşturmak için yarışır. Her geçerli kelime rakip takımın <strong>HP\'sini (can puanını)</strong> düşürür. Rakibin HP\'sini sıfıra indiren takım kazanır!'},
+  },
+  {
+    icon:'🔤',
+    en:{title:'Building a Word',  text:'Tap letters on the board in order to build your word. Letters can be any letter on the board — but if they are <strong>adjacent</strong> (horizontally, vertically or diagonally), you earn a <strong>BONUS</strong>! Tap <strong>✓ SUBMIT</strong> when ready — tap a selected letter again to deselect it.'},
+    tr:{title:'Kelimeyi Oluşturma',text:'Kelime oluşturmak için Oyun Tahtasındaki harfleri sırayla dokun. Harfler tahtadan herhangi bir harf olabilir — fakat birbirine <strong>komşu</strong> olursa (yatay, dikey veya çapraz) <strong>BONUS</strong> puan verir! Kelimen hazır olduğunda <strong>✓ SUBMIT</strong>\'e bas — seçili harfe tekrar dokunarak iptal edebilirsin.'},
+  },
+  {
+    icon:'🃏',
+    en:{title:'Joker & Bonus',    text:'Each team gets <strong>one Joker per turn</strong> — use it to add any letter not on the board. Some words belong to a <strong>bonus category</strong>: finding one triggers extra damage and a golden flash!'},
+    tr:{title:'Joker & Bonus',    text:'Her takım her tur <strong>bir Joker</strong> hakkı kazanır — tahtada olmayan herhangi bir harfi eklemek için kullan. Bazı kelimeler <strong>bonus kategorisine</strong> aittir: birini bulmak ekstra hasar ve altın parıltı tetikler!'},
+  },
+  {
+    icon:'🏆',
+    en:{title:'Winning',          text:'Drain the enemy\'s HP to zero to win! Submitting <strong>3 wrong words in a row</strong> risks an HP penalty. If time runs out with both teams standing, the team with <strong>more HP remaining</strong> wins.'},
+    tr:{title:'Kazanma',          text:'Rakibin HP\'sini sıfıra indir ve kazan! <strong>Arka arkaya 3 yanlış kelime</strong> göndermek HP cezası riskini doğurur. Süre bittiğinde her iki takım da ayaktaysa <strong>daha fazla HP\'si kalan</strong> takım kazanır.'},
+  },
+];
+
+let _tutStep=0, _tutLang='en';
+
 function openTutorial(){
+  _tutStep=0; _tutLang='en';
   document.getElementById('tutorial-overlay').classList.remove('hidden');
+  _tutRender();
 }
 
 function closeTutorial(){
   document.getElementById('tutorial-overlay').classList.add('hidden');
+}
+
+function setTutLang(lang){
+  _tutLang=lang;
+  document.getElementById('tut-btn-en').classList.toggle('active',lang==='en');
+  document.getElementById('tut-btn-tr').classList.toggle('active',lang==='tr');
+  _tutRender();
+}
+
+function tutNav(dir){
+  const next=_tutStep+dir;
+  if(next<0){ closeTutorial(); return; }
+  if(next>=TUT_STEPS.length){ closeTutorial(); return; }
+  _tutStep=next;
+  _tutRender();
+}
+
+function _tutRender(){
+  const s=TUT_STEPS[_tutStep];
+  const lang=TUT_STEPS[_tutStep][_tutLang];
+  document.getElementById('tut-step-num').textContent=_tutStep+1;
+  document.getElementById('tut-card-icon').textContent=s.icon;
+  document.getElementById('tut-card-title').textContent=lang.title;
+  document.getElementById('tut-card-text').innerHTML=lang.text;
+  // Dots
+  const dots=document.getElementById('tut-dots');
+  dots.innerHTML='';
+  TUT_STEPS.forEach((_,i)=>{
+    const d=document.createElement('span');
+    d.className='tut-dot'+(i===_tutStep?' active':'');
+    d.onclick=()=>{ _tutStep=i; _tutRender(); };
+    dots.appendChild(d);
+  });
+  // Prev button
+  document.getElementById('tut-prev').disabled=false;
+  document.getElementById('tut-prev').title=_tutStep===0?'Close':'Previous';
+  // Next button
+  const isLast=_tutStep===TUT_STEPS.length-1;
+  const nextBtn=document.getElementById('tut-next');
+  nextBtn.textContent=isLast?(_tutLang==='tr'?'ANLADIM! OYNAYALIM 🎮':'GOT IT! LET\'S PLAY 🎮'):'NEXT →';
 }
 
 /* ─────────────────────────────────────────────────────────────────
@@ -5190,6 +5462,8 @@ function showWordQuiz(team, words, cb){
   });
 
   updateQuizUI();
+  if(!localStorage.getItem('wb_tut_quiz')) document.getElementById('wq-hint').classList.remove('hidden');
+  else document.getElementById('wq-hint').classList.add('hidden');
   document.getElementById('word-quiz-overlay').classList.remove('hidden');
   // Fix-7: end-game-btn quiz üzerinde tıklanmasın
   const egb=document.getElementById('end-game-btn');
@@ -5233,6 +5507,7 @@ function updateQuizUI(){
 
 function applyQuizBonus(){
   const bonus=quizResults.filter(r=>r===true).length*5;
+  localStorage.setItem('wb_tut_quiz','1'); // hint bir daha çıkmasın
   document.getElementById('word-quiz-overlay').classList.add('hidden');
   // Fix-7: end-game-btn quiz kapandıktan sonra geri getir
   const egb=document.getElementById('end-game-btn');
@@ -6327,45 +6602,11 @@ function startCreditMarquee(){
   AVATARS.forEach(av=>{ const img=new Image(); img.src=av.src; });
 })();
 
-// ── LITE MODE ── Arka plan efektlerini (stars / nebula / corner-lights) kapat/aç ──
-let liteMode = localStorage.getItem('liteMode') === '1';
 let touchscreenMode = localStorage.getItem('touchscreenMode') !== '0'; // varsayılan TAP
 let electricEnabled = localStorage.getItem('electricEnabled') !== '0'; // varsayılan ON
 
-function _applyLiteVisuals(){
-  const ids = ['stars','nebula','corner-lights'];
-  ids.forEach(function(id){
-    const el = document.getElementById(id);
-    if(el) el.style.display = liteMode ? 'none' : '';
-  });
-  const gameActive = !gameOver;
-  if(gameActive){
-    if(liteMode){
-      stopElectric();
-      stopFlameTile();
-    } else {
-      electricCount=1; runElectricWave();
-      startFlameTile();
-    }
-  }
-  const btn = document.getElementById('lite-btn');
-  if(btn){
-    btn.classList.toggle('lite-on', liteMode);
-    btn.title = liteMode
-      ? 'Lite Mod AKTİF — tıkla: efektleri geri aç'
-      : 'Lite Mod — tıkla: elektrik/alev/arka plan efektlerini kapat';
-  }
-}
-
-function toggleLiteMode(){
-  liteMode = !liteMode;
-  localStorage.setItem('liteMode', liteMode ? '1' : '0');
-  _applyLiteVisuals();
-}
-
 // ── Sayfa açılışında kayıtlı ayarları yükle ──
-applySettings();      // settings.js → tüm oyun ayarları
-_applyLiteVisuals();  // LITE mod durumunu uygula (localStorage'dan)
+applySettings();
 
 // Touchscreen + Electric slider'larını localStorage'daki değerle senkronize et
 (function(){
