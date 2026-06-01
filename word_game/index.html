@@ -79,18 +79,30 @@
   .header-right { position: absolute; right: 24px; top: 50%; transform: translateY(-50%); text-align: right; display: flex; align-items: center; gap: 10px; }
   #lite-btn {
     font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700;
-    letter-spacing: .12em; text-transform: uppercase; padding: 4px 10px;
-    border-radius: 6px; border: 1.5px solid; cursor: pointer; transition: all .15s;
-    background: rgba(239,68,68,0.15); border-color: rgba(239,68,68,0.5); color: #f87171;
+    letter-spacing: .12em; text-transform: uppercase; padding: 0 10px;
+    height: 40px; border-radius: 10px; border: 1px solid; cursor: pointer;
+    transition: all .15s; display: flex; align-items: center;
+    background: rgba(74,222,128,0.15); border-color: rgba(74,222,128,0.5); color: #4ade80;
   }
   #lite-btn.active {
-    background: rgba(74,222,128,0.15); border-color: rgba(74,222,128,0.5); color: #4ade80;
+    background: rgba(239,68,68,0.15); border-color: rgba(239,68,68,0.5); color: #f87171;
   }
   /* ── LITE MODE — tüm backdrop-filter'ları kapat ── */
   body.lite-mode * {
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
   }
+  /* ── LITE MODE — sonsuz animasyonları kapat ── */
+  body.lite-mode #q-word.pulsing           { animation: none !important; }
+  body.lite-mode .q-ov-student             { animation: none !important; }
+  body.lite-mode #q-visual-panel.has-image { animation: none !important; }
+  body.lite-mode .score-student.visible    { animation: none !important; text-shadow: none !important; }
+  body.lite-mode .score-name.active-name   { animation: none !important; }
+  /* ── LITE MODE — RGB klavye animasyonları kapat ── */
+  body.lite-mode .rgb-kb-key              { animation: none !important; box-shadow: 0 2px 0 rgba(0,0,0,.6) !important; }
+  body.lite-mode .rgb-kb-key.kb-del      { animation: none !important; }
+  body.lite-mode .rgb-kb-key.kb-submit   { animation: none !important; }
+  body.lite-mode .rgb-kb-key.kb-sure     { animation: none !important; }
   .round-badge {
     font-family: 'Barlow Condensed', sans-serif;
     font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase;
@@ -897,13 +909,6 @@
     color: rgba(255,215,0,0.72);
     border: 1px solid rgba(255,215,0,0.18);
   }
-  #wheel-debug-REMOVED {
-    color: rgba(192,132,252,0.9);
-    border: 1px solid rgba(192,132,252,0.25);
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 12px; font-weight: 700; letter-spacing: .08em;
-    background: rgba(0,0,0,0.45); padding: 3px 9px; border-radius: 6px;
-  }
 
   /* ── MAIN MENU ── */
   /* ══════════ MAIN MENU — retro hex design ══════════ */
@@ -977,16 +982,24 @@
     position: relative; display: inline-block;
     margin: 0;
   }
+  @keyframes mmCreditShimmer {
+    0%   { background-position: 200% center; }
+    100% { background-position: -100% center; }
+  }
   .mm-credit {
     font-family: 'Barlow Condensed', sans-serif;
     font-size: clamp(15px, 2.2vw, 26px);
     font-weight: 700; letter-spacing: .22em; text-transform: uppercase;
     background: linear-gradient(90deg,
-      #a35400 0%, #ffd700 20%, #ffffff 45%,
-      #ffe566 55%, #ffd700 75%, #a35400 100%);
+      #b45309 0%, #ffd700 15%, #ffffff 30%,
+      #4ade80 45%, #60a5fa 58%,
+      #c084fc 70%, #ffd700 85%, #b45309 100%);
     background-size: 300% auto;
     -webkit-background-clip: text; -webkit-text-fill-color: transparent;
     background-clip: text;
+  }
+  .mm-credit-wrap.shine .mm-credit {
+    animation: mmCreditShimmer 2.2s ease-in-out 2 forwards;
   }
 
   /* Action buttons */
@@ -1476,15 +1489,6 @@
   }
   .override-pts-btn:hover { background: rgba(255,215,0,0.15); border-color: var(--gold); }
   .override-pts-btn.selected { background: rgba(255,215,0,0.2); border-color: var(--gold); box-shadow: 0 0 16px rgba(255,215,0,0.3); }
-  /* ── SCRABBLE SETTINGS PANEL ── */
-  /* sc-settings-panel — artık kullanılmıyor, uyumluluk için boş */
-  .sc-settings-panel { display: none; }
-  .sc-settings-inner { display: flex; flex-direction: column; gap: 12px; }
-  .sc-settings-label {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
-    color: var(--muted); margin-bottom: 4px;
-  }
   .sc-class-grid { display: flex; flex-wrap: wrap; gap: 7px; }
   .sc-class-btn {
     font-family: 'Barlow Condensed', sans-serif; font-size: 14px; font-weight: 700;
@@ -2292,185 +2296,6 @@
   }
   #student-badge strong { color: #7dd3fc; font-size: 15px; }
 
-  /* ══════════════════════════════════════════
-     SCRABBLE GET READY OVERLAY
-  ══════════════════════════════════════════ */
-  #scrabble-ready-overlay {
-    position: fixed; inset: 0; z-index: 4900;
-    background: rgba(3,10,40,0.95); backdrop-filter: blur(14px);
-    display: none; align-items: center; justify-content: center;
-  }
-  #scrabble-ready-overlay.open { display: flex; }
-  .scr-modal {
-    text-align: center;
-    animation: modalIn .35s cubic-bezier(.34,1.56,.64,1);
-  }
-  .scr-icon {
-    font-size: clamp(60px, 10vw, 90px);
-    animation: sc_redPulse 1s ease-in-out infinite;
-    line-height: 1; margin-bottom: 8px;
-  }
-  .scr-title {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: clamp(14px, 2vw, 20px);
-    letter-spacing: .3em; text-transform: uppercase;
-    color: var(--muted); margin-bottom: 4px;
-  }
-  .scr-game {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(64px, 12vw, 110px);
-    color: var(--gold); letter-spacing: .06em; line-height: 1;
-    text-shadow: 0 0 40px var(--gold-glow), 0 0 80px rgba(255,215,0,.3);
-  }
-  .scr-student {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(28px, 5vw, 52px);
-    color: #7dd3fc; letter-spacing: .1em; margin-top: 16px;
-    text-shadow: 0 0 20px rgba(125,211,252,.8), 0 0 40px rgba(125,211,252,.4);
-  }
-  .scr-info {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: clamp(13px, 1.8vw, 17px);
-    color: var(--muted); letter-spacing: .12em;
-    margin-top: 6px; margin-bottom: 32px;
-  }
-  .scr-tutorial-q {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: clamp(15px, 2vw, 20px); letter-spacing: .1em;
-    color: #a5f3fc; margin-bottom: 20px; margin-top: 8px;
-  }
-  .scr-btn-row { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
-  .scr-start-btn, .scr-btn-yes {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(20px, 3vw, 30px); letter-spacing: .18em;
-    padding: 15px 44px; border-radius: 16px;
-    border: none; color: #fff; cursor: pointer;
-    transition: transform .12s, box-shadow .15s;
-    animation: readyBtnPulse 1.6s ease-in-out infinite;
-  }
-  .scr-start-btn {
-    background: linear-gradient(135deg, #1d4ed8, #3b82f6);
-    box-shadow: 0 0 30px rgba(59,130,246,.5), 0 4px 20px rgba(0,0,0,.4);
-  }
-  .scr-btn-yes {
-    background: linear-gradient(135deg, #065f46, #10b981);
-    box-shadow: 0 0 30px rgba(16,185,129,.5), 0 4px 20px rgba(0,0,0,.4);
-  }
-  .scr-start-btn:hover { transform: scale(1.06); }
-  .scr-btn-yes:hover   { transform: scale(1.06); }
-  .scr-start-btn:active, .scr-btn-yes:active { transform: scale(.97); }
-  @keyframes readyBtnPulse {
-    0%,100% { filter: brightness(1);   }
-    50%      { filter: brightness(1.2); }
-  }
-
-  /* ══════════════════════════════════════════
-     SCRABBLE OVERLAY
-  ══════════════════════════════════════════ */
-  #scrabble-overlay {
-    position: fixed; inset: 0; z-index: 5000;
-    background: rgba(3,10,40,0.30);
-    display: none; flex-direction: column; align-items: center;
-  }
-  #scrabble-overlay.open { display: flex; }
-
-  #sc-inner {
-    position: relative; z-index: 1; height: 100vh;
-    display: flex; flex-direction: column; align-items: center;
-    padding: 10px 12px 10px; gap: 8px; overflow: hidden;
-    width: 100%; max-width: 500px;
-    background: rgba(3,10,40,0.72);
-    backdrop-filter: blur(10px);
-    box-shadow: 0 0 60px rgba(3,10,40,0.8);
-  }
-
-  #sc-header {
-    width: 100%; display: flex; align-items: center;
-    justify-content: space-between; padding-bottom: 8px;
-    border-bottom: 1px solid var(--panel-border);
-  }
-  .sc-logo {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(22px, 4vw, 38px); letter-spacing: .08em;
-    color: var(--gold); text-shadow: 0 0 30px var(--gold-glow); line-height: 1;
-  }
-  .sc-logo span { color: var(--white); opacity: .7; font-size: .42em; letter-spacing: .14em; display: block; margin-top: -4px; }
-  .sc-hdr-right { text-align: right; font-family: 'Barlow Condensed', sans-serif; }
-  #sc-student-name {
-    font-size: clamp(13px,2vw,20px); font-weight: 700; letter-spacing: .1em;
-    text-transform: uppercase; color: #7dd3fc;
-    text-shadow: 0 0 10px rgba(125,211,252,0.8);
-  }
-  #sc-group-name { font-size: 11px; color: var(--muted); letter-spacing: .1em; text-transform: uppercase; }
-
-  .sc-clue-card {
-    width: 100%; background: var(--panel-bg); border: 1px solid var(--panel-border);
-    border-radius: 12px; padding: 8px 16px; text-align: center; backdrop-filter: blur(8px);
-  }
-  .sc-clue-label { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); margin-bottom: 2px; }
-  #sc-tr-word { font-family: 'Bebas Neue', sans-serif; font-size: clamp(22px,5vw,38px); color: var(--gold); letter-spacing: .06em; text-shadow: 0 0 30px var(--gold-glow); line-height: 1.1; }
-  #sc-length-hint { font-size: 11px; color: var(--muted); margin-top: 2px; font-family: 'Barlow Condensed', sans-serif; letter-spacing: .08em; }
-
-  .sc-bonus-wrap { width: 100%; height: 5px; background: rgba(255,255,255,.08); border-radius: 3px; overflow: hidden; }
-  #sc-bonus-bar { height: 100%; width: 100%; border-radius: 3px; transition: width .15s linear, background .4s; background: var(--green); }
-  #sc-bonus-bar.urgent { animation: urgentPulse .45s ease-in-out infinite; }
-  @keyframes urgentPulse { 0%,100%{opacity:1} 50%{opacity:.35} }
-  .sc-bonus-label { width: 100%; display: flex; justify-content: space-between; font-family: 'Barlow Condensed', sans-serif; font-size: 11px; letter-spacing: .08em; color: var(--muted); margin-top: 2px; }
-  .sc-bonus-label span { color: var(--green); font-weight: 700; }
-
-  .sc-board-wrapper { position: relative; width: 100%; flex: 1; min-height: 0; }
-  #sc-path-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 4; }
-  #sc-board {
-    display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(5, 1fr);
-    gap: 5px; height: 100%; user-select: none; -webkit-user-select: none; touch-action: none;
-  }
-
-  /* Scrabble cells */
-  #sc-board .cell {
-    position: relative;
-    background: linear-gradient(145deg, #0d2060 0%, #08154a 100%);
-    border: 1px solid rgba(255,215,0,.22);
-    border-bottom: 3px solid rgba(0,0,0,.5); border-right: 2px solid rgba(0,0,0,.3);
-    border-radius: 8px;
-    box-shadow: 0 4px 0 rgba(0,0,10,.6), inset 0 1px 0 rgba(255,255,255,.07);
-    display: flex; align-items: center; justify-content: center;
-    cursor: default; transition: border-color .12s, box-shadow .12s; z-index: 2; overflow: hidden;
-  }
-  #sc-board .cell.row-top { border-top: 2px solid var(--gold); }
-  #sc-board .cell.path-start, #sc-board .cell.path-mid, #sc-board .cell.path-end {
-    border-color: rgba(255,215,0,.75);
-    box-shadow: 0 4px 0 rgba(0,0,10,.6), 0 0 10px rgba(255,215,0,.45), inset 0 1px 0 rgba(255,255,255,.1);
-  }
-  #sc-board .cell.path-wrong {
-    border-color: rgba(232,33,58,.9) !important;
-    box-shadow: 0 4px 0 rgba(0,0,10,.6), 0 0 14px rgba(232,33,58,.7), inset 0 1px 0 rgba(255,255,255,.1) !important;
-  }
-  #sc-board .cell.correct-flash { background: linear-gradient(145deg,#1a8f4a,#117a3c) !important; border-color: #1DB954 !important; animation: sc_cellPop .45s ease; }
-  #sc-board .cell.correct-flash .sc-cell-letter { color: #fff !important; }
-  #sc-board .cell.wrong-flash { animation: sc_cellShake .4s ease; }
-  @keyframes sc_cellPop  { 0%{transform:scale(1)} 50%{transform:scale(1.14) translateY(-3px)} 100%{transform:scale(1)} }
-  @keyframes sc_cellShake { 0%,100%{transform:translateX(0)} 20%,60%{transform:translateX(-6px)} 40%,80%{transform:translateX(6px)} }
-  @keyframes sc_screenShake { 0%,100%{transform:translate(0,0)} 10%{transform:translate(-9px,3px)} 20%{transform:translate(9px,-3px)} 30%{transform:translate(-7px,4px)} 40%{transform:translate(7px,-2px)} 50%{transform:translate(-5px,2px)} 60%{transform:translate(5px,-2px)} 70%{transform:translate(-3px,1px)} 80%{transform:translate(3px,-1px)} 90%{transform:translate(-1px,0)} }
-  @keyframes sc_redPulse { 0%,100%{text-shadow:0 0 30px rgba(232,33,58,.8),0 0 60px rgba(232,33,58,.4)} 50%{text-shadow:0 0 50px rgba(232,33,58,1),0 0 100px rgba(232,33,58,.7),0 0 160px rgba(232,33,58,.3)} }
-
-  #sc-inner.sc-shaking { animation: sc_screenShake .5s ease; }
-  .sc-cell-letter { font-family: 'Bebas Neue', sans-serif; font-size: min(6vw,6vh,32px); color: var(--white); line-height: 1; letter-spacing: .04em; z-index: 1; text-shadow: 0 1px 3px rgba(0,0,0,.5); }
-  .sc-cell-num { position: absolute; top: 2px; left: 3px; font-size: min(2vw,2vh,9px); font-weight: 700; font-family: 'Barlow Condensed', sans-serif; color: rgba(255,255,255,.7); }
-  #sc-message { width: 100%; text-align: center; min-height: 20px; font-family: 'Barlow Condensed', sans-serif; font-size: 15px; letter-spacing: .06em; color: var(--gold); text-shadow: 0 0 20px var(--gold-glow); font-weight: 700; }
-
-  /* Scrabble float score */
-  .sc-float-score { position: fixed; font-family: 'Bebas Neue', sans-serif; font-size: clamp(48px,10vw,80px); color: var(--gold); text-shadow: 0 0 30px rgba(255,215,0,.9),0 0 60px rgba(255,215,0,.5),0 0 100px rgba(255,215,0,.3); pointer-events: none; z-index: 10000; transform: translate(-50%,-50%); white-space: nowrap; }
-
-  /* Scrabble time-up modal */
-  #sc-timeup-modal { position: fixed; inset: 0; z-index: 6000; background: rgba(2,8,30,.82); backdrop-filter: blur(10px); display: flex; align-items: center; justify-content: center; }
-  #sc-timeup-modal.sc-hidden { display: none; }
-  .sc-modal-box { background: rgba(10,25,100,.75); border: 1px solid rgba(232,33,58,.5); border-radius: 20px; padding: 36px 40px; text-align: center; max-width: 340px; width: 90%; animation: modalIn .35s cubic-bezier(.34,1.56,.64,1); }
-  .sc-modal-timeup { font-family: 'Bebas Neue', sans-serif; font-size: clamp(56px,14vw,80px); color: var(--red); line-height: 1; animation: sc_redPulse 1s ease-in-out infinite; }
-  .sc-modal-sub { font-family: 'Barlow Condensed', sans-serif; font-size: 14px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin: 10px 0 4px; }
-  #sc-modal-answer { font-family: 'Bebas Neue', sans-serif; font-size: clamp(28px,7vw,42px); color: var(--gold); letter-spacing: .08em; text-shadow: 0 0 20px var(--gold-glow); margin-bottom: 24px; }
-  .sc-modal-btn { width: 100%; padding: 13px; border: 1px solid rgba(255,215,0,.35); border-radius: 10px; background: rgba(255,215,0,.1); color: var(--gold); font-family: 'Barlow Condensed', sans-serif; font-size: 16px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; cursor: pointer; transition: background .15s, transform .1s; }
-  .sc-modal-btn:hover { background: rgba(255,215,0,.22); }
-  .sc-modal-btn:active { transform: scale(.96); }
 </style>
 </head>
 <body>
@@ -2653,7 +2478,6 @@
   <header>
     <div class="logo">WORD GAME<div class="logo-sub">Designed by ADİL FIRAT OKTAV</div></div>
     <div class="header-right">
-      <button id="lite-btn" onclick="toggleLiteMode()">LITE</button>
       <div class="round-badge">Active Group: <strong id="group-display">1</strong></div>
     </div>
   </header>
@@ -2921,6 +2745,7 @@
 <button id="scores-btn" onclick="openScoresPopup()">🏆 SCORES</button>
 
 <div id="top-right-bar">
+  <button id="lite-btn" onclick="toggleLiteMode()">LITE</button>
   <button class="ctrl-btn" id="mute-btn" onclick="toggleMute()" title="Müziği Kapat/Aç">🔊</button>
   <button class="ctrl-btn" id="fs-btn"   onclick="toggleFullscreen()" title="Tam Ekran">⛶</button>
   <div id="override-group">
@@ -2998,11 +2823,10 @@ function buildQuizPool() {
 }
 
 /* ── LITE MODE ── */
-let _liteMode = localStorage.getItem('wg_lite') === '1';
+let _liteMode = false;
 
 function toggleLiteMode() {
   _liteMode = !_liteMode;
-  localStorage.setItem('wg_lite', _liteMode ? '1' : '0');
   _applyLiteMode();
 }
 
@@ -3012,10 +2836,19 @@ function _applyLiteMode() {
   if(btn) btn.classList.toggle('active', _liteMode);
 }
 
+function _triggerCreditShimmer() {
+  const wrap = document.getElementById('mm-credit-wrap');
+  if(!wrap) return;
+  wrap.classList.remove('shine');
+  void wrap.offsetWidth; // reflow → animasyonu sıfırla
+  wrap.classList.add('shine');
+}
+
 function startGame() {
-  updateDiffLongDesc();
-  _applyLiteMode(); // kayıtlı LITE tercihi uygula
+
+  _applyLiteMode();
   document.getElementById('main-menu').style.display = 'flex';
+  setTimeout(_triggerCreditShimmer, 100); // DOM render sonrası başlat
   document.getElementById('app').style.display = 'none';
   const hdr = document.querySelector('header'); if(hdr) hdr.style.display = 'none';
 }
@@ -3034,7 +2867,7 @@ function menuSettings() {
   buildGradeSelector();
   buildUnitSelector();
   _refreshGroupCountBtns();
-  updateDiffLongDesc();
+
   _syncTimerBtns();
 }
 
@@ -3099,7 +2932,7 @@ function saveSettings() {
   document.getElementById('settings-overlay').style.display = 'none';
   document.getElementById('main-menu').style.display = 'flex';
   document.getElementById('app').style.display = 'none';
-  updateDiffLongDesc();
+  _triggerCreditShimmer();
 }
 
 function saveStudentNames() {
@@ -3169,7 +3002,6 @@ function applyNamesAndContinue() {
   showStudentOverlay();
 }
 
-function updateDiffLongDesc() {}
 
 function pauseTimer() {
   if(timerId) { clearTimeout(timerId); timerId = null; }
@@ -5350,7 +5182,49 @@ function fillAllStudents() {
   selectStdField(0, 0);
 }
 
-function balanceDistribute() {} // production stub — teacher mode'da görünür ama işlevsiz
+function balanceDistribute() {
+  // Aktif öğrenci havuzu
+  const rawPool = (typeof CLASSES !== 'undefined' && CLASSES.length > 0)
+    ? CLASSES.filter(c => selectedClasses.has(c.id)).flatMap(c => c.students)
+    : [];
+  if(!rawPool.length) { showToast('Öğrenci listesi boş!', 2000, 'warn'); return; }
+
+  const LEVEL_PTS = { S:6, A:5, B:4, C:3, D:2, F:1 };
+  const gc     = groupCount;
+  const teams  = Array.from({length: gc}, () => []);
+  const scores = new Array(gc).fill(0);
+
+  // Seviyeye göre sırala (level yoksa orta = 3 puan varsay)
+  const sorted = [...rawPool].sort((a, b) => {
+    const d = (LEVEL_PTS[b.level] || 3) - (LEVEL_PTS[a.level] || 3);
+    return d !== 0 ? d : Math.random() - .5;
+  });
+
+  // Greedy dağıtım — her öğrenci en düşük puanlı takıma gider
+  sorted.forEach(s => {
+    const minS = Math.min(...scores);
+    const t    = scores.indexOf(minS);
+    teams[t].push(s.name || s);
+    scores[t] += (LEVEL_PTS[s.level] || 3);
+  });
+
+  // studentInputs güncelle + UI'ı aç
+  for(let gi = 0; gi < 3; gi++) {
+    for(let si = 0; si < STD_SLOTS; si++) {
+      const name = (gi < gc && si < teams[gi].length) ? teams[gi][si] : '';
+      studentInputs[gi][si]  = name;
+      _slotRevealed[gi][si]  = true;
+      const t    = document.getElementById(`stdt-${gi}-${si}`);
+      const slot = document.getElementById(`std-${gi}-${si}`);
+      if(t)    t.textContent = name;
+      if(slot) name.trim() === '' ? slot.classList.add('is-empty') : slot.classList.remove('is-empty');
+    }
+  }
+
+  const info = teams.map((_, gi) => (groupNames[gi] || ('Grup '+(gi+1))) + ': ' + scores[gi] + 'p').join(' · ');
+  showToast('⚖ Dağıtıldı — ' + info, 2500);
+  selectStdField(0, 0);
+}
 
 // Teacher mode zar: aktif öğrenci havuzundan rastgele ata
 function assignStdRandom(gi, si) {
@@ -5578,24 +5452,10 @@ function getAllStudentEntries() {
   return entries;
 }
 
-let _autoLbPollId = null; // birikmesini önle
 function showAutoLeaderboard() {
   const total = grpIdxs().reduce((s,gi) => s + groupStudents[gi].length, 0);
   if(total === 0) return;
-  // İlk puan alınmadan gösterme
-  const anyPoints = groupScores.some(s => s > 0);
-  if(!anyPoints) return;
-  // Görsel flash aktifse önce o bitsin
-  if(document.querySelector('.img-flash-overlay.show')) {
-    if(_autoLbPollId) { clearInterval(_autoLbPollId); _autoLbPollId = null; }
-    _autoLbPollId = setInterval(() => {
-      if(!document.querySelector('.img-flash-overlay.show')) {
-        clearInterval(_autoLbPollId); _autoLbPollId = null;
-        _renderAutoLeaderboard();
-      }
-    }, 100);
-    return;
-  }
+  if(!groupScores.some(s => s > 0)) return;
   _renderAutoLeaderboard();
 }
 
@@ -5973,7 +5833,7 @@ function toggleClass(id) {
   syncAnimalsAutoSelect();
   buildGradeSelector();
   buildUnitSelector();
-  updateDiffLongDesc();
+
 }
 
 function toggleGrade(g) {
@@ -5991,7 +5851,7 @@ function toggleGrade(g) {
   syncAnimalsAutoSelect();
   buildGradeSelector();
   buildUnitSelector();
-  updateDiffLongDesc();
+
 }
 
 /* Ünite seçici UI — QUESTIONS.js'den unit numaralarını çek */
@@ -6049,7 +5909,7 @@ function toggleCategory(catId) {
   if(selectedCategories.has(catId)) selectedCategories.delete(catId);
   else selectedCategories.add(catId);
   buildUnitSelector();
-  updateDiffLongDesc();
+
 }
 
 function clearAllSelections() {
@@ -6059,7 +5919,7 @@ function clearAllSelections() {
   selectedCategories = new Set();
   buildGradeSelector();
   buildUnitSelector();
-  updateDiffLongDesc();
+
 }
 
 /* 7. Sınıf Ünite 4 seçiliyse ANIMALS (id:11) otomatik aç (kapatmaz) */
@@ -6083,7 +5943,7 @@ function toggleUnit(n) {
   }
   syncAnimalsAutoSelect();  // 7. Sınıf + Ünite 4 seçiliyse ANIMALS'ı otomatik aç
   buildUnitSelector();
-  updateDiffLongDesc();
+
 }
 
 function updateUnitCount() {
@@ -6302,8 +6162,6 @@ function resolveQuestion(correct) {
   }
   setTimeout(closeModalAndNext, 2000);
 }
-
-function openScrabble() {}
 
 function toggleEndConfirm() {
   const el = document.getElementById('end-confirm');
