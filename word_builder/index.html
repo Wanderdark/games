@@ -1455,6 +1455,33 @@ body.avatars-active #hp-area{display:none}
 .mn-play:active{transform:scale(.97)}
 .mn-settings{margin-top:2px;padding:9px 28px;font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;background:rgba(255,255,255,.05);border:1px solid rgba(255,140,0,.2);border-radius:10px;color:rgba(240,244,255,.45);cursor:pointer;transition:background .15s,border-color .2s,color .2s}
 .mn-settings:hover{background:rgba(255,140,0,.09);border-color:rgba(255,140,0,.45);color:var(--gold)}
+.mn-tutorial{margin-top:0;padding:7px 22px;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.1);border-radius:10px;color:rgba(240,244,255,.3);cursor:pointer;transition:background .15s,border-color .2s,color .2s}
+.mn-tutorial:hover{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.25);color:rgba(240,244,255,.7)}
+
+/* ── TUTORIAL OVERLAY ── */
+#tutorial-overlay{position:fixed;inset:0;z-index:9950;background:rgba(2,8,30,0.96);display:flex;align-items:center;justify-content:center;backdrop-filter:blur(14px)}
+#tutorial-overlay.hidden{display:none}
+.tut-modal{
+  position:relative;
+  width:min(96vw,680px);max-height:90vh;
+  background:linear-gradient(145deg,#0d1a3a,#060e24);
+  border:1.5px solid rgba(255,140,0,.25);border-radius:24px;
+  display:flex;flex-direction:column;overflow:hidden;
+  box-shadow:0 0 80px rgba(255,140,0,.1);
+}
+.tut-header{padding:24px 28px 16px;flex-shrink:0;text-align:center;border-bottom:1px solid rgba(255,140,0,.12)}
+.tut-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(26px,4vw,40px);color:var(--gold);letter-spacing:.14em;line-height:1}
+.tut-subtitle{font-family:'Barlow Condensed',sans-serif;font-size:13px;color:rgba(240,244,255,.4);letter-spacing:.14em;text-transform:uppercase;margin-top:4px}
+.tut-body{padding:22px 28px;overflow-y:auto;flex:1;display:flex;flex-direction:column;gap:18px}
+.tut-section{display:flex;gap:14px;align-items:flex-start}
+.tut-icon{font-size:28px;flex-shrink:0;width:44px;text-align:center;margin-top:2px}
+.tut-text h3{font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:4px}
+.tut-text p{font-family:'Barlow Condensed',sans-serif;font-size:14px;color:rgba(240,244,255,.65);line-height:1.55;letter-spacing:.03em}
+.tut-text p strong{color:rgba(240,244,255,.9)}
+.tut-divider{height:1px;background:linear-gradient(90deg,transparent,rgba(255,140,0,.2),transparent);flex-shrink:0}
+.tut-footer{padding:16px 28px 20px;flex-shrink:0;text-align:center;border-top:1px solid rgba(255,140,0,.12)}
+.tut-close{padding:12px 48px;font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;background:linear-gradient(135deg,#CC5500,#FF8C00);border:none;border-radius:12px;color:#fff;cursor:pointer;box-shadow:0 4px 20px rgba(204,85,0,.4);transition:transform .15s,box-shadow .15s}
+.tut-close:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(204,85,0,.55)}
 .mn-defaults{font-family:'Barlow Condensed',sans-serif;font-size:11px;color:var(--muted);opacity:.45;letter-spacing:.08em;margin-top:4px}
 
 /* ── SETTINGS OVERLAY ── */
@@ -1912,6 +1939,91 @@ input[type=range].st-slider::-moz-range-thumb{width:22px;height:22px;border-radi
     <div class="mn-credit">Designed by ADİL FIRAT OKTAV</div>
     <button class="mn-play" onclick="menuPlay()">▶ &nbsp;PLAY</button>
     <button class="mn-settings" onclick="menuSettings()">⚙ &nbsp;SETTINGS</button>
+    <button class="mn-tutorial" onclick="openTutorial()">? &nbsp;HOW TO PLAY</button>
+  </div>
+</div>
+
+<!-- Tutorial Overlay -->
+<div id="tutorial-overlay" class="hidden">
+  <div class="tut-modal">
+    <div class="tut-header">
+      <div class="tut-title">📖 HOW TO PLAY</div>
+      <div class="tut-subtitle">Word Builder — Quick Guide</div>
+    </div>
+    <div class="tut-body">
+
+      <div class="tut-section">
+        <div class="tut-icon">🎯</div>
+        <div class="tut-text">
+          <h3>Objective</h3>
+          <p>Two teams compete to build words from a <strong>letter grid</strong>. Each valid word deals <strong>HP damage</strong> to the opposing team. The team that reduces the enemy's HP to zero wins!</p>
+        </div>
+      </div>
+
+      <div class="tut-divider"></div>
+
+      <div class="tut-section">
+        <div class="tut-icon">🔤</div>
+        <div class="tut-text">
+          <h3>Building a Word</h3>
+          <p>Tap or drag letters on the grid to select them in order. Letters must be <strong>adjacent</strong> to each other (horizontally, vertically or diagonally). Tap <strong>✓ SUBMIT</strong> when your word is ready — or tap a selected letter again to deselect it.</p>
+        </div>
+      </div>
+
+      <div class="tut-divider"></div>
+
+      <div class="tut-section">
+        <div class="tut-icon">⏱</div>
+        <div class="tut-text">
+          <h3>Timer</h3>
+          <p>Each team has a limited time per round. Build as many words as you can before the clock runs out! The faster you play, the more damage you deal.</p>
+        </div>
+      </div>
+
+      <div class="tut-divider"></div>
+
+      <div class="tut-section">
+        <div class="tut-icon">⭐</div>
+        <div class="tut-text">
+          <h3>Category Bonus</h3>
+          <p>Some words belong to a <strong>bonus category</strong>. Finding one triggers a special bonus that deals extra damage — watch for the golden flash!</p>
+        </div>
+      </div>
+
+      <div class="tut-divider"></div>
+
+      <div class="tut-section">
+        <div class="tut-icon">🃏</div>
+        <div class="tut-text">
+          <h3>Joker</h3>
+          <p>Each team gets <strong>one Joker per turn</strong>. Use it to add any letter that's not on the grid — handy for completing a tricky word. Joker letters score <strong>0 points</strong> on their own.</p>
+        </div>
+      </div>
+
+      <div class="tut-divider"></div>
+
+      <div class="tut-section">
+        <div class="tut-icon">❌</div>
+        <div class="tut-text">
+          <h3>Wrong Answers</h3>
+          <p>Submitting <strong>3 wrong words in a row</strong> triggers a warning. One more mistake after that costs your team <strong>HP</strong> — so choose carefully!</p>
+        </div>
+      </div>
+
+      <div class="tut-divider"></div>
+
+      <div class="tut-section">
+        <div class="tut-icon">🏆</div>
+        <div class="tut-text">
+          <h3>Winning</h3>
+          <p>Drain the opposing team's HP completely to win the match. If time runs out with both teams still standing, the team with <strong>more HP remaining</strong> wins!</p>
+        </div>
+      </div>
+
+    </div>
+    <div class="tut-footer">
+      <button class="tut-close" onclick="closeTutorial()">GOT IT — LET'S PLAY!</button>
+    </div>
   </div>
 </div>
 
@@ -4614,6 +4726,14 @@ function menuSettings(){
   updateSettingsDisplay();
   setPlayStyle(playStyle);
   document.getElementById('settings-overlay').classList.remove('hidden');
+}
+
+function openTutorial(){
+  document.getElementById('tutorial-overlay').classList.remove('hidden');
+}
+
+function closeTutorial(){
+  document.getElementById('tutorial-overlay').classList.add('hidden');
 }
 
 /* ─────────────────────────────────────────────────────────────────
