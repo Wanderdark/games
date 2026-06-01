@@ -1096,7 +1096,6 @@ const QUESTIONS = [
   ["Flying in the air while hanging under a large wing-shaped glider.","Büyük kanat şeklindeki planörün altında asılarak havada uçmak.","HANG GLIDING",8,3,6,"../images/8/6/15.webp"],
   ["Running and jumping over walls and obstacles in an urban area.","Kentsel bir alanda duvarların ve engellerin üzerinden koşarak atlamak.","PARKOUR RUNNING",8,3,6,"../images/8/6/16.webp"],
   ["Moving on water by paddling a small covered boat.","Küçük kapalı bir tekneyi kürekleyerek suda ilerlemek.","KAYAKING",8,2,6,"../images/8/6/17.webp"],
-  ["Jumping from tall buildings or bridges with a parachute.","Paraşütle yüksek binalardan veya köprülerden atlamak.","BASE JUMPING",8,3,6,"../images/8/6/18.webp"],
   ["Fast racing using cars or motorcycles on a track.","Bir piste araba veya motosikletle hızlı yarışmak.","MOTOR RACING",8,2,6,"../images/8/6/7.webp"],
   ["Climbing up steep rocks using your hands and feet.","El ve ayaklarınızla dik kayalara tırmanmak.","ROCK CLIMBING",8,2,6,"../images/8/6/20.webp"],
   ["Riding a skateboard and doing tricks on it.","Kaykay üzerinde binmek ve numaralar yapmak.","SKATEBOARDING",8,2,6,"../images/8/6/21.webp"],
