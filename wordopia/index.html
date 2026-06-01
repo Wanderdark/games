@@ -47,9 +47,6 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
 /* filter:blur(80px) kaldırıldı — radial-gradient ile soft efekt, paint yükü yok */
 .nblob{position:absolute;border-radius:50%;animation:drift var(--nd,18s) ease-in-out infinite alternate;animation-delay:var(--ndelay,0s)}
 @keyframes drift{0%{transform:translate(0,0) scale(1)}100%{transform:translate(var(--nx,40px),var(--ny,30px)) scale(1.15)}}
-#corner-lights{position:fixed;inset:0;z-index:0;pointer-events:none}
-/* clight: filter:blur(120px) kaldırıldı, devre dışı */
-.clight{display:none}
 
 /* ── LAYOUT ── */
 #app{position:relative;z-index:1;height:100vh;display:flex;flex-direction:column;align-items:center;padding:5px 10px 4px;gap:3px;overflow:hidden}
@@ -84,11 +81,13 @@ header{width:100%;max-width:680px;display:flex;align-items:center;justify-conten
 #teacher-toast.show{opacity:1}
 
 /* ── LITE MODE BUTTON ── */
-#lite-btn{position:fixed;top:30px;right:218px;z-index:9950;background:rgba(255,140,0,0.08);border:1.5px solid rgba(255,255,255,0.45);border-radius:8px;color:rgba(255,255,255,0.55);width:38px;height:38px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:13px;font-family:'Barlow Condensed',sans-serif;font-weight:700;letter-spacing:.04em;transition:color .15s,background .15s,border-color .15s,transform .1s;padding:0}
-#lite-btn:hover{color:#fff;background:rgba(255,255,255,0.15);border-color:rgba(255,255,255,0.8)}
+#lite-btn{position:fixed;top:30px;right:218px;z-index:9950;background:rgba(29,185,84,0.12);border:1.5px solid rgba(29,185,84,0.55);border-radius:8px;color:rgba(29,185,84,0.85);width:38px;height:38px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:13px;font-family:'Barlow Condensed',sans-serif;font-weight:700;letter-spacing:.04em;transition:color .15s,background .15s,border-color .15s,transform .1s;padding:0}
+#lite-btn:hover{color:#22c55e;background:rgba(29,185,84,0.22);border-color:#22c55e}
 #lite-btn:active{transform:scale(.88)}
-#lite-btn.lite-on{background:rgba(100,160,255,0.15);border-color:rgba(120,180,255,0.7);color:rgba(150,200,255,0.9)}
-#lite-btn.lite-on:hover{background:rgba(100,160,255,0.25);border-color:rgba(150,210,255,1);color:#b8d8ff}
+#lite-btn.lite-on{background:rgba(232,33,58,0.15);border-color:rgba(232,33,58,0.6);color:rgba(248,113,113,0.9)}
+#lite-btn.lite-on:hover{background:rgba(232,33,58,0.25);border-color:#f87171;color:#f87171}
+/* ── LITE MODE — tüm backdrop-filter'ları kapat ── */
+body.lite-mode *{backdrop-filter:none!important}
 #end-game-btn{
   position:fixed;top:30px;right:78px;z-index:9950;
   font-family:'Barlow Condensed',sans-serif;
@@ -642,10 +641,11 @@ header{width:100%;max-width:680px;display:flex;align-items:center;justify-conten
     radial-gradient(ellipse at 55% 100%,rgba(255,110,0,.55) 0%,transparent 55%),
     radial-gradient(ellipse at 85% 100%,rgba(255,55,0,.58) 0%,transparent 58%),
     radial-gradient(ellipse at 40% 60%,rgba(255,180,0,.2) 0%,transparent 40%),
-    linear-gradient(to top,rgba(200,20,0,.65) 0%,rgba(255,80,0,.48) 30%,rgba(255,140,0,.22) 62%,rgba(255,80,0,.04) 100%);
+    linear-gradient(to top,rgba(200,20,0,.65) 0%,rgba(255,80,0,.48) 30%,rgba(255,140,0,.22) 62%,rgba(255,80,0,.04) 100%)}
+#board-fire-overlay.active{
+  opacity:1;
   backdrop-filter:blur(2px) brightness(.88) saturate(1.8);
   animation:boardFireFlicker .11s ease-in-out infinite alternate}
-#board-fire-overlay.active{opacity:1}
 @keyframes boardFireFlicker{
   from{filter:brightness(1)   hue-rotate(0deg)}
   to  {filter:brightness(1.18) hue-rotate(10deg)}}
@@ -1788,11 +1788,12 @@ input[type=range].st-slider::-moz-range-thumb{width:22px;height:22px;border-radi
   border-radius:22px;
   padding:22px 26px 28px;
   box-shadow:0 0 80px rgba(255,140,0,.22),0 24px 64px rgba(0,0,0,.8);
-  backdrop-filter:blur(18px);
-  opacity:0;pointer-events:none;
-  transition:opacity .45s ease;
+  display:none;opacity:0;pointer-events:none;
 }
-#auto-lb.show{opacity:1}
+#auto-lb.show{
+  display:block;opacity:1;pointer-events:all;
+  backdrop-filter:blur(18px);
+}
 .alb-title{
   font-family:'Bebas Neue',sans-serif;font-size:28px;
   color:var(--gold);text-shadow:0 0 28px var(--gold-glow);
@@ -2301,7 +2302,6 @@ input[type=range].st-slider::-moz-range-thumb{width:22px;height:22px;border-radi
 <button id="fs-btn" title="Fullscreen">⛶</button>
 <div id="stars"></div>
 <div id="nebula"></div>
-<div id="corner-lights"></div>
 
 <!-- Credit Marquee — z-index:200, behind all overlays (9000+) -->
 <div id="credit-marquee"><span id="credit-text">✦ Designed by ADİL FIRAT OKTAV ✦</span></div>
@@ -5114,19 +5114,21 @@ function spawnShootingStar(){
   setTimeout(()=>shoot.remove(), dur*1000+200);
 }
 function initShootingStars(){
-  // İlk kayan yıldız 1-2s sonra gelsin
-  setTimeout(()=>{
+  if(liteMode) return;
+  // İlk kayan yıldız 1-2s sonra gelsin — ID kaydedilir, erken PLAY'de iptal edilebilir
+  _menuTimeouts.push(setTimeout(()=>{
     spawnShootingStar();
     // Sonraki: 3-5s aralıklarla
     _menuIntervals.push(setInterval(()=>{
       spawnShootingStar();
       if(Math.random()<0.35) setTimeout(spawnShootingStar, 300+Math.random()*400);
     }, 3000+Math.random()*2000));
-  }, 1000+Math.random()*1500);
+  }, 1000+Math.random()*1500));
 }
 
 /* ── STARFIELD ── */
 function initStarfield(){
+  if(liteMode) return;
   const menu = document.getElementById('menu-overlay');
   if(!menu) return;
   const count = 90;
@@ -5145,9 +5147,20 @@ function initStarfield(){
   }
 }
 
-/* ── MENU EFFECTS — interval yönetimi ── */
+/* ── MENU EFFECTS — interval + timeout yönetimi ── */
 const _menuIntervals=[];
-function stopMenuEffects(){ _menuIntervals.forEach(id=>clearInterval(id)); _menuIntervals.length=0; }
+const _menuTimeouts=[];
+function stopMenuEffects(){
+  _menuIntervals.forEach(id=>clearInterval(id)); _menuIntervals.length=0;
+  _menuTimeouts.forEach(id=>clearTimeout(id));   _menuTimeouts.length=0;
+}
+function restartMenuEffects(){
+  if(liteMode) return;
+  stopMenuEffects();
+  const menu=document.getElementById('menu-overlay');
+  if(menu) menu.querySelectorAll('.mn-star,.mn-shoot,.mn-leaf,.cr-star').forEach(el=>el.remove());
+  initStarfield(); initShootingStars(); initConstellation(); initLeaves();
+}
 
 /* ── FALLING LEAVES ── */
 const LEAF_COLORS = [
@@ -5179,6 +5192,7 @@ function spawnLeaf(){
   setTimeout(()=>leaf.remove(),(dur+Math.abs(del))*1000+500);
 }
 function initLeaves(){
+  if(liteMode) return;
   // İlk dolum — ekran boş görünmesin
   for(let i=0;i<18;i++) setTimeout(spawnLeaf, i*180);
   _menuIntervals.push(setInterval(spawnLeaf, 420));
@@ -5202,6 +5216,7 @@ function spawnCreditStar(){
   setTimeout(()=>s.remove(), dur*1000);
 }
 function initConstellation(){
+  if(liteMode) return;
   _menuIntervals.push(setInterval(spawnCreditStar, 320));
 }
 
@@ -5661,6 +5676,7 @@ function restartGame(){
   resetAvatarSelection();
   document.getElementById('menu-overlay').classList.remove('hidden');
   playMenuMusic();
+  restartMenuEffects();
 }
 
 function resetAvatarSelection(){
@@ -6500,7 +6516,6 @@ buildNameKeyboard();
       `--nx:${b.nx};--ny:${b.ny};--nd:${b.nd}s;animation-delay:${b.d}s`;
     nebEl.appendChild(d);
   });
-  // Corner lights: devre dışı (.clight{display:none}) — filter:blur(120px) çok ağırdı
 })();
 
 /* ─────────────────────────────────────────────────────────────────
@@ -6626,13 +6641,14 @@ function startCreditMarquee(){
 })();
 
 // ── LITE MODE ── Arka plan efektlerini (stars / nebula / corner-lights) kapat/aç ──
-let liteMode = localStorage.getItem('liteMode') === '1';
+let liteMode = false; // her zaman kapalı başlar, localStorage'a yazılmaz
 let touchscreenMode = localStorage.getItem('touchscreenMode') !== '0'; // varsayılan TAP
 let electricEnabled = localStorage.getItem('electricEnabled') === '1'; // varsayılan OFF
 
 function _applyLiteVisuals(){
+  document.body.classList.toggle('lite-mode', liteMode);
   // Arka plan dekorasyonu
-  const ids = ['stars','nebula','corner-lights'];
+  const ids = ['stars','nebula'];
   ids.forEach(function(id){
     const el = document.getElementById(id);
     if(el) el.style.display = liteMode ? 'none' : '';
@@ -6650,6 +6666,22 @@ function _applyLiteVisuals(){
     }
   }
 
+  // Ana menü efektleri
+  const _menu = document.getElementById('menu-overlay');
+  if(liteMode){
+    // Mevcut DOM efektlerini temizle, interval'ları durdur
+    if(_menu) _menu.querySelectorAll('.mn-star,.mn-shoot,.mn-leaf,.cr-star').forEach(el=>el.remove());
+    stopMenuEffects();
+  } else {
+    // Lite kapatıldı ve menü açıksa efektleri yeniden başlat
+    if(_menu && !_menu.classList.contains('hidden')){
+      initStarfield(); initShootingStars(); initConstellation(); initLeaves();
+    }
+  }
+  // creditGlow — 120px drop-shadow çok ağır, lite modda sadece shimmer çalışsın
+  const _mnCredit = document.querySelector('.mn-credit');
+  if(_mnCredit) _mnCredit.style.animation = liteMode ? 'creditShimmer 2.4s linear infinite' : '';
+
   const btn = document.getElementById('lite-btn');
   if(btn){
     btn.classList.toggle('lite-on', liteMode);
@@ -6661,7 +6693,6 @@ function _applyLiteVisuals(){
 
 function toggleLiteMode(){
   liteMode = !liteMode;
-  localStorage.setItem('liteMode', liteMode ? '1' : '0');
   _applyLiteVisuals();
 }
 
@@ -6743,6 +6774,7 @@ function endTutorial(){
   document.getElementById('app').classList.remove('tutorial-active');
   document.getElementById('tutorial-hud').classList.remove('visible');
   document.getElementById('menu-overlay').classList.remove('hidden');
+  restartMenuEffects();
 }
 
 /* ── Faz intro modalını doldur ve göster ── */
@@ -6832,10 +6864,6 @@ _applyLiteVisuals();  // LITE mod durumunu uygula (localStorage'dan)
   const e=document.getElementById('st-elec');  if(e) e.value=electricEnabled?'1':'0';
   updateSettingsDisplay();
 })();
-initStarfield();
-initShootingStars();
-initConstellation();
-initLeaves();
 
 </script>
 </body>
