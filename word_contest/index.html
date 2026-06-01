@@ -27,53 +27,10 @@
   html, body {
     height: 100%;
     font-family: 'Barlow', sans-serif;
-    background: var(--blue-deep);
+    background: #05103a url("background.webp") center / cover no-repeat fixed;
     color: var(--white);
     overflow: hidden;
   }
-
-  body::before {
-    content: '';
-    position: fixed; inset: 0;
-    background: repeating-linear-gradient(
-      0deg, transparent, transparent 2px,
-      rgba(0,0,0,0.06) 2px, rgba(0,0,0,0.06) 4px
-    );
-    pointer-events: none;
-    z-index: 9999;
-  }
-
-  /* ── BACKGROUND LAYERS ── */
-  #stars { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
-
-  /* Sabit titreyen yıldızlar */
-  /* will-change: opacity eklendi, drift CSS animasyona taşındı (rAF loop kaldırıldı) */
-  .star {
-    position: absolute; border-radius: 50%; background: #fff;
-    will-change: transform, opacity;
-    animation: twinkle var(--d,3s) ease-in-out var(--td,0s) infinite,
-               drift-star var(--dr,120s) linear var(--dd,0s) infinite;
-  }
-  @keyframes twinkle   { 0%,100%{opacity:.15} 50%{opacity:var(--max,.9)} }
-  @keyframes drift-star{ 0%{transform:translateX(0)} 100%{transform:translateX(-115vw)} }
-  /* LITE: yıldız drift durur, sadece twinkle kalır */
-  body.lite-mode .star  { animation: twinkle var(--d,3s) ease-in-out var(--td,0s) infinite !important; }
-
-  /* Nebula — filter:blur(80px) kaldırıldı → radial-gradient, paint yükü sıfır */
-  #nebula { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
-  .nebula-blob {
-    position: absolute; border-radius: 50%;
-    animation: drift var(--nd,18s) ease-in-out infinite alternate;
-    animation-delay: var(--ndelay, 0s);
-  }
-  @keyframes drift {
-    0%   { transform: translate(0, 0) scale(1); }
-    100% { transform: translate(var(--nx,40px), var(--ny,30px)) scale(1.15); }
-  }
-
-  /* Köşe ışıkları: filter:blur(120px) çok ağır — devre dışı */
-  #corner-lights { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
-  .corner-light { display: none; }
 
   #app { position: relative; z-index: 1; height: 100vh; display: flex; flex-direction: column; padding: 0 24px 16px; gap: 10px; }
 
@@ -90,7 +47,8 @@
     text-shadow: 0 0 40px var(--gold-glow), 0 2px 0 var(--gold-dark);
     line-height: 1;
   }
-  .logo span { color: var(--white); opacity: 0.75; font-size: 0.45em; letter-spacing: 0.15em; display: block; margin-top: -4px; }
+  .logo-sub { color: var(--white); opacity: 0.75; font-size: 0.45em; letter-spacing: 0.15em; display: block; margin-top: -4px; }
+  .logo .st { display:inline; font-size:inherit; color:inherit; opacity:1; cursor:default; user-select:none; }
   .header-right { text-align: right; }
   .round-badge {
     font-family: 'Barlow Condensed', sans-serif;
@@ -130,20 +88,16 @@
     animation: namePulse 1.6s ease-in-out infinite;
   }
   @keyframes namePulse {
-    0%, 100% { transform: scale(1);    letter-spacing: 0.14em; }
-    50%       { transform: scale(1.18); letter-spacing: 0.22em; }
+    0%, 100% { transform: scale(1); }
+    50%       { transform: scale(1.12); }
   }
   .score-value { font-family: 'Bebas Neue', sans-serif; font-size: clamp(28px, 3.5vw, 48px); color: var(--gold); line-height: 1.1; transition: transform .25s, text-shadow .4s; }
   .score-value.leading {
     animation: scoreGlow 1.6s ease-in-out infinite;
   }
   @keyframes scoreGlow {
-    0%, 100% {
-      text-shadow: 0 0 20px rgba(255,215,0,0.8), 0 0 40px rgba(255,215,0,0.4), 0 0 70px rgba(255,215,0,0.2);
-    }
-    50% {
-      text-shadow: 0 0 30px rgba(255,215,0,1), 0 0 60px rgba(255,215,0,0.7), 0 0 100px rgba(255,215,0,0.4), 0 0 140px rgba(255,180,0,0.2);
-    }
+    0%, 100% { transform: scale(1);    opacity: 1; }
+    50%       { transform: scale(1.05); opacity: 0.85; }
   }
   .score-card.bump .score-value { animation: bump .4s ease; }
   @keyframes bump { 0%,100%{transform:scale(1)} 50%{transform:scale(1.25)} }
@@ -159,12 +113,11 @@
   }
   .score-student.visible {
     opacity: 1;
-    text-shadow: 0 0 10px rgba(125,211,252,0.9), 0 0 24px rgba(125,211,252,0.5), 0 0 48px rgba(125,211,252,0.25);
     animation: studentPulse 1.5s ease-in-out infinite;
   }
   @keyframes studentPulse {
-    0%, 100% { transform: scale(1);    letter-spacing: 0.10em; }
-    50%       { transform: scale(1.14); letter-spacing: 0.16em; }
+    0%, 100% { transform: scale(1); }
+    50%       { transform: scale(1.1); }
   }
 
   #q-stage {
@@ -179,47 +132,9 @@
     text-align: center;
     letter-spacing: 0.06em; line-height: 1;
     min-height: 1.2em;
-    text-shadow:
-      0 0 30px rgba(255,215,0,0.9),
-      0 0 60px rgba(255,215,0,0.5),
-      0 0 100px rgba(255,215,0,0.25);
+    text-shadow: 0 0 20px rgba(255,215,0,0.7), 0 0 50px rgba(255,215,0,0.35), 0 0 90px rgba(255,215,0,0.15);
   }
-  #q-word.pulsing {
-    animation: wordPulse 1.4s ease-in-out infinite;
-  }
-  @keyframes wordPulse {
-    0%, 100% {
-      transform: scale(1);
-      text-shadow:
-        0 0 30px rgba(255,215,0,0.9),
-        0 0 60px rgba(255,215,0,0.5),
-        0 0 100px rgba(255,215,0,0.2);
-    }
-    50% {
-      transform: scale(1.06);
-      text-shadow:
-        0 0 40px rgba(255,215,0,1),
-        0 0 80px rgba(255,215,0,0.7),
-        0 0 140px rgba(255,215,0,0.4),
-        0 0 200px rgba(255,180,0,0.2);
-    }
-  }
-  /* ── XLITE: backdrop-filter, box-shadow, text-shadow, animation tamamen kapat ── */
-  body.xlite-mode * { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
-  body.xlite-mode .star { animation: none !important; }
-  body.xlite-mode .nebula-blob { animation: none !important; }
-  body.xlite-mode .score-card { box-shadow: none !important; }
-  body.xlite-mode #q-word { text-shadow: none !important; animation: none !important; }
-  body.xlite-mode .score-value { text-shadow: none !important; }
-
-  /* Lite mod: sadece büyüyüp küçülsün, glow yok */
-  body.lite-mode #q-word.pulsing {
-    animation: wordPulseLite 1.4s ease-in-out infinite;
-  }
-  @keyframes wordPulseLite {
-    0%, 100% { transform: scale(1);    text-shadow: none; }
-    50%       { transform: scale(1.06); text-shadow: none; }
-  }
+  body.lite-mode #q-word { text-shadow: none; }
 
   #timer-ring { position: relative; width: 80px; height: 80px; }
   #timer-ring svg { transform: rotate(-90deg); }
@@ -310,11 +225,20 @@
     transition: opacity .3s, filter .3s;
   }
   .ji.ji-used { opacity: 0.18; filter: grayscale(1); }
+  .joker-count {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700;
+    letter-spacing: .12em; text-transform: uppercase;
+    color: rgba(255,215,0,0.7); margin-top: 3px;
+    transition: color .2s;
+  }
+  .joker-count.jcnt-empty { color: rgba(255,255,255,0.2); }
   .ji-newWord    { border-color: rgba(96,165,250,0.5); color: #93c5fd; }
   .ji-askFriend  { border-color: rgba(196,181,253,0.5); color: #c4b5fd; }
   .ji-doublePoints { border-color: rgba(251,191,36,0.5); color: #fcd34d;
     font-family:'Bebas Neue',sans-serif; font-size:11px; }
   .ji-multiChoice  { border-color: rgba(52,211,153,0.5); color: #6ee7b7;
+  }
+  .ji-showImage    { border-color: rgba(236,72,153,0.5); color: #f9a8d4;
     font-family:'Bebas Neue',sans-serif; font-size:10px; }
 
   /* Joker seçim overlay */
@@ -401,6 +325,38 @@
   .jk-friend { background: linear-gradient(135deg,#6d28d9,#8b5cf6); box-shadow:0 4px 20px rgba(139,92,246,.35); }
   .jk-double { background: linear-gradient(135deg,#b45309,#f59e0b); box-shadow:0 4px 20px rgba(245,158,11,.35); }
   .jk-choice { background: linear-gradient(135deg,#065f46,#10b981); box-shadow:0 4px 20px rgba(16,185,129,.35); }
+  .jk-image  { background: linear-gradient(135deg,#be185d,#ec4899); box-shadow:0 4px 20px rgba(236,72,153,.35); }
+
+  /* ── GÖRSEL JOKERİ OVERLAY ── */
+  #img-joker-overlay {
+    position: fixed; inset: 0; z-index: 9800;
+    background: rgba(2,8,30,0.96);
+    display: none; align-items: center; justify-content: center;
+  }
+  #img-joker-overlay.open { display: flex; }
+  .ij-modal {
+    display: flex; flex-direction: column; align-items: center; gap: 16px;
+    padding: 28px 32px; max-width: min(90vw, 500px);
+    background: linear-gradient(145deg,#0f172a,#1e1b4b);
+    border: 1.5px solid rgba(236,72,153,0.4);
+    border-radius: 22px;
+    box-shadow: 0 0 60px rgba(236,72,153,0.2);
+  }
+  .ij-word {
+    font-family: 'Bebas Neue', sans-serif; font-size: 32px; letter-spacing: .12em;
+    color: #f9a8d4; text-shadow: 0 0 20px rgba(236,72,153,0.6);
+  }
+  #img-joker-img {
+    max-width: 100%; max-height: 55vh; object-fit: contain;
+    border-radius: 14px; box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+  }
+  .ij-close {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 15px; font-weight: 700;
+    letter-spacing: .12em; padding: 10px 32px; border-radius: 10px;
+    background: rgba(236,72,153,0.15); border: 1.5px solid rgba(236,72,153,0.4);
+    color: #f9a8d4; cursor: pointer; transition: all .15s;
+  }
+  .ij-close:hover { background: rgba(236,72,153,0.3); border-color: #ec4899; }
 
   /* ── MULTIPLE CHOICE OVERLAY ── */
   #multichoice-overlay {
@@ -432,6 +388,7 @@
     display: flex; align-items: center; gap: 14px; text-align: left;
     transition: border-color .17s, background .17s, transform .12s, box-shadow .17s;
     letter-spacing: .04em; backdrop-filter: blur(6px);
+    letter-spacing: .04em;
   }
   .mc-btn:hover:not(:disabled) {
     border-color: rgba(52,211,153,0.75);
@@ -538,7 +495,6 @@
     position: fixed; inset: 0; z-index: 200;
     background: rgba(2,6,28,0.95);
     display: flex; align-items: center; justify-content: center;
-    backdrop-filter: blur(10px);
   }
   /* ── Sol üst wrapper (dist-badge + now-playing yan yana) ── */
   #tl-wrap {
@@ -575,11 +531,6 @@
     color: var(--gold); line-height: .88; letter-spacing: .04em;
     text-shadow: 0 0 60px rgba(255,215,0,.5), 0 0 140px rgba(255,215,0,.2);
     margin-bottom: 20px;
-    animation: mmGlow 3.2s ease-in-out infinite;
-  }
-  @keyframes mmGlow {
-    0%,100% { text-shadow: 0 0 60px rgba(255,215,0,.5),  0 0 140px rgba(255,215,0,.2); }
-    50%      { text-shadow: 0 0 100px rgba(255,215,0,.9), 0 0 220px rgba(255,215,0,.38); }
   }
   .mm-byline {
     font-family: 'Barlow Condensed', sans-serif;
@@ -598,11 +549,6 @@
   .mm-start-btn {
     background: linear-gradient(135deg, #1DB954, #15803d);
     color: #fff; box-shadow: 0 6px 30px rgba(29,185,84,.45);
-    animation: mmStartPulse 2.4s ease-in-out infinite;
-  }
-  @keyframes mmStartPulse {
-    0%,100% { box-shadow: 0 6px 30px rgba(29,185,84,.45); }
-    50%      { box-shadow: 0 8px 50px rgba(29,185,84,.75), 0 0 80px rgba(29,185,84,.18); }
   }
   .mm-settings-btn {
     background: rgba(255,255,255,0.06); color: var(--gold);
@@ -616,7 +562,6 @@
     position: fixed; inset: 0; z-index: 200;
     background: rgba(2,6,28,0.95);
     display: flex; align-items: center; justify-content: center;
-    backdrop-filter: blur(10px);
   }
   .settings-modal {
     max-width: 620px !important; width: 93% !important;
@@ -765,12 +710,6 @@
     color: var(--gold);
     letter-spacing: 0.14em;
     text-align: center;
-    text-shadow:
-      0 0 30px rgba(255,215,0,1),
-      0 0 70px rgba(255,215,0,0.7),
-      0 0 130px rgba(255,215,0,0.4),
-      0 0 200px rgba(255,180,0,0.2);
-    animation: roundTextPulse 0.6s ease-in-out infinite alternate;
   }
   #round-popup.show #round-popup-text {
     animation: roundTextPulse 0.6s ease-in-out infinite alternate;
@@ -786,6 +725,7 @@
     border-radius: 12px; padding: 12px 28px;
     font-family: 'Barlow Condensed', sans-serif; font-size: 18px; letter-spacing: .08em;
     color: var(--white); backdrop-filter: blur(8px);
+    color: var(--white);
     transition: transform .4s cubic-bezier(.175,.885,.32,1.275);
     z-index: 9800; pointer-events: none; white-space: nowrap;
   }
@@ -922,6 +862,12 @@
   .sg-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; flex:1; }
   .sg-grid.two-groups { grid-template-columns:repeat(2,1fr); }
   .scores-wrapper.two-groups { width:min(98vw,1160px); }
+
+  /* ── 2 GRUP MODU: 3. kart ve 3. isim alanı gizlenir, grid ortalanır ── */
+  #scoreboard.two-groups #sc-2    { display: none; }
+  #scoreboard.two-groups          { grid-template-columns: repeat(2, minmax(0,340px)); justify-content: center; }
+  #name-overlay.two-groups .name-field:nth-child(3) { display: none; }
+  #name-overlay.two-groups .name-inputs { grid-template-columns: repeat(2, minmax(0,280px)); justify-content: center; }
   .sg-col { display:flex; flex-direction:column; gap:6px; }
   /* 2-grup modunda her grubun öğrencileri 2 alt kolona bölünür */
   .sg-2col-wrap { display:grid; grid-template-columns:1fr 1fr; gap:6px; }
@@ -1022,7 +968,7 @@
     position: fixed; inset: 0; z-index: 9200;
     background: rgba(2,6,28,0.88);
     display: none; align-items: center; justify-content: center;
-    backdrop-filter: blur(8px);
+    backdrop-filter: blur(12px);
   }
   #override-overlay.open { display: flex; }
   .override-modal {
@@ -1141,7 +1087,7 @@
     position: fixed; inset: 0; z-index: 600;
     background: rgba(2,6,28,0.96);
     display: none; align-items: center; justify-content: center;
-    backdrop-filter: blur(12px);
+    backdrop-filter: blur(10px);
   }
   #winner-overlay.open { display: flex; }
   .winner-wrapper {
@@ -1247,37 +1193,16 @@
   }
   .ctrl-btn:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.4); transform: translateY(-2px); }
   .ctrl-btn.muted { border-color: rgba(248,113,113,0.5); color: #f87171; }
-
-  /* ── LITE MODE BUTTON ── */
-  #lite-btn {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 12px; font-weight: 700; letter-spacing: .10em; text-transform: uppercase;
-    padding: 0 11px; height: 40px;
-    background: rgba(10,25,100,0.75); border: 1px solid rgba(74,222,128,0.50);
-    border-radius: 10px; cursor: pointer; color: #4ade80;
-    backdrop-filter: blur(8px);
-    transition: background .15s, border-color .15s, color .15s, transform .12s;
-  }
-  #lite-btn:hover { background: rgba(74,222,128,0.12); border-color: #4ade80; transform: translateY(-2px); }
-  /* LITE — turuncu */
-  #lite-btn.is-lite {
-    border-color: rgba(251,146,60,0.60); color: #fb923c;
-    background: rgba(154,52,18,0.18);
-  }
-  #lite-btn.is-lite:hover { background: rgba(251,146,60,0.15); border-color: #fb923c; transform: translateY(-2px); }
-  /* XLITE — kırmızı */
-  #lite-btn.is-xlite {
-    border-color: rgba(248,113,113,0.55); color: #f87171;
-    background: rgba(185,28,28,0.18);
-  }
-  #lite-btn.is-xlite:hover { background: rgba(248,113,113,0.18); border-color: #f87171; transform: translateY(-2px); }
+  #lite-btn { border-color: rgba(74,222,128,0.5); color: #4ade80; }
+  #lite-btn.is-lite { border-color: rgba(248,113,113,0.5); color: #f87171; }
+  /* LITE MODE: tüm backdrop-filter blur'ları kapat */
+  body.lite-mode * { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
 
   /* ── SCORES POPUP ── */
   #scores-overlay {
     position: fixed; inset: 0; z-index: 600;
     background: rgba(2,6,28,0.92);
     display: none; align-items: center; justify-content: center;
-    backdrop-filter: blur(10px);
   }
   #scores-overlay.open { display: flex; }
   .scores-modal {
@@ -1374,10 +1299,11 @@
     padding: 22px 26px 26px;
     box-shadow: 0 0 70px rgba(255,215,0,0.18), 0 24px 64px rgba(0,0,0,0.75);
     backdrop-filter: blur(14px);
+    display: none;
     opacity: 0; pointer-events: none;
     transition: opacity 0.5s ease;
   }
-  #auto-lb.show { opacity: 1; }
+  #auto-lb.show { display: block; opacity: 1; pointer-events: all; }
   .alb-title {
     font-family: 'Bebas Neue', sans-serif;
     font-size: 26px; color: var(--gold);
@@ -1400,8 +1326,7 @@
   }
   .alb-row.r1 .alb-name {
     color: var(--gold);
-    text-shadow: 0 0 10px rgba(255,215,0,0.95), 0 0 22px rgba(255,215,0,0.55), 0 0 40px rgba(255,215,0,0.25);
-    animation: goldPulsate 1.5s ease-in-out infinite;
+    text-shadow: 0 0 10px rgba(255,215,0,0.7);
     display: inline-block;
   }
   .alb-row.r1 .alb-pts {
@@ -1462,7 +1387,6 @@
     position: fixed; inset: 0; z-index: 400;
     background: rgba(2,6,28,0.97);
     display: flex; align-items: center; justify-content: center;
-    backdrop-filter: blur(10px);
   }
   .name-modal {
     background: linear-gradient(145deg, #0A1850, #061235);
@@ -1552,6 +1476,7 @@
   #student-overlay {
     position:fixed;inset:0;z-index:400;background:rgba(2,8,30,0.97);
     display:flex;align-items:center;justify-content:center;backdrop-filter:blur(12px);
+    display:flex;align-items:center;justify-content:center;
   }
   #student-overlay.hidden{display:none}
   .std-modal {
@@ -1622,6 +1547,7 @@
 
   /* ── YOKLAMA (Attendance) ── */
   #attendance-overlay{position:fixed;inset:0;z-index:9830;background:rgba(2,8,30,0.97);display:flex;align-items:center;justify-content:center;backdrop-filter:blur(14px)}
+  #attendance-overlay{position:fixed;inset:0;z-index:9830;background:rgba(2,8,30,0.97);display:flex;align-items:center;justify-content:center;}
   #attendance-overlay.hidden{display:none}
   .att-modal{background:rgba(255,255,255,.05);border:1.5px solid rgba(255,215,0,.35);border-radius:26px;padding:22px 26px 20px;width:min(98vw,600px);max-height:92vh;overflow-y:auto;text-align:center;box-shadow:0 0 80px rgba(255,140,0,.12)}
   .att-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(22px,3.5vw,34px);color:var(--gold);letter-spacing:.1em;margin-bottom:2px}
@@ -1658,19 +1584,10 @@
   }
   #student-badge strong { color: #7dd3fc; font-size: 15px; }
 
-
 </style>
 </head>
 <body>
 
-<canvas id="meteor-canvas" style="position:fixed;inset:0;z-index:0;pointer-events:none"></canvas>
-<div id="nebula"></div>
-<div id="corner-lights">
-  <div class="corner-light" style="width:600px;height:600px;top:-200px;left:-150px;background:#1B4FD8;animation-delay:0s"></div>
-  <div class="corner-light" style="width:500px;height:500px;bottom:-180px;right:-120px;background:#4A8AF4;animation-delay:2s"></div>
-  <div class="corner-light" style="width:400px;height:400px;top:40%;left:50%;background:#FFD700;animation-delay:4s;opacity:.03"></div>
-</div>
-<div id="stars"></div>
 
 <!-- Sol üst: gizli dağıtım puanı + çalan müzik adı -->
 <div id="tl-wrap">
@@ -1681,7 +1598,7 @@
 <!-- ═══════════ MAIN MENU ═══════════ -->
 <div id="main-menu">
   <div class="mm-wrap">
-    <div class="mm-logo">WORD<br>CONTEST</div>
+    <div class="mm-logo"><span class="st" onclick="_secretTap('W')">W</span><span class="st" onclick="_secretTap('O')">O</span><span class="st" onclick="_secretTap('R')">R</span><span class="st" onclick="_secretTap('D')">D</span><br>CONTEST</div>
     <div class="mm-byline">Designed by <strong>Adil Fırat Oktav</strong></div>
     <div class="mm-btns">
       <button class="mm-btn mm-settings-btn" onclick="menuSettings()">⚙ SETTINGS</button>
@@ -1716,8 +1633,6 @@
     </div>
 
     <div class="sc-word-count" id="sc-word-count" style="margin-bottom:14px"></div>
-
-
 
     <button class="diff-btn diff-short" style="width:100%;justify-content:center;font-size:16px" onclick="saveSettings()">
       ✓ KAYDET &amp; GERİ DÖN
@@ -1824,7 +1739,7 @@
 <!-- Main App -->
 <div id="app">
   <header>
-    <div class="logo">Word Contes<span id="ufo-trigger" ondblclick="secretSpawnUFO()" style="display:inline;font-size:inherit;color:inherit;opacity:1;letter-spacing:inherit;margin:0;cursor:default;user-select:none;">t</span><span>by Adil Fırat Oktav</span></div>
+    <div class="logo"><span class="st" onclick="_secretTap('W')">W</span><span class="st" onclick="_secretTap('O')">O</span><span class="st" onclick="_secretTap('R')">R</span><span class="st" onclick="_secretTap('D')">D</span> Contes<span id="ufo-trigger" ondblclick="secretSpawnUFO()" style="display:inline;font-size:inherit;color:inherit;opacity:1;letter-spacing:inherit;margin:0;cursor:default;user-select:none;">t</span><span class="logo-sub">by Adil Fırat Oktav</span></div>
     <div class="header-right">
       <div class="round-badge">Active Group: <strong id="group-display">1</strong></div>
       <div class="round-badge" id="questions-left-display" style="margin-top:2px">Questions left: <strong id="ql-num">–</strong></div>
@@ -1843,7 +1758,9 @@
         <span class="ji ji-askFriend"   title="Arkadaşıma Soracağım">🗣️</span>
         <span class="ji ji-doublePoints" title="×2 Puan">×2</span>
         <span class="ji ji-multiChoice" title="Seçenek Jokeri">A/B</span>
+        <span class="ji ji-showImage"   title="Kelime Görseli">🖼️</span>
       </div>
+      <div class="joker-count" id="jcnt-0">JOKERS: 3×</div>
     </div>
     <div class="score-card" id="sc-1">
       <div class="score-name">Group 2</div>
@@ -1856,7 +1773,9 @@
         <span class="ji ji-askFriend"   title="Arkadaşıma Soracağım">🗣️</span>
         <span class="ji ji-doublePoints" title="×2 Puan">×2</span>
         <span class="ji ji-multiChoice" title="Seçenek Jokeri">A/B</span>
+        <span class="ji ji-showImage"   title="Kelime Görseli">🖼️</span>
       </div>
+      <div class="joker-count" id="jcnt-1">JOKERS: 3×</div>
     </div>
     <div class="score-card" id="sc-2">
       <div class="score-name">Group 3</div>
@@ -1869,7 +1788,9 @@
         <span class="ji ji-askFriend"   title="Arkadaşıma Soracağım">🗣️</span>
         <span class="ji ji-doublePoints" title="×2 Puan">×2</span>
         <span class="ji ji-multiChoice" title="Seçenek Jokeri">A/B</span>
+        <span class="ji ji-showImage"   title="Kelime Görseli">🖼️</span>
       </div>
+      <div class="joker-count" id="jcnt-2">JOKERS: 3×</div>
     </div>
   </div>
 
@@ -1980,13 +1901,12 @@
   </div>
 </div>
 
-
 <button id="scores-btn" onclick="openScoresPopup()">🏆 SCORES</button>
 
 <div id="top-right-bar">
-  <button class="ctrl-btn" id="mute-btn" onclick="toggleMute()" title="Müziği Kapat/Aç">🔊</button>
-  <button class="ctrl-btn" id="fs-btn"   onclick="toggleFullscreen()" title="Tam Ekran">⛶</button>
-  <button id="lite-btn" onclick="toggleLite()" title="Tüm efektler açık">NORMAL</button>
+  <button class="ctrl-btn" id="mute-btn"  onclick="toggleMute()"       title="Müziği Kapat/Aç">🔊</button>
+  <button class="ctrl-btn" id="fs-btn"    onclick="toggleFullscreen()"  title="Tam Ekran">⛶</button>
+  <button class="ctrl-btn" id="lite-btn"  onclick="toggleLite()"        title="Blur Efektleri">✨</button>
   <button id="override-btn" onclick="openOverrideModal()">✚ Puan</button>
   <button id="end-btn" onclick="toggleEndConfirm()">⏹ End Game</button>
 </div>
@@ -2032,8 +1952,24 @@
           <div class="jc-desc">Easy: 2 şık &nbsp;|&nbsp; Medium: 3 şık &nbsp;|&nbsp; Hard: 4 şık. Doğruyu bul!</div>
         </div>
       </button>
+      <button class="joker-card jk-image" id="jk-showImage" onclick="useJoker('showImage')">
+        <div class="jc-icon">🖼️</div>
+        <div class="jc-text">
+          <div class="jc-title">Kelime Görseli</div>
+          <div class="jc-desc">Bu kelimeye ait görsel ipucu gösterilir</div>
+        </div>
+      </button>
     </div>
     <button class="joker-cancel" onclick="closeJokerOverlay()">↩ İptal — Devam Et</button>
+  </div>
+</div>
+
+<!-- Görsel Joker Overlay -->
+<div id="img-joker-overlay">
+  <div class="ij-modal">
+    <div class="ij-word" id="img-joker-word"></div>
+    <img id="img-joker-img" src="" alt="" />
+    <button class="ij-close" onclick="closeImageJoker()">✕ KAPAT</button>
   </div>
 </div>
 
@@ -2097,69 +2033,54 @@
 <script src="words.js"></script>
 <script src="ufo.js"></script>
 <script>
-/* ── STAR FIELD ── */
-let liteLevel  = 0;   // 0=NORMAL, 1=LITE, 2=XLITE
+
 const _FPS60_MS = 1000 / 60; // ~16.67ms — tüm rAF loop'larında 60fps sınırı
 
 // ── MOD: ?t=1 → öğretmen modu (names.js + dengeli dağıt) | normal → public mod ──
 const TEACHER_MODE = new URLSearchParams(location.search).has('t');
 document.body.classList.add(TEACHER_MODE ? 'mode-teacher' : 'mode-public');
-let publicGrade = parseInt(localStorage.getItem('wc_public_grade') || '7');
-let starLayers = []; // lite mode erişimi için global (display toggle)
-(function(){
-  const s = document.getElementById('stars');
 
-  // Yıldızlar: 160→60 (INP için azaltıldı), rAF loop → CSS drift animasyonu
-  // 3 katman parallax: CSS --dr (drift rate) ile sağlanır — 0 JS per frame
-  for(let i=0;i<60;i++){
-    const el = document.createElement('div');
-    el.className = 'star';
-    const sz = Math.random()*2.4+.4;
-    const layer = i < 30 ? 0 : i < 48 ? 1 : 2; // uzak/orta/yakın
-    const drBase = [170, 80, 42][layer]; // saniye — uzak yıldız yavaş kayar
-    const dr = (drBase * (0.8 + Math.random() * 0.4)).toFixed(0);
-    const dd = (-Math.random() * drBase).toFixed(1); // rastgele başlangıç pozisyonu
-    const td = (-Math.random() * 6).toFixed(1); // twinkle delay
-    const startX = Math.random()*105;
-    const startY = Math.random()*100;
-    el.style.cssText = `width:${sz}px;height:${sz}px;top:${startY.toFixed(2)}%;left:${startX.toFixed(2)}%;--d:${(Math.random()*5+2).toFixed(1)}s;--max:${(Math.random()*.75+.25).toFixed(2)};--td:${td}s;--dr:${dr}s;--dd:${dd}s`;
-    s.appendChild(el);
-    starLayers.push({ el });
+// ── GİZLİ TEACHER MODE — W-O-R-D tıklama dizisi ──
+const _SECRET_SEQ = ['W','O','R','D'];
+let   _secretIdx   = 0;
+let   _secretTimer = null;
+function _secretTap(letter) {
+  if(letter === _SECRET_SEQ[_secretIdx]) {
+    _secretIdx++;
+    clearTimeout(_secretTimer);
+    if(_secretIdx === _SECRET_SEQ.length) {
+      _secretIdx = 0;
+      document.body.classList.remove('mode-public');
+      document.body.classList.add('mode-teacher');
+      if(typeof CLASSES !== 'undefined' && CLASSES.length > 0) {
+        selectedClasses = new Set(CLASSES.map(c => c.id));
+        buildScrabbleClassSelector();
+        buildScrabbleUnitSelector();
+      }
+      // Öğrenci overlay açıksa sütunları yeniden kur (zar butonları çıksın)
+      if(document.getElementById('student-overlay').style.display !== 'none') {
+        _rebuildStdCols();
+      }
+      showToast('🔑 Teacher Mode aktif!');
+    } else {
+      _secretTimer = setTimeout(() => { _secretIdx = 0; }, 3000);
+    }
+  } else {
+    _secretIdx = 0;
+    clearTimeout(_secretTimer);
   }
-
-  // rAF loop kaldırıldı — CSS animasyon üstlendi (0 JS/frame)
-  window._restartDriftStars = function() { /* no-op: CSS animasyon durdurulamaz/yeniden başlatılamaz, toggleLite CSS class ile yönetir */ };
-
-  // Nebula: filter:blur(80px) kaldırıldı → radial-gradient (paint yükü yok)
-  const nb = document.getElementById('nebula');
-  const nebConfigs = [
-    {c:'27,79,216',  a:.09, x:5,   y:10, w:600, h:550, nx:50,  ny:30,  nd:22, d:0 },
-    {c:'74,138,244', a:.08, x:55,  y:45, w:520, h:480, nx:-40, ny:25,  nd:18, d:-4},
-    {c:'255,215,0',  a:.06, x:25,  y:65, w:480, h:430, nx:35,  ny:-30, nd:25, d:-8},
-    {c:'124,58,237', a:.07, x:70,  y:5,  w:450, h:400, nx:-30, ny:50,  nd:20, d:-2},
-    {c:'14,165,233', a:.06, x:40,  y:30, w:500, h:450, nx:40,  ny:35,  nd:23, d:-6},
-    {c:'27,79,216',  a:.05, x:80,  y:70, w:400, h:380, nx:-45, ny:-25, nd:28, d:-10},
-  ];
-  nebConfigs.forEach(b=>{
-    const el = document.createElement('div');
-    el.className = 'nebula-blob';
-    el.style.cssText = `background:radial-gradient(ellipse at center,rgba(${b.c},${b.a}) 0%,transparent 70%);`+
-      `left:${b.x}%;top:${b.y}%;width:${b.w}px;height:${b.h}px;`+
-      `--nx:${b.nx}px;--ny:${b.ny}px;--nd:${b.nd}s;animation-delay:${b.d}s`;
-    nb.appendChild(el);
-  });
-  // Corner lights: display:none (filter:blur(120px) kaldırıldı CSS'te)
-})();
-
+}
+let publicGrade = parseInt(localStorage.getItem('wc_public_grade') || '7');
 
 /* Quiz için [en, tr] tuple listesi — easy→50, medium→100, hard→150 */
 function buildQuizPool() {
   const bank = getActiveWordBank();
   // Irregular Verbs (unit 11): tr=base form, en=past tense
   // → soruyu base form olarak sor, cevap past tense olsun
+  // [0]=soru, [1]=cevap, [2]=img yolu
   const mapWord = w => {
     const isIrr = Array.isArray(w.unit) ? w.unit.includes(11) : w.unit === 11;
-    return isIrr ? [w.tr, w.en] : [w.en, w.tr];
+    return isIrr ? [w.tr, w.en, ''] : [w.en, w.tr, w.img || ''];
   };
   return {
     50:  bank[50].map(mapWord),
@@ -2291,9 +2212,9 @@ function updateDiffLongDesc() {
    JOKER SİSTEMİ
 ══════════════════════════════ */
 let jokerState = [
-  {newWord:true, askFriend:true, doublePoints:true, multiChoice:true},
-  {newWord:true, askFriend:true, doublePoints:true, multiChoice:true},
-  {newWord:true, askFriend:true, doublePoints:true, multiChoice:true}
+  {newWord:true, askFriend:true, doublePoints:true, multiChoice:true, showImage:true},
+  {newWord:true, askFriend:true, doublePoints:true, multiChoice:true, showImage:true},
+  {newWord:true, askFriend:true, doublePoints:true, multiChoice:true, showImage:true}
 ];
 let jokerUsesLeft       = [3, 3, 3]; // Her grup max 3 joker kullanabilir
 let activeJokerBonus    = false;     // ×2 joker aktif mi?
@@ -2304,7 +2225,7 @@ let jokerUsedThisTurn   = false;     // Bu turda joker kullanıldı mı?
 function hasAnyJoker(gi) {
   if(jokerUsesLeft[gi] <= 0) return false;
   const s = jokerState[gi];
-  return s.newWord || s.askFriend || s.doublePoints || s.multiChoice;
+  return s.newWord || s.askFriend || s.doublePoints || s.multiChoice || s.showImage;
 }
 
 function jokerRemaining(gi) {
@@ -2347,6 +2268,9 @@ function openJokerOverlay() {
     const btn = document.getElementById('jk-' + type);
     btn.disabled = noUsesLeft || !state[type];
   });
+  // Görsel jokeri: 1 kez kullanılabilir + kelimede görsel olmalı
+  const imgBtn = document.getElementById('jk-showImage');
+  if(imgBtn) imgBtn.disabled = noUsesLeft || !state.showImage || !wordImages[currentQ];
   const gName = groupNames[currentGroup].trim() || ('GRUP ' + (currentGroup+1));
   document.getElementById('joker-modal-sub').textContent =
     gName + ' — ' + jokerRemaining(currentGroup) + ' joker kaldı';
@@ -2392,6 +2316,19 @@ function _askFriendConfirmNo() {
 }
 
 function useJoker(type) {
+  // showImage: tekrar kullanılabilir — state flag'i false'a çekilmez
+  if(type === 'showImage') {
+    jokerAudio.pause(); jokerAudio.currentTime = 0;
+    document.getElementById('joker-overlay').classList.remove('open');
+    if(diffAudio) diffAudio.play().catch(() => {});
+    jokerState[currentGroup].showImage = false;  // 1 kez kullanılabilir
+    jokerUsesLeft[currentGroup]--;
+    jokerUsedThisTurn = true;
+    updateJokerIcons();
+    updateUI();
+    openImageJoker();
+    return;
+  }
   // askFriend: joker kullanmadan önce onay iste
   if(type === 'askFriend') {
     jokerAudio.pause();
@@ -2500,17 +2437,42 @@ function handleMultiChoice(chosen, correct) {
 function updateJokerIcons() {
   grpIdxs().forEach(gi => {
     const s = jokerState[gi];
-    const map = {newWord: 'ji-newWord', askFriend: 'ji-askFriend', doublePoints: 'ji-doublePoints', multiChoice: 'ji-multiChoice'};
+    const map = {newWord: 'ji-newWord', askFriend: 'ji-askFriend', doublePoints: 'ji-doublePoints', multiChoice: 'ji-multiChoice', showImage: 'ji-showImage'};
     Object.entries(map).forEach(([key, cls]) => {
       const el = document.querySelector(`#ji-${gi} .${cls}`);
       if(el) el.classList.toggle('ji-used', !s[key]);
     });
+    // Kalan joker sayacı
+    const cnt = document.getElementById('jcnt-' + gi);
+    if(cnt) {
+      const left = jokerUsesLeft[gi];
+      cnt.textContent = 'JOKERS: ' + left + '×';
+      cnt.classList.toggle('jcnt-empty', left <= 0);
+    }
   });
+}
+
+/* ── GÖRSEL JOKERİ ── */
+function openImageJoker() {
+  const img = wordImages[currentQ];
+  if(!img) return;
+  const overlay = document.getElementById('img-joker-overlay');
+  const el      = document.getElementById('img-joker-img');
+  const word    = document.getElementById('img-joker-word');
+  if(!overlay || !el) return;
+  el.src = img;
+  el.alt = currentQ;
+  if(word) word.textContent = currentQ;
+  overlay.classList.add('open');
+}
+function closeImageJoker() {
+  document.getElementById('img-joker-overlay').classList.remove('open');
 }
 
 /* ── GAME STATE ── */
 let questions = {50:[], 100:[], 150:[]};
 let answers = {};
+let wordImages = {}; // en_word → img yolu (görsel joker için)
 let questionsLeft = {50:0, 100:0, 150:0};
 let totalQ = {50:0, 100:0, 150:0};
 let groupScores  = [0,0,0];
@@ -2536,14 +2498,14 @@ function setDifficulty(d) {
   _hideDistBadge(); // Gizli dağıtım göstergesini kaldır
   const counts = {SHORT:{50:7,100:7,150:7}, MEDIUM:{50:12,100:12,150:12}, LONG:{50:20,100:20,150:20}};
   const c = counts[d];
-  answers = {};
+  answers = {}; wordImages = {};
   const quizPool = buildQuizPool();
   [50,100,150].forEach(pts => {
     const pool = quizPool[pts].slice();
     shuffle(pool);
     const take = Math.min(c[pts], pool.length);
     questions[pts] = pool.slice(0, take).map(p => p[0]);
-    pool.slice(0, take).forEach(p => { answers[p[0]] = p[1]; });
+    pool.slice(0, take).forEach(p => { answers[p[0]] = p[1]; if(p[2]) wordImages[p[0]] = p[2]; });
     questionsLeft[pts] = take;
     totalQ[pts] = take;
   });
@@ -2626,6 +2588,7 @@ function updateUI() {
 
 /* ── LEADER STAR PARTICLES ── */
 let leaderStarWrap = null;
+let _lastLeaderIdx = -1;
 
 function perimeterPt(r, t) {
   const w = r.width, h = r.height;
@@ -2638,13 +2601,16 @@ function perimeterPt(r, t) {
 }
 
 function updateLeaderStars() {
-  if(liteLevel >= 2) { if(leaderStarWrap) { leaderStarWrap.remove(); leaderStarWrap = null; } return; }
-  if (leaderStarWrap) { leaderStarWrap.remove(); leaderStarWrap = null; }
-
   const maxScore = Math.max(...groupScores);
-  if (maxScore === 0) return;
-
+  if (maxScore === 0) {
+    if(leaderStarWrap) { leaderStarWrap.remove(); leaderStarWrap = null; }
+    _lastLeaderIdx = -1;
+    return;
+  }
   const winnerIdx = groupScores.findIndex(s => s === maxScore);
+  if(winnerIdx === _lastLeaderIdx) return; // lider değişmedi — yeniden kurma
+  _lastLeaderIdx = winnerIdx;
+  if (leaderStarWrap) { leaderStarWrap.remove(); leaderStarWrap = null; }
   const card = document.getElementById('sc-' + winnerIdx);
   const r = card.getBoundingClientRect();
 
@@ -2689,7 +2655,6 @@ function showQuestion(pts) {
   if(questionsLeft[pts] === 0) { showToast('No more questions at this level!'); return; }
   dismissOverlaysNow();
 
-
   // ── Normal soru ──
   isLocked = true;
   activeJokerBonus  = false;
@@ -2710,7 +2675,6 @@ function showQuestion(pts) {
 function flashWord(word) {
   const el = document.getElementById('q-word');
   el.textContent = word;
-  el.classList.add('pulsing');
 }
 
 function stopFlash() {
@@ -2992,7 +2956,7 @@ function spawnScoreFloat(text, positive) {
   const startX = window.innerWidth  * (0.38 + Math.random() * 0.18);
   const startY = window.innerHeight * (0.28 + Math.random() * 0.18);
   const col = positive ? '#4ade80' : '#f87171';
-  const glow = liteLevel >= 1 ? 'none' : positive
+  const glow = positive
     ? '0 0 12px rgba(74,222,128,0.9), 0 0 28px rgba(74,222,128,0.6), 0 0 56px rgba(74,222,128,0.3)'
     : '0 0 12px rgba(248,113,113,0.9), 0 0 28px rgba(248,113,113,0.6), 0 0 56px rgba(248,113,113,0.3)';
   el.style.cssText = `color:${col};text-shadow:${glow};left:${startX}px;top:${startY}px;`;
@@ -3247,54 +3211,24 @@ function confirmOverride() {
   closeOverrideModal();
 }
 
+let _liteMode = false; // her zaman normal modda açılır
+function toggleLite() {
+  _liteMode = !_liteMode;
+  document.body.classList.toggle('lite-mode', _liteMode);
+  const btn = document.getElementById('lite-btn');
+  if(btn) {
+    btn.classList.toggle('is-lite', _liteMode);
+    btn.style.borderColor = _liteMode ? 'rgba(248,113,113,0.6)' : 'rgba(74,222,128,0.5)';
+    btn.style.color       = _liteMode ? '#f87171' : '#4ade80';
+  }
+}
+
 function toggleMute() {
   isMuted = !isMuted;
   applyMuteToAll(isMuted);
   const btn = document.getElementById('mute-btn');
   btn.textContent = isMuted ? '🔇' : '🔊';
   btn.classList.toggle('muted', isMuted);
-}
-
-function toggleLite() {
-  liteLevel = (liteLevel + 1) % 3; // 0→1→2→0 döngüsü
-
-  // ── Nebula: LITE ve XLITE'da kapalı ──
-  document.getElementById('nebula').style.display = liteLevel >= 1 ? 'none' : '';
-
-  // ── Köşe ışıkları: yalnızca XLITE'da kapalı ──
-  document.getElementById('corner-lights').style.visibility = liteLevel >= 2 ? 'hidden' : '';
-
-  // ── Yıldız sayısı: NORMAL=60, LITE=60, XLITE=30 ──
-  const starLimit = liteLevel <= 1 ? 60 : 30;
-  starLayers.forEach((star, i) => {
-    star.el.style.display = i < starLimit ? '' : 'none';
-  });
-
-  // ── Soru kelimesi glow: LITE ve XLITE'da yok ──
-  document.body.classList.toggle('lite-mode',  liteLevel >= 1);
-  document.body.classList.toggle('xlite-mode', liteLevel >= 2);
-
-  // ── Leader yıldız parçacıkları: yalnızca XLITE'da temizle ──
-  if(liteLevel >= 2 && leaderStarWrap) { leaderStarWrap.remove(); leaderStarWrap = null; }
-
-  // ── RAF döngüleri: XLITE'da durdurulur, geri dönünce yeniden başlatılır ──
-  if(liteLevel < 2) {
-    if(window._restartDriftStars) window._restartDriftStars();
-    if(window._meteorAnimate)     window._meteorAnimate();
-  }
-
-  // ── Buton metni ve rengi ──
-  const btn = document.getElementById('lite-btn');
-  btn.classList.toggle('is-lite',  liteLevel === 1);
-  btn.classList.toggle('is-xlite', liteLevel === 2);
-  const labels = ['NORMAL', 'LITE', 'XLITE'];
-  const titles = [
-    'Tüm efektler açık',
-    'LITE — Nebula kapalı, glow yok',
-    'XLITE — Maksimum performans modu'
-  ];
-  btn.textContent = labels[liteLevel];
-  btn.title       = titles[liteLevel];
 }
 
 function toggleFullscreen() {
@@ -3434,144 +3368,6 @@ function sfxWinner() {
   });
 }
 
-/* ── METEOR CANVAS ── */
-(function(){
-  const canvas = document.getElementById('meteor-canvas');
-  const ctx = canvas.getContext('2d');
-
-  function resize() {
-    canvas.width  = window.innerWidth;
-    canvas.height = window.innerHeight;
-  }
-  resize();
-  window.addEventListener('resize', resize);
-
-  const meteors = [];
-
-  function spawnMeteor() {
-    const angle = (Math.random() * 40 + 20) * Math.PI / 180; // 20-60 derece
-    const speed = Math.random() * 8 + 6;
-    const length = Math.random() * 180 + 80;
-    // Ekranın üst ve sol kenarından rastgele başla
-    const fromTop = Math.random() < 0.6;
-    const x = fromTop ? Math.random() * canvas.width : -length;
-    const y = fromTop ? -length : Math.random() * canvas.height * 0.5;
-    const hue = Math.random() < 0.3 ? 48 : 200 + Math.random() * 40; // altın veya mavi
-    meteors.push({ x, y, vx: Math.cos(angle) * speed, vy: Math.sin(angle) * speed, length, alpha: 0, hue, life: 0, maxLife: Math.random() * 60 + 80 });
-  }
-
-  let frame = 0;
-  let meteorRafId = null;
-  let _meteorLastTs = 0;
-  function animate(ts) {
-    if(ts - _meteorLastTs < _FPS60_MS) { meteorRafId = requestAnimationFrame(animate); return; }
-    _meteorLastTs = ts;
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    if(liteLevel >= 2) { meteorRafId = null; return; } // XLITE: RAF'ı durdur
-    frame++;
-    meteorRafId = requestAnimationFrame(animate);
-
-    // Her 600-780 frame'de bir yeni meteor (~10-13 saniye @ 60fps)
-    if(frame % (Math.floor(Math.random()*180)+600) === 0) spawnMeteor();
-
-    for(let i = meteors.length - 1; i >= 0; i--) {
-      const m = meteors[i];
-      m.life++;
-      m.x += m.vx;
-      m.y += m.vy;
-
-      // Fade in / out
-      if(m.life < 12) m.alpha = m.life / 12;
-      else if(m.life > m.maxLife - 20) m.alpha = (m.maxLife - m.life) / 20;
-      else m.alpha = 1;
-
-      if(m.life >= m.maxLife || m.x > canvas.width + 200 || m.y > canvas.height + 200) {
-        meteors.splice(i, 1);
-        continue;
-      }
-
-      // Kuyruk çiz
-      const tailX = m.x - Math.cos(Math.atan2(m.vy, m.vx)) * m.length;
-      const tailY = m.y - Math.sin(Math.atan2(m.vy, m.vx)) * m.length;
-      const grad = ctx.createLinearGradient(tailX, tailY, m.x, m.y);
-      grad.addColorStop(0, `hsla(${m.hue},100%,90%,0)`);
-      grad.addColorStop(0.6, `hsla(${m.hue},100%,90%,${m.alpha * 0.4})`);
-      grad.addColorStop(1, `hsla(${m.hue},100%,98%,${m.alpha})`);
-
-      ctx.beginPath();
-      ctx.moveTo(tailX, tailY);
-      ctx.lineTo(m.x, m.y);
-      ctx.strokeStyle = grad;
-      ctx.lineWidth = Math.random() < 0.2 ? 2.5 : 1.5;
-      ctx.stroke();
-
-      // Baş parlaması
-      ctx.beginPath();
-      ctx.arc(m.x, m.y, 2.5, 0, Math.PI * 2);
-      ctx.fillStyle = `hsla(${m.hue},100%,98%,${m.alpha})`;
-      ctx.fill();
-    }
-  }
-
-  // Başlangıçta 1 meteor ekle
-  setTimeout(spawnMeteor, 2000);
-  meteorRafId = requestAnimationFrame(animate);
-  window._meteorAnimate = function() {
-    if(!meteorRafId) { meteorRafId = requestAnimationFrame(animate); }
-  };
-})();
-
-/* ── KREDİ YAZISI (nadir kayan imza) ── */
-function spawnCreditScroll() {
-  const el = document.createElement('div');
-
-  // Yazının görünebileceği dikey alanı grup çerçeveleri altı ile buton üstü arasına sınırla
-  const scoreboard = document.getElementById('scoreboard');
-  const catGrid    = document.getElementById('cat-grid');
-  let topPx;
-  if(scoreboard && catGrid) {
-    const minY = scoreboard.getBoundingClientRect().bottom + 12;
-    const maxY = catGrid.getBoundingClientRect().top    - 32;
-    topPx = minY + Math.random() * Math.max(0, maxY - minY);
-  } else {
-    topPx = window.innerHeight * (0.35 + Math.random() * 0.30);
-  }
-
-  el.style.cssText =
-    `position:fixed;top:${topPx.toFixed(1)}px;left:100vw;` +
-    `font-family:'Bebas Neue',sans-serif;` +
-    `font-size:clamp(16px,2.2vw,26px);letter-spacing:0.2em;` +
-    `color:rgba(255,215,0,0.42);` +
-    `text-shadow:0 0 18px rgba(255,215,0,0.85),0 0 38px rgba(255,215,0,0.45),0 0 65px rgba(255,215,0,0.2);` +
-    `pointer-events:none;z-index:1;white-space:nowrap;will-change:transform;`;
-  el.textContent = '✦  Designed by ADİL FIRAT OKTAV  ✦';
-  document.body.appendChild(el);
-
-  // Önce gerçek genişliği al
-  requestAnimationFrame(() => {
-    const totalDist = window.innerWidth + el.offsetWidth + 60;
-    const duration  = 13000 + Math.random() * 4000; // 13-17 sn
-    let startTime   = null;
-
-    function step(ts) {
-      if(!startTime) startTime = ts;
-      const t = (ts - startTime) / duration;
-      if(t >= 1) { el.remove(); return; }
-      el.style.transform = `translateX(${-(t * totalDist).toFixed(1)}px)`;
-      requestAnimationFrame(step);
-    }
-    requestAnimationFrame(step);
-  });
-}
-
-// Test: sayfa açılınca 4 saniye sonra bir tane geç
-setTimeout(spawnCreditScroll, 4000);
-
-// Döngü: 2-3 dakikada bir rastgele
-(function scheduleCredit() {
-  setTimeout(() => { spawnCreditScroll(); scheduleCredit(); },
-    (60 + Math.random() * 60) * 1000);
-})();
 
 /* ── UFO EASTER EGG ── */
 let _ufoToggle = false;
@@ -3636,7 +3432,6 @@ function spawnUFO() {
   });
 }
 
-
 function ufoHit(img) {
   // Animasyonu durdur — mevcut transform'ı al ve üstüne düşme uygula
   img.style.transition = 'none';
@@ -3692,7 +3487,6 @@ function ufoHit(img) {
   }
   updateUI();
 }
-
 
 function spawnUfoBubble(ufoMidX, ufoTopY) {
   const el = document.createElement('div');
@@ -3901,7 +3695,7 @@ function buildStdGroupCol(gi) {
     rnd.title = 'Zar at — öğrenci ata';
     rnd.textContent = '🎲';
     rnd.onclick = (e) => { e.stopPropagation(); assignStdRandom(gi, si); };
-    if(!TEACHER_MODE) rnd.style.display = 'none';
+    if(!document.body.classList.contains('mode-teacher')) rnd.style.display = 'none';
     slot.appendChild(txt);
     slot.appendChild(cur);
     slot.appendChild(rnd);
@@ -4383,22 +4177,19 @@ function getAllStudentEntries() {
   return entries;
 }
 
-let _autoLbPollId = null; // birikmesini önle
 function showAutoLeaderboard() {
   const total = grpIdxs().reduce((s,gi) => s + groupStudents[gi].length, 0);
   if(total === 0) return;
   // İlk puan alınmadan gösterme
   const anyPoints = groupScores.some(s => s > 0);
   if(!anyPoints) return;
-  // Görsel flash aktifse önce o bitsin
-  if(document.querySelector('.img-flash-overlay.show')) {
-    if(_autoLbPollId) { clearInterval(_autoLbPollId); _autoLbPollId = null; }
-    _autoLbPollId = setInterval(() => {
-      if(!document.querySelector('.img-flash-overlay.show')) {
-        clearInterval(_autoLbPollId); _autoLbPollId = null;
-        _renderAutoLeaderboard();
-      }
-    }, 100);
+  // Görsel flash aktifse transitionend'i bekle — polling yok
+  const flashEl = document.querySelector('.img-flash-overlay.show');
+  if(flashEl) {
+    flashEl.addEventListener('transitionend', function handler() {
+      flashEl.removeEventListener('transitionend', handler);
+      _renderAutoLeaderboard();
+    }, { once: true });
     return;
   }
   _renderAutoLeaderboard();
