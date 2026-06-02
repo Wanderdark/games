@@ -2840,15 +2840,16 @@ function _triggerCreditShimmer() {
   const wrap = document.getElementById('mm-credit-wrap');
   if(!wrap) return;
   wrap.classList.remove('shine');
-  void wrap.offsetWidth; // reflow → animasyonu sıfırla
+  void wrap.offsetWidth;
   wrap.classList.add('shine');
 }
+
 
 function startGame() {
 
   _applyLiteMode();
   document.getElementById('main-menu').style.display = 'flex';
-  setTimeout(_triggerCreditShimmer, 100); // DOM render sonrası başlat
+  setTimeout(_triggerCreditShimmer, 100);
   document.getElementById('app').style.display = 'none';
   const hdr = document.querySelector('header'); if(hdr) hdr.style.display = 'none';
 }

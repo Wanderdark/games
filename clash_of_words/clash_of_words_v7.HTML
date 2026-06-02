@@ -438,6 +438,33 @@ html,body{height:100%;overflow:hidden;font-family:'Barlow',sans-serif;background
 .tut-badge.r3{background:rgba(232,33,58,.15);border:1px solid rgba(232,33,58,.4);color:#f87171}
 .tut-badge.bonus{background:rgba(255,140,0,.12);border:1px solid rgba(255,140,0,.35);color:var(--gold)}
 .tut-badge.dbl{background:rgba(250,204,21,.12);border:1px solid rgba(250,204,21,.4);color:#facc15}
+/* ── LITE MODE BUTTON ── */
+#lite-btn{position:fixed;bottom:16px;left:14px;z-index:9950;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;padding:5px 13px;border-radius:8px;border:1.5px solid;cursor:pointer;transition:all .2s}
+#lite-btn.lite-off{background:rgba(34,197,94,.1);border-color:rgba(74,222,128,.45);color:#4ade80}
+#lite-btn.lite-off:hover{background:rgba(34,197,94,.22);border-color:#4ade80}
+#lite-btn.lite-on{background:rgba(220,38,38,.15);border-color:rgba(248,113,113,.5);color:#f87171}
+#lite-btn.lite-on:hover{background:rgba(220,38,38,.28);border-color:#f87171}
+
+/* ── LITE MODE OVERRIDES ── */
+body.lite #stars,
+body.lite #nebula,
+body.lite .shooting-star,
+body.lite .mn-star,
+body.lite .mn-shoot,
+body.lite .mn-leaf,
+body.lite .cr-star{display:none!important}
+
+body.lite #overlay-suggestions,
+body.lite #overlay-confirm,
+body.lite #overlay-game-settings,
+body.lite #overlay-tutorial,
+body.lite #overlay-rename{backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+
+body.lite .check-timeup{backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+body.lite .mn-logo{animation:none!important;text-shadow:0 4px 0 var(--gold-dark)!important}
+body.lite .mn-play{animation:none!important}
+body.lite .mn-credit{animation:none!important;-webkit-text-fill-color:var(--gold)!important}
+
 /* TEACHER MODE TOAST */
 #teacher-toast{position:fixed;bottom:32px;left:50%;transform:translateX(-50%) translateY(80px);z-index:99999;background:linear-gradient(135deg,#14532d,#22c55e);border:1.5px solid #4ade80;border-radius:14px;padding:13px 28px;font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#fff;text-shadow:0 0 12px rgba(74,222,128,.8);box-shadow:0 8px 32px rgba(34,197,94,.45);pointer-events:none;opacity:0;transition:transform .35s cubic-bezier(.175,.885,.32,1.275),opacity .35s ease}
 #teacher-toast.show{transform:translateX(-50%) translateY(0);opacity:1}
@@ -1128,6 +1155,7 @@ html,body{height:100%;overflow:hidden;font-family:'Barlow',sans-serif;background
 </div>
 
 <div id="teacher-toast">🎓 TEACHER MODE ACTIVE</div>
+<button id="lite-btn" class="lite-off" onclick="toggleLite()" title="Performans modunu aç/kapat">⚡ LITE</button>
 
 <!-- OVERLAY: RENAME PLAYER -->
 <div id="overlay-rename" class="overlay hidden">
@@ -1182,6 +1210,38 @@ function _secretTap(l){
 
 function openTutorial(){ show('overlay-tutorial'); }
 function closeTutorial(){ hide('overlay-tutorial'); }
+
+// ── LITE MODE ─────────────────────────────────────────────
+let _liteMode = false;
+
+function _initLite(){
+  try{ _liteMode=localStorage.getItem('cow_lite')==='1'; }catch(e){}
+  document.body.classList.toggle('lite',_liteMode);
+  _updateLiteBtn();
+}
+
+function toggleLite(){
+  _liteMode=!_liteMode;
+  document.body.classList.toggle('lite',_liteMode);
+  try{ localStorage.setItem('cow_lite',_liteMode?'1':'0'); }catch(e){}
+  _updateLiteBtn();
+  if(_liteMode){
+    // Menü efektlerini durdur, mevcut partikülleri temizle
+    stopMenuEffects();
+    document.querySelectorAll('.mn-star,.mn-shoot,.mn-leaf,.cr-star').forEach(e=>e.remove());
+  } else {
+    // Lobby açıksa efektleri yeniden başlat
+    if(!document.getElementById('screen-lobby').classList.contains('hidden')){
+      startMenuEffects();
+    }
+  }
+}
+
+function _updateLiteBtn(){
+  const btn=document.getElementById('lite-btn'); if(!btn) return;
+  btn.classList.toggle('lite-on',_liteMode);
+  btn.classList.toggle('lite-off',!_liteMode);
+}
 
 function _applyTeacherModeUI(){
   const btn=document.getElementById('gs-open-overlay-btn');
@@ -1524,7 +1584,7 @@ function onMenuPlay(){
 }
 
 // Sayfa yüklendiğinde menü efektlerini başlat
-window.addEventListener('load', ()=>{ loadSettings(); startMenuEffects(); _applyTeacherModeUI(); });
+window.addEventListener('load', ()=>{ loadSettings(); _initLite(); if(!_liteMode) startMenuEffects(); _applyTeacherModeUI(); });
 
 // Müzik: tarayıcı autoplay'i bloklar, ilk etkileşimde başlat
 (function(){
