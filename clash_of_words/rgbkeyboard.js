@@ -36,27 +36,27 @@ const RGBKeyboard = (() => {
 
 /* Rainbow wave — period MUST match wavePeriod constant in JS (3s) */
 @keyframes rgbKbWave{
-  0%  {border-color:hsl(0,88%,54%);  box-shadow:0 4px 0 rgba(0,0,0,.75),0 0 11px hsl(0,100%,50%),  inset 0 0 10px rgba(255,0,0,.07)}
-  12% {border-color:hsl(44,90%,54%); box-shadow:0 4px 0 rgba(0,0,0,.75),0 0 11px hsl(44,100%,52%),  inset 0 0 10px rgba(255,180,0,.07)}
-  25% {border-color:hsl(100,82%,48%);box-shadow:0 4px 0 rgba(0,0,0,.75),0 0 11px hsl(100,100%,44%), inset 0 0 10px rgba(80,255,0,.07)}
-  38% {border-color:hsl(162,82%,46%);box-shadow:0 4px 0 rgba(0,0,0,.75),0 0 11px hsl(162,100%,44%), inset 0 0 10px rgba(0,255,160,.07)}
-  50% {border-color:hsl(200,88%,54%);box-shadow:0 4px 0 rgba(0,0,0,.75),0 0 11px hsl(200,100%,52%),  inset 0 0 10px rgba(0,180,255,.07)}
-  62% {border-color:hsl(248,90%,64%);box-shadow:0 4px 0 rgba(0,0,0,.75),0 0 11px hsl(248,100%,62%),  inset 0 0 10px rgba(80,0,255,.07)}
-  75% {border-color:hsl(285,88%,62%);box-shadow:0 4px 0 rgba(0,0,0,.75),0 0 11px hsl(285,100%,60%),  inset 0 0 10px rgba(200,0,255,.07)}
-  88% {border-color:hsl(330,88%,58%);box-shadow:0 4px 0 rgba(0,0,0,.75),0 0 11px hsl(330,100%,56%),  inset 0 0 10px rgba(255,0,160,.07)}
-  100%{border-color:hsl(360,88%,54%);box-shadow:0 4px 0 rgba(0,0,0,.75),0 0 11px hsl(360,100%,50%),  inset 0 0 10px rgba(255,0,0,.07)}
+  0%  {border-color:hsl(0,88%,54%)}
+  12% {border-color:hsl(44,90%,54%)}
+  25% {border-color:hsl(100,82%,48%)}
+  38% {border-color:hsl(162,82%,46%)}
+  50% {border-color:hsl(200,88%,54%)}
+  62% {border-color:hsl(248,90%,64%)}
+  75% {border-color:hsl(285,88%,62%)}
+  88% {border-color:hsl(330,88%,58%)}
+  100%{border-color:hsl(360,88%,54%)}
 }
 @keyframes rgbKbDelPulse{
-  0%,100%{border-color:rgba(232,33,58,.55); box-shadow:0 4px 0 rgba(0,0,0,.75),0 0 8px rgba(232,33,58,.45)}
-  50%    {border-color:rgba(255,60,80,1);   box-shadow:0 4px 0 rgba(0,0,0,.75),0 0 22px rgba(255,60,80,.95),inset 0 0 14px rgba(255,50,70,.14)}
+  0%,100%{border-color:rgba(232,33,58,.55)}
+  50%    {border-color:rgba(255,60,80,1)}
 }
 @keyframes rgbKbSubmitPulse{
-  0%,100%{border-color:rgba(34,197,94,.5); box-shadow:0 4px 0 rgba(0,0,0,.75),0 0 8px rgba(34,197,94,.4)}
-  50%    {border-color:rgba(74,222,128,1); box-shadow:0 4px 0 rgba(0,0,0,.75),0 0 26px rgba(74,222,128,.95),inset 0 0 14px rgba(74,222,128,.14)}
+  0%,100%{border-color:rgba(34,197,94,.5)}
+  50%    {border-color:rgba(74,222,128,1)}
 }
 @keyframes rgbKbSurePulse{
-  0%,100%{border-color:rgba(234,179,8,.55); box-shadow:0 4px 0 rgba(0,0,0,.75),0 0 10px rgba(234,179,8,.45)}
-  50%    {border-color:rgba(253,224,71,1);  box-shadow:0 4px 0 rgba(0,0,0,.75),0 0 30px rgba(253,224,71,.95),inset 0 0 14px rgba(253,224,71,.18)}
+  0%,100%{border-color:rgba(234,179,8,.55)}
+  50%    {border-color:rgba(253,224,71,1)}
 }
 @keyframes rgbKbFlash{0%{background:rgba(255,255,255,.35)}100%{background:rgba(8,3,18,.92)}}
 
