@@ -2752,7 +2752,7 @@ function updateBoardClasses(){
     if(isFlaming){ if(!flameEl){flameEl=document.createElement('span');flameEl.className='flame-icon';flameEl.textContent='🔥';div.appendChild(flameEl);} }
     else { flameEl?.remove(); }
   });
-  requestAnimationFrame(drawCanvas);
+  ensureGlowLoop();
 }
 function updateDisplay(){updateBoardClasses();updateWordDisplay();}
 
@@ -2786,7 +2786,7 @@ function drawCanvas(){
   const cy=p=>p.row*(cellH+5)+cellH/2;
 
   const cG=215;
-  const pulse=0.72+0.28*Math.sin(performance.now()/260);
+  const glowStrength=0.9;
 
   for(let i=1;i<selectedCells.length;i++){
     const a=selectedCells[i-1], b=selectedCells[i];
@@ -2797,8 +2797,8 @@ function drawCanvas(){
     ctx.save();
     if(adj){
       // Dış parıltı
-      ctx.strokeStyle=`rgba(255,${cG},0,${(pulse*0.2).toFixed(3)})`;
-      ctx.lineWidth=10+12*pulse; ctx.lineCap='round';
+      ctx.strokeStyle=`rgba(255,${cG},0,${(glowStrength*0.2).toFixed(3)})`;
+      ctx.lineWidth=10+12*glowStrength; ctx.lineCap='round';
       ctx.shadowColor=`rgba(255,${cG},0,0.55)`; ctx.shadowBlur=14;
       ctx.beginPath(); ctx.moveTo(cx(a),cy(a)); ctx.lineTo(cx(b),cy(b)); ctx.stroke();
       // İç çizgi
@@ -2815,14 +2815,12 @@ function drawCanvas(){
   }
 }
 
-let _lastGlowTs=0;
 function ensureGlowLoop(){
   if(glowRAF) return;
-  (function loop(ts){
-    if(selectedCells.length===0||gameOver){glowRAF=null;return;}
-    if(ts-_lastGlowTs>=33){ drawCanvas(); _lastGlowTs=ts; } // ~30fps
-    glowRAF=requestAnimationFrame(loop);
-  })(performance.now());
+  glowRAF=requestAnimationFrame(()=>{
+    glowRAF=null;
+    drawCanvas();
+  });
 }
 function stopGlowLoop(){cancelAnimationFrame(glowRAF);glowRAF=null;}
 
@@ -4371,7 +4369,7 @@ function selectDifficulty(diff){
 }
 
 window.addEventListener('resize',()=>{
-  if(selectedCells.length>0) drawCanvas();
+  if(selectedCells.length>0) ensureGlowLoop();
 });
 
 /* ─────────────────────────────────────────────────────────────────
