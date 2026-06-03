@@ -776,8 +776,8 @@ body.tb-mode .hp-outer{opacity:0;pointer-events:none}
 <!-- ── MAIN MENU ── -->
 <div id="main-menu">
   <div class="mm-logo">
-    <div class="mm-word1"><span id="mm-t" onclick="_secretTap('T')">T</span><span id="mm-e" onclick="_secretTap('E')">E</span><span id="mm-a" onclick="_secretTap('A')">A</span><span id="mm-m" onclick="_secretTap('M')">M</span></div>
-    <div class="mm-word2">CLASH</div>
+    <div class="mm-word1"><span id="mm-w" onclick="_secretTap('W')">W</span><span id="mm-o" onclick="_secretTap('O')">O</span><span id="mm-r" onclick="_secretTap('R')">R</span><span id="mm-d" onclick="_secretTap('D')">D</span></div>
+    <div class="mm-word2">RIVALS</div>
     <div class="mm-credit">Designed by ADİL FIRAT OKTAV</div>
   </div>
   <div class="mm-btns">
@@ -1303,7 +1303,7 @@ body.tb-mode .hp-outer{opacity:0;pointer-events:none}
 
 <script>
 // ══════════════════════════════════════════════════════════
-//  TEAM CLASH — Game Logic
+//  WORD RIVALS — Game Logic
 // ══════════════════════════════════════════════════════════
 
 // ── CONSTANTS ─────────────────────────────────────────────
@@ -1324,7 +1324,7 @@ let studentAvatars     = [[], []];
 let studentAvatarShown = [[], []];
 let avatarDmgTriggered = [false, false];
 let tauntsUnlocked     = true;
-let _teacherMode = false; // T-E-A-M koduyla aktifleşir
+let _teacherMode = false; // W-O-R-D koduyla aktifleşir
 try { CLASSES; } catch(e) { window.CLASSES = []; } // names.js yoksa fallback
 let selectedClasses = new Set(CLASSES.map(c => c.id));
 // CLASSES yoksa QUESTIONS'tan tüm grade'leri al
@@ -4129,8 +4129,8 @@ function _tbContinueRound() {
 }
 
 // ── MAIN MENU ─────────────────────────────────────────────
-// ── GİZLİ T-E-A-M KODU ───────────────────────────────────
-const _SECRET_SEQ = ['T','E','A','M'];
+// ── GİZLİ W-O-R-D KODU ───────────────────────────────────
+const _SECRET_SEQ = ['W','O','R','D'];
 let   _secretIdx  = 0;
 let   _secretTimer = null;
 

@@ -1,4 +1,4 @@
-// words.js — TEAM_CLASH
+// words.js — WORD_RIVALS
 // Format: [QUESTION_WORD, grade,unit, "imagePath"]
 // grade = sınıf derecesi (e.g. 5, 6, 7, 8)
 // unit = ünite (e.g. 1,2,3,4,5,6,7,8,9,10)

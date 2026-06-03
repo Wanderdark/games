@@ -3137,6 +3137,7 @@ function applyJokerDegistir() {
   revealedIndices   = new Set();
   ilkSonIndices     = new Set();
   jokerFloodIndices = new Set();
+  _clearHarfAlCooldown();
   _jokerUsed        = true;   // buton disable kalacak
   _jokerTRUsed      = false;
   _jokerIlkSonUsed  = false;
@@ -3216,6 +3217,7 @@ function skipQuestion() {
   revealedIndices   = new Set();
   ilkSonIndices     = new Set();
   jokerFloodIndices = new Set();
+  _clearHarfAlCooldown();
   hintsShown        = 0;
   hintDeduction     = 0;
   _visualHintUsed   = false;
@@ -3384,7 +3386,9 @@ function calcJokerQuota(gi) {
 }
 
 /* ── HARF AL state ── */
-let revealedIndices = new Set();  // indices of letters revealed this question
+let revealedIndices   = new Set(); // indices of letters revealed this question
+let _harfAlCooldown   = false;     // 2s cooldown aktifken true
+let _harfAlCooldownId = null;      // interval ID
 
 let currentGroup = 0;
 let currentQ = null;
@@ -3498,8 +3502,11 @@ function updateUI() {
   // HARF AL butonu
   if(u.harfBtn) {
     const wordLen = currentQ ? (answers[currentQ] || '').length : 0;
-    // ⚡ Challenge: harf al kapalı
-    u.harfBtn.disabled = !questionShown || revealedIndices.size >= wordLen || _wheelChallengeOn;
+    // ⚡ Challenge: harf al kapalı  |  🕐 cooldown aktif
+    u.harfBtn.disabled = !questionShown || revealedIndices.size >= wordLen || _wheelChallengeOn || _harfAlCooldown;
+    // Cooldown değilse "HARF AL" label'ını geri yaz (countdown clearlanmış olabilir)
+    const labelEl = u.harfBtn.querySelector('span:last-child');
+    if(labelEl && !_harfAlCooldown) labelEl.textContent = 'HARF AL';
   }
   // Joker butonu
   if(u.jokerBtn) {
@@ -3595,6 +3602,7 @@ function pickLetterAndShow(pts, letterCount) {
   revealedIndices   = new Set();
   ilkSonIndices     = new Set();
   jokerFloodIndices = new Set();
+  _clearHarfAlCooldown();
   stopTimer();
   currentPts = pts;
 
@@ -3631,6 +3639,7 @@ function showQuestion(pts) {
   revealedIndices   = new Set();
   ilkSonIndices     = new Set();
   jokerFloodIndices = new Set();
+  _clearHarfAlCooldown();
   stopTimer();
   currentPts = pts;
   const idx = Math.floor(Math.random() * questions[pts].length);
@@ -3778,11 +3787,16 @@ function revealHexLetter(idx, answer) {
       inner.appendChild(nxt);
 
       // Tick bitti: eski elementi kaldır, yenisine ID ver
+      // Eğer prevEl zaten kaldırıldıysa (sonraki tick önce koştu) nxt'i de temizle
+      const prevEl = cur;
       setTimeout(() => {
-        const old = document.getElementById('hexltr-' + idx);
-        if(old) old.remove();
-        nxt.id = 'hexltr-' + idx;
-        nxt.style.transition = '';
+        if(prevEl.parentNode) {
+          prevEl.remove();
+          nxt.id = 'hexltr-' + idx;
+          nxt.style.transition = '';
+        } else {
+          if(nxt.parentNode) nxt.remove(); // geride kaldık — bu nxt gereksiz
+        }
       }, dur);
 
     }, elapsed);
@@ -3936,9 +3950,11 @@ function harfAl() {
   revealHexLetter(pick, answer);
   spawnHarfAlPenalty(pick);
   updateScoreBadge();
+  _startHarfAlCooldown();
   updateUI();
 
   // Tüm harfler açıldıysa → direk wrong stamp + tur geçişi
+
   if(revealedIndices.size >= nonSpaceLen) {
     stopTimer();
     sfxWrong();
@@ -3946,6 +3962,32 @@ function harfAl() {
     showAnswerStamp(false);
     setTimeout(() => { closeQOverlay(); wrongAnswerClose(); }, 1200);
   }
+}
+
+/* ── HARF AL cooldown (2s) ── */
+function _startHarfAlCooldown() {
+  if(_harfAlCooldownId) clearInterval(_harfAlCooldownId);
+  _harfAlCooldown = true;
+  let remaining = 2;
+  const btn     = document.getElementById('harf-al-btn');
+  const labelEl = btn ? btn.querySelector('span:last-child') : null;
+  if(labelEl) labelEl.textContent = remaining + 's';
+  _harfAlCooldownId = setInterval(() => {
+    remaining--;
+    if(remaining > 0) {
+      if(labelEl) labelEl.textContent = remaining + 's';
+    } else {
+      clearInterval(_harfAlCooldownId);
+      _harfAlCooldownId = null;
+      _harfAlCooldown   = false;
+      updateUI(); // butonu yeniden etkinleştir
+    }
+  }, 1000);
+}
+
+function _clearHarfAlCooldown() {
+  if(_harfAlCooldownId) { clearInterval(_harfAlCooldownId); _harfAlCooldownId = null; }
+  _harfAlCooldown = false;
 }
 
 /* ── SCORE BADGE ── */
@@ -4198,6 +4240,7 @@ function wrongAnswerClose() {
 }
 
 function closeModalAndNext() {
+  _clearHarfAlCooldown(); // yeni tura geçerken cooldown'ı sıfırla
   turnsPlayed[currentGroup]++;
   roundTurns++;
   updateTurnsDisplay();
@@ -4210,6 +4253,7 @@ function closeModalAndNext() {
   revealedIndices   = new Set();
   ilkSonIndices     = new Set();
   jokerFloodIndices = new Set();
+  _clearHarfAlCooldown();
   stopTimer();
   stopFlash();
   stopAnswerAudio();

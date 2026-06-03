@@ -795,7 +795,7 @@ body.lite .kb-key{animation:none!important}
   <div class="mn-hline bot"></div>
   <!-- Content -->
   <div class="mn-wrap">
-    <div class="mn-logo"><span onclick="_secretTap('C')">C</span><span onclick="_secretTap('L')">L</span><span onclick="_secretTap('A')">A</span><span onclick="_secretTap('S')">S</span><span onclick="_secretTap('H')">H</span><br>OF WORDS</div>
+    <div class="mn-logo"><span onclick="_secretTap('W')">W</span><span onclick="_secretTap('O')">O</span><span onclick="_secretTap('R')">R</span><span onclick="_secretTap('D')">D</span><br>HUNT</div>
     <div class="mn-sub">A Word Category Game</div>
     <button class="mn-play" onclick="onMenuPlay()">▶ &nbsp;PLAY</button>
     <button class="mn-tutorial-btn" onclick="openTutorial()">? &nbsp;HOW TO PLAY</button>
@@ -1149,14 +1149,14 @@ body.lite .kb-key{animation:none!important}
 <script src="word_categories.js"></script>
 <script>
 // ═══════════════════════════════════════════════════════
-//  CLASH OF WORDS — Game Logic
+//  WORD HUNT — Game Logic
 // ═══════════════════════════════════════════════════════
 
 // ── TEACHER MODE — gizli C-L-A-S-H tıklaması ─────────
 let _teacherMode = false;
 try { CLASSES; } catch(e) { window.CLASSES = []; }
 
-const _SECRET_SEQ = ['C','L','A','S'];
+const _SECRET_SEQ = ['W','O','R','D'];
 let _secretIdx  = 0;
 let _secretTimer = null;
 
@@ -2722,7 +2722,8 @@ function onOverrideAccept(){
   if(!pendingOverride) return;
   const {word,entry}=pendingOverride;
   saveSuggestion(entry.rowCategory, word);   // ← localStorage'a kaydet
-  roundSubmissions[entry.playerName]={word,accepted:true,bonusApplies:checkBonusRule(currentRound.bonus,word.toUpperCase().trim())};
+  const _bonusApplies=checkBonusRule(currentRound.bonus,word.toUpperCase().trim());
+  roundSubmissions[entry.playerName]={word,accepted:true,bonusApplies:_bonusApplies};
   hide('check-result');
   document.getElementById('wr-panel').className='wr-panel valid';
   document.getElementById('wr-status').textContent='ACCEPTED ✓';
@@ -2732,6 +2733,7 @@ function onOverrideAccept(){
   pendingOverride=null;
   _resultLocked=true;
   show('check-result');
+  if(_bonusApplies) _showStamp(true, true);
   _setGameFlowTimeout(()=>{_resultLocked=false;hide('check-result');rowCheckIdx++;showNextCheckInRow();},1200);
 }
 
