@@ -3103,7 +3103,7 @@ function triggerWrongSelection(row,col){
 /* ─────────────────────────────────────────────────────────────────
    ARKAPLAN MUZİĞİ
 ───────────────────────────────────────────────────────────────── */
-const BG_TRACKS=['sounds/main1.wav','sounds/main2.wav','sounds/main3.wav','sounds/main4.wav','sounds/main5.wav'];
+const BG_TRACKS=['sounds/main1.mp3','sounds/main2.mp3','sounds/main3.mp3','sounds/main4.mp3','sounds/main5.mp3'];
 const BG_VOL=0.22;
 const FADE_MS=600;
 let musicMuted=false;
@@ -3135,7 +3135,7 @@ function _nextBgTrack(){
 function playMenuMusic(){
   if(menuAudio) return; // zaten çalıyor
   try{
-    const a=new Audio('sounds/mainmenu.wav');
+    const a=new Audio('sounds/mainmenu.mp3');
     a.loop=true;
     a.volume=musicMuted?0:MENU_VOL;
     a.play().catch(()=>{});
@@ -3526,7 +3526,7 @@ function triggerBoardFire(){
   const bw=document.querySelector('.board-wrapper');
   if(ov) ov.classList.add('active');
   if(bw) bw.classList.add('on-fire');
-  playSfx('sounds/flaming.wav', 0.75);
+  playSfx('sounds/flaming.mp3', 0.75);
   setTimeout(()=>{
     _fireBoardActive=false;
     if(ov) ov.classList.remove('active');
@@ -3556,7 +3556,7 @@ const DMG_HP_RATIO = 0.40;
 const avatarDmgTriggered = [false, false]; // takım başına kalıcı flag
 
 function dmgSrc(src){
-  // AV_anime_Nova.png → AV_anime_Nova_dmg.png
+  // AV_Anime_Nova.webp → AV_Anime_Nova_dmg.webp
   return src.replace(/(\.[^.]+)$/, '_dmg$1');
 }
 
@@ -3816,7 +3816,7 @@ function flyCoins(fromTeam, toTeam, count){
   const stagger=actual<=5?130:actual<=15?90:60;
   const flightDur=1100; // _launchCoin max süresi ~1000ms + buffer
   // Coin animasyonu başladığında ses efektini hemen çal
-  playSfx('sounds/coinfall.wav', 0.65);
+  playSfx('sounds/coinfall.mp3', 0.65);
   for(let i=0;i<visual;i++){
     setTimeout(()=>_launchCoin(fromTeam, toTeam), i*stagger);
   }
@@ -4298,7 +4298,7 @@ function updateJokerBtn(){
 function useJoker(){
   if(!difficultySelected||jokerUsed||gameOver||currentWord?.difficulty==='easy') return;
   jokerUsed=true;
-  playSfx('sounds/coinfall.wav',0.65);
+  playSfx('sounds/coinfall.mp3',0.65);
   loseCoins(currentTeam,10);
   updateJokerBtn();
   renderBoard();
@@ -6151,7 +6151,7 @@ function showAvatarSelectStep(step){
       if(t===0) prevEl.style.left='0'; else prevEl.style.right='0';
     } else {
       // Seçim yok → takıma göre outline göster (COMIC kategorisinde gizle)
-      prevEl.src=t===0?'avatars/avataroutline.png':'avatars/avataroutline2.png';
+      prevEl.src=t===0?'avatars/avataroutline.webp':'avatars/avataroutline2.webp';
       prevEl.style.transform='scaleX(1)';
       prevEl.style.opacity=currentAvsCategory==='COMIC'?'0':(t===team?'0.35':'0.22');
       if(t===0) prevEl.style.left='0'; else prevEl.style.right='0';
@@ -6222,7 +6222,7 @@ function showStudentAvatarScreen(team, studentName, cb){
       prevEl.style.opacity='0.82';
       teamAvatars[team]=saved;
     } else {
-      prevEl.src=team===0?'avatars/avataroutline.png':'avatars/avataroutline2.png';
+      prevEl.src=team===0?'avatars/avataroutline.webp':'avatars/avataroutline2.webp';
       prevEl.style.transform='scaleX(1)';
       prevEl.style.opacity='0.35';
       teamAvatars[team]=null;
@@ -6244,7 +6244,7 @@ function selectAvatarNew(team,idx){
   if(teamAvatars[team]===idx){
     teamAvatars[team]=null;
     if(prevEl){
-      prevEl.src=team===0?'avatars/avataroutline.png':'avatars/avataroutline2.png';
+      prevEl.src=team===0?'avatars/avataroutline.webp':'avatars/avataroutline2.webp';
       prevEl.style.transform='scaleX(1)';
       prevEl.style.opacity=currentAvsCategory==='COMIC'?'0':'0.35';
     }
@@ -6335,7 +6335,7 @@ function _doConfirmAvatarSelect(){
 
 /* ── AVATAR PREVİEW SWIPE ── */
 // Outline silüetine karşılık gelen varsayılan avatarlar (ilk swipe'ta buradan başlar)
-const AVS_OUTLINE_DEFAULT=['avatars/AV_Anime_Nora.png','avatars/AV_Anime_Orion.png']; // [teamA, teamB]
+const AVS_OUTLINE_DEFAULT=['avatars/AV_Anime_Nova.webp','avatars/AV_Anime_Orion.webp']; // [teamA, teamB]
 
 function swipeAvatarPreview(team, dir){
   const list=[];
