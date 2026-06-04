@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -2301,7 +2301,7 @@ function _askFriendConfirmYes() {
   document.getElementById('timer-svg').style.display = 'none';
   document.getElementById('timer-num').style.display = 'none';
   stopDiffMusic();
-  diffAudio = new Audio('sounds/timermain2.wav');
+  diffAudio = new Audio('sounds/timermain2.mp3');
   diffAudio.volume = isMuted ? 0 : 0.6;
   diffAudio.loop = false;
   diffAudio.onended = null;
@@ -3075,7 +3075,7 @@ function sfxQuestionOpen() {
 /* 2. Zorluk ekranı müziği — timermain.wav / timermain2.wav (dönüşümlü) */
 let diffAudio = null;
 let lastDiffIdx = -1;
-const DIFF_MUSIC_SRCS = ['sounds/timermain1.wav','sounds/timermain2.wav','sounds/timermain3.wav','sounds/timermain4.wav','sounds/timermain5.wav'];
+const DIFF_MUSIC_SRCS = ['sounds/timermain1.mp3','sounds/timermain2.mp3','sounds/timermain3.mp3','sounds/timermain4.mp3','sounds/timermain5.mp3'];
 
 function playDiffMusic() {
   stopDiffMusic();
@@ -3246,17 +3246,17 @@ function exitGame() {
 
 /* 3b. Answer Now müziği — timer2.wav */
 // Tüm ses nesneleri baştan oluşturuluyor (tarayıcı autoplay politikası için)
-const answerAudio = new Audio('sounds/timer2.wav');
+const answerAudio = new Audio('sounds/timer2.mp3');
 answerAudio.loop  = false;
 let mainMenuAudio = null;   // dinamik — her parçada yeniden oluşturulur
 let _mmTrackIdx   = 0;      // şu an çalan timermain indeksi
-const jokerAudio = new Audio('sounds/joker.wav');
+const jokerAudio = new Audio('sounds/joker.mp3');
 jokerAudio.loop  = false;
 const ufoAudio   = new Audio('sounds/ufosound.wav');
 ufoAudio.loop    = false;
 const helpAudio  = new Audio('sounds/help.wav');
 helpAudio.loop   = false;
-const finalAudio = new Audio('sounds/final.wav');
+const finalAudio = new Audio('sounds/final.mp3');
 finalAudio.loop  = false;
 
 function playMainMenu() {
@@ -3335,14 +3335,14 @@ function sfxTimeUp() {
 }
 
 /* 5. Doğru cevap — correct.wav */
-const correctAudio = new Audio('sounds/correct.wav');
+const correctAudio = new Audio('sounds/correct.mp3');
 function sfxCorrect() {
   correctAudio.currentTime = 0;
   correctAudio.play().catch(e => console.warn('correct.wav:', e));
 }
 
 /* 6. Yanlış cevap — wrong.wav */
-const wrongAudio = new Audio('sounds/wrong.wav');
+const wrongAudio = new Audio('sounds/wrong.mp3');
 function sfxWrong() {
   wrongAudio.currentTime = 0;
   wrongAudio.play().catch(e => console.warn('wrong.wav:', e));
