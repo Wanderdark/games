@@ -3123,6 +3123,10 @@ function loadPersistedSettings() {
     }
     if(Array.isArray(s.selectedCategories)) {
       selectedCategories = new Set(s.selectedCategories.map(Number));
+      // Kayıt sonrası eklenen yeni kategorileri otomatik seçili yap
+      if(typeof QUESTIONS !== 'undefined') {
+        QUESTIONS.filter(q => q[3] === 0).forEach(q => selectedCategories.add(q[5]));
+      }
     } else if(typeof s.selectedAnimals === 'boolean') {
       if(s.selectedAnimals) selectedCategories.add(11);
       else selectedCategories.delete(11);
@@ -5950,8 +5954,11 @@ let selectedUnits    = new Set(typeof QUESTIONS !== 'undefined' ? QUESTIONS.filt
 // ── Özel kategoriler (grade=0, q[5]=kategori id) ──
 // Yeni kategori eklemek için buraya satır ekle, questions.js'te aynı id'yi kullan.
 const WC_CATEGORY_META = {
-  11: { label: 'ANIMALS',       icon: '🐾' },
-  12: { label: 'FOOD & DRINKS', icon: '🍔' },
+  11: { label: 'ANIMALS',     icon: '🐾' },
+  12: { label: 'FOOD',        icon: '🍔' },
+  13: { label: 'PERSONALITY', icon: '🙂' },
+  14: { label: 'SPORTS',      icon: '⚽' },
+  15: { label: 'PLACES',      icon: '🏙️' },
 };
 // Hangi kategori id'leri seçili — tümü varsayılan açık
 let selectedCategories = new Set(

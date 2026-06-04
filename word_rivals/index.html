@@ -3464,11 +3464,11 @@ function buildSettingsUI() {
   if (classGrid) {
     classGrid.innerHTML = '';
     if (CLASSES.length > 0) {
-      // Teacher modu — gerçek sınıf butonları
-      CLASSES.forEach(cls => {
+      // Teacher modu — gerçek sınıf butonları (grade'e göre sıralı)
+      [...CLASSES].sort((a,b) => a.grade - b.grade).forEach(cls => {
         const btn = document.createElement('button');
         btn.className = 'sc-class-btn' + (selectedClasses.has(cls.id) ? ' active' : '');
-        btn.textContent = cls.label;
+        btn.textContent = cls.grade;
         btn.onclick = () => {
           if (selectedClasses.has(cls.id) && selectedClasses.size === 1) {
             const w = document.getElementById('sc-class-warn');
@@ -3478,9 +3478,6 @@ function buildSettingsUI() {
           selectedClasses.has(cls.id) ? selectedClasses.delete(cls.id) : selectedClasses.add(cls.id);
           btn.classList.toggle('active');
           _syncGradesFromClasses();
-          const availU = new Set(QUESTIONS.filter(q => q[q.length - 1] && !_isCatUnit(q[2]) && selectedGrades.has(q[1])).map(q => q[2]));
-          const kept   = new Set([...selectedUnits].filter(u => availU.has(u)));
-          selectedUnits = kept.size > 0 ? kept : new Set(availU);
           _buildUnitButtons();
           _buildCategoryButtons();
         };
@@ -3488,11 +3485,11 @@ function buildSettingsUI() {
       });
     } else {
       // Default (web) modu — QUESTIONS'tan grade butonları üret
-      const grades = [...new Set(QUESTIONS.filter(q => !_isCatUnit(q[2]) && q[1] > 0).map(q => q[1]))].sort();
+      const grades = [...new Set(QUESTIONS.filter(q => !_isCatUnit(q[2]) && q[1] > 0).map(q => q[1]))].sort((a,b) => a-b);
       grades.forEach(g => {
         const btn = document.createElement('button');
         btn.className = 'sc-class-btn' + (selectedGrades.has(g) ? ' active' : '');
-        btn.textContent = `Grade ${g}`;
+        btn.textContent = `${g}`;
         btn.onclick = () => {
           if (selectedGrades.has(g) && selectedGrades.size === 1 && selectedCategories.size === 0) {
             const w = document.getElementById('sc-class-warn');
@@ -3501,9 +3498,6 @@ function buildSettingsUI() {
           }
           selectedGrades.has(g) ? selectedGrades.delete(g) : selectedGrades.add(g);
           btn.classList.toggle('active');
-          const availU = new Set(QUESTIONS.filter(q => q[q.length - 1] && !_isCatUnit(q[2]) && selectedGrades.has(q[1])).map(q => q[2]));
-          const kept   = new Set([...selectedUnits].filter(u => availU.has(u)));
-          selectedUnits = kept.size > 0 ? kept : new Set(availU);
           _buildUnitButtons();
           _buildCategoryButtons();
         };
