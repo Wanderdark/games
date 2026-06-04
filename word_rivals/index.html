@@ -47,6 +47,26 @@ html,body{height:100%;overflow:hidden;font-family:'Barlow',sans-serif;background
 .mm-icon-btn{font-family:'Barlow Condensed',sans-serif;font-size:clamp(12px,1.5vw,15px);font-weight:700;letter-spacing:.12em;padding:10px 22px;border-radius:10px;border:1px solid rgba(255,140,0,.28);background:rgba(0,0,0,.9);color:rgba(255,255,255,.85);cursor:pointer;transition:background .15s,color .15s,border-color .15s;display:flex;align-items:center;gap:7px}
 .mm-icon-btn:hover{background:rgba(15,8,0,.95);color:var(--gold);border-color:rgba(255,140,0,.9);box-shadow:0 0 16px rgba(255,140,0,.45),inset 0 0 10px rgba(255,140,0,.08);transform:translateY(-2px)}
 
+/* ── GAME MODE SELECT ── */
+#gm-overlay{position:fixed;inset:0;z-index:10200;background:rgba(2,8,30,.97);display:flex;align-items:center;justify-content:center}
+#gm-overlay.hidden{display:none}
+.gm-modal{display:flex;flex-direction:column;align-items:center;gap:32px;padding:40px 24px;width:min(96vw,820px)}
+.gm-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(26px,4vw,44px);letter-spacing:.22em;color:var(--gold);text-shadow:0 0 24px rgba(255,140,0,.5);text-align:center}
+.gm-cards{display:flex;gap:20px;width:100%}
+.gm-card{flex:1;display:flex;flex-direction:column;align-items:center;gap:14px;padding:30px 24px;border-radius:20px;cursor:pointer;transition:transform .15s,box-shadow .15s,border-color .15s;text-align:center;border:2px solid transparent}
+.gm-realtime{background:linear-gradient(145deg,rgba(30,10,10,.95),rgba(15,5,5,.98));border-color:rgba(239,68,68,.35)}
+.gm-realtime:hover{transform:translateY(-4px);box-shadow:0 0 40px rgba(239,68,68,.25);border-color:rgba(239,68,68,.7)}
+.gm-turnbased{background:linear-gradient(145deg,rgba(10,25,15,.95),rgba(5,15,8,.98));border-color:rgba(34,197,94,.35)}
+.gm-turnbased:hover{transform:translateY(-4px);box-shadow:0 0 40px rgba(34,197,94,.25);border-color:rgba(34,197,94,.7)}
+.gm-card-icon{font-size:clamp(36px,5vw,56px);line-height:1}
+.gm-card-name{font-family:'Bebas Neue',sans-serif;font-size:clamp(22px,3.2vw,36px);letter-spacing:.18em;color:#fff}
+.gm-card-desc{font-family:'Barlow',sans-serif;font-size:clamp(13px,1.5vw,16px);color:rgba(255,255,255,.75);line-height:1.5}
+.gm-desc-note{font-size:.88em;color:rgba(255,255,255,.45)}
+.gm-card-tag{font-family:'Barlow Condensed',sans-serif;font-size:clamp(12px,1.4vw,15px);font-weight:700;letter-spacing:.06em;padding:7px 14px;border-radius:8px;margin-top:4px}
+.gm-tag-yes{color:#4ade80;background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.3)}
+.gm-tag-no{color:#f87171;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2)}
+@media(max-width:600px){.gm-cards{flex-direction:column}}
+
 /* ── FIXED CONTROLS ── */
 #fs-btn{position:fixed;top:10px;right:10px;z-index:9960;background:rgba(0,0,0,.45);border:1.5px solid rgba(255,140,0,.28);border-radius:8px;color:rgba(255,140,0,.55);width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:17px;transition:color .15s,background .15s,border-color .15s;padding:0}
 #lite-btn{position:fixed;top:48px;right:10px;z-index:9960;background:rgba(0,0,0,.45);border:1.5px solid rgba(34,197,94,.5);border-radius:8px;color:rgba(34,197,94,.8);width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:13px;font-family:'Barlow Condensed',sans-serif;font-weight:700;letter-spacing:.04em;transition:color .15s,background .15s,border-color .15s,transform .15s;padding:0}
@@ -538,14 +558,6 @@ body.tb-mode .team-joker-row{display:flex}
 .sc-word-count.sc-warn-low{color:#f87171}
 .sc-save-btn{width:100%;padding:13px;border:none;border-radius:12px;cursor:pointer;background:linear-gradient(135deg,#15803d,#22c55e);font-family:'Barlow Condensed',sans-serif;font-size:17px;font-weight:700;letter-spacing:.14em;color:#fff;transition:transform .12s}
 .sc-save-btn:hover{transform:scale(1.02)}
-/* Ses seçici dropdown */
-.sc-voice-row{display:flex;gap:8px;align-items:center}
-.sc-voice-select{flex:1;min-width:0;padding:9px 12px;background:rgba(255,255,255,.05);border:1.5px solid rgba(255,140,0,.25);border-radius:10px;color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:600;letter-spacing:.06em;cursor:pointer;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23ff8c00' stroke-width='1.8' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center}
-.sc-voice-select option{background:#1a0a00;color:#fff}
-.sc-voice-preview{flex-shrink:0;padding:9px 13px;background:rgba(255,140,0,.1);border:1.5px solid rgba(255,140,0,.3);border-radius:10px;color:var(--gold);font-size:18px;cursor:pointer;transition:background .15s,transform .1s;line-height:1}
-.sc-voice-preview:hover{background:rgba(255,140,0,.22);transform:scale(1.08)}
-.sc-voice-preview.playing{background:rgba(255,140,0,.25);animation:vpPulse .6s ease-in-out infinite}
-@keyframes vpPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.15)}}
 /* Gear button on name-modal */
 .nm-settings-btn{position:absolute;top:14px;right:16px;background:transparent;border:1px solid rgba(255,140,0,.25);border-radius:8px;color:rgba(255,140,0,.5);font-size:14px;padding:5px 10px;font-family:'Barlow Condensed',sans-serif;font-weight:700;letter-spacing:.08em;cursor:pointer;transition:color .15s,border-color .15s}
 .nm-settings-btn:hover{color:var(--gold);border-color:var(--gold)}
@@ -772,6 +784,30 @@ body.tb-mode .hp-outer{opacity:0;pointer-events:none}
 <body>
 <div id="bg-layer"></div>
 
+
+<!-- ── GAME MODE SELECT ── -->
+<div id="gm-overlay" class="hidden">
+  <div class="gm-modal">
+    <div class="gm-title">CHOOSE GAME MODE</div>
+    <div class="gm-cards">
+
+      <button class="gm-card gm-realtime" onclick="_selectGameMode('realtime')">
+        <div class="gm-card-icon">⚡</div>
+        <div class="gm-card-name">REAL TIME</div>
+        <div class="gm-card-desc">Oyuncular ikişerli olarak aynı anda yarışırlar.<br><span class="gm-desc-note">(Sınıf ortamında akıllı tahta için uygundur)</span></div>
+        <div class="gm-card-tag gm-tag-no">❌ Şans Çarkı ve Joker Modları mevcut değil</div>
+      </button>
+
+      <button class="gm-card gm-turnbased" onclick="_selectGameMode('turnbased')">
+        <div class="gm-card-icon">🎯</div>
+        <div class="gm-card-name">TURN BASED</div>
+        <div class="gm-card-desc">Oyuncular teker teker sırayla oynarlar.<br><span class="gm-desc-note">(Hem akıllı tahta hem de diğer aygıtlar için uygundur)</span></div>
+        <div class="gm-card-tag gm-tag-yes">✅ Şans Çarkı ve Joker Modları mevcut</div>
+      </button>
+
+    </div>
+  </div>
+</div>
 
 <!-- ── MAIN MENU ── -->
 <div id="main-menu">
@@ -1010,13 +1046,6 @@ body.tb-mode .hp-outer{opacity:0;pointer-events:none}
       <div class="sc-section-label">KATEGORİLER <span style="font-size:.75em;opacity:.6;letter-spacing:.05em">(ünite bağımsız)</span></div>
       <div class="sc-unit-grid" id="sc-cat-grid"></div>
     </div>
-    <div class="sc-section">
-      <div class="sc-section-label">OYUN MODU</div>
-      <div class="sc-mode-row">
-        <button class="sc-mode-btn active" id="sc-mode-realtime"  onclick="setGameMode('realtime')">⚡ REAL TIME</button>
-        <button class="sc-mode-btn"        id="sc-mode-turnbased" onclick="setGameMode('turnbased')">🎯 TURN BASED</button>
-      </div>
-    </div>
     <div style="display:flex;gap:10px">
       <div class="sc-section" style="flex:1">
         <div class="sc-section-label">KELİME DİNLEME</div>
@@ -1040,13 +1069,6 @@ body.tb-mode .hp-outer{opacity:0;pointer-events:none}
         <button class="sc-mode-btn" id="sc-hp-50"  onclick="setInitialHP(50)">50</button>
         <button class="sc-mode-btn active" id="sc-hp-100" onclick="setInitialHP(100)">100</button>
         <button class="sc-mode-btn" id="sc-hp-200" onclick="setInitialHP(200)">200</button>
-      </div>
-    </div>
-    <div class="sc-section" id="sc-voice-section">
-      <div class="sc-section-label">SES / VOICE</div>
-      <div class="sc-voice-row">
-        <select class="sc-voice-select" id="sc-voice-select" onchange="setVoiceByName(this.value)"></select>
-        <button class="sc-voice-preview" id="sc-voice-preview-btn" onclick="_previewVoice()" title="5 kelime oku">🔊</button>
       </div>
     </div>
     <div class="sc-word-count" id="sc-word-count"></div>
@@ -1439,101 +1461,22 @@ function _playSound(path, volume = 0.8) {
 }
 
 // ── WEB SPEECH API ────────────────────────────────────────
-let _selectedVoiceName = null;   // null = otomatik seçim
-
 function _initVoice() {
   if (!window.speechSynthesis) return;
   const voices = window.speechSynthesis.getVoices();
-  if (!voices.length) return;  // onvoiceschanged tekrar çağırır
+  if (!voices.length) return;
   _applyVoice(voices);
-  _populateVoiceDropdown(voices);
 }
 
 function _applyVoice(voices) {
-  if (_selectedVoiceName) {
-    // Kaydedilmiş ses varsa onu bul
-    _ttsVoice = voices.find(v => v.name === _selectedVoiceName) || null;
-  }
-  if (!_ttsVoice) {
-    // Otomatik: local en-US → remote en-US → herhangi en
-    _ttsVoice =
-      voices.find(v => v.lang === 'en-US' && v.localService) ||
-      voices.find(v => v.lang === 'en-US')                   ||
-      voices.find(v => v.lang.startsWith('en'))              ||
-      null;
-  }
+  // Otomatik: local en-US → remote en-US → herhangi en
+  _ttsVoice =
+    voices.find(v => v.lang === 'en-US' && v.localService) ||
+    voices.find(v => v.lang === 'en-US')                   ||
+    voices.find(v => v.lang.startsWith('en'))              ||
+    null;
 }
 
-function _populateVoiceDropdown(voices) {
-  const sel = document.getElementById('sc-voice-select');
-  const sec = document.getElementById('sc-voice-section');
-  if (!sel) return;
-  // Tüm İngilizce sesler + başa "Otomatik" seçeneği
-  const enVoices = voices.filter(v => v.lang.startsWith('en'));
-  if (!enVoices.length) { if (sec) sec.style.display = 'none'; return; }
-  if (sec) sec.style.display = '';
-  sel.innerHTML = `<option value="">🔄 Otomatik</option>` +
-    enVoices.map(v =>
-      `<option value="${v.name}"${v.name === (_selectedVoiceName || '') ? ' selected' : ''}>` +
-      `${v.localService ? '💾' : '🌐'} ${v.name} (${v.lang})</option>`
-    ).join('');
-  // Seçili değer yoksa aktif voice'u işaretle
-  if (!_selectedVoiceName && _ttsVoice) {
-    const opt = [...sel.options].find(o => o.value === _ttsVoice.name);
-    if (opt) opt.selected = true;
-  }
-}
-
-function setVoiceByName(name) {
-  _selectedVoiceName = name || null;
-  const voices = window.speechSynthesis.getVoices();
-  _ttsVoice = name ? (voices.find(v => v.name === name) || null) : null;
-  if (!_ttsVoice) _applyVoice(voices);  // boşsa otomatiğe dön
-}
-
-// ── SES PREVİEW — 5 rastgele kelime oku ──────────────────
-let _previewActive = false;
-function _previewVoice() {
-  if (!window.speechSynthesis) return;
-  const btn = document.getElementById('sc-voice-preview-btn');
-
-  // Çalışıyorsa durdur
-  if (_previewActive) {
-    window.speechSynthesis.cancel();
-    _previewActive = false;
-    if (btn) btn.classList.remove('playing');
-    _bgMusicFade(BG_MUSIC_FULL, 600);  // müziği geri aç
-    return;
-  }
-
-  // QUESTIONS'tan 5 rastgele kelime seç (tekrarsız)
-  const pool = [...QUESTIONS].sort(() => Math.random() - .5).slice(0, 5).map(q => q[0]);
-
-  _previewActive = true;
-  if (btn) btn.classList.add('playing');
-  _bgMusicFade(0.05, 400);  // müziği kıs
-
-  function _previewDone() {
-    _previewActive = false;
-    if (btn) btn.classList.remove('playing');
-    _bgMusicFade(BG_MUSIC_FULL, 600);  // müziği geri aç
-  }
-
-  let i = 0;
-  function speakNext() {
-    if (i >= pool.length || !_previewActive) { _previewDone(); return; }
-    const utt = new SpeechSynthesisUtterance(pool[i++].toLowerCase());
-    utt.lang  = 'en-US';
-    utt.rate  = 0.82;
-    utt.pitch = 1;
-    if (_ttsVoice) utt.voice = _ttsVoice;
-    utt.onend  = () => setTimeout(speakNext, 500);
-    utt.onerror = () => _previewDone();
-    window.speechSynthesis.cancel();
-    window.speechSynthesis.speak(utt);
-  }
-  speakNext();
-}
 
 function speakWord(word) {
   if (!window.speechSynthesis || !word) return;
@@ -2799,14 +2742,19 @@ function _clearDoubleGlow() {
 
 function applyJokerYanlisEle() {
   _jokerConsume();
-  // Aktif takımın grid'inde 2 yanlış hücreyi karart
+  // Aktif takımın grid'inde yanlış hücreleri karart
+  // Zaten elenmiş hücreleri filtrele (ONE_OPTION_DOWN zaten 1 tane elemiş olabilir)
   const s = _tbActiveTeam === 0 ? 'a' : 'b';
   const wrongPos = [];
   for (let p = 0; p < 4; p++) {
-    if (gridImages[p] && !gridImages[p].isCorrect) wrongPos.push(p);
+    if (!gridImages[p] || gridImages[p].isCorrect) continue;
+    const cell = document.getElementById(`cell-${s}-${p}`);
+    if (cell && cell.classList.contains('jk-eliminated')) continue; // zaten elenmiş
+    wrongPos.push(p);
   }
   wrongPos.sort(() => Math.random() - .5);
-  const maxElim = (_rbBonus[_tbActiveTeam] === 'SECOND_CHANCE') ? 1 : 2;
+  const activeBonus = _rbBonus[_tbActiveTeam];
+  const maxElim = (activeBonus === 'SECOND_CHANCE' || activeBonus === 'ONE_OPTION_DOWN') ? 1 : 2;
   const toElim  = wrongPos.slice(0, maxElim);
   toElim.forEach(pos => {
     ['a','b'].forEach(side => {
@@ -2815,7 +2763,8 @@ function applyJokerYanlisEle() {
     });
   });
   _tbResumeTimer();
-  _spawnJkFloatText(maxElim === 1 ? '🙈 1 YANLIŞ ELENDİ!' : '🙈 2 YANLIŞ ELENDİ!', '#10b981');
+  const actualElim = toElim.length;
+  _spawnJkFloatText(actualElim === 1 ? '🙈 1 YANLIŞ ELENDİ!' : `🙈 ${actualElim} YANLIŞ ELENDİ!`, '#10b981');
 }
 
 // Joker merkezden takım satırına doğru uçar
@@ -3634,11 +3583,6 @@ function _closeCatPreview() {
 
 function openSettings()  {
   buildSettingsUI();
-  // Ses listesini tazele (tarayıcı sesler geç yükleyebilir)
-  if (window.speechSynthesis) {
-    const voices = window.speechSynthesis.getVoices();
-    if (voices.length) _populateVoiceDropdown(voices);
-  }
   // Mevcut moda göre HP section görünürlüğünü ayarla
   const hpSection = document.getElementById('sc-hp-section');
   if (hpSection) hpSection.style.display = _gameMode === 'turnbased' ? 'none' : '';
@@ -3664,7 +3608,6 @@ function _saveSettings() {
       gameMode:      _gameMode,
       listeningMode: _listeningMode,
       musicEnabled:  _musicEnabled,
-      voiceName:     _selectedVoiceName || '',
       initialHP:     INITIAL_HP
     }));
   } catch(e) {}
@@ -3702,10 +3645,6 @@ function _loadSettings() {
     // Dinleme modunu uygula
     if (typeof data.listeningMode === 'boolean') {
       setListeningMode(data.listeningMode);
-    }
-    // Ses tercihini uygula
-    if (typeof data.voiceName === 'string') {
-      _selectedVoiceName = data.voiceName || null;
     }
     // HP tercihini uygula
     if ([10, 50, 100, 200].includes(data.initialHP)) {
@@ -3851,8 +3790,6 @@ function _bgMusicFade(targetVol, durationMs) {
 // ── GAME MODE TOGGLE ──────────────────────────────────────
 function setGameMode(mode) {
   _gameMode = mode;
-  document.getElementById('sc-mode-realtime') .classList.toggle('active', mode === 'realtime');
-  document.getElementById('sc-mode-turnbased').classList.toggle('active', mode === 'turnbased');
   const hpSection = document.getElementById('sc-hp-section');
   if (hpSection) hpSection.style.display = mode === 'turnbased' ? 'none' : '';
 }
@@ -4164,8 +4101,14 @@ function _secretTap(letter) {
 }
 
 function _menuStart() {
-  _startBgMusic(); // PLAY'e basınca da müziği başlat
+  _startBgMusic();
   document.getElementById('main-menu').classList.add('hidden');
+  document.getElementById('gm-overlay').classList.remove('hidden');
+}
+
+function _selectGameMode(mode) {
+  setGameMode(mode);
+  document.getElementById('gm-overlay').classList.add('hidden');
   showNameOverlay(names => {
     teamNames = names;
     _updateTeamNameUI();
