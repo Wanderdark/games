@@ -7,6 +7,346 @@
    ───────────────────────────────────────────────────────────────── */
 const WORD_BANK = [
 
+ // ─── GRADE 6 UNIT 1 ──────────────────────────────────────────────────────────
+  { en:'LIFE', tr:'HAYAT', grade:6, diff:1, unit:1, img:'../images/6/1/1.webp' },
+  { en:'START', tr:'BAŞLAMAK', grade:6, diff:1, unit:1, img:'../images/6/1/2.webp' },
+  { en:'FINISH', tr:'BİTİRMEK', grade:6, diff:1, unit:1, img:'../images/6/1/3.webp' },
+  { en:'WEEKDAY', tr:'HAFTA İÇİ', grade:6, diff:2, unit:1, img:'../images/6/1/4.webp' },
+  { en:'WEEKEND', tr:'HAFTA SONU', grade:6, diff:1, unit:1, img:'../images/6/1/5.webp' },
+  { en:'TIME', tr:'SAAT / ZAMAN', grade:6, diff:1, unit:1, img:'../images/6/1/6.webp' },
+  { en:'DATE', tr:'TARİH', grade:6, diff:1, unit:1, img:'../images/6/1/7.webp' },
+  { en:'CLOCK', tr:'SAAT', grade:6, diff:1, unit:1, img:'../images/6/1/8.webp' },
+  { en:'ALWAYS', tr:'HER ZAMAN', grade:6, diff:1, unit:1, img:'../images/6/1/9.webp' },
+  { en:'USUALLY', tr:'GENELLİKLE', grade:6, diff:1, unit:1, img:'../images/6/1/10.webp' },
+  { en:'OFTEN', tr:'SIKLIKLA', grade:6, diff:1, unit:1, img:'../images/6/1/11.webp' },
+  { en:'SOMETIMES', tr:'BAZEN', grade:6, diff:1, unit:1, img:'../images/6/1/12.webp' },
+  { en:'SELDOM', tr:'NADİREN', grade:6, diff:3, unit:1, img:'../images/6/1/13.webp' },
+  { en:'RARELY', tr:'NADİREN', grade:6, diff:2, unit:1, img:'../images/6/1/13.webp' },
+  { en:'NEVER', tr:'HİÇBİR ZAMAN', grade:6, diff:1, unit:1, img:'../images/6/1/14.webp' },
+  { en:'EVERY DAY', tr:'HER GÜN', grade:6, diff:1, unit:1, img:'../images/6/1/15.webp' },
+  { en:'ONCE', tr:'BİR KEZ', grade:6, diff:1, unit:1, img:'../images/6/1/16.webp' },
+  { en:'TWICE', tr:'İKİ KEZ', grade:6, diff:1, unit:1, img:'../images/6/1/17.webp' },
+  { en:'HOW OFTEN', tr:'NE SIKLIKTA', grade:6, diff:2, unit:1, img:'../images/6/1/18.webp' },
+  { en:'MORNING', tr:'SABAH', grade:6, diff:1, unit:1, img:'../images/6/1/19.webp' },
+  { en:'AFTERNOON', tr:'ÖĞLEDEN SONRA', grade:6, diff:1, unit:1, img:'../images/6/1/20.webp' },
+  { en:'EVENING', tr:'AKŞAM', grade:6, diff:1, unit:1, img:'../images/6/1/21.webp' },
+  { en:'NIGHT', tr:'GECE', grade:6, diff:1, unit:1, img:'../images/6/1/22.webp' },
+  { en:'QUARTER PAST', tr:'ÇEYREĞİ GEÇİYOR', grade:6, diff:2, unit:1, img:'../images/6/1/23.webp' },
+  { en:'HALF PAST', tr:'BUÇUK', grade:6, diff:2, unit:1, img:'../images/6/1/24.webp' },
+  { en:'O CLOCK', tr:'TAM (SAAT)', grade:6, diff:2, unit:1, img:'../images/6/1/25.webp' },
+  { en:'BREAKFAST', tr:'KAHVALTI', grade:6, diff:1, unit:1, img:'../images/6/1/26.webp' },
+  { en:'LUNCH', tr:'ÖĞLE YEMEĞİ', grade:6, diff:1, unit:1, img:'../images/6/1/27.webp' },
+  { en:'DINNER', tr:'AKŞAM YEMEĞİ', grade:6, diff:1, unit:1, img:'../images/6/1/28.webp' },
+  { en:'WAKE UP', tr:'UYANMAK', grade:6, diff:1, unit:1, img:'../images/6/1/29.webp' },
+  { en:'WASH FACE', tr:'YÜZÜNÜ YIKAMAK', grade:6, diff:1, unit:1, img:'../images/6/1/30.webp' },
+  { en:'BRUSH TEETH', tr:'DİŞ FIRCALAMAK', grade:6, diff:1, unit:1, img:'../images/6/1/31.webp' },
+  { en:'GET DRESSED', tr:'GİYİNMEK', grade:6, diff:1, unit:1, img:'../images/6/1/32.webp' },
+  { en:'ARRIVE SCHOOL', tr:'OKULA VARMAK', grade:6, diff:2, unit:1, img:'../images/6/1/33.webp' },
+  { en:'STUDY LESSON', tr:'DERS ÇALIŞMAK', grade:6, diff:1, unit:1, img:'../images/6/1/34.webp' },
+  { en:'DO HOMEWORK', tr:'ÖDEV YAPMAK', grade:6, diff:1, unit:1, img:'../images/6/1/34.webp' },
+  { en:'COME BACK HOME', tr:'EVE DÖNMEK', grade:6, diff:2, unit:1, img:'../images/6/1/35.webp' },
+  { en:'GO TO GYM', tr:'SPOR SALONUNA GİTMEK', grade:6, diff:2, unit:1, img:'../images/6/1/36.webp' },
+  { en:'READ BOOK', tr:'KİTAP OKUMAK', grade:6, diff:1, unit:1, img:'../images/6/1/37.webp' },
+  { en:'WATCH TV', tr:'TV İZLEMEK', grade:6, diff:1, unit:1, img:'../images/6/1/38.webp' },
+  { en:'GO ONLINE', tr:'İNTERNETE GİRMEK', grade:6, diff:1, unit:1, img:'../images/6/1/39.webp' },
+  { en:'PLAY GAMES', tr:'OYUN OYNAMAK', grade:6, diff:1, unit:1, img:'../images/6/1/40.webp' },
+  { en:'TAKE SHOWER', tr:'DUŞ ALMAK', grade:6, diff:1, unit:1, img:'../images/6/1/41.webp' },
+  { en:'HAVE BATH', tr:'BANYO YAPMAK', grade:6, diff:1, unit:1, img:'../images/6/1/42.webp' },
+  { en:'HAVE A REST', tr:'DİNLENMEK', grade:6, diff:1, unit:1, img:'../images/6/1/43.webp' },
+  { en:'TAKE A NAP', tr:'KESTIRMEK', grade:6, diff:2, unit:1, img:'../images/6/1/44.webp' },
+  { en:'MEET FRIENDS', tr:'ARKADAŞLARLA BULUŞMAK', grade:6, diff:1, unit:1, img:'../images/6/1/45.webp' },
+  { en:'GO SHOPPING', tr:'ALIŞVERİŞE GİTMEK', grade:6, diff:1, unit:1, img:'../images/6/1/46.webp' },
+  { en:'ATTEND COURSE', tr:'KURSA GİTMEK', grade:6, diff:2, unit:1, img:'../images/6/1/47.webp' },
+
+  // ─── GRADE 6 UNIT 2 ──────────────────────────────────────────────────────────
+  { en:'BAGEL', tr:'SİMİT', grade:6, diff:2, unit:2, img:'../images/6/2/1.webp' },
+  { en:'BUTTER', tr:'TEREYAĞI', grade:6, diff:1, unit:2, img:'../images/6/2/2.webp' },
+  { en:'CEREAL', tr:'TAHIL GEVREĞİ', grade:6, diff:1, unit:2, img:'../images/6/2/3.webp' },
+  { en:'CROISSANT', tr:'KROİSAN', grade:6, diff:2, unit:2, img:'../images/6/2/4.webp' },
+  { en:'EGG', tr:'YUMURTA', grade:6, diff:1, unit:2, img:'../images/6/2/5.webp' },
+  { en:'FRUIT JUICE', tr:'MEYVE SUYU', grade:6, diff:1, unit:2, img:'../images/6/2/6.webp' },
+  { en:'JAM', tr:'REÇEL', grade:6, diff:1, unit:2, img:'../images/6/2/7.webp' },
+  { en:'OMELETTE', tr:'OMLET', grade:6, diff:2, unit:2, img:'../images/6/2/8.webp' },
+  { en:'MUFFIN', tr:'MAFİN', grade:6, diff:1, unit:2, img:'../images/6/2/9.webp' },
+  { en:'PANCAKE', tr:'KREP', grade:6, diff:1, unit:2, img:'../images/6/2/10.webp' },
+  { en:'SAUSAGE', tr:'SOSİS', grade:6, diff:1, unit:2, img:'../images/6/2/11.webp' },
+  { en:'NUTRITIOUS', tr:'BESLEYİCİ', grade:6, diff:3, unit:2, img:'../images/6/2/12.webp' },
+  { en:'TEA', tr:'ÇAY', grade:6, diff:1, unit:2, img:'../images/6/2/13.webp' },
+  { en:'COFFEE', tr:'KAHVE', grade:6, diff:1, unit:2, img:'../images/6/2/14.webp' },
+  { en:'MILK', tr:'SÜT', grade:6, diff:1, unit:2, img:'../images/6/2/15.webp' },
+  { en:'TOMATO', tr:'DOMATES', grade:6, diff:1, unit:2, img:'../images/6/2/16.webp' },
+  { en:'POTATO', tr:'PATATES', grade:6, diff:1, unit:2, img:'../images/6/2/17.webp' },
+  { en:'CHEESE', tr:'PEYNİR', grade:6, diff:1, unit:2, img:'../images/6/2/18.webp' },
+  { en:'SALAMI', tr:'SALAM', grade:6, diff:2, unit:2, img:'../images/6/2/19.webp' },
+  { en:'CUCUMBER', tr:'SALATALIK', grade:6, diff:1, unit:2, img:'../images/6/2/20.webp' },
+  { en:'HONEY', tr:'BAL', grade:6, diff:1, unit:2, img:'../images/6/2/21.webp' },
+  { en:'BREAD', tr:'EKMEK', grade:6, diff:1, unit:2, img:'../images/6/2/22.webp' },
+  { en:'GARLIC', tr:'SARIMSAK', grade:6, diff:2, unit:2, img:'../images/6/2/23.webp' },
+  { en:'BEANS', tr:'FASULYE', grade:6, diff:1, unit:2, img:'../images/6/2/24.webp' },
+  { en:'VEGETABLE', tr:'SEBZE', grade:6, diff:1, unit:2, img:'../images/6/2/25.webp' },
+  { en:'ONION', tr:'SOĞAN', grade:6, diff:1, unit:2, img:'../images/6/2/26.webp' },
+  { en:'FRESH FRUIT', tr:'TAZE MEYVE', grade:6, diff:1, unit:2, img:'../images/6/2/27.webp' },
+  { en:'OLIVES', tr:'ZEYTİN', grade:6, diff:1, unit:2, img:'../images/6/2/28.webp' },
+  { en:'SUGAR', tr:'ŞEKER', grade:6, diff:1, unit:2, img:'../images/6/2/29.webp' },
+  { en:'SALT', tr:'TUZ', grade:6, diff:1, unit:2, img:'../images/6/2/30.webp' },
+  { en:'BAKED', tr:'FIRINLANMIŞ', grade:6, diff:2, unit:2, img:'../images/6/2/31.webp' },
+  { en:'FRIED', tr:'KIZARTILMIŞ', grade:6, diff:1, unit:2, img:'../images/6/2/32.webp' },
+  { en:'GRILLED', tr:'IZGARADA PİŞİRİLMİŞ', grade:6, diff:2, unit:2, img:'../images/6/2/33.webp' },
+  { en:'BOILED', tr:'HAŞLANMIŞ', grade:6, diff:2, unit:2, img:'../images/6/2/34.webp' },
+  { en:'OAT', tr:'YULAF', grade:6, diff:2, unit:2, img:'../images/6/2/35.webp' },
+  { en:'DELICIOUS', tr:'LEZZETLİ', grade:6, diff:1, unit:2, img:'../images/6/2/36.webp' },
+  { en:'PREFER', tr:'TERCİH ETMEK', grade:6, diff:2, unit:2, img:'../images/6/2/37.webp' },
+  { en:'ENJOY', tr:'ZEVK ALMAK', grade:6, diff:1, unit:2, img:'../images/6/2/38.webp' },
+  { en:'COOK', tr:'PİŞİRMEK', grade:6, diff:1, unit:2, img:'../images/6/2/39.webp' },
+  { en:'BUY', tr:'SATIN ALMAK', grade:6, diff:1, unit:2, img:'../images/6/2/40.webp' },
+  { en:'TASTE', tr:'TAT', grade:6, diff:1, unit:2, img:'../images/6/2/41.webp' },
+  { en:'PREPARE', tr:'HAZIRLAMAK', grade:6, diff:2, unit:2, img:'../images/6/2/42.webp' },
+  { en:'HUNGRY', tr:'AÇ', grade:6, diff:1, unit:2, img:'../images/6/2/43.webp' },
+  { en:'THIRSTY', tr:'SUSUZ', grade:6, diff:1, unit:2, img:'../images/6/2/44.webp' },
+  { en:'TRADITIONAL', tr:'GELENEKSEL', grade:6, diff:3, unit:2, img:'../images/6/2/45.webp' },
+  { en:'HEALTHY', tr:'SAĞLIKLI', grade:6, diff:1, unit:2, img:'../images/6/2/46.webp' },
+  { en:'UNHEALTHY', tr:'SAĞLIKSIZ', grade:6, diff:2, unit:2, img:'../images/6/2/47.webp' },
+  { en:'JUNK FOOD', tr:'ABUR CUBUR', grade:6, diff:1, unit:2, img:'../images/6/2/48.webp' },
+  { en:'SNACK', tr:'ATİŞTİRMELİK', grade:6, diff:1, unit:2, img:'../images/6/2/49.webp' },
+  { en:'MEAL', tr:'ÖĞÜN', grade:6, diff:1, unit:2, img:'../images/6/2/50.webp' },
+
+  // ─── GRADE 6 UNIT 3 ──────────────────────────────────────────────────────────
+  { en:'CROWDED', tr:'KALABALİK', grade:6, diff:3, unit:3, img:'../images/6/3/1.webp' },
+  { en:'BUSY', tr:'MEŞGUL', grade:6, diff:1, unit:3, img:'../images/6/3/1.webp' },
+  { en:'DOWNTOWN', tr:'ŞEHİR MERKEZİ', grade:6, diff:2, unit:3, img:'../images/6/3/2.webp' },
+  { en:'TRAFFIC JAM', tr:'TRAFİK TIKANIKLIĞI', grade:6, diff:1, unit:3, img:'../images/6/3/3.webp' },
+  { en:'HOMETOWN', tr:'MEMLEKET', grade:6, diff:2, unit:3, img:'../images/6/3/4.webp' },
+  { en:'KIOSK', tr:'BÜFE', grade:6, diff:3, unit:3, img:'../images/6/3/5.webp' },
+  { en:'COMPARE', tr:'KARŞILAŞTIRMAK', grade:6, diff:3, unit:3, img:'../images/6/3/6.webp' },
+  { en:'SELL', tr:'SATMAK', grade:6, diff:1, unit:3, img:'../images/6/3/7.webp' },
+  { en:'SKYSCRAPER', tr:'GÖKDELEn', grade:6, diff:2, unit:3, img:'../images/6/3/8.webp' },
+  { en:'STREET', tr:'SOKAK', grade:6, diff:1, unit:3, img:'../images/6/1/9.webp' },
+  { en:'VILLAGE', tr:'KÖY', grade:6, diff:2, unit:3, img:'../images/6/3/10.webp' },
+  { en:'TOWN', tr:'KASABA', grade:6, diff:1, unit:3, img:'../images/6/3/11.webp' },
+  { en:'CITY', tr:'ŞEHİR', grade:6, diff:1, unit:3, img:'../images/6/3/12.webp' },
+  { en:'FEED', tr:'BESLEMEK', grade:6, diff:1, unit:3, img:'../images/6/3/13.webp' },
+  { en:'FARM', tr:'ÇİFTLİK', grade:6, diff:1, unit:3, img:'../images/6/3/14.webp' },
+  { en:'FLAT', tr:'DAİRE', grade:6, diff:3, unit:3, img:'../images/6/3/15.webp' },
+  { en:'NOW', tr:'ŞİMDİ', grade:6, diff:1, unit:3, img:'../images/6/3/16.webp' },
+  { en:'RIGHT NOW', tr:'ŞU AN', grade:6, diff:3, unit:3, img:'../images/6/3/16.webp' },
+  { en:'AT THE MOMENT', tr:'ŞU ANDA', grade:6, diff:3, unit:3, img:'../images/6/3/16.webp' },
+  { en:'NEIGHBORHOOD', tr:'MAHALLE', grade:6, diff:3, unit:3, img:'../images/6/3/17.webp' },
+  { en:'BETTER', tr:'DAHA İYİ', grade:6, diff:2, unit:3, img:'../images/6/3/6.webp' },
+  { en:'WORSE', tr:'DAHA KÖTÜ', grade:6, diff:2, unit:3, img:'../images/6/3/6.webp' },
+  { en:'ENJOYABLE', tr:'EĞLENCELİ', grade:6, diff:2, unit:3, img:'../images/6/3/20.webp' },
+  { en:'RELAXING', tr:'DİNLENDİRİCİ', grade:6, diff:2, unit:3, img:'../images/6/3/21.webp' },
+  { en:'QUEUE', tr:'KUYRUK', grade:6, diff:3, unit:3, img:'../images/6/3/22.webp' },
+  { en:'LINE', tr:'SIRA', grade:6, diff:3, unit:3, img:'../images/6/3/22.webp' },
+  { en:'SQUARE', tr:'MEYDAN', grade:6, diff:3, unit:3, img:'../images/6/3/23.webp' },
+  { en:'BUILDING', tr:'BİNA', grade:6, diff:3, unit:3, img:'../images/6/3/24.webp' },
+  { en:'PLAYGROUND', tr:'OYUN PARKI', grade:6, diff:2, unit:3, img:'../images/6/3/25.webp' },
+  { en:'COMFORTABLE', tr:'RAHAT', grade:6, diff:2, unit:3, img:'../images/6/3/26.webp' },
+  { en:'CROSS', tr:'KARŞIYA GEÇMEK', grade:6, diff:2, unit:3, img:'../images/6/3/27.webp' },
+  { en:'POPULATION', tr:'NÜFUS', grade:6, diff:3, unit:3, img:'../images/6/3/28.webp' },
+  { en:'RENT', tr:'KİRA', grade:6, diff:2, unit:3, img:'../images/6/3/29.webp' },
+  { en:'WAIT', tr:'BEKLEMEK', grade:6, diff:2, unit:3, img:'../images/6/3/30.webp' },
+  { en:'PREPARE', tr:'HAZIRLAMAK', grade:6, diff:3, unit:3, img:'../images/6/3/31.webp' },
+  { en:'COUNTRY LIFE', tr:'KIRSAL HAYAT', grade:6, diff:3, unit:3, img:'../images/6/3/32.webp' },
+  { en:'BEAUTIFUL', tr:'GÜZEL', grade:6, diff:1, unit:3, img:'../images/6/3/33.webp' },
+  { en:'UGLY', tr:'ÇİRKİN', grade:6, diff:1, unit:3, img:'../images/6/3/34.webp' },
+  { en:'TALL', tr:'UZUN', grade:6, diff:1, unit:3, img:'../images/6/3/35.webp' },
+  { en:'LONG', tr:'UZUN', grade:6, diff:1, unit:3, img:'../images/6/3/35.webp' },
+  { en:'SHORT', tr:'KISA', grade:6, diff:1, unit:3, img:'../images/6/3/36.webp' },
+  { en:'HIGH', tr:'YÜKSEK', grade:6, diff:2, unit:3, img:'../images/6/3/37.webp' },
+  { en:'LOW', tr:'ALÇAK', grade:6, diff:2, unit:3, img:'../images/6/3/38.webp' },
+  { en:'CLEAN', tr:'TEMİZ', grade:6, diff:1, unit:3, img:'../images/6/3/39.webp' },
+  { en:'DIRTY', tr:'KİRLİ', grade:6, diff:1, unit:3, img:'../images/6/3/40.webp' },
+  { en:'EXPENSIVE', tr:'PAHALI', grade:6, diff:3, unit:3, img:'../images/6/3/41.webp' },
+  { en:'CHEAP', tr:'UCUZ', grade:6, diff:2, unit:3, img:'../images/6/3/42.webp' },
+  { en:'BIG', tr:'BÜYÜK', grade:6, diff:1, unit:3, img:'../images/6/3/43.webp' },
+  { en:'LARGE', tr:'BÜYÜK', grade:6, diff:2, unit:3, img:'../images/6/3/43.webp' },
+  { en:'SMALL', tr:'KÜÇÜK', grade:6, diff:1, unit:3, img:'../images/6/3/44.webp' },
+  { en:'NOISY', tr:'GÜRÜLTÜLÜ', grade:6, diff:2, unit:3, img:'../images/6/3/45.webp' },
+  { en:'QUIET', tr:'SAKİN', grade:6, diff:2, unit:3, img:'../images/6/3/46.webp' },
+  { en:'DANGEROUS', tr:'TEHLİKELİ', grade:6, diff:3, unit:3, img:'../images/6/3/47.webp' },
+  { en:'SAFE', tr:'GÜVENLİ', grade:6, diff:2, unit:3, img:'../images/6/3/48.webp' },
+  { en:'GOOD', tr:'İYİ', grade:6, diff:1, unit:3, img:'../images/6/3/49.webp' },
+  { en:'BAD', tr:'KÖTÜ', grade:6, diff:1, unit:3, img:'../images/6/3/50.webp' },
+  { en:'EXCITING', tr:'HEYECAN VERİCİ', grade:6, diff:2, unit:3, img:'../images/6/3/51.webp' },
+  { en:'BORING', tr:'SIKI', grade:6, diff:1, unit:3, img:'../images/6/3/52.webp' },
+
+ // --- GRADE 6 UNIT 4 - EKLENDI ---
+  { en:'SUNNY', tr:'GÜNEŞLI', grade:6, diff:1, unit:4, img:'../images/6/4/1.webp' }, // EKLENDI
+  { en:'RAINY', tr:'YAĞMURLU', grade:6, diff:1, unit:4, img:'../images/6/4/2.webp' }, // EKLENDI
+  { en:'PARTLY CLOUDY', tr:'PARÇALI BULUTLU', grade:6, diff:2, unit:4, img:'../images/6/4/3.webp' }, // EKLENDI
+  { en:'FOGGY', tr:'SİSLİ', grade:6, diff:2, unit:4, img:'../images/6/4/4.webp' }, // EKLENDI
+  { en:'WINDY', tr:'RÜZGARLI', grade:6, diff:1, unit:4, img:'../images/6/4/5.webp' }, // EKLENDI
+  { en:'FREEZING', tr:'BUZ GİBİ SOĞUK', grade:6, diff:1, unit:4, img:'../images/6/4/6.webp' }, // EKLENDI
+  { en:'CHILLY', tr:'SERİN / SOĞUK', grade:6, diff:1, unit:4, img:'../images/6/4/6.webp' }, // EKLENDI
+  { en:'LIGHTNING', tr:'ŞIMŞEK', grade:6, diff:2, unit:4, img:'../images/6/4/7.webp' }, // EKLENDI
+  { en:'THUNDER', tr:'GÖKGÜRÜLTÜSÜ', grade:6, diff:2, unit:4, img:'../images/6/4/8.webp' }, // EKLENDI
+  { en:'STORMY', tr:'FIRTINALI', grade:6, diff:1, unit:4, img:'../images/6/4/9.webp' }, // EKLENDI
+  { en:'WARM', tr:'ILIK', grade:6, diff:1, unit:4, img:'../images/6/4/10.webp' }, // EKLENDI
+  { en:'PLEASANT', tr:'HOŞ / GÜZEL', grade:6, diff:2, unit:4, img:'../images/6/4/10.webp' }, // EKLENDI
+  { en:'MILD', tr:'ILIMAN', grade:6, diff:2, unit:4, img:'../images/6/4/10.webp' }, // EKLENDI
+  { en:'HOT', tr:'SICAK', grade:6, diff:1, unit:4, img:'../images/6/4/13.webp' }, // EKLENDI
+  { en:'COLD', tr:'SOĞUK', grade:6, diff:1, unit:4, img:'../images/6/4/14.webp' }, // EKLENDI
+  { en:'COOL', tr:'SERİN', grade:6, diff:1, unit:4, img:'../images/6/4/15.webp' }, // EKLENDI
+  { en:'HAILING', tr:'DOLU YAĞIYOR', grade:6, diff:3, unit:4, img:'../images/6/4/16.webp' }, // EKLENDI
+  { en:'FABULOUS', tr:'HARİKA', grade:6, diff:2, unit:4, img:'../images/6/4/17.webp' }, // EKLENDI
+  { en:'WEATHER', tr:'HAVA DURUMU', grade:6, diff:1, unit:4, img:'../images/6/4/18.webp' }, // EKLENDI
+  { en:'TEMPERATURE', tr:'SICAKLIK', grade:6, diff:2, unit:4, img:'../images/6/4/19.webp' }, // EKLENDI
+  { en:'DEGREE', tr:'DERECE', grade:6, diff:2, unit:4, img:'../images/6/4/22.webp' }, // EKLENDI
+  { en:'FEEL', tr:'HİSSETMEK', grade:6, diff:1, unit:4, img:'../images/6/4/23.webp' }, // EKLENDI
+  { en:'SNOWMAN', tr:'KARDAN ADAM', grade:6, diff:1, unit:4, img:'../images/6/4/25.webp' }, // EKLENDI
+  { en:'SLIPPERY', tr:'KAYGAN', grade:6, diff:2, unit:4, img:'../images/6/4/26.webp' }, // EKLENDI
+  { en:'EMOTION', tr:'DUYGU', grade:6, diff:2, unit:4, img:'../images/6/4/23.webp' }, // EKLENDI
+  { en:'HAPPY', tr:'MUTLU', grade:6, diff:1, unit:4, img:'../images/6/4/28.webp' }, // EKLENDI
+  { en:'ANGRY', tr:'KIZGIN', grade:6, diff:1, unit:4, img:'../images/6/4/29.webp' }, // EKLENDI
+  { en:'SAD', tr:'ÜZGÜN', grade:6, diff:1, unit:4, img:'../images/6/4/30.webp' }, // EKLENDI
+  { en:'UPSET', tr:'ÜZGÜN / KIZGIN', grade:6, diff:1, unit:4, img:'../images/6/4/30.webp' }, // EKLENDI
+  { en:'BORED', tr:'SIKILMIŞ', grade:6, diff:1, unit:4, img:'../images/6/4/31.webp' }, // EKLENDI
+  { en:'DULL', tr:'NEŞESİZ', grade:6, diff:1, unit:4, img:'../images/6/4/31.webp' }, // EKLENDI
+  { en:'MOODY', tr:'HUYSUZ / DEĞİŞKEN', grade:6, diff:2, unit:4, img:'../images/6/4/32.webp' }, // EKLENDI
+  { en:'ENERGETIC', tr:'ENERJİK', grade:6, diff:2, unit:4, img:'../images/6/4/33.webp' }, // EKLENDI
+  { en:'TIRED', tr:'YORGUN', grade:6, diff:1, unit:4, img:'../images/6/4/34.webp' }, // EKLENDI
+  { en:'SLEEPY', tr:'UYKULU', grade:6, diff:1, unit:4, img:'../images/6/4/35.webp' }, // EKLENDI
+  { en:'SURPRISED', tr:'ŞAŞKIN', grade:6, diff:1, unit:4, img:'../images/6/4/36.webp' }, // EKLENDI
+  { en:'SCARED', tr:'KORKMUŞ', grade:6, diff:1, unit:4, img:'../images/6/4/37.webp' }, // EKLENDI
+  { en:'AFRAID', tr:'KORKMUŞ', grade:6, diff:1, unit:4, img:'../images/6/4/37.webp' }, // EKLENDI
+  { en:'WORRIED', tr:'ENDİŞELİ', grade:6, diff:2, unit:4, img:'../images/6/4/38.webp' }, // EKLENDI
+  { en:'ANXIOUS', tr:'ENDİŞELİ / GERGİN', grade:6, diff:2, unit:4, img:'../images/6/4/38.webp' }, // EKLENDI
+  { en:'NERVOUS', tr:'GERGİN', grade:6, diff:2, unit:4, img:'../images/6/4/38.webp' }, // EKLENDI
+  { en:'TERRIBLE', tr:'BERBAT', grade:6, diff:2, unit:4, img:'../images/6/4/41.webp' }, // EKLENDI
+  { en:'AWFUL', tr:'KORKUNÇ / BERBAT', grade:6, diff:2, unit:4, img:'../images/6/4/41.webp' }, // EKLENDI
+  { en:'SEASON', tr:'MEVSİM', grade:6, diff:2, unit:4, img:'../images/6/4/42.webp' }, // EKLENDI
+  { en:'SPRING', tr:'İLKBAHAR', grade:6, diff:1, unit:4, img:'../images/6/4/43.webp' }, // EKLENDI
+  { en:'SUMMER', tr:'YAZ', grade:6, diff:1, unit:4, img:'../images/6/4/44.webp' }, // EKLENDI
+  { en:'AUTUMN', tr:'SONBAHAR', grade:6, diff:1, unit:4, img:'../images/6/4/45.webp' }, // EKLENDI
+  { en:'FALL', tr:'SONBAHAR', grade:6, diff:1, unit:4, img:'../images/6/4/45.webp' }, // EKLENDI
+  { en:'WINTER', tr:'KIŞ', grade:6, diff:1, unit:4, img:'../images/6/4/46.webp' }, // EKLENDI
+  { en:'UMBRELLA', tr:'ŞEMSİYE', grade:6, diff:1, unit:4, img:'../images/6/4/47.webp' }, // EKLENDI
+  { en:'RAINCOAT', tr:'YAĞMURLUK', grade:6, diff:1, unit:4, img:'../images/6/4/48.webp' }, // EKLENDI
+  { en:'MITTENS', tr:'KAR ELDİVENİ', grade:6, diff:1, unit:4, img:'../images/6/4/49.webp' }, // EKLENDI
+  { en:'BOOTS', tr:'ÇİZME', grade:6, diff:1, unit:4, img:'../images/6/4/50.webp' }, // EKLENDI
+
+  // --- GRADE 6 UNIT 5 - EKLENDI ---
+  { en:'CARNIVAL', tr:'KARNAVAL', grade:6, diff:2, unit:5, img:'../images/6/5/1.webp' }, // EKLENDI
+  { en:'FAIR', tr:'PANAYIR', grade:6, diff:1, unit:5, img:'../images/6/5/1.webp' }, // EKLENDI
+  { en:'AMUSEMENT PARK', tr:'EĞLENCE PARKI', grade:6, diff:2, unit:5, img:'../images/6/5/1.webp' }, // EKLENDI
+  { en:'FUNFAIR', tr:'LUNAPARK', grade:6, diff:2, unit:5, img:'../images/6/5/1.webp' }, // EKLENDI
+  { en:'TICKET', tr:'BİLET', grade:6, diff:1, unit:5, img:'../images/6/5/4.webp' }, // EKLENDI
+  { en:'TOKEN', tr:'JETON', grade:6, diff:2, unit:5, img:'../images/6/5/5.webp' }, // EKLENDI
+  { en:'OPINION', tr:'GÖRÜŞ', grade:6, diff:2, unit:5, img:'../images/6/5/6.webp' }, // EKLENDI
+  { en:'SKELETON', tr:'İSKELET', grade:6, diff:2, unit:5, img:'../images/6/5/7.webp' }, // EKLENDI
+  { en:'MONSTER', tr:'CANAVAR', grade:6, diff:1, unit:5, img:'../images/6/5/8.webp' }, // EKLENDI
+  { en:'CREATURE', tr:'YARATIK', grade:6, diff:2, unit:5, img:'../images/6/5/8.webp' }, // EKLENDI
+  { en:'FEARLESS', tr:'KORKUSUZ', grade:6, diff:2, unit:5, img:'../images/6/5/9.webp' }, // EKLENDI
+  { en:'PLAYGROUND', tr:'OYUN PARKI', grade:6, diff:1, unit:5, img:'../images/6/5/10.webp' }, // EKLENDI
+  { en:'VISITOR', tr:'ZİYARETÇİ', grade:6, diff:1, unit:5, img:'../images/6/5/11.webp' }, // EKLENDI
+  { en:'SIGN', tr:'İŞARET / TABELA', grade:6, diff:1, unit:5, img:'../images/6/5/12.webp' }, // EKLENDI
+  { en:'AGREE', tr:'KATILMAK', grade:6, diff:1, unit:5, img:'../images/6/5/13.webp' }, // EKLENDI
+  { en:'DISAGREE', tr:'KATILMAMAK', grade:6, diff:1, unit:5, img:'../images/6/5/14.webp' }, // EKLENDI
+  { en:'CLOWN', tr:'PALYAÇO', grade:6, diff:1, unit:5, img:'../images/6/5/15.webp' }, // EKLENDI
+  { en:'PRIZE', tr:'ÖDÜL', grade:6, diff:1, unit:5, img:'../images/6/5/16.webp' }, // EKLENDI
+  { en:'MAGICIAN', tr:'SİHİRBAZ', grade:6, diff:2, unit:5, img:'../images/6/5/17.webp' }, // EKLENDI
+  { en:'CIRCUS', tr:'SİRK', grade:6, diff:1, unit:5, img:'../images/6/5/18.webp' }, // EKLENDI
+  { en:'COTTON CANDY', tr:'PAMUK ŞEKER', grade:6, diff:1, unit:5, img:'../images/6/5/19.webp' }, // EKLENDI
+  { en:'ENTRANCE FEE', tr:'GİRİŞ ÜCRETİ', grade:6, diff:2, unit:5, img:'../images/6/5/20.webp' }, // EKLENDI
+  { en:'EXIT', tr:'ÇIKIŞ', grade:6, diff:1, unit:5, img:'../images/6/5/21.webp' }, // EKLENDI
+  { en:'FAST', tr:'HIZLI', grade:6, diff:1, unit:5, img:'../images/6/5/22.webp' }, // EKLENDI
+  { en:'SLOW', tr:'YAVAŞ', grade:6, diff:1, unit:5, img:'../images/6/5/23.webp' }, // EKLENDI
+  { en:'BUMPER CAR', tr:'ÇARPIŞAN ARABA', grade:6, diff:1, unit:5, img:'../images/6/5/24.webp' }, // EKLENDI
+  { en:'CARROUSEL', tr:'ATLIKARÜSEL', grade:6, diff:2, unit:5, img:'../images/6/5/25.webp' }, // EKLENDI
+  { en:'GHOST TRAIN', tr:'HAYALET TRENİ', grade:6, diff:2, unit:5, img:'../images/6/5/26.webp' }, // EKLENDI
+  { en:'ROLLER COASTER', tr:'HIZLI TREN', grade:6, diff:2, unit:5, img:'../images/6/5/27.webp' }, // EKLENDI
+  { en:'FERRIS WHEEL', tr:'DÖNME DOLAP', grade:6, diff:2, unit:5, img:'../images/6/5/28.webp' }, // EKLENDI
+  { en:'WAVE SWINGER', tr:'SALLANAN SALINCAK', grade:6, diff:3, unit:5, img:'../images/6/5/29.webp' }, // EKLENDI
+  { en:'TERRIFYING', tr:'KORKUNÇ', grade:6, diff:2, unit:5, img:'../images/6/5/30.webp' }, // EKLENDI
+  { en:'INTERESTING', tr:'İLGİNÇ', grade:6, diff:1, unit:5, img:'../images/6/5/31.webp' }, // EKLENDI
+  { en:'ENJOYABLE', tr:'EĞLENCELİ', grade:6, diff:2, unit:5, img:'../images/6/5/32.webp' }, // EKLENDI
+  { en:'FUN', tr:'EĞLENCELİ', grade:6, diff:1, unit:5, img:'../images/6/5/32.webp' }, // EKLENDI
+  { en:'THRILLING', tr:'HEYECAN VERİCİ', grade:6, diff:2, unit:5, img:'../images/6/5/34.webp' }, // EKLENDI
+  { en:'FANTASTIC', tr:'HARİKA', grade:6, diff:2, unit:5, img:'../images/6/5/35.webp' }, // EKLENDI
+  { en:'EXCITED', tr:'HEYECANLI', grade:6, diff:1, unit:5, img:'../images/6/5/39.webp' }, // EKLENDI
+  { en:'HORRIBLE', tr:'KORKUNÇ / BERBAT', grade:6, diff:1, unit:5, img:'../images/6/5/40.webp' }, // EKLENDI
+  { en:'AMAZING', tr:'İNANILMAZ / HARİKA', grade:6, diff:1, unit:5, img:'../images/6/5/35.webp' }, // EKLENDI
+
+  // --- GRADE 6 UNIT 6 - EKLENDI ---
+  { en:'ARCHITECT', tr:'MİMAR', grade:6, diff:2, unit:6, img:'../images/6/6/1.webp' }, // EKLENDI
+  { en:'SECRETARY', tr:'SEKRETER', grade:6, diff:2, unit:6, img:'../images/6/6/2.webp' }, // EKLENDI
+  { en:'BAKER', tr:'FIRINICI', grade:6, diff:1, unit:6, img:'../images/6/6/3.webp' }, // EKLENDI
+  { en:'COOK', tr:'AŞÇI', grade:6, diff:1, unit:6, img:'../images/6/6/4.webp' }, // EKLENDI
+  { en:'CHEF', tr:'ŞEF AŞÇI', grade:6, diff:1, unit:6, img:'../images/6/6/4.webp' }, // EKLENDI
+  { en:'MANAGER', tr:'YÖNETİCİ', grade:6, diff:2, unit:6, img:'../images/6/6/5.webp' }, // EKLENDI
+  { en:'DIRECTOR', tr:'DİREKTÖR', grade:6, diff:2, unit:6, img:'../images/6/6/5.webp' }, // EKLENDI
+  { en:'SCIENTIST', tr:'BİLİM İNSANI', grade:6, diff:2, unit:6, img:'../images/6/6/6.webp' }, // EKLENDI
+  { en:'DENTIST', tr:'DİŞ HEKİMİ', grade:6, diff:1, unit:6, img:'../images/6/6/7.webp' }, // EKLENDI
+  { en:'MECHANIC', tr:'TAMİRCİ', grade:6, diff:1, unit:6, img:'../images/6/6/8.webp' }, // EKLENDI
+  { en:'HOUSEWIFE', tr:'EV KADINI', grade:6, diff:1, unit:6, img:'../images/6/6/9.webp' }, // EKLENDI
+  { en:'DRIVER', tr:'ŞOFÖR', grade:6, diff:1, unit:6, img:'../images/6/6/10.webp' }, // EKLENDI
+  { en:'SALESWOMAN', tr:'SATIŞ ELEMANI', grade:6, diff:1, unit:6, img:'../images/6/6/11.webp' }, // EKLENDI
+  { en:'RETIRED', tr:'EMEKLİ', grade:6, diff:2, unit:6, img:'../images/6/6/12.webp' }, // EKLENDI
+  { en:'ENGINEER', tr:'MÜHENDİS', grade:6, diff:2, unit:6, img:'../images/6/6/13.webp' }, // EKLENDI
+  { en:'WAITRESS', tr:'GARSON', grade:6, diff:1, unit:6, img:'../images/6/6/14.webp' }, // EKLENDI
+  { en:'FIREFIGHTER', tr:'İTFAİYECİ', grade:6, diff:1, unit:6, img:'../images/6/6/15.webp' }, // EKLENDI
+  { en:'FARMER', tr:'ÇİFTÇİ', grade:6, diff:1, unit:6, img:'../images/6/6/16.webp' }, // EKLENDI
+  { en:'WORKER', tr:'İŞÇİ', grade:6, diff:1, unit:6, img:'../images/6/6/17.webp' }, // EKLENDI
+  { en:'BUTCHER', tr:'KASAP', grade:6, diff:1, unit:6, img:'../images/6/6/18.webp' }, // EKLENDI
+  { en:'HAIRDRESSER', tr:'KUAFÖR', grade:6, diff:1, unit:6, img:'../images/6/6/19.webp' }, // EKLENDI
+  { en:'ACTRESS', tr:'AKTRİS', grade:6, diff:1, unit:6, img:'../images/6/6/20.webp' }, // EKLENDI
+  { en:'OCCUPATION', tr:'MESLEK', grade:6, diff:2, unit:6, img:'../images/6/6/21.webp' }, // EKLENDI
+  { en:'LAWYER', tr:'AVUKAT', grade:6, diff:2, unit:6, img:'../images/6/6/22.webp' }, // EKLENDI
+  { en:'SINGER', tr:'ŞARKICI', grade:6, diff:1, unit:6, img:'../images/6/6/23.webp' }, // EKLENDI
+  { en:'NURSE', tr:'HEMŞİRE', grade:6, diff:1, unit:6, img:'../images/6/6/24.webp' }, // EKLENDI
+  { en:'VET', tr:'VETERİNER', grade:6, diff:1, unit:6, img:'../images/6/6/25.webp' }, // EKLENDI
+  { en:'PROFESSION', tr:'MESLEK', grade:6, diff:2, unit:6, img:'../images/6/6/21.webp' }, // EKLENDI
+  { en:'TEACHER', tr:'ÖĞRETMEN', grade:6, diff:1, unit:6, img:'../images/6/6/27.webp' }, // EKLENDI
+  { en:'DOCTOR', tr:'DOKTOR', grade:6, diff:1, unit:6, img:'../images/6/6/28.webp' }, // EKLENDI
+  { en:'BUSINESSMAN', tr:'İŞ ADAMI', grade:6, diff:2, unit:6, img:'../images/6/6/29.webp' }, // EKLENDI
+  { en:'REPAIR', tr:'TAMİR ETMEK', grade:6, diff:1, unit:6, img:'../images/6/6/8.webp' }, // EKLENDI
+  { en:'FIX', tr:'TAMİR ETMEK', grade:6, diff:1, unit:6, img:'../images/6/6/8.webp' }, // EKLENDI
+  { en:'EXAMINE', tr:'MUAYENE ETMEK', grade:6, diff:2, unit:6, img:'../images/6/6/25.webp' }, // EKLENDI
+  { en:'TAKE ORDER', tr:'SİPARİŞ ALMAK', grade:6, diff:2, unit:6, img:'../images/6/6/33.webp' }, // EKLENDI
+  { en:'YESTERDAY', tr:'DÜN', grade:6, diff:1, unit:6, img:'' }, // EKLENDI
+  { en:'LAST WEEK', tr:'GEÇEN HAFTA', grade:6, diff:1, unit:6, img:'' }, // EKLENDI
+  { en:'2 MONTHS AGO', tr:'2 AY ÖNCE', grade:6, diff:2, unit:6, img:'' }, // EKLENDI
+  { en:'BORN', tr:'DOĞMAK', grade:6, diff:1, unit:6, img:'../images/6/6/38.webp' }, // EKLENDI
+  { en:'DATE OF BIRTH', tr:'DOĞUM TARİHİ', grade:6, diff:2, unit:6, img:'../images/6/6/39.webp' }, // EKLENDI
+
+  // ─── GRADE 6 UNIT 7 ──────────────────────────────────────────────────────────
+  { en:'SAILING', tr:'YELKEN', grade:6, diff:2, unit:7, img:'../images/6/7/1.webp' },
+  { en:'SKIING', tr:'KAYAK', grade:6, diff:1, unit:7, img:'../images/6/7/2.webp' },
+  { en:'TENT', tr:'ÇADIR', grade:6, diff:1, unit:7, img:'../images/6/7/3.webp' },
+  { en:'CAMPING', tr:'KAMP YAPMA', grade:6, diff:1, unit:7, img:'../images/6/7/4.webp' },
+  { en:'RAFTING', tr:'RAFTİNG', grade:6, diff:2, unit:7, img:'../images/6/7/5.webp' },
+  { en:'SANDCASTLE', tr:'KUM KALESİ', grade:6, diff:3, unit:7, img:'../images/6/7/6.webp' },
+  { en:'SCUBA DIVING', tr:'TÜPLÜ DALMA', grade:6, diff:1, unit:7, img:'../images/6/7/7.webp' },
+  { en:'PARAGLIDING', tr:'YAMAÇ PARAŞÜTÇÜLÜĞü', grade:6, diff:2, unit:7, img:'../images/6/7/8.webp' },
+  { en:'HIKING', tr:'DOĞA YÜRÜYÜŞÜ', grade:6, diff:1, unit:7, img:'../images/6/7/9.webp' },
+  { en:'SIGHTSEEING', tr:'TURİSTİK GEZİ', grade:6, diff:3, unit:7, img:'../images/6/7/10.webp' },
+  { en:'FOREST', tr:'ORMAN', grade:6, diff:1, unit:7, img:'../images/6/7/11.webp' },
+  { en:'FLOWER', tr:'ÇİÇEK', grade:6, diff:2, unit:7, img:'../images/6/7/12.webp' },
+  { en:'LAKE', tr:'GÖL', grade:6, diff:2, unit:7, img:'../images/6/7/13.webp' },
+  { en:'RIVER', tr:'NEHİR', grade:6, diff:2, unit:7, img:'../images/6/7/14.webp' },
+  { en:'MOUNTAIN', tr:'DAĞ', grade:6, diff:2, unit:7, img:'../images/6/7/15.webp' },
+  { en:'BEACH', tr:'PLAJ', grade:6, diff:1, unit:7, img:'../images/6/7/16.webp' },
+  { en:'SEASIDE', tr:'SAHİL', grade:6, diff:2, unit:7, img:'../images/6/7/16.webp' },
+  { en:'PICK FRUIT', tr:'MEYVE TOPLAMAK', grade:6, diff:1, unit:7, img:'../images/6/7/17.webp' },
+
+  // ─── GRADE 6 UNIT 8 ──────────────────────────────────────────────────────────
+  { en:'AUTHOR', tr:'YAZAR', grade:6, diff:2, unit:8, img:'../images/6/8/1.webp' },
+  { en:'BORROW', tr:'ÖDÜNÇ ALMAK', grade:6, diff:3, unit:8, img:'../images/6/8/2.webp' },
+  { en:'LEND', tr:'ÖDÜNÇ VERMEK', grade:6, diff:3, unit:8, img:'../images/6/8/3.webp' },
+  { en:'BOOK SHELF', tr:'KİTAP RAFI', grade:6, diff:1, unit:8, img:'../images/6/8/4.webp' },
+  { en:'DICTIONARY', tr:'SÖZLÜK', grade:6, diff:3, unit:8, img:'../images/6/8/5.webp' },
+  { en:'LIBRARY', tr:'KÜTÜPHANE', grade:6, diff:1, unit:8, img:'../images/6/8/6.webp' },
+  { en:'MAGAZINE', tr:'DERGİ', grade:6, diff:2, unit:8, img:'../images/6/8/7.webp' },
+  { en:'POETRY', tr:'ŞİİR', grade:6, diff:3, unit:8, img:'../images/6/8/8.webp' },
+  { en:'NEWSPAPER', tr:'GAZETE', grade:6, diff:1, unit:8, img:'../images/6/8/9.webp' },
+  { en:'NOVEL', tr:'ROMAN', grade:6, diff:2, unit:8, img:'../images/6/8/10.webp' },
+  { en:'OPPOSITE', tr:'KARŞISINDA', grade:6, diff:3, unit:8, img:'../images/6/8/11.webp' },
+  { en:'BEHIND', tr:'ARKASINDA', grade:6, diff:1, unit:8, img:'../images/6/8/12.webp' },
+  { en:'BETWEEN', tr:'ARASINDA', grade:6, diff:2, unit:8, img:'../images/6/8/13.webp' },
+  { en:'NEXT TO', tr:'YANINDA', grade:6, diff:2, unit:8, img:'../images/6/8/14.webp' },
+  { en:'UNDER', tr:'ALTINDA', grade:6, diff:1, unit:8, img:'../images/6/8/15.webp' },
+  { en:'OVER', tr:'ÜSTÜNDE', grade:6, diff:2, unit:8, img:'../images/6/8/16.webp' },
+
   // ─── GRADE 7 UNIT 1 ──────────────────────────────────────────────────────────
   { en:'ATTRACTIVE', tr:'ÇEKİCİ', grade:7, diff:2, unit:1, img:'../images/7/1/1.webp' },
   { en:'CLUMSY', tr:'SAKAR', grade:7, diff:2, unit:1, img:'../images/7/1/2.webp' },
@@ -387,207 +727,7 @@ const WORD_BANK = [
   { en:'LIFE FORM', tr:'YAŞAM FORMU', grade:7, diff:2, unit:10, img:'../images/7/10/44.webp' },
   { en:'LAUNCH', tr:'FIRLATMAK', grade:7, diff:2, unit:10, img:'../images/7/10/45.webp' },
 
-  // ─── GRADE 6 UNIT 1 ──────────────────────────────────────────────────────────
-  { en:'LIFE', tr:'HAYAT', grade:6, diff:1, unit:1, img:'../images/6/1/1.webp' },
-  { en:'START', tr:'BAŞLAMAK', grade:6, diff:1, unit:1, img:'../images/6/1/2.webp' },
-  { en:'FINISH', tr:'BİTİRMEK', grade:6, diff:1, unit:1, img:'../images/6/1/3.webp' },
-  { en:'WEEKDAY', tr:'HAFTA İÇİ', grade:6, diff:2, unit:1, img:'../images/6/1/4.webp' },
-  { en:'WEEKEND', tr:'HAFTA SONU', grade:6, diff:1, unit:1, img:'../images/6/1/5.webp' },
-  { en:'TIME', tr:'SAAT / ZAMAN', grade:6, diff:1, unit:1, img:'../images/6/1/6.webp' },
-  { en:'DATE', tr:'TARİH', grade:6, diff:1, unit:1, img:'../images/6/1/7.webp' },
-  { en:'CLOCK', tr:'SAAT', grade:6, diff:1, unit:1, img:'../images/6/1/8.webp' },
-  { en:'ALWAYS', tr:'HER ZAMAN', grade:6, diff:1, unit:1, img:'../images/6/1/9.webp' },
-  { en:'USUALLY', tr:'GENELLİKLE', grade:6, diff:1, unit:1, img:'../images/6/1/10.webp' },
-  { en:'OFTEN', tr:'SIKLIKLA', grade:6, diff:1, unit:1, img:'../images/6/1/11.webp' },
-  { en:'SOMETIMES', tr:'BAZEN', grade:6, diff:1, unit:1, img:'../images/6/1/12.webp' },
-  { en:'SELDOM', tr:'NADİREN', grade:6, diff:3, unit:1, img:'../images/6/1/13.webp' },
-  { en:'RARELY', tr:'NADİREN', grade:6, diff:2, unit:1, img:'../images/6/1/13.webp' },
-  { en:'NEVER', tr:'HİÇBİR ZAMAN', grade:6, diff:1, unit:1, img:'../images/6/1/14.webp' },
-  { en:'EVERY DAY', tr:'HER GÜN', grade:6, diff:1, unit:1, img:'../images/6/1/15.webp' },
-  { en:'ONCE', tr:'BİR KEZ', grade:6, diff:1, unit:1, img:'../images/6/1/16.webp' },
-  { en:'TWICE', tr:'İKİ KEZ', grade:6, diff:1, unit:1, img:'../images/6/1/17.webp' },
-  { en:'HOW OFTEN', tr:'NE SIKLIKTA', grade:6, diff:2, unit:1, img:'../images/6/1/18.webp' },
-  { en:'MORNING', tr:'SABAH', grade:6, diff:1, unit:1, img:'../images/6/1/19.webp' },
-  { en:'AFTERNOON', tr:'ÖĞLEDEN SONRA', grade:6, diff:1, unit:1, img:'../images/6/1/20.webp' },
-  { en:'EVENING', tr:'AKŞAM', grade:6, diff:1, unit:1, img:'../images/6/1/21.webp' },
-  { en:'NIGHT', tr:'GECE', grade:6, diff:1, unit:1, img:'../images/6/1/22.webp' },
-  { en:'QUARTER PAST', tr:'ÇEYREĞİ GEÇİYOR', grade:6, diff:2, unit:1, img:'../images/6/1/23.webp' },
-  { en:'HALF PAST', tr:'BUÇUK', grade:6, diff:2, unit:1, img:'../images/6/1/24.webp' },
-  { en:'O CLOCK', tr:'TAM (SAAT)', grade:6, diff:2, unit:1, img:'../images/6/1/25.webp' },
-  { en:'BREAKFAST', tr:'KAHVALTI', grade:6, diff:1, unit:1, img:'../images/6/1/26.webp' },
-  { en:'LUNCH', tr:'ÖĞLE YEMEĞİ', grade:6, diff:1, unit:1, img:'../images/6/1/27.webp' },
-  { en:'DINNER', tr:'AKŞAM YEMEĞİ', grade:6, diff:1, unit:1, img:'../images/6/1/28.webp' },
-  { en:'WAKE UP', tr:'UYANMAK', grade:6, diff:1, unit:1, img:'../images/6/1/29.webp' },
-  { en:'WASH FACE', tr:'YÜZÜNÜ YIKAMAK', grade:6, diff:1, unit:1, img:'../images/6/1/30.webp' },
-  { en:'BRUSH TEETH', tr:'DİŞ FIRCALAMAK', grade:6, diff:1, unit:1, img:'../images/6/1/31.webp' },
-  { en:'GET DRESSED', tr:'GİYİNMEK', grade:6, diff:1, unit:1, img:'../images/6/1/32.webp' },
-  { en:'ARRIVE SCHOOL', tr:'OKULA VARMAK', grade:6, diff:2, unit:1, img:'../images/6/1/33.webp' },
-  { en:'STUDY LESSON', tr:'DERS ÇALIŞMAK', grade:6, diff:1, unit:1, img:'../images/6/1/34.webp' },
-  { en:'DO HOMEWORK', tr:'ÖDEV YAPMAK', grade:6, diff:1, unit:1, img:'../images/6/1/34.webp' },
-  { en:'COME BACK HOME', tr:'EVE DÖNMEK', grade:6, diff:2, unit:1, img:'../images/6/1/35.webp' },
-  { en:'GO TO GYM', tr:'SPOR SALONUNA GİTMEK', grade:6, diff:2, unit:1, img:'../images/6/1/36.webp' },
-  { en:'READ BOOK', tr:'KİTAP OKUMAK', grade:6, diff:1, unit:1, img:'../images/6/1/37.webp' },
-  { en:'WATCH TV', tr:'TV İZLEMEK', grade:6, diff:1, unit:1, img:'../images/6/1/38.webp' },
-  { en:'GO ONLINE', tr:'İNTERNETE GİRMEK', grade:6, diff:1, unit:1, img:'../images/6/1/39.webp' },
-  { en:'PLAY GAMES', tr:'OYUN OYNAMAK', grade:6, diff:1, unit:1, img:'../images/6/1/40.webp' },
-  { en:'TAKE SHOWER', tr:'DUŞ ALMAK', grade:6, diff:1, unit:1, img:'../images/6/1/41.webp' },
-  { en:'HAVE BATH', tr:'BANYO YAPMAK', grade:6, diff:1, unit:1, img:'../images/6/1/42.webp' },
-  { en:'HAVE A REST', tr:'DİNLENMEK', grade:6, diff:1, unit:1, img:'../images/6/1/43.webp' },
-  { en:'TAKE A NAP', tr:'KESTIRMEK', grade:6, diff:2, unit:1, img:'../images/6/1/44.webp' },
-  { en:'MEET FRIENDS', tr:'ARKADAŞLARLA BULUŞMAK', grade:6, diff:1, unit:1, img:'../images/6/1/45.webp' },
-  { en:'GO SHOPPING', tr:'ALIŞVERİŞE GİTMEK', grade:6, diff:1, unit:1, img:'../images/6/1/46.webp' },
-  { en:'ATTEND COURSE', tr:'KURSA GİTMEK', grade:6, diff:2, unit:1, img:'../images/6/1/47.webp' },
-
-  // ─── GRADE 6 UNIT 2 ──────────────────────────────────────────────────────────
-  { en:'BAGEL', tr:'SİMİT', grade:6, diff:2, unit:2, img:'../images/6/2/1.webp' },
-  { en:'BUTTER', tr:'TEREYAĞI', grade:6, diff:1, unit:2, img:'../images/6/2/2.webp' },
-  { en:'CEREAL', tr:'TAHIL GEVREĞİ', grade:6, diff:1, unit:2, img:'../images/6/2/3.webp' },
-  { en:'CROISSANT', tr:'KROİSAN', grade:6, diff:2, unit:2, img:'../images/6/2/4.webp' },
-  { en:'EGG', tr:'YUMURTA', grade:6, diff:1, unit:2, img:'../images/6/2/5.webp' },
-  { en:'FRUIT JUICE', tr:'MEYVE SUYU', grade:6, diff:1, unit:2, img:'../images/6/2/6.webp' },
-  { en:'JAM', tr:'REÇEL', grade:6, diff:1, unit:2, img:'../images/6/2/7.webp' },
-  { en:'OMELETTE', tr:'OMLET', grade:6, diff:2, unit:2, img:'../images/6/2/8.webp' },
-  { en:'MUFFIN', tr:'MAFİN', grade:6, diff:1, unit:2, img:'../images/6/2/9.webp' },
-  { en:'PANCAKE', tr:'KREP', grade:6, diff:1, unit:2, img:'../images/6/2/10.webp' },
-  { en:'SAUSAGE', tr:'SOSİS', grade:6, diff:1, unit:2, img:'../images/6/2/11.webp' },
-  { en:'NUTRITIOUS', tr:'BESLEYİCİ', grade:6, diff:3, unit:2, img:'../images/6/2/12.webp' },
-  { en:'TEA', tr:'ÇAY', grade:6, diff:1, unit:2, img:'../images/6/2/13.webp' },
-  { en:'COFFEE', tr:'KAHVE', grade:6, diff:1, unit:2, img:'../images/6/2/14.webp' },
-  { en:'MILK', tr:'SÜT', grade:6, diff:1, unit:2, img:'../images/6/2/15.webp' },
-  { en:'TOMATO', tr:'DOMATES', grade:6, diff:1, unit:2, img:'../images/6/2/16.webp' },
-  { en:'POTATO', tr:'PATATES', grade:6, diff:1, unit:2, img:'../images/6/2/17.webp' },
-  { en:'CHEESE', tr:'PEYNİR', grade:6, diff:1, unit:2, img:'../images/6/2/18.webp' },
-  { en:'SALAMI', tr:'SALAM', grade:6, diff:2, unit:2, img:'../images/6/2/19.webp' },
-  { en:'CUCUMBER', tr:'SALATALIK', grade:6, diff:1, unit:2, img:'../images/6/2/20.webp' },
-  { en:'HONEY', tr:'BAL', grade:6, diff:1, unit:2, img:'../images/6/2/21.webp' },
-  { en:'BREAD', tr:'EKMEK', grade:6, diff:1, unit:2, img:'../images/6/2/22.webp' },
-  { en:'GARLIC', tr:'SARIMSAK', grade:6, diff:2, unit:2, img:'../images/6/2/23.webp' },
-  { en:'BEANS', tr:'FASULYE', grade:6, diff:1, unit:2, img:'../images/6/2/24.webp' },
-  { en:'VEGETABLE', tr:'SEBZE', grade:6, diff:1, unit:2, img:'../images/6/2/25.webp' },
-  { en:'ONION', tr:'SOĞAN', grade:6, diff:1, unit:2, img:'../images/6/2/26.webp' },
-  { en:'FRESH FRUIT', tr:'TAZE MEYVE', grade:6, diff:1, unit:2, img:'../images/6/2/27.webp' },
-  { en:'OLIVES', tr:'ZEYTİN', grade:6, diff:1, unit:2, img:'../images/6/2/28.webp' },
-  { en:'SUGAR', tr:'ŞEKER', grade:6, diff:1, unit:2, img:'../images/6/2/29.webp' },
-  { en:'SALT', tr:'TUZ', grade:6, diff:1, unit:2, img:'../images/6/2/30.webp' },
-  { en:'BAKED', tr:'FIRINLANMIŞ', grade:6, diff:2, unit:2, img:'../images/6/2/31.webp' },
-  { en:'FRIED', tr:'KIZARTILMIŞ', grade:6, diff:1, unit:2, img:'../images/6/2/32.webp' },
-  { en:'GRILLED', tr:'IZGARADA PİŞİRİLMİŞ', grade:6, diff:2, unit:2, img:'../images/6/2/33.webp' },
-  { en:'BOILED', tr:'HAŞLANMIŞ', grade:6, diff:2, unit:2, img:'../images/6/2/34.webp' },
-  { en:'OAT', tr:'YULAF', grade:6, diff:2, unit:2, img:'../images/6/2/35.webp' },
-  { en:'DELICIOUS', tr:'LEZZETLİ', grade:6, diff:1, unit:2, img:'../images/6/2/36.webp' },
-  { en:'PREFER', tr:'TERCİH ETMEK', grade:6, diff:2, unit:2, img:'../images/6/2/37.webp' },
-  { en:'ENJOY', tr:'ZEVK ALMAK', grade:6, diff:1, unit:2, img:'../images/6/2/38.webp' },
-  { en:'COOK', tr:'PİŞİRMEK', grade:6, diff:1, unit:2, img:'../images/6/2/39.webp' },
-  { en:'BUY', tr:'SATIN ALMAK', grade:6, diff:1, unit:2, img:'../images/6/2/40.webp' },
-  { en:'TASTE', tr:'TAT', grade:6, diff:1, unit:2, img:'../images/6/2/41.webp' },
-  { en:'PREPARE', tr:'HAZIRLAMAK', grade:6, diff:2, unit:2, img:'../images/6/2/42.webp' },
-  { en:'HUNGRY', tr:'AÇ', grade:6, diff:1, unit:2, img:'../images/6/2/43.webp' },
-  { en:'THIRSTY', tr:'SUSUZ', grade:6, diff:1, unit:2, img:'../images/6/2/44.webp' },
-  { en:'TRADITIONAL', tr:'GELENEKSEL', grade:6, diff:3, unit:2, img:'../images/6/2/45.webp' },
-  { en:'HEALTHY', tr:'SAĞLIKLI', grade:6, diff:1, unit:2, img:'../images/6/2/46.webp' },
-  { en:'UNHEALTHY', tr:'SAĞLIKSIZ', grade:6, diff:2, unit:2, img:'../images/6/2/47.webp' },
-  { en:'JUNK FOOD', tr:'ABUR CUBUR', grade:6, diff:1, unit:2, img:'../images/6/2/48.webp' },
-  { en:'SNACK', tr:'ATİŞTİRMELİK', grade:6, diff:1, unit:2, img:'../images/6/2/49.webp' },
-  { en:'MEAL', tr:'ÖĞÜN', grade:6, diff:1, unit:2, img:'../images/6/2/50.webp' },
-
-  // ─── GRADE 6 UNIT 3 ──────────────────────────────────────────────────────────
-  { en:'CROWDED', tr:'KALABALİK', grade:6, diff:3, unit:3, img:'../images/6/3/1.webp' },
-  { en:'BUSY', tr:'MEŞGUL', grade:6, diff:1, unit:3, img:'../images/6/3/1.webp' },
-  { en:'DOWNTOWN', tr:'ŞEHİR MERKEZİ', grade:6, diff:2, unit:3, img:'../images/6/3/2.webp' },
-  { en:'TRAFFIC JAM', tr:'TRAFİK TIKANIKLIĞI', grade:6, diff:1, unit:3, img:'../images/6/3/3.webp' },
-  { en:'HOMETOWN', tr:'MEMLEKET', grade:6, diff:2, unit:3, img:'../images/6/3/4.webp' },
-  { en:'KIOSK', tr:'BÜFE', grade:6, diff:3, unit:3, img:'../images/6/3/5.webp' },
-  { en:'COMPARE', tr:'KARŞILAŞTIRMAK', grade:6, diff:3, unit:3, img:'../images/6/3/6.webp' },
-  { en:'SELL', tr:'SATMAK', grade:6, diff:1, unit:3, img:'../images/6/3/7.webp' },
-  { en:'SKYSCRAPER', tr:'GÖKDELEn', grade:6, diff:2, unit:3, img:'../images/6/3/8.webp' },
-  { en:'STREET', tr:'SOKAK', grade:6, diff:1, unit:3, img:'../images/6/1/9.webp' },
-  { en:'VILLAGE', tr:'KÖY', grade:6, diff:2, unit:3, img:'../images/6/3/10.webp' },
-  { en:'TOWN', tr:'KASABA', grade:6, diff:1, unit:3, img:'../images/6/3/11.webp' },
-  { en:'CITY', tr:'ŞEHİR', grade:6, diff:1, unit:3, img:'../images/6/3/12.webp' },
-  { en:'FEED', tr:'BESLEMEK', grade:6, diff:1, unit:3, img:'../images/6/3/13.webp' },
-  { en:'FARM', tr:'ÇİFTLİK', grade:6, diff:1, unit:3, img:'../images/6/3/14.webp' },
-  { en:'FLAT', tr:'DAİRE', grade:6, diff:3, unit:3, img:'../images/6/3/15.webp' },
-  { en:'NOW', tr:'ŞİMDİ', grade:6, diff:1, unit:3, img:'../images/6/3/16.webp' },
-  { en:'RIGHT NOW', tr:'ŞU AN', grade:6, diff:3, unit:3, img:'../images/6/3/16.webp' },
-  { en:'AT THE MOMENT', tr:'ŞU ANDA', grade:6, diff:3, unit:3, img:'../images/6/3/16.webp' },
-  { en:'NEIGHBORHOOD', tr:'MAHALLE', grade:6, diff:3, unit:3, img:'../images/6/3/17.webp' },
-  { en:'BETTER', tr:'DAHA İYİ', grade:6, diff:2, unit:3, img:'../images/6/3/6.webp' },
-  { en:'WORSE', tr:'DAHA KÖTÜ', grade:6, diff:2, unit:3, img:'../images/6/3/6.webp' },
-  { en:'ENJOYABLE', tr:'EĞLENCELİ', grade:6, diff:2, unit:3, img:'../images/6/3/20.webp' },
-  { en:'RELAXING', tr:'DİNLENDİRİCİ', grade:6, diff:2, unit:3, img:'../images/6/3/21.webp' },
-  { en:'QUEUE', tr:'KUYRUK', grade:6, diff:3, unit:3, img:'../images/6/3/22.webp' },
-  { en:'LINE', tr:'SIRA', grade:6, diff:3, unit:3, img:'../images/6/3/22.webp' },
-  { en:'SQUARE', tr:'MEYDAN', grade:6, diff:3, unit:3, img:'../images/6/3/23.webp' },
-  { en:'BUILDING', tr:'BİNA', grade:6, diff:3, unit:3, img:'../images/6/3/24.webp' },
-  { en:'PLAYGROUND', tr:'OYUN PARKI', grade:6, diff:2, unit:3, img:'../images/6/3/25.webp' },
-  { en:'COMFORTABLE', tr:'RAHAT', grade:6, diff:2, unit:3, img:'../images/6/3/26.webp' },
-  { en:'CROSS', tr:'KARŞIYA GEÇMEK', grade:6, diff:2, unit:3, img:'../images/6/3/27.webp' },
-  { en:'POPULATION', tr:'NÜFUS', grade:6, diff:3, unit:3, img:'../images/6/3/28.webp' },
-  { en:'RENT', tr:'KİRA', grade:6, diff:2, unit:3, img:'../images/6/3/29.webp' },
-  { en:'WAIT', tr:'BEKLEMEK', grade:6, diff:2, unit:3, img:'../images/6/3/30.webp' },
-  { en:'PREPARE', tr:'HAZIRLAMAK', grade:6, diff:3, unit:3, img:'../images/6/3/31.webp' },
-  { en:'COUNTRY LIFE', tr:'KIRSAL HAYAT', grade:6, diff:3, unit:3, img:'../images/6/3/32.webp' },
-  { en:'BEAUTIFUL', tr:'GÜZEL', grade:6, diff:1, unit:3, img:'../images/6/3/33.webp' },
-  { en:'UGLY', tr:'ÇİRKİN', grade:6, diff:1, unit:3, img:'../images/6/3/34.webp' },
-  { en:'TALL', tr:'UZUN', grade:6, diff:1, unit:3, img:'../images/6/3/35.webp' },
-  { en:'LONG', tr:'UZUN', grade:6, diff:1, unit:3, img:'../images/6/3/35.webp' },
-  { en:'SHORT', tr:'KISA', grade:6, diff:1, unit:3, img:'../images/6/3/36.webp' },
-  { en:'HIGH', tr:'YÜKSEK', grade:6, diff:2, unit:3, img:'../images/6/3/37.webp' },
-  { en:'LOW', tr:'ALÇAK', grade:6, diff:2, unit:3, img:'../images/6/3/38.webp' },
-  { en:'CLEAN', tr:'TEMİZ', grade:6, diff:1, unit:3, img:'../images/6/3/39.webp' },
-  { en:'DIRTY', tr:'KİRLİ', grade:6, diff:1, unit:3, img:'../images/6/3/40.webp' },
-  { en:'EXPENSIVE', tr:'PAHALI', grade:6, diff:3, unit:3, img:'../images/6/3/41.webp' },
-  { en:'CHEAP', tr:'UCUZ', grade:6, diff:2, unit:3, img:'../images/6/3/42.webp' },
-  { en:'BIG', tr:'BÜYÜK', grade:6, diff:1, unit:3, img:'../images/6/3/43.webp' },
-  { en:'LARGE', tr:'BÜYÜK', grade:6, diff:2, unit:3, img:'../images/6/3/43.webp' },
-  { en:'SMALL', tr:'KÜÇÜK', grade:6, diff:1, unit:3, img:'../images/6/3/44.webp' },
-  { en:'NOISY', tr:'GÜRÜLTÜLÜ', grade:6, diff:2, unit:3, img:'../images/6/3/45.webp' },
-  { en:'QUIET', tr:'SAKİN', grade:6, diff:2, unit:3, img:'../images/6/3/46.webp' },
-  { en:'DANGEROUS', tr:'TEHLİKELİ', grade:6, diff:3, unit:3, img:'../images/6/3/47.webp' },
-  { en:'SAFE', tr:'GÜVENLİ', grade:6, diff:2, unit:3, img:'../images/6/3/48.webp' },
-  { en:'GOOD', tr:'İYİ', grade:6, diff:1, unit:3, img:'../images/6/3/49.webp' },
-  { en:'BAD', tr:'KÖTÜ', grade:6, diff:1, unit:3, img:'../images/6/3/50.webp' },
-  { en:'EXCITING', tr:'HEYECAN VERİCİ', grade:6, diff:2, unit:3, img:'../images/6/3/51.webp' },
-  { en:'BORING', tr:'SIKI', grade:6, diff:1, unit:3, img:'../images/6/3/52.webp' },
-
-  // ─── GRADE 6 UNIT 7 ──────────────────────────────────────────────────────────
-  { en:'SAILING', tr:'YELKEN', grade:6, diff:2, unit:7, img:'../images/6/7/1.webp' },
-  { en:'SKIING', tr:'KAYAK', grade:6, diff:1, unit:7, img:'../images/6/7/2.webp' },
-  { en:'TENT', tr:'ÇADIR', grade:6, diff:1, unit:7, img:'../images/6/7/3.webp' },
-  { en:'CAMPING', tr:'KAMP YAPMA', grade:6, diff:1, unit:7, img:'../images/6/7/4.webp' },
-  { en:'RAFTING', tr:'RAFTİNG', grade:6, diff:2, unit:7, img:'../images/6/7/5.webp' },
-  { en:'SANDCASTLE', tr:'KUM KALESİ', grade:6, diff:3, unit:7, img:'../images/6/7/6.webp' },
-  { en:'SCUBA DIVING', tr:'TÜPLÜ DALMA', grade:6, diff:1, unit:7, img:'../images/6/7/7.webp' },
-  { en:'PARAGLIDING', tr:'YAMAÇ PARAŞÜTÇÜLÜĞü', grade:6, diff:2, unit:7, img:'../images/6/7/8.webp' },
-  { en:'HIKING', tr:'DOĞA YÜRÜYÜŞÜ', grade:6, diff:1, unit:7, img:'../images/6/7/9.webp' },
-  { en:'SIGHTSEEING', tr:'TURİSTİK GEZİ', grade:6, diff:3, unit:7, img:'../images/6/7/10.webp' },
-  { en:'FOREST', tr:'ORMAN', grade:6, diff:1, unit:7, img:'../images/6/7/11.webp' },
-  { en:'FLOWER', tr:'ÇİÇEK', grade:6, diff:2, unit:7, img:'../images/6/7/12.webp' },
-  { en:'LAKE', tr:'GÖL', grade:6, diff:2, unit:7, img:'../images/6/7/13.webp' },
-  { en:'RIVER', tr:'NEHİR', grade:6, diff:2, unit:7, img:'../images/6/7/14.webp' },
-  { en:'MOUNTAIN', tr:'DAĞ', grade:6, diff:2, unit:7, img:'../images/6/7/15.webp' },
-  { en:'BEACH', tr:'PLAJ', grade:6, diff:1, unit:7, img:'../images/6/7/16.webp' },
-  { en:'SEASIDE', tr:'SAHİL', grade:6, diff:2, unit:7, img:'../images/6/7/16.webp' },
-  { en:'PICK FRUIT', tr:'MEYVE TOPLAMAK', grade:6, diff:1, unit:7, img:'../images/6/7/17.webp' },
-
-  // ─── GRADE 6 UNIT 8 ──────────────────────────────────────────────────────────
-  { en:'AUTHOR', tr:'YAZAR', grade:6, diff:2, unit:8, img:'../images/6/8/1.webp' },
-  { en:'BORROW', tr:'ÖDÜNÇ ALMAK', grade:6, diff:3, unit:8, img:'../images/6/8/2.webp' },
-  { en:'LEND', tr:'ÖDÜNÇ VERMEK', grade:6, diff:3, unit:8, img:'../images/6/8/3.webp' },
-  { en:'BOOK SHELF', tr:'KİTAP RAFI', grade:6, diff:1, unit:8, img:'../images/6/8/4.webp' },
-  { en:'DICTIONARY', tr:'SÖZLÜK', grade:6, diff:3, unit:8, img:'../images/6/8/5.webp' },
-  { en:'LIBRARY', tr:'KÜTÜPHANE', grade:6, diff:1, unit:8, img:'../images/6/8/6.webp' },
-  { en:'MAGAZINE', tr:'DERGİ', grade:6, diff:2, unit:8, img:'../images/6/8/7.webp' },
-  { en:'POETRY', tr:'ŞİİR', grade:6, diff:3, unit:8, img:'../images/6/8/8.webp' },
-  { en:'NEWSPAPER', tr:'GAZETE', grade:6, diff:1, unit:8, img:'../images/6/8/9.webp' },
-  { en:'NOVEL', tr:'ROMAN', grade:6, diff:2, unit:8, img:'../images/6/8/10.webp' },
-  { en:'OPPOSITE', tr:'KARŞISINDA', grade:6, diff:3, unit:8, img:'../images/6/8/11.webp' },
-  { en:'BEHIND', tr:'ARKASINDA', grade:6, diff:1, unit:8, img:'../images/6/8/12.webp' },
-  { en:'BETWEEN', tr:'ARASINDA', grade:6, diff:2, unit:8, img:'../images/6/8/13.webp' },
-  { en:'NEXT TO', tr:'YANINDA', grade:6, diff:2, unit:8, img:'../images/6/8/14.webp' },
-  { en:'UNDER', tr:'ALTINDA', grade:6, diff:1, unit:8, img:'../images/6/8/15.webp' },
-  { en:'OVER', tr:'ÜSTÜNDE', grade:6, diff:2, unit:8, img:'../images/6/8/16.webp' },
-
+ 
   // ─── GRADE 8 UNIT 1 ──────────────────────────────────────────────────────────
   { en:'BACK UP', tr:'DESTEKLEMEK', grade:8, diff:2, unit:1, img:'../images/8/1/1.webp' },
   { en:'BUDDY', tr:'YAKIN ARKADAŞ', grade:8, diff:1, unit:1, img:'../images/8/1/2.webp' },
@@ -823,69 +963,10 @@ const WORD_BANK = [
   { en:'FLIGHT', tr:'UÇUŞ', grade:8, diff:1, unit:4, img:'../images/8/4/49.webp' },
   { en:'SINGLE TICKET', tr:'GİDİŞ BİLETİ', grade:8, diff:2, unit:4, img:'../images/8/4/50.webp' },
   { en:'RETURN TICKET', tr:'GİDİŞ-DÖNÜŞ BİLETİ', grade:8, diff:2, unit:4, img:'../images/8/4/51.webp' },
-
-  // ─── ANIMALS (grade:0, unit:11) ───────────────────────────────────────────────
-  { en:'EAGLE', tr:'KARTAL', grade:0, diff:2, unit:11, img:'../images/animals/1.webp' },
-  { en:'ELEPHANT', tr:'FİL', grade:0, diff:1, unit:11, img:'../images/animals/2.webp' },
-  { en:'SNAKE', tr:'YILAN', grade:0, diff:1, unit:11, img:'../images/animals/3.webp' },
-  { en:'GIRAFFE', tr:'ZÜRAFa', grade:0, diff:1, unit:11, img:'../images/animals/5.webp' },
-  { en:'PARROT', tr:'PAPAĞAN', grade:0, diff:1, unit:11, img:'../images/animals/6.webp' },
-  { en:'LION', tr:'ASLAN', grade:0, diff:1, unit:11, img:'../images/animals/7.webp' },
-  { en:'TURTLE', tr:'KAPLUMBAĞA', grade:0, diff:1, unit:11, img:'../images/animals/8.webp' },
-  { en:'FISH', tr:'BALIK', grade:0, diff:1, unit:11, img:'../images/animals/9.webp' },
-  { en:'TIGER', tr:'KAPLAN', grade:0, diff:2, unit:11, img:'../images/animals/10.webp' },
-  { en:'DOLPHIN', tr:'YUNUS', grade:0, diff:1, unit:11, img:'../images/animals/11.webp' },
-  { en:'SHARK', tr:'KÖPEK BALIĞI', grade:0, diff:1, unit:11, img:'../images/animals/12.webp' },
-  { en:'WHALE', tr:'BALİNA', grade:0, diff:1, unit:11, img:'../images/animals/13.webp' },
-  { en:'HAWK', tr:'ŞAHIN', grade:0, diff:3, unit:11, img:'../images/animals/14.webp' },
-  { en:'ALLIGATOR', tr:'ALİGATÖR', grade:0, diff:3, unit:11, img:'../images/animals/15.webp' },
-  { en:'FALCON', tr:'DOĞAN', grade:0, diff:3, unit:11, img:'../images/animals/16.webp' },
-  { en:'CHEETAH', tr:'ÇİTA', grade:0, diff:2, unit:11, img:'../images/animals/17.webp' },
-  { en:'CROCODILE', tr:'TİMSAH', grade:0, diff:3, unit:11, img:'../images/animals/18.webp' },
-  { en:'KANGAROO', tr:'KANGURU', grade:0, diff:2, unit:11, img:'../images/animals/19.webp' },
-  { en:'LIZARD', tr:'KERTENKELE', grade:0, diff:3, unit:11, img:'../images/animals/20.webp' },
-  { en:'HIPPO', tr:'SU AYĞIRI', grade:0, diff:2, unit:11, img:'../images/animals/21.webp' },
-  { en:'OSTRICH', tr:'DEVEKUŞu', grade:0, diff:3, unit:11, img:'../images/animals/22.webp' },
-  { en:'RHINO', tr:'GERGEDAN', grade:0, diff:3, unit:11, img:'../images/animals/23.webp' },
-  { en:'POLAR BEAR', tr:'KUTUP AYISI', grade:0, diff:2, unit:11, img:'../images/animals/24.webp' },
-
-  // ─── FOODS & DRINKS (grade:0, unit:12) ───────────────────────────────────────
-  { en:'BAGEL', tr:'SİMİT', grade:0, diff:2, unit:12, img:'../images/6/2/1.webp' },
-  { en:'BUTTER', tr:'TEREYAĞI', grade:0, diff:1, unit:12, img:'../images/6/2/2.webp' },
-  { en:'CEREAL', tr:'TAHIL GEVREĞİ', grade:0, diff:1, unit:12, img:'../images/6/2/3.webp' },
-  { en:'CROISSANT', tr:'KROİSAN', grade:0, diff:2, unit:12, img:'../images/6/2/4.webp' },
-  { en:'EGG', tr:'YUMURTA', grade:0, diff:1, unit:12, img:'../images/6/2/5.webp' },
-  { en:'FRUIT JUICE', tr:'MEYVE SUYU', grade:0, diff:1, unit:12, img:'../images/6/2/6.webp' },
-  { en:'JAM', tr:'REÇEL', grade:0, diff:1, unit:12, img:'../images/6/2/7.webp' },
-  { en:'OMELETTE', tr:'OMLET', grade:0, diff:2, unit:12, img:'../images/6/2/8.webp' },
-  { en:'MUFFIN', tr:'MAFİN', grade:0, diff:1, unit:12, img:'../images/6/2/9.webp' },
-  { en:'PANCAKE', tr:'KREP', grade:0, diff:1, unit:12, img:'../images/6/2/10.webp' },
-  { en:'SAUSAGE', tr:'SOSİS', grade:0, diff:1, unit:12, img:'../images/6/2/11.webp' },
-  { en:'NUTRITIOUS', tr:'BESLEYİCİ', grade:0, diff:3, unit:12, img:'../images/6/2/12.webp' },
-  { en:'TEA', tr:'ÇAY', grade:0, diff:1, unit:12, img:'../images/6/2/13.webp' },
-  { en:'COFFEE', tr:'KAHVE', grade:0, diff:1, unit:12, img:'../images/6/2/14.webp' },
-  { en:'MILK', tr:'SÜT', grade:0, diff:1, unit:12, img:'../images/6/2/15.webp' },
-  { en:'TOMATO', tr:'DOMATES', grade:0, diff:1, unit:12, img:'../images/6/2/16.webp' },
-  { en:'POTATO', tr:'PATATES', grade:0, diff:1, unit:12, img:'../images/6/2/17.webp' },
-  { en:'CHEESE', tr:'PEYNİR', grade:0, diff:1, unit:12, img:'../images/6/2/18.webp' },
-  { en:'SALAMI', tr:'SALAM', grade:0, diff:2, unit:12, img:'../images/6/2/19.webp' },
-  { en:'CUCUMBER', tr:'SALATALIK', grade:0, diff:1, unit:12, img:'../images/6/2/20.webp' },
-  { en:'HONEY', tr:'BAL', grade:0, diff:1, unit:12, img:'../images/6/2/21.webp' },
-  { en:'BREAD', tr:'EKMEK', grade:0, diff:1, unit:12, img:'../images/6/2/22.webp' },
-  { en:'GARLIC', tr:'SARIMSAK', grade:0, diff:2, unit:12, img:'../images/6/2/23.webp' },
-  { en:'BEANS', tr:'FASULYE', grade:0, diff:1, unit:12, img:'../images/6/2/24.webp' },
-  { en:'ONION', tr:'SOĞAN', grade:0, diff:1, unit:12, img:'../images/6/2/26.webp' },
-  { en:'OLIVES', tr:'ZEYTİN', grade:0, diff:1, unit:12, img:'../images/6/2/28.webp' },
-  { en:'SUGAR', tr:'ŞEKER', grade:0, diff:1, unit:12, img:'../images/6/2/29.webp' },
-  { en:'SALT', tr:'TUZ', grade:0, diff:1, unit:12, img:'../images/6/2/30.webp' },
-
-
-
-  // ─── GRADE 8 UNIT 4 — EKLENDİ ────────────
-  { en:'FACE TO FACE', tr:'YÜZYÜZE', grade:8, diff:2, unit:4, img:'../images/8/4/1.webp' }, // EKLENDİ
-  { en:'TEXTING', tr:'MESAJLAŞMAK', grade:8, diff:2, unit:4, img:'../images/8/4/5.webp' }, // EKLENDİ
-  { en:'SEND MESSAGE', tr:'MESAJLAŞMAK', grade:8, diff:2, unit:4, img:'../images/8/4/5.webp' }, // EKLENDİ
-  { en:'SOCIAL NETWORKS', tr:'SOSYAL AĞLAR', grade:8, diff:2, unit:4, img:'../images/8/4/7.webp' }, // EKLENDİ
+  { en:'FACE TO FACE', tr:'YÜZYÜZE', grade:8, diff:2, unit:4, img:'../images/8/4/1.webp' }, 
+  { en:'TEXTING', tr:'MESAJLAŞMAK', grade:8, diff:2, unit:4, img:'../images/8/4/5.webp' }, 
+  { en:'SEND MESSAGE', tr:'MESAJLAŞMAK', grade:8, diff:2, unit:4, img:'../images/8/4/5.webp' }, 
+  { en:'SOCIAL NETWORKS', tr:'SOSYAL AĞLAR', grade:8, diff:2, unit:4, img:'../images/8/4/7.webp' }, 
 
   // ─── GRADE 8 UNIT 5 — EKLENDİ ────────────
   { en:'COMPUTER TOWER', tr:'BİLGİSAYAR KASASI', grade:8, diff:2, unit:5, img:'../images/8/5/1.webp' }, // EKLENDİ
@@ -1007,5 +1088,190 @@ const WORD_BANK = [
   { en:'NATURE', tr:'DOĞA', grade:8, diff:1, unit:6, img:'../images/8/6/49.webp' }, // EKLENDİ
   { en:'DIFFICULT', tr:'ZOR', grade:8, diff:1, unit:6, img:'../images/8/6/26.webp' }, // EKLENDİ
   { en:'HARD', tr:'ZOR', grade:8, diff:1, unit:6, img:'../images/8/6/26.webp' }, // EKLENDİ
+
+
+  // ─── GRADE 8 UNIT 7 — EKLENDİ ──────────────────────────────────────────────────────────
+  { en:'WALL', tr:'DUVAR', grade:8, diff:1, unit:7, img:'../images/8/7/1.webp' }, // EKLENDİ
+  { en:'TEMPLE', tr:'TAPINAK', grade:8, diff:1, unit:7, img:'../images/8/7/2.webp' }, // EKLENDİ
+  { en:'COAST', tr:'KIYILAR', grade:8, diff:2, unit:7, img:'../images/8/7/3.webp' }, // EKLENDİ
+  { en:'BEACH', tr:'PLAJ', grade:8, diff:1, unit:7, img:'../images/8/7/3.webp' }, // EKLENDİ
+  { en:'MONUMENT', tr:'ANIT', grade:8, diff:2, unit:7, img:'../images/8/7/4.webp' }, // EKLENDİ
+  { en:'TOMB', tr:'TÜRBE / MEZAR', grade:8, diff:2, unit:7, img:'../images/8/7/5.webp' }, // EKLENDİ
+  { en:'FOREST', tr:'ORMAN', grade:8, diff:1, unit:7, img:'../images/8/7/6.webp' }, // EKLENDİ
+  { en:'SQUARE', tr:'MEYDAN', grade:8, diff:1, unit:7, img:'../images/8/7/7.webp' }, // EKLENDİ
+  { en:'TOWER', tr:'KULE', grade:8, diff:1, unit:7, img:'../images/8/7/8.webp' }, // EKLENDİ
+  { en:'ISLAND', tr:'ADA', grade:8, diff:1, unit:7, img:'../images/8/7/9.webp' }, // EKLENDİ
+  { en:'PALACE', tr:'SARAY', grade:8, diff:2, unit:7, img:'../images/8/7/10.webp' }, // EKLENDİ
+  { en:'FOUNTAIN', tr:'FIŞKIYE / ÇEŞME', grade:8, diff:2, unit:7, img:'../images/8/7/11.webp' }, // EKLENDİ
+  { en:'MOUNTAIN', tr:'DAĞ', grade:8, diff:1, unit:7, img:'../images/8/7/12.webp' }, // EKLENDİ
+  { en:'STATUE', tr:'HEYKEL', grade:8, diff:1, unit:7, img:'../images/8/7/13.webp' }, // EKLENDİ
+  { en:'MUSEUM', tr:'MÜZE', grade:8, diff:1, unit:7, img:'../images/8/7/14.webp' }, // EKLENDİ
+  { en:'MOSQUE', tr:'CAMİ', grade:8, diff:1, unit:7, img:'../images/8/7/15.webp' }, // EKLENDİ
+  { en:'CASTLE', tr:'KALE', grade:8, diff:1, unit:7, img:'../images/8/7/16.webp' }, // EKLENDİ
+  { en:'CEMETERY', tr:'MEZARLIK', grade:8, diff:2, unit:7, img:'../images/8/7/18.webp' }, // EKLENDİ
+  { en:'BRIDGE', tr:'KÖPRÜ', grade:8, diff:1, unit:7, img:'../images/8/7/19.webp' }, // EKLENDİ
+  { en:'CHURCH', tr:'KİLİSE', grade:8, diff:1, unit:7, img:'../images/8/7/20.webp' }, // EKLENDİ
+  { en:'ATTRACTION', tr:'TURİSTİK YER', grade:8, diff:2, unit:7, img:'../images/8/7/21.webp' }, // EKLENDİ
+  { en:'ANCIENT', tr:'ANTİK / ESKİ', grade:8, diff:2, unit:7, img:'../images/8/7/22.webp' }, // EKLENDİ
+  { en:'ARCHITECTURE', tr:'MİMARİ', grade:8, diff:3, unit:7, img:'' }, // EKLENDİ
+  { en:'HISTORIC SITE', tr:'TARİHİ YER', grade:8, diff:3, unit:7, img:'../images/8/7/22.webp' }, // EKLENDİ
+  { en:'ALL-INCLUSIVE', tr:'HER ŞEY DAHİL', grade:8, diff:3, unit:7, img:'../images/8/7/25.webp' }, // EKLENDİ
+  { en:'URBAN', tr:'KENTSEL', grade:8, diff:3, unit:7, img:'../images/8/7/27.webp' }, // EKLENDİ
+  { en:'DESTINATION', tr:'GİDİLECEK YER', grade:8, diff:2, unit:7, img:'../images/8/7/28.webp' }, // EKLENDİ
+  { en:'COUNTRYSIDE', tr:'KIRSAL', grade:8, diff:2, unit:7, img:'../images/8/7/29.webp' }, // EKLENDİ
+  { en:'RURAL', tr:'KIRSAL ALAN', grade:8, diff:2, unit:7, img:'../images/8/7/29.webp' }, // EKLENDİ
+  { en:'INCREDIBLE', tr:'İNANILMAZ', grade:8, diff:2, unit:7, img:'../images/8/7/30.webp' }, // EKLENDİ
+  { en:'JOURNEY', tr:'YOLCULUK', grade:8, diff:2, unit:7, img:'../images/8/7/31.webp' }, // EKLENDİ
+  { en:'ACCOMMODATION', tr:'KONAKLAMA', grade:8, diff:3, unit:7, img:'../images/8/7/32.webp' }, // EKLENDİ
+  { en:'VACATION', tr:'TATİL', grade:8, diff:1, unit:7, img:'../images/8/7/33.webp' }, // EKLENDİ
+  { en:'HOLIDAY', tr:'TATİL', grade:8, diff:1, unit:7, img:'../images/8/7/33.webp' }, // EKLENDİ
+  { en:'RESORT', tr:'TATİL KÖYÜ', grade:8, diff:2, unit:7, img:'../images/8/7/34.webp' }, // EKLENDİ
+  { en:'SIGHTSEEING', tr:'TURİSTİK GEZİ', grade:8, diff:2, unit:7, img:'../images/8/7/35.webp' }, // EKLENDİ
+  { en:'LOCAL FOOD', tr:'YÖRESEL YEMEK', grade:8, diff:2, unit:7, img:'../images/8/7/37.webp' }, // EKLENDİ
+  { en:'CUISINE', tr:'MUTFAK', grade:8, diff:3, unit:7, img:'../images/8/7/37.webp' }, // EKLENDİ
+  { en:'SOUVENIR', tr:'HATİRA EŞYASI', grade:8, diff:2, unit:7, img:'../images/8/7/39.webp' }, // EKLENDİ
+  { en:'CIVILIZATION', tr:'MEDENİYET', grade:8, diff:3, unit:7, img:'../images/8/7/40.webp' }, // EKLENDİ
+  { en:'CLIMATE', tr:'İKLİM', grade:8, diff:2, unit:7, img:'../images/8/7/41.webp' }, // EKLENDİ
+  { en:'POPULATION', tr:'NÜFUS', grade:8, diff:3, unit:7, img:'../images/8/7/42.webp' }, // EKLENDİ
+  { en:'CURRENCY', tr:'PARA BİRİMİ', grade:8, diff:2, unit:7, img:'../images/8/7/44.webp' }, // EKLENDİ
+  { en:'TRIP', tr:'GEZİ', grade:8, diff:1, unit:7, img:'../images/8/7/45.webp' }, // EKLENDİ
+  { en:'REGION', tr:'BÖLGE', grade:8, diff:2, unit:7, img:'../images/8/7/47.webp' }, // EKLENDİ
+  { en:'PROVINCE', tr:'İL / VİLAYET', grade:8, diff:3, unit:7, img:'../images/8/7/47.webp' }, // EKLENDİ
+  { en:'TRANSPORTATION', tr:'ULAŞIM', grade:8, diff:2, unit:7, img:'../images/8/7/48.webp' }, // EKLENDİ
+  { en:'TRAVEL', tr:'SEYAHAT', grade:8, diff:1, unit:7, img:'../images/8/7/45.webp' }, // EKLENDİ
+  { en:'FAMOUS', tr:'ÜNLÜ', grade:8, diff:1, unit:7, img:'../images/8/7/50.webp' }, // EKLENDİ
+  { en:'WELL-KNOWN', tr:'TANINMIŞ', grade:8, diff:2, unit:7, img:'../images/8/7/50.webp' }, // EKLENDİ
+  { en:'SPECTACULAR', tr:'MUHTEŞEM', grade:8, diff:3, unit:7, img:'../images/8/7/30.webp' }, // EKLENDİ
+  { en:'MAGNIFICENT', tr:'GÖRKEMLİ', grade:8, diff:3, unit:7, img:'../images/8/7/30.webp' }, // EKLENDİ
+  { en:'GUEST', tr:'MİSAFİR', grade:8, diff:1, unit:7, img:'../images/8/7/53.webp' }, // EKLENDİ
+  { en:'WONDERFUL', tr:'HARİKA', grade:8, diff:1, unit:7, img:'../images/8/7/30.webp' }, // EKLENDİ
+  { en:'TOUR GUIDE', tr:'TURİST REHBERİ', grade:8, diff:2, unit:7, img:'../images/8/7/55.webp' }, // EKLENDİ
+  { en:'SEASIDE', tr:'SAHİL', grade:8, diff:1, unit:7, img:'../images/8/7/3.webp' }, // EKLENDİ
+  { en:'MAJESTIC', tr:'GÖRKEMLİ', grade:8, diff:3, unit:7, img:'../images/8/7/30.webp' }, // EKLENDİ
+  { en:'STRUCTURE', tr:'YAPI', grade:8, diff:2, unit:7, img:'' }, // EKLENDİ
+  { en:'LANDMARK', tr:'SİMGE YAPI', grade:8, diff:2, unit:7, img:'../images/8/7/59.webp' }, // EKLENDİ
+  { en:'CAPITAL', tr:'BAŞKENT', grade:8, diff:2, unit:7, img:'../images/8/7/60.webp' }, // EKLENDİ
+  { en:'BOOK A ROOM', tr:'ODA AYIRTMAK', grade:8, diff:2, unit:7, img:'../images/8/7/53.webp' }, // EKLENDİ
+  { en:'SUITCASE', tr:'BAVUL', grade:8, diff:1, unit:7, img:'../images/8/7/62.webp' }, // EKLENDİ
+  { en:'AIRPORT', tr:'HAVALİMANI', grade:8, diff:1, unit:7, img:'../images/8/7/63.webp' }, // EKLENDİ
+  { en:'PLANE', tr:'UÇAK', grade:8, diff:1, unit:7, img:'../images/8/7/64.webp' }, // EKLENDİ
+  { en:'MAP', tr:'HARİTA', grade:8, diff:1, unit:7, img:'../images/8/7/47.webp' }, // EKLENDİ
+  { en:'RECOMMEND', tr:'TAVSİYE ETMEK', grade:8, diff:2, unit:7, img:'../images/8/7/66.webp' }, // EKLENDİ
+  { en:'CROWDED', tr:'KALABALİK', grade:8, diff:1, unit:7, img:'../images/8/7/67.webp' }, // EKLENDİ
+  { en:'TICKET', tr:'BİLET', grade:8, diff:1, unit:7, img:'../images/8/7/68.webp' }, // EKLENDİ
+  { en:'RESERVATION', tr:'REZERVASYON', grade:8, diff:2, unit:7, img:'../images/8/7/69.webp' }, // EKLENDİ
+
+  // ─── GRADE 8 UNIT 8 — EKLENDİ ──────────────────────────────────────────────────────────
+  { en:'MAKE BED', tr:'YATAK TOPLAMAK', grade:8, diff:1, unit:8, img:'../images/8/8/1.webp' }, // EKLENDİ
+  { en:'DUST SHELVES', tr:'RAF SİLMEK', grade:8, diff:1, unit:8, img:'../images/8/8/2.webp' }, // EKLENDİ
+  { en:'DUST FURNITURE', tr:'MOBİLYA SİLMEK', grade:8, diff:1, unit:8, img:'../images/8/8/2.webp' }, // EKLENDİ
+  { en:'FIX', tr:'TAMİR ETMEK', grade:8, diff:1, unit:8, img:'../images/8/8/3.webp' }, // EKLENDİ
+  { en:'REPAIR', tr:'TAMİR ETMEK', grade:8, diff:1, unit:8, img:'../images/8/8/3.webp' }, // EKLENDİ
+  { en:'DO IRONING', tr:'ÜTÜ YAPMAK', grade:8, diff:2, unit:8, img:'../images/8/8/4.webp' }, // EKLENDİ
+  { en:'WATER PLANTS', tr:'ÇİÇEK SULAMAK', grade:8, diff:1, unit:8, img:'../images/8/8/5.webp' }, // EKLENDİ
+  { en:'FEED PET', tr:'EVCİL HAYVANI BESLEMEK', grade:8, diff:1, unit:8, img:'../images/8/8/6.webp' }, // EKLENDİ
+  { en:'WASH DISHES', tr:'BULAŞIK YIKAMAK', grade:8, diff:1, unit:8, img:'../images/8/8/7.webp' }, // EKLENDİ
+  { en:'VACUUM FLOOR', tr:'ELEKTRİKLİ SÜPÜRGE ÇEKMEK', grade:8, diff:1, unit:8, img:'../images/8/8/8.webp' }, // EKLENDİ
+  { en:'PAY BILLS', tr:'FATURA ÖDEMEK', grade:8, diff:2, unit:8, img:'../images/8/8/9.webp' }, // EKLENDİ
+  { en:'DRY DISHES', tr:'BULAŞIK KURULAMAK', grade:8, diff:1, unit:8, img:'../images/8/8/10.webp' }, // EKLENDİ
+  { en:'DO SHOPPING', tr:'ALIŞVERİŞ YAPMAK', grade:8, diff:1, unit:8, img:'../images/8/8/11.webp' }, // EKLENDİ
+  { en:'CLEAN WINDOWS', tr:'PENCERE SİLMEK', grade:8, diff:1, unit:8, img:'../images/8/8/12.webp' }, // EKLENDİ
+  { en:'WASH CLOTHES', tr:'ÇAMAŞIR YIKAMAK', grade:8, diff:1, unit:8, img:'../images/8/8/13.webp' }, // EKLENDİ
+  { en:'DO LAUNDRY', tr:'ÇAMAŞIR YIKAMAK', grade:8, diff:2, unit:8, img:'../images/8/8/13.webp' }, // EKLENDİ
+  { en:'COOK', tr:'YEMEK PİŞİRMEK', grade:8, diff:1, unit:8, img:'../images/8/8/14.webp' }, // EKLENDİ
+  { en:'PREPARE MEAL', tr:'YEMEK HAZIRLAMAK', grade:8, diff:2, unit:8, img:'../images/8/8/14.webp' }, // EKLENDİ
+  { en:'FOLD CLOTHES', tr:'ÇAMAŞIR KATLAMAK', grade:8, diff:1, unit:8, img:'../images/8/8/15.webp' }, // EKLENDİ
+  { en:'TAKE OUT TRASH', tr:'ÇÖP ÇIKARMAK', grade:8, diff:1, unit:8, img:'../images/8/8/16.webp' }, // EKLENDİ
+  { en:'SWEEP FLOOR', tr:'YER SÜPÜRMEK', grade:8, diff:1, unit:8, img:'../images/8/8/20.webp' }, // EKLENDİ
+  { en:'MOP THE FLOOR', tr:'PASPAS ÇEKMEK', grade:8, diff:2, unit:8, img:'../images/8/8/20.webp' }, // EKLENDİ
+  { en:'SET TABLE', tr:'MASA KURMAK', grade:8, diff:1, unit:8, img:'../images/8/8/21.webp' }, // EKLENDİ
+  { en:'MOW LAWN', tr:'ÇİMEN BİÇMEK', grade:8, diff:2, unit:8, img:'../images/8/8/22.webp' }, // EKLENDİ
+  { en:'TEAMWORK', tr:'TAKIM ÇALIŞMASI', grade:8, diff:2, unit:8, img:'../images/8/8/23.webp' }, // EKLENDİ
+  { en:'TIDY UP ROOM', tr:'ODA TOPLAMAK', grade:8, diff:1, unit:8, img:'../images/8/8/24.webp' }, // EKLENDİ
+  { en:'WALK THE DOG', tr:'KÖPEĞİ GEZDİRMEK', grade:8, diff:1, unit:8, img:'../images/8/8/25.webp' }, // EKLENDİ
+  { en:'DAILY ROUTINE', tr:'GÜNLÜK RUTİN', grade:8, diff:2, unit:8, img:'../images/8/8/26.webp' }, // EKLENDİ
+  { en:'ARRIVE ON TIME', tr:'ZAMANINDA GELMEK', grade:8, diff:2, unit:8, img:'../images/8/8/27.webp' }, // EKLENDİ
+  { en:'DOING CHORES', tr:'EV İŞİ YAPMAK', grade:8, diff:2, unit:8, img:'../images/8/8/23.webp' }, // EKLENDİ
+  { en:'OBEY THE RULES', tr:'KURALLARA UYMAK', grade:8, diff:2, unit:8, img:'../images/8/8/32.webp' }, // EKLENDİ
+  { en:'RETURN BOOKS', tr:'KİTAP İADE ETMEK', grade:8, diff:1, unit:8, img:'../images/8/8/33.webp' }, // EKLENDİ
+  { en:'TO DO LIST', tr:'YAPILACAKLAR LİSTESİ', grade:8, diff:2, unit:8, img:'../images/8/8/34.webp' }, // EKLENDİ
+  { en:'OBLIGATION', tr:'YÜKÜMLÜLÜK', grade:8, diff:3, unit:8, img:'../images/8/8/35.webp' }, // EKLENDİ
+  { en:'TAKE CARE OF', tr:'BAKMAK / İLGİLENMEK', grade:8, diff:2, unit:8, img:'../images/8/8/36.webp' }, // EKLENDİ
+  { en:'RESPONSIBILITY', tr:'SORUMLULUK', grade:8, diff:3, unit:8, img:'../images/8/8/37.webp' }, // EKLENDİ
+  { en:'NECESSARY', tr:'GEREKLİ', grade:8, diff:2, unit:8, img:'' }, // EKLENDİ
+  { en:'NEAT', tr:'DÜZENLİ', grade:8, diff:1, unit:8, img:'../images/8/8/40.webp' }, // EKLENDİ
+  { en:'UNTIDY', tr:'DAĞINIK', grade:8, diff:1, unit:8, img:'../images/8/8/41.webp' }, // EKLENDİ
+  { en:'MESSY', tr:'DAĞINIK / KİRLİ', grade:8, diff:1, unit:8, img:'../images/8/8/41.webp' }, // EKLENDİ
+  { en:'KEEP QUIET', tr:'SESSIZ OLMAK', grade:8, diff:2, unit:8, img:'../images/8/8/42.webp' }, // EKLENDİ
+  { en:'TASK', tr:'GÖREV', grade:8, diff:1, unit:8, img:'../images/8/8/37.webp' }, // EKLENDİ
+  { en:'DUTY', tr:'GÖREV', grade:8, diff:2, unit:8, img:'../images/8/8/37.webp' }, // EKLENDİ
+  { en:'HOUSEWORK', tr:'EV İŞİ', grade:8, diff:1, unit:8, img:'../images/8/8/23.webp' }, // EKLENDİ
+  { en:'COOPERATE', tr:'İŞBİRLİĞİ YAPMAK', grade:8, diff:3, unit:8, img:'../images/8/8/23.webp' }, // EKLENDİ
+  { en:'ANNOYED', tr:'SİNİRLİ / RAHATSIZ', grade:8, diff:2, unit:8, img:'../images/8/8/47.webp' }, // EKLENDİ
+  { en:'ALLOWANCE', tr:'HARÇLIK', grade:8, diff:2, unit:8, img:'../images/8/8/49.webp' }, // EKLENDİ
+  { en:'POCKET MONEY', tr:'HARÇLIK', grade:8, diff:2, unit:8, img:'../images/8/8/49.webp' }, // EKLENDİ
+  { en:'NERVOUS', tr:'GERGİN / ENDİŞELİ', grade:8, diff:1, unit:8, img:'../images/8/8/51.webp' }, // EKLENDİ
+  { en:'QUESTIONNAIRE', tr:'ANKET', grade:8, diff:3, unit:8, img:'../images/8/8/52.webp' }, // EKLENDİ
+  { en:'HARDWORKING', tr:'ÇALIŞKAN', grade:8, diff:1, unit:8, img:'../images/8/8/54.webp' }, // EKLENDİ
+  { en:'LAZY', tr:'TEMBEL', grade:8, diff:1, unit:8, img:'../images/8/8/55.webp' }, // EKLENDİ
+  { en:'HELPFUL', tr:'YARDIMCI', grade:8, diff:1, unit:8, img:'../images/8/8/56.webp' }, // EKLENDİ
+  { en:'COMPLAIN', tr:'ŞİKAYET ETMEK', grade:8, diff:2, unit:8, img:'../images/8/8/57.webp' }, // EKLENDİ
+  { en:'SUPPORT', tr:'DESTEKLEMEK', grade:8, diff:1, unit:8, img:'../images/8/8/56.webp' }, // EKLENDİ
+
+  // ─── ANIMALS (grade:0, unit:11) ───────────────────────────────────────────────
+  { en:'EAGLE', tr:'KARTAL', grade:0, diff:2, unit:11, img:'../images/animals/1.webp' },
+  { en:'ELEPHANT', tr:'FİL', grade:0, diff:1, unit:11, img:'../images/animals/2.webp' },
+  { en:'SNAKE', tr:'YILAN', grade:0, diff:1, unit:11, img:'../images/animals/3.webp' },
+  { en:'GIRAFFE', tr:'ZÜRAFa', grade:0, diff:1, unit:11, img:'../images/animals/5.webp' },
+  { en:'PARROT', tr:'PAPAĞAN', grade:0, diff:1, unit:11, img:'../images/animals/6.webp' },
+  { en:'LION', tr:'ASLAN', grade:0, diff:1, unit:11, img:'../images/animals/7.webp' },
+  { en:'TURTLE', tr:'KAPLUMBAĞA', grade:0, diff:1, unit:11, img:'../images/animals/8.webp' },
+  { en:'FISH', tr:'BALIK', grade:0, diff:1, unit:11, img:'../images/animals/9.webp' },
+  { en:'TIGER', tr:'KAPLAN', grade:0, diff:2, unit:11, img:'../images/animals/10.webp' },
+  { en:'DOLPHIN', tr:'YUNUS', grade:0, diff:1, unit:11, img:'../images/animals/11.webp' },
+  { en:'SHARK', tr:'KÖPEK BALIĞI', grade:0, diff:1, unit:11, img:'../images/animals/12.webp' },
+  { en:'WHALE', tr:'BALİNA', grade:0, diff:1, unit:11, img:'../images/animals/13.webp' },
+  { en:'HAWK', tr:'ŞAHIN', grade:0, diff:3, unit:11, img:'../images/animals/14.webp' },
+  { en:'ALLIGATOR', tr:'ALİGATÖR', grade:0, diff:3, unit:11, img:'../images/animals/15.webp' },
+  { en:'FALCON', tr:'DOĞAN', grade:0, diff:3, unit:11, img:'../images/animals/16.webp' },
+  { en:'CHEETAH', tr:'ÇİTA', grade:0, diff:2, unit:11, img:'../images/animals/17.webp' },
+  { en:'CROCODILE', tr:'TİMSAH', grade:0, diff:3, unit:11, img:'../images/animals/18.webp' },
+  { en:'KANGAROO', tr:'KANGURU', grade:0, diff:2, unit:11, img:'../images/animals/19.webp' },
+  { en:'LIZARD', tr:'KERTENKELE', grade:0, diff:3, unit:11, img:'../images/animals/20.webp' },
+  { en:'HIPPO', tr:'SU AYĞIRI', grade:0, diff:2, unit:11, img:'../images/animals/21.webp' },
+  { en:'OSTRICH', tr:'DEVEKUŞu', grade:0, diff:3, unit:11, img:'../images/animals/22.webp' },
+  { en:'RHINO', tr:'GERGEDAN', grade:0, diff:3, unit:11, img:'../images/animals/23.webp' },
+  { en:'POLAR BEAR', tr:'KUTUP AYISI', grade:0, diff:2, unit:11, img:'../images/animals/24.webp' },
+
+  // ─── FOODS & DRINKS (grade:0, unit:12) ───────────────────────────────────────
+  { en:'BAGEL', tr:'SİMİT', grade:0, diff:2, unit:12, img:'../images/6/2/1.webp' },
+  { en:'BUTTER', tr:'TEREYAĞI', grade:0, diff:1, unit:12, img:'../images/6/2/2.webp' },
+  { en:'CEREAL', tr:'TAHIL GEVREĞİ', grade:0, diff:1, unit:12, img:'../images/6/2/3.webp' },
+  { en:'CROISSANT', tr:'KROİSAN', grade:0, diff:2, unit:12, img:'../images/6/2/4.webp' },
+  { en:'EGG', tr:'YUMURTA', grade:0, diff:1, unit:12, img:'../images/6/2/5.webp' },
+  { en:'FRUIT JUICE', tr:'MEYVE SUYU', grade:0, diff:1, unit:12, img:'../images/6/2/6.webp' },
+  { en:'JAM', tr:'REÇEL', grade:0, diff:1, unit:12, img:'../images/6/2/7.webp' },
+  { en:'OMELETTE', tr:'OMLET', grade:0, diff:2, unit:12, img:'../images/6/2/8.webp' },
+  { en:'MUFFIN', tr:'MAFİN', grade:0, diff:1, unit:12, img:'../images/6/2/9.webp' },
+  { en:'PANCAKE', tr:'KREP', grade:0, diff:1, unit:12, img:'../images/6/2/10.webp' },
+  { en:'SAUSAGE', tr:'SOSİS', grade:0, diff:1, unit:12, img:'../images/6/2/11.webp' },
+  { en:'NUTRITIOUS', tr:'BESLEYİCİ', grade:0, diff:3, unit:12, img:'../images/6/2/12.webp' },
+  { en:'TEA', tr:'ÇAY', grade:0, diff:1, unit:12, img:'../images/6/2/13.webp' },
+  { en:'COFFEE', tr:'KAHVE', grade:0, diff:1, unit:12, img:'../images/6/2/14.webp' },
+  { en:'MILK', tr:'SÜT', grade:0, diff:1, unit:12, img:'../images/6/2/15.webp' },
+  { en:'TOMATO', tr:'DOMATES', grade:0, diff:1, unit:12, img:'../images/6/2/16.webp' },
+  { en:'POTATO', tr:'PATATES', grade:0, diff:1, unit:12, img:'../images/6/2/17.webp' },
+  { en:'CHEESE', tr:'PEYNİR', grade:0, diff:1, unit:12, img:'../images/6/2/18.webp' },
+  { en:'SALAMI', tr:'SALAM', grade:0, diff:2, unit:12, img:'../images/6/2/19.webp' },
+  { en:'CUCUMBER', tr:'SALATALIK', grade:0, diff:1, unit:12, img:'../images/6/2/20.webp' },
+  { en:'HONEY', tr:'BAL', grade:0, diff:1, unit:12, img:'../images/6/2/21.webp' },
+  { en:'BREAD', tr:'EKMEK', grade:0, diff:1, unit:12, img:'../images/6/2/22.webp' },
+  { en:'GARLIC', tr:'SARIMSAK', grade:0, diff:2, unit:12, img:'../images/6/2/23.webp' },
+  { en:'BEANS', tr:'FASULYE', grade:0, diff:1, unit:12, img:'../images/6/2/24.webp' },
+  { en:'ONION', tr:'SOĞAN', grade:0, diff:1, unit:12, img:'../images/6/2/26.webp' },
+  { en:'OLIVES', tr:'ZEYTİN', grade:0, diff:1, unit:12, img:'../images/6/2/28.webp' },
+  { en:'SUGAR', tr:'ŞEKER', grade:0, diff:1, unit:12, img:'../images/6/2/29.webp' },
+  { en:'SALT', tr:'TUZ', grade:0, diff:1, unit:12, img:'../images/6/2/30.webp' },
+
 
 ];

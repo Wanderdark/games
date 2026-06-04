@@ -30,6 +30,10 @@
     background: #05103a url("background.webp") center / cover no-repeat fixed;
     color: var(--white);
     overflow: hidden;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    -webkit-touch-callout: none;
   }
 
   #app { position: relative; z-index: 1; height: 100vh; display: flex; flex-direction: column; padding: 0 24px 16px; gap: 10px; }
@@ -663,11 +667,12 @@
   }
   .sc-unit-btn:hover { border-color: rgba(255,215,0,0.4); color: var(--white); background: rgba(255,215,0,0.07); }
   .sc-unit-btn.active {
-    background: rgba(74,138,244,0.18); border-color: var(--blue-light); color: var(--white);
-    box-shadow: 0 0 12px rgba(74,138,244,0.3);
+    background: linear-gradient(135deg, #15803d, #1DB954);
+    border-color: #4ade80; color: #fff;
+    box-shadow: 0 0 14px rgba(29,185,84,0.45);
   }
   .sc-unit-btn.irregular { border-color: rgba(255,140,0,0.3); color: rgba(255,180,0,0.8); }
-  .sc-unit-btn.irregular.active { background: rgba(255,140,0,0.15); border-color: #ff8c00; color: #ffd700; box-shadow: 0 0 12px rgba(255,140,0,0.3); }
+  .sc-unit-btn.irregular.active { background: linear-gradient(135deg, #15803d, #1DB954); border-color: #4ade80; color: #fff; box-shadow: 0 0 14px rgba(29,185,84,0.45); }
   .sc-unit-btn:disabled { opacity: .3; cursor: not-allowed; }
   .sc-unit-btn small { display: block; font-size: 10px; font-weight: 400; opacity: .6; margin-top: 1px; }
   .sc-group-row, .sc-group-toggle { display: flex; gap: 8px; }
@@ -2039,6 +2044,8 @@ const _FPS60_MS = 1000 / 60; // ~16.67ms — tüm rAF loop'larında 60fps sını
 // ── MOD: ?t=1 → öğretmen modu (names.js + dengeli dağıt) | normal → public mod ──
 const TEACHER_MODE = new URLSearchParams(location.search).has('t');
 document.body.classList.add(TEACHER_MODE ? 'mode-teacher' : 'mode-public');
+// Her zaman güncel modu döndürür (secret tap sonrası da doğru çalışır)
+function _isTeacher() { return document.body.classList.contains('mode-teacher'); }
 
 // ── GİZLİ TEACHER MODE — W-O-R-D tıklama dizisi ──
 const _SECRET_SEQ = ['W','O','R','D'];
@@ -4521,9 +4528,9 @@ function getActiveWordBank() {
   const inUnit  = (w, n) => w.unit === n;
   const inGrade = (w)    => {
     if(w.grade === 0) return true; // Animals/Foods — her sınıfta geçerli
-    if(!TEACHER_MODE) return w.grade === publicGrade;
-    if(activeGrades.size === 0) return true;
-    return activeGrades.has(w.grade);
+    if(activeGrades.size > 0) return activeGrades.has(w.grade); // seçili sınıflar varsa onlara bak
+    if(!_isTeacher()) return w.grade === publicGrade; // public mod fallback
+    return true; // teacher mod, sınıf seçimi yok → hepsi
   };
   const filter  = (diffNum) => (Array.isArray(WORD_BANK) ? WORD_BANK : [])
     .filter(w => w.diff === diffNum)
@@ -4538,11 +4545,11 @@ function buildScrabbleClassSelector() {
   const warn = document.getElementById('sc-class-warn');
   if(!grid || typeof CLASSES === 'undefined') return;
   grid.innerHTML = '';
-  CLASSES.forEach(cls => {
+  [...CLASSES].sort((a, b) => a.grade - b.grade || a.label.localeCompare(b.label)).forEach(cls => {
     const cnt = cls.students.filter(s => s.name && s.name.trim()).length;
     const btn = document.createElement('button');
     btn.className = 'sc-class-btn' + (selectedClasses.has(cls.id) ? ' active' : '');
-    btn.innerHTML = cls.label + '<small>' + cnt + ' öğrenci · ' + cls.grade + '. Sınıf</small>';
+    btn.innerHTML = cls.label;
     btn.onclick = (e) => { e.preventDefault(); toggleScrabbleClass(cls.id); };
     grid.appendChild(btn);
   });
@@ -4575,8 +4582,9 @@ function buildScrabbleUnitSelector() {
     CLASSES.forEach(c => { if(selectedClasses.has(c.id)) activeGrades.add(c.grade); });
   const inGrade = (w) => {
     if(w.grade === 0) return true;
-    if(activeGrades.size === 0) return true;
-    return activeGrades.has(w.grade);
+    if(activeGrades.size > 0) return activeGrades.has(w.grade);
+    if(!_isTeacher()) return w.grade === publicGrade;
+    return true;
   };
   const inUnit  = (w, n) => w.unit === n;
   const countForUnit = (n) => (Array.isArray(WORD_BANK) ? WORD_BANK : []).filter(w => inUnit(w, n) && inGrade(w)).length;
@@ -4685,6 +4693,11 @@ function confirmEndGame() {
 
 // Sayfa yüklenince direkt oyunu başlat — CSV bekleme yok
 window.addEventListener('DOMContentLoaded', startGame);
+
+// ── TOUCHSCREEN: gereksiz tetiklenmeleri engelle ──
+document.addEventListener('contextmenu', e => e.preventDefault());
+document.addEventListener('dragstart',   e => e.preventDefault());
+document.addEventListener('selectstart', e => e.preventDefault());
 </script>
 </body>
 </html>
