@@ -39,11 +39,11 @@ html,body{height:100%;overflow:hidden;font-family:'Barlow',sans-serif;background
 body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.05) 2px,rgba(0,0,0,.05) 4px);pointer-events:none;z-index:9999}
 
 /* ── BACKGROUND ── */
-#stars{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+#stars{display:none}
 /* will-change → GPU layer, filter:drop-shadow kaldırıldı → sadece compositor op */
 .star{position:absolute;border-radius:50%;background:#fff;will-change:transform,opacity;animation:twinkle var(--d,3s) ease-in-out infinite}
 @keyframes twinkle{0%,100%{opacity:.15}50%{opacity:var(--max,.9)}}
-#nebula{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+#nebula{display:none}
 /* filter:blur(80px) kaldırıldı — radial-gradient ile soft efekt, paint yükü yok */
 .nblob{position:absolute;border-radius:50%;animation:drift var(--nd,18s) ease-in-out infinite alternate;animation-delay:var(--ndelay,0s)}
 @keyframes drift{0%{transform:translate(0,0) scale(1)}100%{transform:translate(var(--nx,40px),var(--ny,30px)) scale(1.15)}}
@@ -620,12 +620,13 @@ body.lite-mode *{backdrop-filter:none!important}
 #app.shaking{animation:screenShake .5s ease}
 
 /* ── FLAMING TILE ── */
-.cell.flaming{background:linear-gradient(145deg,#6b1200,#b83000)!important;border-color:#ff5500!important;box-shadow:0 4px 0 rgba(0,0,10,.6),0 0 16px rgba(255,70,0,.95),0 0 32px rgba(255,40,0,.55),inset 0 0 12px rgba(255,130,0,.4)!important;animation:flamePulse .22s ease-in-out infinite alternate!important;cursor:pointer}
+.cell.flaming{background:linear-gradient(145deg,#6b1200,#b83000)!important;border-color:#ff5500!important;box-shadow:0 4px 0 rgba(0,0,10,.6)!important;cursor:pointer}
+.cell.flaming::after{content:'';position:absolute;inset:0;border-radius:7px;pointer-events:none;
+  box-shadow:0 0 18px rgba(255,70,0,.95),0 0 36px rgba(255,40,0,.55),inset 0 0 14px rgba(255,130,0,.4);
+  animation:flamePulse .22s ease-in-out infinite alternate}
 .cell.flaming .cell-letter{color:#ffe066!important;text-shadow:0 0 10px rgba(255,200,0,.85)!important}
 .flame-icon{position:absolute;top:1px;right:2px;font-size:min(2.2vw,2.2vh,11px);z-index:3;line-height:1;pointer-events:none;animation:flameIconPop .3s cubic-bezier(.2,1.5,.5,1) both}
-@keyframes flamePulse{
-  from{box-shadow:0 4px 0 rgba(0,0,10,.6),0 0 10px rgba(255,70,0,.8),inset 0 0 8px rgba(255,100,0,.3)}
-  to  {box-shadow:0 4px 0 rgba(0,0,10,.6),0 0 26px rgba(255,80,0,1),0 0 50px rgba(255,40,0,.6),inset 0 0 18px rgba(255,160,0,.55)}}
+@keyframes flamePulse{from{opacity:.35}to{opacity:1}}
 @keyframes flameIconPop{from{transform:scale(0) rotate(-20deg);opacity:0}to{transform:scale(1) rotate(0deg);opacity:1}}
 
 /* ── BOARD FIRE OVERLAY ── */
@@ -663,10 +664,13 @@ body.lite-mode *{backdrop-filter:none!important}
     0 0 120px 46px rgba(200,20,0,.18)}}
 
 /* ── ELEKTRİK ── */
-.cell.electric{border-color:rgba(0,210,255,.98)!important;box-shadow:0 4px 0 rgba(0,0,10,.6),0 0 18px rgba(0,210,255,.9),0 0 38px rgba(0,190,255,.5),inset 0 0 14px rgba(0,210,255,.28)!important;animation:electricZap .2s ease-in-out infinite;cursor:not-allowed}
-@keyframes electricZap{0%,100%{box-shadow:0 4px 0 rgba(0,0,10,.6),0 0 18px rgba(0,210,255,.9),0 0 38px rgba(0,190,255,.5),inset 0 0 14px rgba(0,210,255,.28)}50%{box-shadow:0 4px 0 rgba(0,0,10,.6),0 0 32px rgba(130,245,255,1),0 0 64px rgba(0,210,255,.75),inset 0 0 24px rgba(0,210,255,.45)}}
+.cell.electric{border-color:rgba(0,210,255,.98)!important;box-shadow:0 4px 0 rgba(0,0,10,.6)!important;cursor:not-allowed}
+.cell.electric::after{content:'';position:absolute;inset:0;border-radius:7px;pointer-events:none;
+  box-shadow:0 0 18px rgba(0,210,255,.9),0 0 38px rgba(0,190,255,.5),inset 0 0 14px rgba(0,210,255,.28);
+  animation:electricZap .2s ease-in-out infinite}
+@keyframes electricZap{0%,100%{opacity:.55}50%{opacity:1}}
 .cell.electric-hit{background:linear-gradient(145deg,#002a66,#001133)!important;border-color:rgba(0,190,255,.95)!important;box-shadow:0 0 32px rgba(0,220,255,1),0 0 64px rgba(0,190,255,.75)!important}
-.elec-icon{position:absolute;top:2px;right:3px;font-size:min(2.2vw,2.2vh,11px);z-index:3;line-height:1;opacity:.9;animation:electricZap .2s ease-in-out infinite;pointer-events:none}
+.elec-icon{position:absolute;top:2px;right:3px;font-size:min(2.2vw,2.2vh,11px);z-index:3;line-height:1;pointer-events:none;animation:electricZap .2s ease-in-out infinite}
 .cell.warning-electric{animation:warnAccel 1.2s linear forwards!important}
 @keyframes warnAccel{
   0%{border-color:rgba(255,140,0,.12);box-shadow:0 4px 0 rgba(0,0,10,.6)}
@@ -2661,6 +2665,14 @@ function makeBoard(){
 /* ─────────────────────────────────────────────────────────────────
    RENDER
 ───────────────────────────────────────────────────────────────── */
+const _cellEls = new Map(); // 'r_c' → div — renderBoard sonrası doldurulur
+function _buildCellCache(){
+  _cellEls.clear();
+  document.getElementById('board').querySelectorAll('.cell').forEach(div=>{
+    div._orderEl=null; div._flameEl=null; div._elecIcon=null;
+    _cellEls.set(`${div.dataset.row}_${div.dataset.col}`, div);
+  });
+}
 function renderBoard(){
   const el=document.getElementById('board');
   el.innerHTML='';
@@ -2697,6 +2709,7 @@ function renderBoard(){
       el.appendChild(div);
     }
   }
+  _buildCellCache();
   requestAnimationFrame(()=>{ refreshBoardRect(); drawCanvas(); });
 }
 
@@ -2724,10 +2737,16 @@ function updateWordDisplay(){
 
 /* Sadece seçim class'larını güncelle — DOM rebuild yok, flicker yok */
 function updateBoardClasses(){
-  const boardEl=document.getElementById('board');
-  boardEl.querySelectorAll('.cell').forEach(div=>{
+  // O(1) lookup yapıları — her çağrıda linear scan yok
+  const selMap=new Map();
+  selectedCells.forEach((p,i)=>selMap.set(`${p.row}_${p.col}`,i));
+  const elecSet=new Set(electricCells.map(e=>`${e.row}_${e.col}`));
+  const warnSet=new Set(warningCells.map(w=>`${w.row}_${w.col}`));
+  const flamingKey=flamingTile?`${flamingTile.row}_${flamingTile.col}`:null;
+
+  _cellEls.forEach((div,key)=>{
     const r=parseInt(div.dataset.row), c=parseInt(div.dataset.col);
-    const idx=selectedCells.findIndex(p=>p.row===r&&p.col===c);
+    const idx=selMap.has(key)?selMap.get(key):-1;
     let cls='cell';
     if(jokerUsed&&wordStartPos&&r===wordStartPos.row&&c===wordStartPos.col&&idx===-1)
       cls+=(currentWord?.difficulty==='medium')?' joker-start-full':' joker-start';
@@ -2735,22 +2754,22 @@ function updateBoardClasses(){
     if(idx===0) cls+=' sel-start';
     else if(idx===selectedCells.length-1&&idx>0) cls+=' sel-end';
     else if(idx>0) cls+=' sel-mid';
-    const isElec=electricCells.some(e=>e.row===r&&e.col===c);
-    const isWarn=!isElec&&warningCells.some(w=>w.row===r&&w.col===c);
-    const isFlaming=!isElec&&flamingTile&&flamingTile.row===r&&flamingTile.col===c;
+    const isElec=elecSet.has(key);
+    const isWarn=!isElec&&warnSet.has(key);
+    const isFlaming=!isElec&&flamingKey===key;
     if(isElec) cls+=' electric';
     else if(isWarn) cls+=' warning-electric';
     if(isFlaming) cls+=' flaming';
     div.className=cls;
-    let orderEl=div.querySelector('.cell-order');
+    // cell-order — cached ref, querySelector yok
     if(idx!==-1){
-      if(!orderEl){orderEl=document.createElement('span');orderEl.className='cell-order';div.appendChild(orderEl);}
-      orderEl.textContent=idx+1;
-    } else { orderEl?.remove(); }
-    // Alev ikonu — dinamik yönet
-    let flameEl=div.querySelector('.flame-icon');
-    if(isFlaming){ if(!flameEl){flameEl=document.createElement('span');flameEl.className='flame-icon';flameEl.textContent='🔥';div.appendChild(flameEl);} }
-    else { flameEl?.remove(); }
+      if(!div._orderEl){div._orderEl=document.createElement('span');div._orderEl.className='cell-order';div.appendChild(div._orderEl);}
+      div._orderEl.textContent=idx+1;
+    } else if(div._orderEl){div._orderEl.remove();div._orderEl=null;}
+    // flame-icon — cached ref
+    if(isFlaming){
+      if(!div._flameEl){div._flameEl=document.createElement('span');div._flameEl.className='flame-icon';div._flameEl.textContent='🔥';div.appendChild(div._flameEl);}
+    } else if(div._flameEl){div._flameEl.remove();div._flameEl=null;}
   });
   ensureGlowLoop();
 }
@@ -2917,20 +2936,29 @@ function clearSelection(){
     cellClick(parseInt(cell.dataset.row),parseInt(cell.dataset.col));
   },{passive:false});
 
+  let _pmX=0,_pmY=0,_pmRaf=false;
   board.addEventListener('pointermove',e=>{
     if(!_ptActive||e.pointerId!==_ptId) return;
     if(touchscreenMode) return; // TAP modunda drag devre dışı
-    // Eşik kontrolü — drag henüz başlamadıysa minimum mesafeyi bekle
+    // Eşik kontrolü — drag henüz başlamadıysa minimum mesafeyi bekle (hafif, RAF dışında)
     if(!dragMode){
       const dist=Math.hypot(e.clientX-_startX,e.clientY-_startY);
       if(dist<DRAG_PX) return;
+      dragMode=true;
     }
-    // setPointerCapture sonrası e.target=board olur; gerçek hücreyi coordinate'den bul
-    const el=document.elementFromPoint(e.clientX,e.clientY);
-    const cell=el?.closest?.('.cell');
-    if(!cell||cell===_lastCell) return;
-    _lastCell=cell; dragMode=true;
-    cellClick(parseInt(cell.dataset.row),parseInt(cell.dataset.col));
+    // Sadece son pozisyonu kaydet — elementFromPoint + cellClick zinciri RAF'ta çalışır
+    _pmX=e.clientX; _pmY=e.clientY;
+    if(!_pmRaf){
+      _pmRaf=true;
+      requestAnimationFrame(()=>{
+        _pmRaf=false;
+        const el=document.elementFromPoint(_pmX,_pmY);
+        const cell=el?.closest?.('.cell');
+        if(!cell||cell===_lastCell) return;
+        _lastCell=cell;
+        cellClick(parseInt(cell.dataset.row),parseInt(cell.dataset.col));
+      });
+    }
   });
 
   const _endPtr=e=>{
@@ -3337,7 +3365,7 @@ function tickTimer(){
     }
   }
   const tv=document.getElementById('timer-val');
-  if(tv) tv.textContent=Math.ceil(remaining);
+  if(tv){ const ceil=Math.ceil(remaining); if(tv.textContent!=ceil) tv.textContent=ceil; }
   const isLast8=remaining<=8;
   const tickKey=isLast8?Math.floor(elapsed*2):Math.floor(elapsed);
   if(tickKey!==lastTick){
@@ -3452,24 +3480,29 @@ function runElectricWave(){
 }
 
 function updateElectricDisplay(){
-  const boardEl=document.getElementById('board');
-  boardEl.querySelectorAll('.cell.electric,.cell.warning-electric').forEach(c=>{
-    c.classList.remove('electric','warning-electric');c.style.animationDelay='';c.querySelector('.elec-icon')?.remove();
+  // Mevcut electric/warning hücrelerini temizle — _cellEls cache, querySelectorAll yok
+  _cellEls.forEach(c=>{
+    if(c.classList.contains('electric')||c.classList.contains('warning-electric')){
+      c.classList.remove('electric','warning-electric');
+      c.style.animationDelay='';
+      if(c._elecIcon){c._elecIcon.remove();c._elecIcon=null;}
+    }
   });
   electricCells.forEach(pos=>{
-    const cell=boardEl.querySelector(`[data-row="${pos.row}"][data-col="${pos.col}"]`);
+    const cell=_cellEls.get(`${pos.row}_${pos.col}`);
     if(cell){
       cell.classList.add('electric');
-      if(!cell.querySelector('.elec-icon')){const ei=document.createElement('span');ei.className='elec-icon';ei.textContent='⚡';cell.appendChild(ei);}
+      if(!cell._elecIcon){cell._elecIcon=document.createElement('span');cell._elecIcon.className='elec-icon';cell._elecIcon.textContent='⚡';cell.appendChild(cell._elecIcon);}
     }
   });
 }
 function updateWarningDisplay(){
-  const boardEl=document.getElementById('board');
-  boardEl.querySelectorAll('.cell.warning-electric').forEach(c=>{c.classList.remove('warning-electric');c.style.animationDelay='';});
+  _cellEls.forEach(c=>{
+    if(c.classList.contains('warning-electric')){c.classList.remove('warning-electric');c.style.animationDelay='';}
+  });
   const elapsed=(performance.now()-warnStartTime)/1000;
   warningCells.forEach(pos=>{
-    const cell=boardEl.querySelector(`[data-row="${pos.row}"][data-col="${pos.col}"]`);
+    const cell=_cellEls.get(`${pos.row}_${pos.col}`);
     if(cell&&!cell.classList.contains('electric')){
       cell.classList.add('warning-electric');
       cell.style.animationDelay=`-${Math.min(elapsed,1.15).toFixed(3)}s`;
@@ -3522,16 +3555,20 @@ function spawnFlamingTile(){
 function triggerBoardFire(){
   _fireBoardActive=true;
   _clearFlameTile();
-  const ov=document.getElementById('board-fire-overlay');
-  const bw=document.querySelector('.board-wrapper');
-  if(ov) ov.classList.add('active');
-  if(bw) bw.classList.add('on-fire');
   playSfx('sounds/flaming.mp3', 0.75);
-  setTimeout(()=>{
-    _fireBoardActive=false;
-    if(ov) ov.classList.remove('active');
-    if(bw) bw.classList.remove('on-fire');
-  }, 3000);
+  if(!liteMode){
+    const ov=document.getElementById('board-fire-overlay');
+    const bw=document.querySelector('.board-wrapper');
+    if(ov) ov.classList.add('active');
+    if(bw) bw.classList.add('on-fire');
+    setTimeout(()=>{
+      _fireBoardActive=false;
+      if(ov) ov.classList.remove('active');
+      if(bw) bw.classList.remove('on-fire');
+    }, 3000);
+  } else {
+    setTimeout(()=>{ _fireBoardActive=false; }, 3000);
+  }
 }
 
 function startFlameTile(){
@@ -3735,7 +3772,13 @@ function _cgRefresh(id, t){
 
 function startCoinGlimmerLoop(){
   if(_cg.raf) return;
+  let _cgLastDraw=0;
   function tick(t){
+    _cg.raf=requestAnimationFrame(tick);
+    if(document.hidden) return;                          // tab gizliyse atla
+    const ms=liteMode?200:83;                           // lite:~5fps, normal:~12fps
+    if(t-_cgLastDraw<ms) return;
+    _cgLastDraw=t;
     for(const id in _cg.data){
       const cv=document.getElementById(id);
       if(!cv) continue;
@@ -3745,11 +3788,10 @@ function startCoinGlimmerLoop(){
       if(t>gs.next) _cgRefresh(id,t);
       const gm=new Map();
       gs.coins.forEach(c=>{
-        gm.set(c.idx, (Math.sin(t*0.001*c.speed+c.phase)+1)*0.5);
+        gm.set(c.idx,(Math.sin(t*0.001*c.speed+c.phase)+1)*0.5);
       });
       _drawCoinGrid(cv,d.filled,d.r,d.gap,gm);
     }
-    _cg.raf=requestAnimationFrame(tick);
   }
   _cg.raf=requestAnimationFrame(tick);
 }
@@ -6618,7 +6660,7 @@ let electricEnabled = localStorage.getItem('electricEnabled') === '1'; // varsay
 function _applyLiteVisuals(){
   document.body.classList.toggle('lite-mode', liteMode);
   // Arka plan dekorasyonu
-  const ids = ['stars','nebula'];
+  const ids = [];
   ids.forEach(function(id){
     const el = document.getElementById(id);
     if(el) el.style.display = liteMode ? 'none' : '';
