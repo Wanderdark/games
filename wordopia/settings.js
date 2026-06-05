@@ -16,7 +16,7 @@ const DEFAULT_SETTINGS = {
   timeIdx:         2,     // TIME_STEPS[2]  = 30s
   coinIdx:         2,     // COIN_STEPS[2]  = 200 🪙
   avmodeIdx:       0,     // 0=TEAM-BASED | 1=STUDENT-BASED
-  selectedUnits:   [1],   // Irregular Verbs (unit 11) varsayılan kapalı
+  selectedUnits:   [12],  // Varsayılan kategori: ANIMALS
   selectedClasses: ['7A'], // Yarışmaya dahil edilecek sınıf id'leri
 };
 

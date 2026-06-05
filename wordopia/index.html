@@ -66,6 +66,11 @@ header{width:100%;max-width:680px;display:flex;align-items:center;justify-conten
 #fs-btn:hover{color:var(--gold);background:rgba(255,140,0,0.18);border-color:var(--gold)}
 #fs-btn:active{transform:scale(.88)}
 
+/* ── HARD IMAGE PANEL ── */
+#hard-img-panel{display:none;position:fixed;top:70px;left:10px;z-index:40;border:2px solid rgba(255,140,0,.5);border-radius:12px;overflow:hidden;background:#080808;box-shadow:0 0 40px rgba(255,140,0,.15),0 8px 32px rgba(0,0,0,.6)}
+#hard-img-panel.active{display:block}
+#hard-img-panel img{display:block;width:auto;height:auto}
+
 /* ── MUSIC MUTE BUTTON ── */
 #music-btn{position:fixed;top:30px;right:170px;z-index:9950;background:rgba(255,140,0,0.08);border:1.5px solid rgba(255,140,0,0.25);border-radius:8px;color:rgba(255,140,0,0.6);width:38px;height:38px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:18px;transition:color .15s,background .15s,border-color .15s,transform .1s;padding:0}
 #music-btn:hover{color:var(--gold);background:rgba(255,140,0,0.18);border-color:var(--gold)}
@@ -1578,13 +1583,14 @@ input[type=range].st-slider::-moz-range-thumb{width:22px;height:22px;border-radi
 .st-back{width:100%;padding:12px;font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;background:linear-gradient(135deg,#CC5500,#FF8C00);border:none;border-radius:11px;color:#fff;cursor:pointer;box-shadow:0 4px 16px rgba(204,85,0,.35);transition:transform .15s,box-shadow .15s;margin-top:4px}
 .st-back:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(204,85,0,.5)}
 /* ── ÜNİTE SEÇİCİ ── */
-.st-units{display:grid;grid-template-columns:repeat(5,1fr);gap:5px;margin-top:6px}
+.st-units{display:grid;grid-template-columns:repeat(2,1fr);gap:5px;margin-top:6px}
 .st-unit-btn{padding:7px 2px;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:.08em;border-radius:8px;border:1.5px solid rgba(255,255,255,.12);background:rgba(255,255,255,.05);color:rgba(255,255,255,.35);cursor:pointer;transition:all .15s;text-align:center;line-height:1.2}
 .st-unit-btn.active{background:rgba(255,140,0,.2);border-color:rgba(255,140,0,.7);color:var(--gold);box-shadow:0 0 8px rgba(255,140,0,.25)}
 .st-unit-btn:disabled{opacity:.22;cursor:not-allowed;filter:grayscale(.6)}
 .st-unit-count{display:block;font-size:10px;font-weight:400;opacity:.7;letter-spacing:.04em}
 .st-unit-warn{font-size:11px;color:#ff7070;text-align:center;min-height:14px;margin-top:3px}
 .st-unit-btn.irregular{grid-column:1/-1;background:rgba(120,40,220,.08);border-color:rgba(160,80,255,.22);color:rgba(200,160,255,.45);font-size:11px;letter-spacing:.12em}
+.st-unit-btn.category{grid-column:span 1}
 .st-unit-btn.irregular.active{background:rgba(120,40,220,.22);border-color:rgba(180,100,255,.7);color:#c87fff;box-shadow:0 0 10px rgba(160,80,255,.3)}
 /* ── SLIDER SATIR DÜZENİ ── */
 .st-row-2{display:grid;grid-template-columns:1fr 1fr;gap:0 22px}
@@ -2036,6 +2042,12 @@ input[type=range].st-slider::-moz-range-thumb{width:22px;height:22px;border-radi
                oninput="updateSettingsDisplay()">
         <div class="st-ticks"><span>OFF</span><span>ON</span></div>
       </div>
+      <div class="st-group">
+        <div class="st-label">ZOR Görsel İpucu <span id="st-images-val">OFF</span></div>
+        <input type="range" class="st-slider" id="st-images" min="0" max="1" step="1" value="0"
+               oninput="updateSettingsDisplay()">
+        <div class="st-ticks"><span>OFF</span><span>ON</span></div>
+      </div>
     </div>
 
     <div class="st-side-row">
@@ -2303,6 +2315,7 @@ input[type=range].st-slider::-moz-range-thumb{width:22px;height:22px;border-radi
 <div id="nebula"></div>
 
 <div id="teacher-toast">⚙ TEACHER MODE AKTİF</div>
+<div id="hard-img-panel"><img src="" alt="" draggable="false"></div>
 
 <div id="app">
 
@@ -4397,13 +4410,22 @@ function selectDifficulty(diff){
   wordBaseScore=DIFF_SCORES[diff];
   difficultySelected=true;
   makeBoard(); renderBoard(); updateWordDisplay();
-  document.getElementById('panel-clue-word').textContent=currentWord.tr;
   const badge=document.getElementById('panel-diff-badge');
   badge.textContent=DIFF_LABELS[diff];
   badge.className='panel-diff-badge '+diff;
-  // Tahta üstündeki ipucu alanını doldur
+  // Tahta üstündeki ipucu + hard image panel
   const clueEl=document.getElementById('wd-clue');
-  if(clueEl) clueEl.innerHTML='🔍 <span class="wd-clue-kw">'+currentWord.tr+'</span> — İngilizce karşılığını bul!';
+  const _imgPanel=document.getElementById('hard-img-panel');
+  const _useImg=diff==='hard'&&currentWord.img&&imagesEnabled;
+  if(_useImg){
+    if(_imgPanel){_imgPanel.querySelector('img').src=currentWord.img;_imgPanel.classList.add('active');}
+    if(clueEl) clueEl.innerHTML='🖼 <span class="wd-clue-kw">Görseldeki kelimeyi bul!</span>';
+    document.getElementById('panel-clue-word').textContent='🖼';
+  } else {
+    if(_imgPanel) _imgPanel.classList.remove('active');
+    if(clueEl) clueEl.innerHTML='🔍 <span class="wd-clue-kw">'+currentWord.tr+'</span> — İngilizce karşılığını bul!';
+    document.getElementById('panel-clue-word').textContent=currentWord.tr;
+  }
   showMsg('');
   updateJokerBtn();
   startFlameTile();
@@ -4431,6 +4453,8 @@ function updateSettingsDisplay(){
   document.getElementById('st-touch-val').textContent=touchIdx===0?'DRAG':'TAP';
   const elecIdx=parseInt(document.getElementById('st-elec').value);
   document.getElementById('st-elec-val').textContent=elecIdx===0?'OFF':'ON';
+  const imgIdx=parseInt(document.getElementById('st-images').value);
+  document.getElementById('st-images-val').textContent=imgIdx===0?'OFF':'ON';
 }
 
 function settingsSave(){
@@ -4447,6 +4471,8 @@ function settingsSave(){
   electricEnabled=parseInt(document.getElementById('st-elec').value)===1;
   localStorage.setItem('electricEnabled', electricEnabled?'1':'0');
   if(!electricEnabled){ stopElectric(); electricCells=[]; warningCells=[]; updateElectricDisplay(); }
+  imagesEnabled=parseInt(document.getElementById('st-images').value)===1;
+  localStorage.setItem('imagesEnabled', imagesEnabled?'1':'0');
   if(selectedClasses.size===0){
     const warn=document.getElementById('st-class-warn');
     if(warn){ warn.textContent='⚠ En az 1 sınıf seçili olmalı!'; }
@@ -4550,9 +4576,18 @@ function buildSwapCol(){
 }
 
 function showStudentOverlay(){
-  // Slotları kapalı başlat — gizli dağıtım ilk zar tuşuna basıldığında yapılır
+  // Normal modda localStorage'dan son isimleri yükle
+  let _hadSavedNames=false;
+  if(!_teacherMode){
+    try{
+      const saved=localStorage.getItem('wordopia_students');
+      if(saved){ const parsed=JSON.parse(saved); if(Array.isArray(parsed)&&parsed.length===2){ studentInputs=parsed; _hadSavedNames=true; } }
+    }catch(e){}
+  }
+  // Slotları başlat — kayıtlı isim varsa hemen göster, yoksa gizli dağıtım modu
   _slotRevealed=[[],[]];
-  for(let gi=0;gi<2;gi++) for(let si=0;si<STD_SLOTS;si++) _slotRevealed[gi][si]=false;
+  for(let gi=0;gi<2;gi++) for(let si=0;si<STD_SLOTS;si++)
+    _slotRevealed[gi][si]=_hadSavedNames ? studentInputs[gi][si].trim()!=='' : false;
   _silentDistributed=false;
   _pairNames=new Set();
 
@@ -4821,6 +4856,10 @@ function applyStudentsAndContinue(){
     studentIndex[gi]=0;
     studentScoreMap[gi]=new Array(groupStudents[gi].length).fill(0);
   });
+  // Normal modda isimleri localStorage'a kaydet (teacher mode'da kaydetme)
+  if(!_teacherMode){
+    try{ localStorage.setItem('wordopia_students', JSON.stringify(studentInputs)); }catch(e){}
+  }
   document.getElementById('student-overlay').classList.add('hidden');
   firstTeam=0; // TURN BASED: herkes oynadığı için Team A her zaman başlar
   newGame();
@@ -5393,26 +5432,18 @@ function buildUnitSelector(){
   const inUnit=(w,n)=>{ const wu=Array.isArray(w.unit)?w.unit:[w.unit??1]; return wu.includes(n); };
   // Bir kelime aktif grade'lerden birine dahil mi?
   const inGrade=(w)=>{ if(activeGrades.size===0) return true; const wg=Array.isArray(w.grade)?w.grade:[w.grade??6]; return wg.some(g=>activeGrades.has(g)); };
-  // Ünite 1–10
-  for(let n=1;n<=10;n++){
+  // ── Kategoriler ──
+  const CAT_LABELS={11:'⚡ IRREGULAR VERBS',12:'🐾 ANIMALS',13:'🍎 FOOD & DRINKS',14:'😊 APPEARANCE & PERSONALITY',15:'⚽ SPORTS & EQUIPMENT',16:'🏙 PLACES IN TOWN'};
+  [11,12,13,14,15,16].forEach(n=>{
     const count=['easy','medium','hard'].reduce((s,d)=>s+WORD_BANK[d].filter(w=>inUnit(w,n)&&inGrade(w)).length,0);
     const isActive=selectedUnits.has(n);
     const btn=document.createElement('button');
-    btn.className='st-unit-btn'+(isActive?' active':'');
+    btn.className='st-unit-btn category irregular'+(isActive?' active':'');
     btn.disabled=(count===0);
-    btn.innerHTML='Ünite '+n+'<span class="st-unit-count">'+count+' kelime</span>';
+    btn.innerHTML=CAT_LABELS[n]+'<span class="st-unit-count">'+count+' kelime</span>';
     btn.onclick=()=>toggleUnit(n);
     container.appendChild(btn);
-  }
-  // Özel: Irregular Verbs (unit 11) — tam satır kaplayan buton
-  const irrCount=['easy','medium','hard'].reduce((s,d)=>s+WORD_BANK[d].filter(w=>inUnit(w,11)&&inGrade(w)).length,0);
-  const irrActive=selectedUnits.has(11);
-  const irrBtn=document.createElement('button');
-  irrBtn.className='st-unit-btn irregular'+(irrActive?' active':'');
-  irrBtn.disabled=(irrCount===0);
-  irrBtn.innerHTML='⚡ IRREGULAR VERBS<span class="st-unit-count">'+irrCount+' kelime</span>';
-  irrBtn.onclick=()=>toggleUnit(11);
-  container.appendChild(irrBtn);
+  });
   _updateUnitWarn();
 }
 
@@ -5691,6 +5722,8 @@ function exitFullscreenOnly(){
 }
 
 function restartGame(){
+  const _ip=document.getElementById('hard-img-panel');
+  if(_ip) _ip.classList.remove('active');
   document.getElementById('result-overlay').classList.add('hidden');
   document.getElementById('avatar-select-overlay').classList.add('hidden');
   document.getElementById('tb-result-overlay').classList.remove('open');
@@ -6656,6 +6689,7 @@ function stdFillAll(){
 let liteMode = false; // her zaman kapalı başlar, localStorage'a yazılmaz
 let touchscreenMode = localStorage.getItem('touchscreenMode') !== '0'; // varsayılan TAP
 let electricEnabled = localStorage.getItem('electricEnabled') === '1'; // varsayılan OFF
+let imagesEnabled   = localStorage.getItem('imagesEnabled')   === '1'; // varsayılan OFF
 
 function _applyLiteVisuals(){
   document.body.classList.toggle('lite-mode', liteMode);
@@ -6872,8 +6906,9 @@ applySettings();      // settings.js → tüm oyun ayarları (tur süresi, coin,
 _applyLiteVisuals();  // LITE mod durumunu uygula (localStorage'dan)
 // Touchscreen + Electric slider'larını localStorage'daki değerle senkronize et
 (function(){
-  const t=document.getElementById('st-touch'); if(t) t.value=touchscreenMode?'1':'0';
-  const e=document.getElementById('st-elec');  if(e) e.value=electricEnabled?'1':'0';
+  const t=document.getElementById('st-touch');  if(t) t.value=touchscreenMode?'1':'0';
+  const e=document.getElementById('st-elec');   if(e) e.value=electricEnabled?'1':'0';
+  const i=document.getElementById('st-images'); if(i) i.value=imagesEnabled?'1':'0';
   updateSettingsDisplay();
 })();
 
