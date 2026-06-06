@@ -38,7 +38,7 @@
         radial-gradient(ellipse 30% 20% at 30% 85%, rgba(0,150,180,0.06) 0%, transparent 55%);
     }
 
-    header, .games-grid, footer { position: relative; z-index: 1; }
+    header, .hub-section, .practice-section, footer { position: relative; z-index: 1; }
 
     /* ── HEADER ── */
     header {
@@ -127,6 +127,146 @@
       animation: creditShimmer 8s linear infinite, creditBreathe 3.6s ease-in-out infinite, creditGlow 3.6s ease-in-out infinite;
     }
 
+    /* ══════════════════════════════════════
+       HUB SECTION (default view)
+    ══════════════════════════════════════ */
+    .hub-section {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex: 1;
+      padding: 70px 24px 80px;
+    }
+
+    .hub-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 36px;
+      max-width: 760px;
+      width: 100%;
+    }
+
+    @media (max-width: 560px) {
+      .hub-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+
+    .hub-card {
+      background: #10101f;
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 26px;
+      padding: 58px 32px 52px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      cursor: pointer;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+      text-decoration: none;
+      color: inherit;
+      user-select: none;
+    }
+
+    .hub-icon {
+      font-size: 3.8rem;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .hub-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(2.2rem, 5vw, 3rem);
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      line-height: 1;
+    }
+
+    .hub-sub {
+      font-size: 0.86rem;
+      color: rgba(255,255,255,0.38);
+      text-align: center;
+      line-height: 1.55;
+      letter-spacing: 0.04em;
+      margin-top: 2px;
+    }
+
+    .hub-arrow {
+      margin-top: 14px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      opacity: 0.3;
+      transition: opacity 0.2s;
+    }
+
+    /* LEARN — teal/blue */
+    .hub-card.learn:hover {
+      transform: translateY(-9px);
+      box-shadow:
+        0 22px 60px rgba(74,138,244,0.28),
+        0 0 40px rgba(74,138,244,0.16),
+        0 4px 16px rgba(0,0,0,0.5);
+      border-color: rgba(74,138,244,0.55);
+    }
+    .hub-card.learn .hub-title  { color: #6ba3f5; }
+    .hub-card.learn:hover .hub-title {
+      text-shadow: 0 0 18px rgba(107,163,245,0.9), 0 0 40px rgba(74,138,244,0.5);
+    }
+    .hub-card.learn:hover .hub-arrow { opacity: 0.85; color: #6ba3f5; }
+
+    /* PRACTICE — gold */
+    .hub-card.practice:hover {
+      transform: translateY(-9px);
+      box-shadow:
+        0 22px 60px rgba(255,200,0,0.24),
+        0 0 36px rgba(255,180,0,0.16),
+        0 4px 16px rgba(0,0,0,0.5);
+      border-color: rgba(255,200,0,0.55);
+    }
+    .hub-card.practice .hub-title { color: #ffd700; }
+    .hub-card.practice:hover .hub-title {
+      text-shadow: 0 0 18px rgba(255,215,0,0.9), 0 0 40px rgba(255,160,0,0.5);
+    }
+    .hub-card.practice:hover .hub-arrow { opacity: 0.85; color: #ffd700; }
+
+    /* ══════════════════════════════════════
+       PRACTICE SECTION (games view)
+    ══════════════════════════════════════ */
+    .practice-section {
+      display: none;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .back-bar {
+      display: flex;
+      align-items: center;
+      padding: 32px 32px 0;
+    }
+
+    .back-btn {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.5);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      padding: 9px 22px;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s, color 0.2s;
+    }
+
+    .back-btn:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: rgba(255,255,255,0.22);
+      color: #fff;
+    }
+
     /* ── GRID ── */
     .games-grid {
       display: grid;
@@ -134,9 +274,8 @@
       gap: 28px;
       max-width: 1080px;
       width: 100%;
-      margin: 60px auto;
+      margin: 40px auto 60px;
       padding: 0 24px;
-      flex: 1;
     }
 
     /* ── CARD ── */
@@ -172,11 +311,38 @@
       gap: 8px;
     }
 
+    .card-thumb {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transform: scale(1.02);
+      filter: brightness(0.82) saturate(1.08);
+      transition: transform 0.22s ease, filter 0.22s ease;
+    }
+
+    .game-card:hover .card-thumb {
+      transform: scale(1.07);
+      filter: brightness(0.95) saturate(1.18);
+    }
+
+    .card-thumb.reveal-thumb {
+      object-fit: contain;
+      transform: none;
+    }
+
+    .game-card:hover .card-thumb.reveal-thumb {
+      transform: scale(1.025);
+    }
+
     .card-banner::after {
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(to bottom, transparent 50%, rgba(16,16,31,0.9) 100%);
+      background:
+        linear-gradient(to bottom, rgba(0,0,0,0.08) 0%, rgba(16,16,31,0.9) 100%),
+        radial-gradient(circle at 50% 20%, rgba(255,200,80,0.16), transparent 55%);
     }
 
     .card-banner-icon {
@@ -188,13 +354,25 @@
 
     .card-banner-title {
       font-family: 'Barlow Condensed', sans-serif;
-      font-size: 1.6rem;
+      font-size: 1.72rem;
       font-weight: 800;
       letter-spacing: 0.15em;
       text-transform: uppercase;
-      color: #fff;
-      z-index: 1;
-      text-shadow: 0 0 30px rgba(233,69,96,0.8);
+      color: #fff4e8;
+      text-align: center;
+      line-height: 1;
+      margin: 2px 0 4px;
+      transition: color 0.18s ease, text-shadow 0.18s ease, transform 0.18s ease;
+      text-shadow: 0 0 18px rgba(255,244,232,0.18);
+    }
+
+    .game-card:hover .card-banner-title {
+      color: #ffd700;
+      transform: translateY(-1px);
+      text-shadow:
+        0 0 14px rgba(255,215,0,0.95),
+        0 0 34px rgba(255,160,0,0.65),
+        0 0 70px rgba(255,120,0,0.32);
     }
 
     .card-body {
@@ -265,6 +443,8 @@
       display: flex;
       flex-direction: column;
       gap: 6px;
+      position: relative;
+      z-index: 1;
     }
 
     .footer-credit {
@@ -299,92 +479,142 @@
     <div class="header-credit">Designed by ADİL FIRAT OKTAV</div>
   </header>
 
-  <div class="games-grid">
+  <!-- ── HUB VIEW (default) ── -->
+  <div id="hub-view" class="hub-section">
+    <div class="hub-grid">
 
-    <a class="game-card" href="word_master/index.html">
-      <div class="card-banner">
-        <div class="card-banner-title">Word Master</div>
+      <a class="hub-card learn" href="vocab_presenter/index.html">
+        <div class="hub-icon">📖</div>
+        <div class="hub-title">Learn</div>
+        <div class="hub-sub">Vocabulary presenter &amp; flashcard tools for structured learning</div>
+        <div class="hub-arrow">▶ &nbsp;Open</div>
+      </a>
+
+      <div class="hub-card practice" onclick="showPractice()">
+        <div class="hub-icon">🎯</div>
+        <div class="hub-title">Practice</div>
+        <div class="hub-sub">Interactive classroom activities &amp; vocabulary games</div>
+        <div class="hub-arrow">▶ &nbsp;Open</div>
       </div>
-      <div class="card-body">
-        <div class="card-meta">
-          <span class="card-tag">Vocabulary</span>
-          <span class="card-tag blue">Individual</span>
+
+    </div>
+  </div>
+
+  <!-- ── PRACTICE VIEW (games) ── -->
+  <div id="practice-view" class="practice-section">
+
+    <div class="back-bar">
+      <button class="back-btn" onclick="showHub()">&#8592; &nbsp;Back</button>
+    </div>
+
+    <div class="games-grid">
+
+      <a class="game-card" href="word_master/index.html">
+        <div class="card-banner">
+          <img class="card-thumb" src="images/thumbnails/w_master_thmb.webp" alt="Word Master thumbnail" loading="lazy" decoding="async">
         </div>
-        <p>Guess the hidden word letter by letter. Use jokers, earn points and unlock bonus rounds for extra challenges!</p>
-        <div class="card-play">▶  Explore</div>
-      </div>
-    </a>
-
-    <a class="game-card" href="word_builder/index.html">
-      <div class="card-banner">
-        <div class="card-banner-title">Word Builder</div>
-      </div>
-      <div class="card-body">
-        <div class="card-meta">
-          <span class="card-tag">Vocabulary</span>
-          <span class="card-tag blue">Team</span>
+        <div class="card-body">
+          <div class="card-banner-title">Word Master</div>
+          <div class="card-meta">
+            <span class="card-tag">Vocabulary</span>
+            <span class="card-tag blue">Team</span>
+          </div>
+          <p>Guess the hidden word letter by letter. Use jokers, earn points and unlock bonus rounds for extra challenges!</p>
+          <div class="card-play">&#9654;  Explore</div>
         </div>
-        <p>Build words from the letter grid before time runs out. Two teams compete to earn points and be the best!</p>
-        <div class="card-play">▶  Explore</div>
-      </div>
-    </a>
+      </a>
 
-    <a class="game-card" href="word_contest/index.html">
-      <div class="card-banner">
-        <div class="card-banner-title">Word Contest</div>
-      </div>
-      <div class="card-body">
-        <div class="card-meta">
-          <span class="card-tag">Vocabulary</span>
-          <span class="card-tag blue">Team</span>
+      <a class="game-card" href="word_builder/index.html">
+        <div class="card-banner">
+          <img class="card-thumb" src="images/thumbnails/w_builder_thmb.webp" alt="Word Builder thumbnail" loading="lazy" decoding="async">
         </div>
-        <p>Groups race to answer vocabulary questions. Collect points and rise to the top in this action-packed contest!</p>
-        <div class="card-play">▶  Explore</div>
-      </div>
-    </a>
-
-    <a class="game-card" href="word_rivals/index.html">
-      <div class="card-banner">
-        <div class="card-banner-title">Word Rivals</div>
-      </div>
-      <div class="card-body">
-        <div class="card-meta">
-          <span class="card-tag">Vocabulary</span>
-          <span class="card-tag blue">Team</span>
+        <div class="card-body">
+          <div class="card-banner-title">Word Builder</div>
+          <div class="card-meta">
+            <span class="card-tag">Vocabulary</span>
+            <span class="card-tag blue">Team</span>
+          </div>
+          <p>Build words from the letter grid before time runs out. Two teams compete to earn points and be the best!</p>
+          <div class="card-play">&#9654;  Explore</div>
         </div>
-        <p>Two teams go head-to-head in a fast-paced vocabulary activity. Answer correctly to earn points and lead your team to victory!</p>
-        <div class="card-play">▶  Explore</div>
-      </div>
-    </a>
+      </a>
 
-    <a class="game-card" href="word_hunt/clash_of_words_v7.HTML">
-      <div class="card-banner">
-        <div class="card-banner-title">Word Hunt</div>
-      </div>
-      <div class="card-body">
-        <div class="card-meta">
-          <span class="card-tag">Vocabulary</span>
-          <span class="card-tag blue">Team</span>
+      <a class="game-card" href="word_contest/index.html">
+        <div class="card-banner">
+          <img class="card-thumb" src="images/thumbnails/w_contest_thmb.webp" alt="Word Contest thumbnail" loading="lazy" decoding="async">
         </div>
-        <p>Two teams face off in a fast-paced vocabulary activity. Hit the right category, outsmart your opponents and take the win!</p>
-        <div class="card-play">▶  Explore</div>
-      </div>
-    </a>
-
-    <a class="game-card" href="wordopia/index.html">
-      <div class="card-banner">
-        <div class="card-banner-title">Wordopia</div>
-      </div>
-      <div class="card-body">
-        <div class="card-meta">
-          <span class="card-tag">Vocabulary</span>
-          <span class="card-tag blue">Team</span>
+        <div class="card-body">
+          <div class="card-banner-title">Word Contest</div>
+          <div class="card-meta">
+            <span class="card-tag">Vocabulary</span>
+            <span class="card-tag blue">Team</span>
+          </div>
+          <p>Groups race to answer vocabulary questions. Collect points and rise to the top in this action-packed contest!</p>
+          <div class="card-play">&#9654;  Explore</div>
         </div>
-        <p>Build words on a letter grid before time runs out. Two teams go head-to-head — chain combos and earn as many points as possible!</p>
-        <div class="card-play">▶  Explore</div>
-      </div>
-    </a>
+      </a>
 
+      <a class="game-card" href="word_rivals/index.html">
+        <div class="card-banner">
+          <img class="card-thumb" src="images/thumbnails/w_rivals_thmb.webp" alt="Word Rivals thumbnail" loading="lazy" decoding="async">
+        </div>
+        <div class="card-body">
+          <div class="card-banner-title">Word Rivals</div>
+          <div class="card-meta">
+            <span class="card-tag">Vocabulary</span>
+            <span class="card-tag blue">Team</span>
+          </div>
+          <p>Two teams go head-to-head in a fast-paced vocabulary activity. Answer correctly to earn points and lead your team to victory!</p>
+          <div class="card-play">&#9654;  Explore</div>
+        </div>
+      </a>
+
+      <a class="game-card" href="word_hunt/clash_of_words_v7.HTML">
+        <div class="card-banner">
+          <img class="card-thumb" src="images/thumbnails/w_hunt.thmb.webp" alt="Word Hunt thumbnail" loading="lazy" decoding="async">
+        </div>
+        <div class="card-body">
+          <div class="card-banner-title">Word Hunt</div>
+          <div class="card-meta">
+            <span class="card-tag">Vocabulary</span>
+            <span class="card-tag blue">Team</span>
+          </div>
+          <p>Two teams face off in a fast-paced vocabulary activity. Hit the right category, outsmart your opponents and take the win!</p>
+          <div class="card-play">&#9654;  Explore</div>
+        </div>
+      </a>
+
+      <a class="game-card" href="wordopia/index.html">
+        <div class="card-banner">
+          <img class="card-thumb" src="images/thumbnails/w_topia_thmb.webp" alt="Wordopia thumbnail" loading="lazy" decoding="async">
+        </div>
+        <div class="card-body">
+          <div class="card-banner-title">Wordopia</div>
+          <div class="card-meta">
+            <span class="card-tag">Vocabulary</span>
+            <span class="card-tag blue">Team</span>
+          </div>
+          <p>Build words on a letter grid before time runs out. Two teams go head-to-head — chain combos and earn as many points as possible!</p>
+          <div class="card-play">&#9654;  Explore</div>
+        </div>
+      </a>
+
+      <a class="game-card" href="word_reveal/index.html">
+        <div class="card-banner">
+          <img class="card-thumb reveal-thumb" src="images/thumbnails/w_reveal_thmb.webp" alt="Word Reveal thumbnail" loading="lazy" decoding="async">
+        </div>
+        <div class="card-body">
+          <div class="card-banner-title">Word Reveal</div>
+          <div class="card-meta">
+            <span class="card-tag">Vocabulary</span>
+            <span class="card-tag blue">Team</span>
+          </div>
+          <p>Tiles hide a mystery image — uncover it piece by piece and guess the word before it's fully revealed. Use jokers, earn round bonuses and outsmart the other teams!</p>
+          <div class="card-play">&#9654;  Explore</div>
+        </div>
+      </a>
+
+    </div>
   </div>
 
   <footer>
@@ -392,6 +622,19 @@
   </footer>
 
   <script>
+    /* ── NAV ── */
+    function showPractice() {
+      document.getElementById('hub-view').style.display = 'none';
+      const pv = document.getElementById('practice-view');
+      pv.style.display = 'flex';
+    }
+
+    function showHub() {
+      document.getElementById('practice-view').style.display = 'none';
+      document.getElementById('hub-view').style.display = 'flex';
+    }
+
+    /* ── STARS ── */
     const canvas = document.getElementById('star-canvas');
     const ctx = canvas.getContext('2d');
 

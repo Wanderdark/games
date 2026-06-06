@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vocab Presenter</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="app-shell">
+    <section id="setupScreen" class="screen setup-screen">
+      <div class="brand">
+        <span class="brand-mark">VP</span>
+        <div>
+          <p class="eyebrow">CLASSROOM TOOL</p>
+          <h1>Vocab Presenter</h1>
+          <p class="subtitle">Present unit vocabulary with images, meanings, and quick checks.</p>
+        </div>
+      </div>
+
+      <div class="setup-card">
+        <div class="selection-block">
+          <div class="section-heading">
+            <div>
+              <span class="step">01</span>
+              <h2>Select grade</h2>
+            </div>
+            <span id="gradeStatus" class="selection-status">Select a grade</span>
+          </div>
+          <div id="gradeOptions" class="option-grid grade-grid"></div>
+        </div>
+
+        <div class="selection-block">
+          <div class="section-heading">
+            <div>
+              <span class="step">02</span>
+              <h2>Select unit</h2>
+            </div>
+            <span id="unitStatus" class="selection-status">Select a grade first</span>
+          </div>
+          <div id="unitOptions" class="option-grid unit-grid empty-options">
+            <p>Available units will appear here after selecting a grade.</p>
+          </div>
+        </div>
+
+        <div class="start-row">
+          <div id="poolSummary" class="pool-summary">
+            <strong>Not ready</strong>
+            <span>Select a grade and unit to continue.</span>
+          </div>
+          <div class="setup-actions">
+            <button id="startQuizButton" class="secondary-button" disabled>START 20 WORD QUIZ</button>
+            <button id="startButton" class="primary-button" disabled>Start Presentation <span>→</span></button>
+          </div>
+        </div>
+      </div>
+      <p class="keyboard-tip">Use the <kbd>←</kbd> <kbd>→</kbd> keys during the presentation.</p>
+    </section>
+
+    <section id="presentationScreen" class="screen presentation-screen hidden">
+      <header class="presentation-header">
+        <button id="backButton" class="icon-button" aria-label="Return to selection screen">←</button>
+        <div class="session-info">
+          <span id="sessionLabel">Grade 6 · Unit 1</span>
+          <strong id="progressText">1 / 1</strong>
+        </div>
+        <div class="progress-track"><span id="progressBar"></span></div>
+        <button id="fullscreenButton" class="icon-button fullscreen-button" aria-label="Full screen">⛶</button>
+      </header>
+
+      <div id="wordView" class="word-view">
+        <div class="visual-panel">
+          <div class="image-frame">
+            <img id="wordImage" alt="">
+            <div id="imageFallback" class="image-fallback hidden">Image unavailable</div>
+          </div>
+        </div>
+        <article class="word-card">
+          <p class="eyebrow">NEW VOCABULARY</p>
+          <div id="wordGuessPanel" class="word-guess-panel">
+            <p class="guess-prompt">Which word matches the image?</p>
+            <div id="wordGuessOptions" class="word-guess-options"></div>
+          </div>
+          <div id="wordTitleRow" class="word-title-row hidden">
+            <h2 id="englishWord"></h2>
+            <button id="speakWordButton" class="speak-word-button" aria-label="Listen to the word again" title="Listen to the word again">👂</button>
+          </div>
+          <div id="meaningBlock" class="meaning-block hidden">
+            <span>Turkish meaning</span>
+            <button id="revealTurkishButton" class="reveal-button">REVEAL TURKISH</button>
+            <strong id="turkishMeaning" class="hidden"></strong>
+          </div>
+          <div id="definitionBlock" class="definition-block hidden">
+            <span>English definition</span>
+            <p id="englishDefinition"></p>
+          </div>
+          <div id="wordRelations" class="word-relations hidden">
+            <p id="synonymInfo" class="synonym-info hidden"></p>
+            <p id="oppositeInfo" class="opposite-info hidden"></p>
+          </div>
+        </article>
+      </div>
+
+      <div id="quizView" class="quiz-view hidden">
+        <div class="quiz-heading">
+          <span id="quizBadge" class="quiz-badge">5 WORD CHECK</span>
+          <h2 id="quizQuestion">Which word matches this image?</h2>
+          <p id="quizHint">Recall one of the last five words.</p>
+        </div>
+        <div class="quiz-content">
+          <div class="relation-source">
+            <div class="image-frame quiz-image-frame">
+              <img id="quizImage" alt="Quiz image">
+            </div>
+            <strong id="relationWord" class="relation-word hidden"></strong>
+          </div>
+          <div id="quizOptions" class="quiz-options"></div>
+        </div>
+        <p id="quizFeedback" class="quiz-feedback" aria-live="polite"></p>
+      </div>
+
+      <div id="finishOfferView" class="finish-view hidden">
+        <p class="eyebrow">PRESENTATION COMPLETE</p>
+        <h2>How about a 20 WORD QUIZ?</h2>
+        <div class="finish-actions">
+          <button id="declineQuizButton" class="secondary-button">NO</button>
+          <button id="acceptQuizButton" class="primary-button">YES</button>
+        </div>
+      </div>
+
+      <div id="quizResultsView" class="finish-view hidden">
+        <p class="eyebrow">QUIZ COMPLETE</p>
+        <h2 id="quizResultScore">0 / 20</h2>
+        <p id="quizResultMessage"></p>
+        <div id="quizMistakes" class="quiz-mistakes"></div>
+        <button id="resultsHomeButton" class="primary-button">BACK TO UNIT SELECTION</button>
+      </div>
+
+      <div id="farewellView" class="finish-view hidden">
+        <h2>SEE YOU SOON</h2>
+      </div>
+
+      <footer id="navigationBar" class="navigation-bar">
+        <button id="previousButton" class="secondary-button hidden">← Previous</button>
+        <div id="checkpointDots" class="checkpoint-dots"></div>
+        <div class="navigation-actions">
+          <button id="nextButton" class="primary-button">Next <span>→</span></button>
+        </div>
+      </footer>
+    </section>
+  </main>
+
+  <script src="../word_master/questions.js"></script>
+  <script src="turkish-adapter.js"></script>
+  <script src="rivals-distractor-adapter.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

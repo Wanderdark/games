@@ -4645,7 +4645,8 @@ function handleStdKey(key){
   }
   const el=document.getElementById(`stdt-${gi}-${si}`);
   if(el) el.textContent=studentInputs[gi][si];
-  // Boş/dolu görünümü güncelle
+  // Boş/dolu görünümü güncelle + _slotRevealed senkronize et
+  _slotRevealed[gi][si] = studentInputs[gi][si].trim() !== '';
   const slot=document.getElementById(`std-${gi}-${si}`);
   if(slot){
     if(studentInputs[gi][si].trim()==='') slot.classList.add('is-empty');
@@ -4776,6 +4777,7 @@ function balanceDistribute(silent=false){
 
 function clearStdSlot(gi,si){
   studentInputs[gi][si]='';
+  _slotRevealed[gi][si]=false;
   const t=document.getElementById(`stdt-${gi}-${si}`);
   if(t) t.textContent='';
   const s=document.getElementById(`std-${gi}-${si}`);
@@ -4816,6 +4818,7 @@ function swapStudents(si){
   const tmp=studentInputs[0][si];
   studentInputs[0][si]=studentInputs[1][si];
   studentInputs[1][si]=tmp;
+  // _slotRevealed da swap edilir (gizli dağıtım modunda görünürlük korunur)
   const tmpR=_slotRevealed[0][si];
   _slotRevealed[0][si]=_slotRevealed[1][si];
   _slotRevealed[1][si]=tmpR;
