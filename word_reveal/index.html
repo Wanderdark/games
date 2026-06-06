@@ -168,10 +168,11 @@ html,body{user-select:none;-webkit-user-select:none}
 #image-container{position:relative;width:min(500px,55vw,55vh);aspect-ratio:1/1;flex-shrink:0;box-shadow:0 0 0 2px rgba(168,85,247,.3)}
 #image-container.grid-upscaled{width:min(625px,68.75vw,68.75vh)}
 #reveal-img{width:100%;height:100%;object-fit:cover;border-radius:18px;display:block}
-#image-container.blurred-vision-active #reveal-img{filter:blur(4px)}
+#image-container.blurred-vision-active #reveal-img{filter:blur(5px)}
 #image-container.xray-active #reveal-img{filter:invert(1) grayscale(1) contrast(1.4) brightness(0.2)}
 #tile-grid.xray-hide .tile:not(.revealed){opacity:0;transition:opacity .15s}
 #tile-grid.xray-snap .tile:not(.revealed){opacity:1;transition:none}
+#tile-grid.resetting .tile{transition:none!important;opacity:1!important}
 #tile-grid{position:absolute;inset:0;display:grid;grid-template-columns:repeat(7,1fr);grid-template-rows:repeat(7,1fr);border-radius:18px;overflow:hidden}
 .tile{transition:opacity .35s ease;border:1px solid rgba(0,0,0,.25)}
 .tile.revealed{opacity:0;pointer-events:none}
@@ -1080,7 +1081,7 @@ const SOUNDS = {
 };
 const _audioBufferCache = {};
 function _playFx(src, vol = 0.7) {
-  if(_muted) return;
+  // _muted sadece background müziği etkiler — efektler her zaman çalar
   const ctx = _getAudioCtx();
   // If buffer already decoded — play via Web Audio (no new HTMLMediaElement)
   if(ctx && _audioBufferCache[src] instanceof AudioBuffer) {
@@ -1107,7 +1108,7 @@ function _playFx(src, vol = 0.7) {
 }
 // ── WORD PRONUNCIATION (Web Speech API) ──
 function _speakWord(word) {
-  if(!window.speechSynthesis || _muted) return;
+  if(!window.speechSynthesis) return;
   window.speechSynthesis.cancel();
   const u = new SpeechSynthesisUtterance(word);
   u.lang  = 'en-US';
@@ -2022,11 +2023,12 @@ function buildTileGrid() {
   _buildTilePool();
   grid.style.gridTemplateColumns = `repeat(${cols},1fr)`;
   grid.style.gridTemplateRows    = `repeat(${cols},1fr)`;
-  // Tüm tile'ları sıfırla: revealed temizle, aktif sayıya göre göster/gizle
+  // Transition'ı kapat — tile'lar anında opacity:1'e dönsün, resim görünmesin
+  grid.classList.add('resetting');
   for(let i = 0; i < 225; i++) {
     const tile = _tiles[i];
     if(i < _activeTotalTiles) {
-      tile.className = 'tile';   // 'revealed' kaldırır, opacity:1'e döner
+      tile.className = 'tile';
       tile.style.display = '';
     } else {
       tile.style.display = 'none';
@@ -2034,6 +2036,8 @@ function buildTileGrid() {
   }
   tileOrder = shuffle([...Array(_activeTotalTiles).keys()]);
   tilesRevealed = 0;
+  // İki frame sonra transition'ı geri aç — reveal sırasında normal fade çalışsın
+  requestAnimationFrame(() => requestAnimationFrame(() => grid.classList.remove('resetting')));
 }
 
 function shuffle(arr) {
@@ -2217,18 +2221,19 @@ function _doBeginTurn() {
   // Show current student in bottom bar
   const asdEl = document.getElementById('active-student-name');
   if(asdEl) asdEl.textContent = studentName;
-  // setup image (preload silently)
+  // Önce resmi temizle — tile reset sırasında arkada eski resim görünmesin
   const img = document.getElementById('reveal-img');
+  if(img) { img.src=''; img.style.display='none'; }
+  // score counter
+  updateScoreCounter();
+  // Tile'ları sıfırla (transition kapalıyken anında opak olur)
+  buildTileGrid();
+  // Tile'lar kapattıktan sonra yeni resmi yükle — tile'lar arkasında güvenle yüklensin
   if(img) {
-    img.src='';
     img.src = currentWord[5];
     img.onerror = () => { img.style.display='none'; };
     img.onload  = () => { img.style.display='block'; };
   }
-  // score counter
-  updateScoreCounter();
-  // build tiles (also sets _activeTotalTiles based on GREATER PICTURE)
-  buildTileGrid();
   // highlight active score card
   updateScoreCards();
   updateStudentOnCard();
@@ -2236,12 +2241,12 @@ function _doBeginTurn() {
   const sb = document.getElementById('stop-btn');
   if(sb) sb.disabled=true;
 
-  // FLASH bonus: show blurred image for 1s before HAZIR — persists whole round
+  // FLASH bonus: leaderboard 3sn gösteriliyor olabilir — önce bekle, sonra blurlu önizle
   if(_roundBonus[gi] === 'FLASH') {
-    _doFlashBonus(() => {
+    setTimeout(() => _doFlashBonus(() => {
       const ro = document.getElementById('ready-overlay');
       if(ro) ro.style.display='flex';
-    });
+    }), 3000);
     return; // HAZIR shown after flash
   }
 
@@ -3070,7 +3075,7 @@ function _doFlashBonus(onDone) {
   // Hide tiles, show blurred image preview for 1s
   tileGrid.style.opacity = '0';
   img.style.transition   = '';
-  img.style.filter       = 'blur(26px) brightness(.85)';
+  img.style.filter       = 'blur(20px) brightness(.85)';
 
   setTimeout(() => {
     // Re-cover with tiles immediately — no sharp flash
@@ -3216,7 +3221,7 @@ function showAutoLeaderboard() {
   });
   lb.classList.add('show');
   clearTimeout(_lbTimeout);
-  _lbTimeout=setTimeout(()=>lb.classList.remove('show'),3000);
+  _lbTimeout=setTimeout(()=>lb.classList.remove('show'),2000);
 }
 
 // ── ROUND END (CONTINUE?) ──
