@@ -28,4 +28,12 @@
     <loc>https://adilhoca.com/wordopia/WORDOPIA.html</loc>
     <priority>0.8</priority>
   </url>
+  <url>
+    <loc>https://adilhoca.com/vocab_presenter/index.html</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://adilhoca.com/word_reveal/index.html</loc>
+    <priority>0.8</priority>
+  </url>
 </urlset>
