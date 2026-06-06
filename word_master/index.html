@@ -6877,6 +6877,7 @@ function handleWfWordChallenge(type) {
 
   // Seçili grade/unit filtrelemesi
   const eligible = src.filter(p =>
+    p &&
     (selectedGrades.size === 0 || selectedGrades.has(p[0])) &&
     (selectedUnits.size  === 0 || selectedUnits.has(p[1]))
   );
