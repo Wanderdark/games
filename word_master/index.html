@@ -5953,13 +5953,7 @@ let selectedGrades   = new Set(typeof CLASSES !== 'undefined' ? CLASSES.map(c =>
 let selectedUnits    = new Set(typeof QUESTIONS !== 'undefined' ? QUESTIONS.filter(q => q[3] !== 0 && selectedGrades.has(q[3])).map(q => q[5]) : [1,2,3,4,5]);
 // ── Özel kategoriler (grade=0, q[5]=kategori id) ──
 // Yeni kategori eklemek için buraya satır ekle, questions.js'te aynı id'yi kullan.
-const WC_CATEGORY_META = {
-  11: { label: 'ANIMALS',     icon: '🐾' },
-  12: { label: 'FOOD',        icon: '🍔' },
-  13: { label: 'PERSONALITY', icon: '🙂' },
-  14: { label: 'SPORTS',      icon: '⚽' },
-  15: { label: 'PLACES',      icon: '🏙️' },
-};
+// WC_CATEGORY_META — questions.js içinde tanımlı
 // Hangi kategori id'leri seçili — tümü varsayılan açık
 let selectedCategories = new Set(
   typeof QUESTIONS !== 'undefined'

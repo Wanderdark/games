@@ -5436,14 +5436,17 @@ function buildUnitSelector(){
   // Bir kelime aktif grade'lerden birine dahil mi?
   const inGrade=(w)=>{ if(activeGrades.size===0) return true; const wg=Array.isArray(w.grade)?w.grade:[w.grade??6]; return wg.some(g=>activeGrades.has(g)); };
   // ── Kategoriler ──
-  const CAT_LABELS={11:'⚡ IRREGULAR VERBS',12:'🐾 ANIMALS',13:'🍎 FOOD & DRINKS',14:'😊 APPEARANCE & PERSONALITY',15:'⚽ SPORTS & EQUIPMENT',16:'🏙 PLACES IN TOWN'};
-  [11,12,13,14,15,16].forEach(n=>{
+  // Kategori listesini UNIT_META'dan otomatik al (words.js'e satır ekle = burada görünür)
+  const unitNums = Object.keys(UNIT_META).map(Number).sort((a,b)=>a-b);
+  unitNums.forEach(n=>{
+    const meta = UNIT_META[n] || {};
+    const lbl  = (meta.icon ? meta.icon+' ' : '') + (meta.label || 'UNIT '+n);
     const count=['easy','medium','hard'].reduce((s,d)=>s+WORD_BANK[d].filter(w=>inUnit(w,n)&&inGrade(w)).length,0);
     const isActive=selectedUnits.has(n);
     const btn=document.createElement('button');
     btn.className='st-unit-btn category irregular'+(isActive?' active':'');
     btn.disabled=(count===0);
-    btn.innerHTML=CAT_LABELS[n]+'<span class="st-unit-count">'+count+' kelime</span>';
+    btn.innerHTML=lbl+'<span class="st-unit-count">'+count+' kelime</span>';
     btn.onclick=()=>toggleUnit(n);
     container.appendChild(btn);
   });

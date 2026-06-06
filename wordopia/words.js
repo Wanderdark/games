@@ -2,7 +2,8 @@
    WORDOPIA — KELIME BANKASI
    Format: { en, tr, unit, grade, img }
    unit  : 11=Irregular Verbs, 12=Animals, 13=Food&Drinks,
-           14=Appearance&Personality, 15=Sports&Equipment, 16=Places in Town
+           14=Appearance&Personality, 15=Sports&Equipment, 16=Places in Town,
+           17=Occupations
    grade : sınıf seviyesi — [6,7,8] veya alt küme
    img   : hard modda gösterilecek görsel yolu (boşsa Türkçe ipucu gösterilir)
 ───────────────────────────────────────────────────────────────── */
@@ -70,6 +71,20 @@ const WORD_BANK = {
     { en: 'LIBRARY',  tr: 'KÜTÜPHANE',         unit: 16, grade: [6,7,8], img: '../images/7/8/18.webp' },
     { en: 'MUSEUM',   tr: 'MÜZE',              unit: 16, grade: [6,7,8], img: '../images/8/7/14.webp' },
     { en: 'DENTIST',  tr: 'DİŞÇİ',            unit: 16, grade: [6,7,8], img: '../images/7/8/26.webp' },
+
+    // ── KATEGORİ 17: OCCUPATIONS ─────────────────
+ 
+    { en: 'VET',          tr: 'VETERİNER',        unit: 17, grade: [6,7,8], img: '../images/6/6/25.webp' },
+    { en: 'COOK',         tr: 'AŞÇİ',             unit: 17, grade: [6,7,8], img: '../images/6/6/4.webp'  },
+    { en: 'CHEF',         tr: 'ŞEF',              unit: 17, grade: [6,7,8], img: '../images/6/6/4.webp'  },
+    { en: 'BAKER',        tr: 'FIRINICI',          unit: 17, grade: [6,7,8], img: '../images/6/6/3.webp'  },
+    { en: 'NURSE',        tr: 'HEMŞİRE',          unit: 17, grade: [6,7,8], img: '../images/6/6/24.webp' },
+    { en: 'DRIVER',       tr: 'ŞOFÖR',            unit: 17, grade: [6,7,8], img: '../images/6/6/10.webp' },
+    { en: 'FARMER',       tr: 'ÇİFTÇİ',           unit: 17, grade: [6,7,8], img: '../images/6/6/16.webp' },
+    { en: 'DOCTOR',       tr: 'DOKTOR',            unit: 17, grade: [6,7,8], img: '../images/6/6/28.webp' },
+    { en: 'TEACHER',      tr: 'ÖĞRETMEN',          unit: 17, grade: [6,7,8], img: '../images/6/6/27.webp' },
+    { en: 'DENTIST',      tr: 'DİŞ HEKİMİ',       unit: 17, grade: [6,7,8], img: '../images/6/6/7.webp'  },
+
 
   ],
   medium: [
@@ -174,6 +189,19 @@ const WORD_BANK = {
     { en: 'BOOKSHOP', tr: 'KİTAPÇI',            unit: 16, grade: [6,7,8], img: '../images/7/8/19.webp' },
     { en: 'PHARMACY', tr: 'ECZANE',             unit: 16, grade: [6,7,8], img: '../images/7/8/23.webp' },
 
+  // ── KATEGORİ 17: OCCUPATIONS ─────────────────
+
+    { en: 'WORKER',       tr: 'İŞÇİ',             unit: 17, grade: [6,7,8], img: '../images/6/6/17.webp' },
+    { en: 'BUTCHER',      tr: 'KASAP',             unit: 17, grade: [6,7,8], img: '../images/6/6/18.webp' },
+    { en: 'SINGER',       tr: 'ŞARKICI',           unit: 17, grade: [6,7,8], img: '../images/6/6/23.webp' },
+    { en: 'MANAGER',      tr: 'YÖNETİCİ',          unit: 17, grade: [6,7,8], img: '../images/6/6/5.webp'  },
+    { en: 'WAITRESS',     tr: 'GARSON',            unit: 17, grade: [6,7,8], img: '../images/6/6/14.webp' },
+    { en: 'ACTRESS',      tr: 'AKTRİS',            unit: 17, grade: [6,7,8], img: '../images/6/6/20.webp' },
+    { en: 'LAWYER',       tr: 'AVUKAT',            unit: 17, grade: [6,7,8], img: '../images/6/6/22.webp' },
+    { en: 'ENGINEER',     tr: 'MÜHENDİS',          unit: 17, grade: [6,7,8], img: '../images/6/6/13.webp' },
+    { en: 'HOUSEWIFE',    tr: 'EV HANIMI',          unit: 17, grade: [6,7,8], img: '../images/6/6/9.webp'  }
+
+
   ],
   hard: [
 
@@ -251,11 +279,36 @@ const WORD_BANK = {
     { en: 'FOUNTAIN', tr: 'ÇEŞME',              unit: 16, grade: [8],     img: '../images/8/7/11.webp' },
     { en: 'STATUE',   tr: 'HEYKEL',             unit: 16, grade: [8],     img: '../images/8/7/13.webp' },
 
+ // ── KATEGORİ 17: OCCUPATIONS ─────────────────
+
+    { en: 'DIRECTOR',     tr: 'MÜDÜR',             unit: 17, grade: [6,7,8], img: '../images/6/6/5.webp'  },
+    { en: 'RETIRED',      tr: 'EMEKLİ',            unit: 17, grade: [6,7,8], img: '../images/6/6/12.webp' },
+    { en: 'MECHANIC',     tr: 'TAMİRCİ',           unit: 17, grade: [6,7,8], img: '../images/6/6/8.webp'  },
+    { en: 'ARCHITECT',    tr: 'MİMAR',              unit: 17, grade: [6,7,8], img: '../images/6/6/1.webp'  },
+    { en: 'SCIENTIST',    tr: 'BİLİM İNSANI',      unit: 17, grade: [7,8],   img: '../images/6/6/6.webp'  },
+    { en: 'BUSINESSMAN',  tr: 'İŞADAMI',           unit: 17, grade: [7,8],   img: '../images/6/6/29.webp' },
+
+
+
   ]
 };
 
 const DIFF_SCORES = { easy: 10, medium: 20, hard: 30 };
 const DIFF_LABELS = { easy: 'EASY', medium: 'MEDIUM', hard: 'HARD' };
+
+/* ─────────────────────────────────────────────────────────────────
+   KATEGORİ META — yeni kategori ekleyince buraya bir satır ekle,
+   index.html'e dokunmana gerek yok.
+───────────────────────────────────────────────────────────────── */
+const UNIT_META = {
+  11: { label: 'IRREGULAR VERBS',       icon: '⚡' },
+  12: { label: 'ANIMALS',               icon: '🐾' },
+  13: { label: 'FOOD & DRINKS',         icon: '🍎' },
+  14: { label: 'APPEARANCE & PERSONALITY', icon: '😊' },
+  15: { label: 'SPORTS & EQUIPMENT',    icon: '⚽' },
+  16: { label: 'PLACES IN TOWN',        icon: '🏙' },
+  17: { label: 'OCCUPATIONS',           icon: '💼' },
+};
 
 /* ─────────────────────────────────────────────────────────────────
    TUTORIAL KELİMELERİ — unit: 0

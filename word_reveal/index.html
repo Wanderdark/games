@@ -156,7 +156,7 @@ html,body{user-select:none;-webkit-user-select:none}
 
 /* ── REVEAL AREA ── */
 #reveal-area{flex:1;display:flex;align-items:center;justify-content:center;gap:16px;min-height:0;position:relative}
-#reveal-left{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;flex-shrink:0;width:min(160px,14vw)}
+#reveal-left{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;flex-shrink:0;width:min(220px,18vw)}
 #score-counter-wrap{display:flex;flex-direction:column;align-items:center;gap:4px}
 #score-counter-label{font-family:'Barlow Condensed',sans-serif;font-size:clamp(10px,1.2vw,14px);letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
 #score-counter{font-family:'Bebas Neue',sans-serif;font-size:clamp(64px,9vw,120px);color:var(--gold);line-height:1;text-shadow:0 0 30px rgba(255,215,0,.6);transition:color .3s}
@@ -168,7 +168,7 @@ html,body{user-select:none;-webkit-user-select:none}
 #image-container{position:relative;width:min(500px,55vw,55vh);aspect-ratio:1/1;flex-shrink:0;box-shadow:0 0 0 2px rgba(168,85,247,.3)}
 #image-container.grid-upscaled{width:min(625px,68.75vw,68.75vh)}
 #reveal-img{width:100%;height:100%;object-fit:cover;border-radius:18px;display:block}
-#image-container.blurred-vision-active #reveal-img{filter:blur(5px)}
+#image-container.blurred-vision-active #reveal-img{filter:blur(4px)}
 #image-container.xray-active #reveal-img{filter:invert(1) grayscale(1) contrast(1.4) brightness(0.2)}
 #tile-grid.xray-hide .tile:not(.revealed){opacity:0;transition:opacity .15s}
 #tile-grid.xray-snap .tile:not(.revealed){opacity:1;transition:none}
@@ -226,7 +226,9 @@ html,body{user-select:none;-webkit-user-select:none}
 .joker-option.cathint{background:rgba(30,64,175,.25);border-color:rgba(96,165,250,.5)}
 .joker-option .jo-desc{font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:.06em;opacity:.65;font-weight:400;display:block;margin-top:1px}
 /* ── CATEGORY HINT ── */
-#cat-hint{display:none;font-family:'Barlow Condensed',sans-serif;font-size:clamp(9px,1vw,13px);font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(96,165,250,.9);text-align:center;margin-top:8px;padding:4px 8px;border:1px solid rgba(96,165,250,.3);border-radius:6px;line-height:1.3}
+#cat-hint{display:none;flex-direction:column;align-items:center;gap:5px;margin-top:10px}
+#cat-hint img.ch-img{width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:10px;border:1.5px solid rgba(96,165,250,.4);box-shadow:0 0 12px rgba(96,165,250,.2)}
+#cat-hint .ch-label{font-family:'Barlow Condensed',sans-serif;font-size:clamp(9px,1vw,12px);font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(96,165,250,.9);text-align:center;line-height:1.2}
 #tr-hint{display:none;font-family:'Barlow Condensed',sans-serif;font-size:clamp(10px,1.1vw,15px);font-weight:700;letter-spacing:.06em;color:rgba(251,191,36,.95);text-align:center;margin-top:6px;padding:5px 8px;border:1px solid rgba(251,191,36,.35);border-radius:6px;line-height:1.4;width:min(150px,13vw);word-break:break-word;white-space:normal;box-sizing:border-box}
 /* ── X-RAY CROSSHAIR ── */
 #fl-crosshair{position:absolute;left:0;top:0;width:44px;height:44px;pointer-events:none;z-index:30;display:none;transition:transform .22s cubic-bezier(.4,0,.2,1)}
@@ -955,14 +957,19 @@ const TILE_COLORS   = ['#1e1040','#221255','#191038','#2a1660','#17102e','#24145
 const SAVE_KEY_SET  = 'ir_settings';
 const SAVE_KEY_STU  = 'ir_students';
 
-// ── CATEGORY NAMES (extensible — add new IDs here as categories grow) ──
-const CATEGORY_NAMES = {
-  11: '🐾 Animals',
-  12: '🍔 Food & Drinks',
-  13: '👤 Appearance & Personality',
-  14: '⚽ Sports & Activities',
-  15: '🏙️ Places in Town',
-};
+// CATEGORY_NAMES ve CATEGORY_THUMBS → words.js adaptöründe tanımlı
+
+// ── CATEGORY HINT HELPER ──
+function _setCatHint(catId) {
+  const el = document.getElementById('cat-hint');
+  if(!el) return;
+  const name  = CATEGORY_NAMES[catId] || ('Kategori ' + catId);
+  const thumb = CATEGORY_THUMBS[catId];
+  el.innerHTML = thumb
+    ? `<img class="ch-img" src="thumbnails/${thumb}" alt="${name}">`
+    : `<span class="ch-label">${name}</span>`;
+  el.style.display = 'flex';
+}
 
 // ── SETTINGS STATE ──
 let selectedGrade      = 7;              // single grade (ceiling: 6/7/8)
@@ -1059,8 +1066,10 @@ function _detectSpam(gi) {
 }
 
 // ── AUDIO ──
-let _muted       = false;
-let _bgAudio     = null;
+let _muted          = false;
+let _bgAudio        = null;
+const BG_VOL_NORMAL = 0.45;  // her yerde — menü, çark, aralar
+const BG_VOL_REVEAL = 0.06;  // sadece image grid açıkken
 const SOUNDS = {
   correct : '../word_master/sounds/correct.wav',
   wrong   : '../word_master/sounds/wrong.wav',
@@ -1114,7 +1123,7 @@ function playBg() {
   if(_bgAudio){ _bgAudio.pause(); _bgAudio=null; }
   if(_muted) return;
   const src = SOUNDS.main[Math.floor(Math.random()*SOUNDS.main.length)];
-  try { _bgAudio=new Audio(src); _bgAudio.volume=0.18; _bgAudio.loop=true; _bgAudio.play().catch(()=>{}); } catch(e){}
+  try { _bgAudio=new Audio(src); _bgAudio.volume=BG_VOL_NORMAL; _bgAudio.loop=true; _bgAudio.play().catch(()=>{}); } catch(e){}
 }
 function toggleMute() {
   _muted = !_muted;
@@ -1786,10 +1795,8 @@ function _activateXRayJoker() {
 }
 
 function _activateCategoryHintJoker() {
-  const catId   = currentWord[4];
-  const catName = CATEGORY_NAMES[catId] || ('Kategori ' + catId);
-  const el = document.getElementById('cat-hint');
-  if(el) { el.textContent = catName; el.style.display = 'block'; }
+  const catId = currentWord[4];
+  _setCatHint(catId);
   // Resume reveal
   startReveal();
   _updateJokerBtn();
@@ -2163,8 +2170,8 @@ function _doBeginTurn() {
   _updateJokerBtn();
 
   showGameBoard();
-  // Restore bg music volume (was halved during reveal)
-  if(_bgAudio && !_muted) _bgAudio.volume = 0.18;
+  // Restore bg music volume (kısılmıştı, grid kapanınca normale al)
+  if(_bgAudio && !_muted) _bgAudio.volume = BG_VOL_NORMAL;
   // Reset per-turn UI elements
   const ansDisp = document.getElementById('answer-display');
   if(ansDisp) ansDisp.style.display='none';
@@ -2173,7 +2180,7 @@ function _doBeginTurn() {
   const resultOv = document.getElementById('result-overlay');
   if(resultOv) { resultOv.style.display='none'; resultOv.innerHTML=''; }
   const catHint = document.getElementById('cat-hint');
-  if(catHint) { catHint.textContent=''; catHint.style.display='none'; }
+  if(catHint) { catHint.innerHTML=''; catHint.style.display='none'; }
   const trHint = document.getElementById('tr-hint');
   if(trHint) { trHint.textContent=''; trHint.style.display='none'; }
   const jPanel = document.getElementById('joker-panel');
@@ -2202,12 +2209,8 @@ function _doBeginTurn() {
   const pick = available[Math.floor(Math.random()*available.length)];
   usedIndices.add(pick);
   currentWord = pool[pick];
-  // Show category hint automatically
-  const _chEl = document.getElementById('cat-hint');
-  if(_chEl) {
-    _chEl.textContent = CATEGORY_NAMES[currentWord[4]] || ('Kategori ' + currentWord[4]);
-    _chEl.style.display = 'block';
-  }
+  // Show category hint automatically (thumbnail + label)
+  _setCatHint(currentWord[4]);
   currentScore = SCORE_MAX;
   const students = groupStudents[gi];
   const studentName = students.length ? students[currentSlotIdx[gi]%students.length] : groupNames[gi];
@@ -2252,8 +2255,8 @@ function onReadyPressed() {
   if(ro) ro.style.display='none';
   const sb = document.getElementById('stop-btn');
   if(sb) sb.disabled=false;
-  // Lower bg music during reveal for tension
-  if(_bgAudio && !_muted) _bgAudio.volume = 0.04;
+  // Image grid açılınca müziği kıs
+  if(_bgAudio && !_muted) _bgAudio.volume = BG_VOL_REVEAL;
   startReveal();
   _updateJokerBtn();
 }

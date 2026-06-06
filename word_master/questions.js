@@ -1540,9 +1540,6 @@ const QUESTIONS = [
   ["The busy center of a city.","Bir şehrin yoğun merkezi.","DOWNTOWN",0,1,15,"../images/6/3/2.webp"],
   ["A very tall building in a city.","Şehirdeki çok yüksek bina.","SKYSCRAPER",0,1,15,"../images/6/3/8.webp"],
   ["A road in a town or city.","Kasaba veya şehirdeki yol.","STREET",0,1,15,"../images/6/1/9.webp"],
-  ["A very small town in the countryside.","Kırsaldaki çok küçük yerleşim yeri.","VILLAGE",0,1,15,"../images/6/3/10.webp"],
-  ["A place bigger than a village but smaller than a city.","Köyden büyük, şehirden küçük bir yer.","TOWN",0,1,15,"../images/6/3/11.webp"],
-  ["A large place with many people and buildings.","Pek çok insan ve bina olan büyük bir yer.","CITY",0,1,15,"../images/6/3/12.webp"],
   ["A place where animals are kept and crops are grown.","Hayvanların bakıldığı ve ürün yetiştirildiği yer.","FARM",0,1,15,"../images/6/3/14.webp"],
   ["An apartment where people live.","İnsanların yaşadığı daire.","FLAT",0,3,15,"../images/6/3/15.webp"],
   ["An open area in a city surrounded by buildings.","Şehirde binalarla çevrili açık alan.","SQUARE",0,3,15,"../images/6/3/23.webp"],
@@ -1584,6 +1581,42 @@ const QUESTIONS = [
   ["A quiet area where dead people are buried.","Ölülerin gömüldüğü sessiz alan.","CEMETERY",0,3,15,"../images/8/7/18.webp"],
   ["A structure built over water so people or vehicles can cross.","İnsanların veya araçların geçmesi için su üzerine yapılan yapı.","BRIDGE",0,3,15,"../images/8/7/19.webp"],
   ["A building where Christians gather to pray and worship.","Hristiyanların ibadet etmek için toplandığı bina.","CHURCH",0,3,15,"../images/8/7/20.webp"],
+
+  // ═══════════════════════════════════════════════════════════════════════
+  // 💼  CATEGORY 16 — Occupations  (grade=0, cat=16)
+  // grade_filter: 1=G6+7+8  2=G7+8  3=G8 only
+  // ═══════════════════════════════════════════════════════════════════════
+  // — Grade 6 kaynaklı (grade_level=1) ────────────────────────────────
+  ["A person who designs and plans buildings.","Binaları tasarlayan ve planlayan kişi.","ARCHITECT",0,1,16,"../images/6/6/1.webp"],
+  ["A person who does office tasks and helps a manager.","Ofis görevleri yapan ve yöneticiye yardım eden kişi.","SECRETARY",0,1,16,"../images/6/6/2.webp"],
+  ["A person who makes bread and cakes.","Ekmek ve kek yapan kişi.","BAKER",0,1,16,"../images/6/6/3.webp"],
+  ["A person whose job is to prepare and cook food.","İşi yemek hazırlamak ve pişirmek olan kişi.","COOK",0,1,16,"../images/6/6/4.webp"],
+  ["A person whose job is to prepare and cook food.","İşi yemek hazırlamak ve pişirmek olan kişi.","CHEF",0,1,16,"../images/6/6/4.webp"],
+  ["A person who leads and makes decisions for a team or company.","Bir ekip veya şirkete liderlik eden ve karar veren kişi.","MANAGER",0,1,16,"../images/6/6/5.webp"],
+  ["A person who leads and makes decisions for a team or company.","Bir ekip veya şirkete liderlik eden ve karar veren kişi.","DIRECTOR",0,1,16,"../images/6/6/5.webp"],
+  ["A person who studies and discovers new things about the world.","Dünya hakkında yeni şeyler araştıran ve keşfeden kişi.","SCIENTIST",0,2,16,"../images/6/6/6.webp"],
+  ["A person who checks and treats people's teeth.","İnsanların dişlerini kontrol eden ve tedavi eden kişi.","DENTIST",0,1,16,"../images/6/6/7.webp"],
+  ["A person who repairs cars and machines.","Araba ve makineleri onaran kişi.","MECHANIC",0,1,16,"../images/6/6/8.webp"],
+  ["A person who manages and takes care of the home and family.","Evi ve aileyi yöneten ve onlara bakan kişi.","HOUSEWIFE",0,1,16,"../images/6/6/9.webp"],
+  ["A person whose job is to drive a vehicle.","İşi araç kullanmak olan kişi.","DRIVER",0,1,16,"../images/6/6/10.webp"],
+  ["A person whose job is to sell products to customers.","İşi müşterilere ürün satmak olan kişi.","SALESWOMAN",0,1,16,"../images/6/6/11.webp"],
+  ["A person who has stopped working because of age.","Yaşı nedeniyle çalışmayı bırakan kişi.","RETIRED",0,1,16,"../images/6/6/12.webp"],
+  ["A person who designs and builds bridges, machines, or structures.","Köprüler, makineler veya yapılar tasarlayan ve inşa eden kişi.","ENGINEER",0,1,16,"../images/6/6/13.webp"],
+  ["A person who serves food and drinks to customers in a restaurant.","Restoranda müşterilere yiyecek ve içecek servisi yapan kişi.","WAITRESS",0,1,16,"../images/6/6/14.webp"],
+  ["A person whose job is to put out fires and rescue people.","İşi yangın söndürmek ve insanları kurtarmak olan kişi.","FIREFIGHTER",0,1,16,"../images/6/6/15.webp"],
+  ["A person who grows crops and raises animals on a farm.","Çiftlikte bitki yetiştiren ve hayvan besleyen kişi.","FARMER",0,1,16,"../images/6/6/16.webp"],
+  ["A person who does a job, usually with their hands.","Genellikle elleriyle bir iş yapan kişi.","WORKER",0,1,16,"../images/6/6/17.webp"],
+  ["A person who cuts and sells meat.","Et kesen ve satan kişi.","BUTCHER",0,1,16,"../images/6/6/18.webp"],
+  ["A person who cuts and styles people's hair.","İnsanların saçlarını kesen ve şekillendiren kişi.","HAIRDRESSER",0,1,16,"../images/6/6/19.webp"],
+  ["A person who performs roles in movies, TV, or theatre.","Film, TV veya tiyatroda rol oynayan kişi.","ACTRESS",0,1,16,"../images/6/6/20.webp"],
+  ["A person who helps people with legal problems in court.","İnsanlara mahkemede hukuki sorunlarında yardım eden kişi.","LAWYER",0,1,16,"../images/6/6/22.webp"],
+  ["A person who performs songs for an audience.","Bir kitleye şarkı söyleyen kişi.","SINGER",0,1,16,"../images/6/6/23.webp"],
+  ["A person who cares for and assists sick or injured people.","Hasta veya yaralı kişilere bakan ve yardım eden kişi.","NURSE",0,1,16,"../images/6/6/24.webp"],
+  ["A doctor who treats and cares for animals.","Hayvanları tedavi eden ve onlara bakan doktor.","VET",0,1,16,"../images/6/6/25.webp"],
+  ["A person whose job is to educate and teach students.","İşi öğrencileri eğitmek ve öğretmek olan kişi.","TEACHER",0,1,16,"../images/6/6/27.webp"],
+  ["A person who examines and treats sick people.","Hasta insanları muayene eden ve tedavi eden kişi.","DOCTOR",0,1,16,"../images/6/6/28.webp"],
+  ["A person who owns or runs a business.","Bir işletmenin sahibi olan veya onu yöneten kişi.","BUSINESSMAN",0,2,16,"../images/6/6/29.webp"],
+  ["A person who designs or builds machines and structures.","Makine ve yapılar tasarlayan veya inşa eden kişi.","ENGINEER",0,2,16,"../images/7/7/27.webp"], 
 
 ];
 
@@ -1886,3 +1919,15 @@ const OPPOSITE_PAIRS = [
 
 
  ];
+
+// ═══════════════════════════════════════════════════════════════════════════
+// 🏷️  KATEGORİ META — yeni kategori ekleyince buraya bir satır ekle
+// ═══════════════════════════════════════════════════════════════════════════
+const WC_CATEGORY_META = {
+  11: { label: 'ANIMALS',     icon: '🐾' },
+  12: { label: 'FOOD',        icon: '🍔' },
+  13: { label: 'PERSONALITY', icon: '🙂' },
+  14: { label: 'SPORTS',      icon: '⚽' },
+  15: { label: 'PLACES',      icon: '🏙️' },
+  16: { label: 'OCCUPATIONS', icon: '💼' },
+};
