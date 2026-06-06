@@ -627,11 +627,13 @@
       document.getElementById('hub-view').style.display = 'none';
       const pv = document.getElementById('practice-view');
       pv.style.display = 'flex';
+      window.scrollTo({ top: 0, behavior: 'instant' });
     }
 
     function showHub() {
       document.getElementById('practice-view').style.display = 'none';
       document.getElementById('hub-view').style.display = 'flex';
+      window.scrollTo({ top: 0, behavior: 'instant' });
     }
 
     /* ── STARS ── */
