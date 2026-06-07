@@ -44,7 +44,7 @@ html,body{height:100%;overflow:hidden;font-family:'Barlow',sans-serif;background
 #fs-btn{position:fixed;top:10px;right:10px;z-index:9960;background:rgba(0,0,0,.45);border:1.5px solid rgba(255,140,0,.28);border-radius:8px;color:rgba(255,140,0,.55);width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:17px;transition:color .15s,background .15s,border-color .15s;padding:0}
 #fs-btn:hover{color:var(--gold);background:rgba(255,140,0,.18);border-color:var(--gold)}
 #fs-btn:active{transform:scale(.88)}
-#lite-btn{position:fixed;top:48px;right:10px;z-index:9960;background:rgba(0,0,0,.45);border:1.5px solid rgba(34,197,94,.5);border-radius:8px;color:rgba(34,197,94,.8);width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:13px;font-family:'Barlow Condensed',sans-serif;font-weight:700;letter-spacing:.04em;transition:color .15s,background .15s,border-color .15s;padding:0}
+#lite-btn{position:fixed;top:48px;right:10px;z-index:9960;background:rgba(0,0,0,.45);border:1.5px solid rgba(34,197,94,.5);border-radius:8px;color:rgba(34,197,94,.8);width:32px;height:32px;display:none;align-items:center;justify-content:center;cursor:pointer;font-size:13px;font-family:'Barlow Condensed',sans-serif;font-weight:700;letter-spacing:.04em;transition:color .15s,background .15s,border-color .15s;padding:0}
 #lite-btn:hover{background:rgba(34,197,94,.12);border-color:rgba(34,197,94,.9);color:rgb(34,197,94)}
 #lite-btn.lite-on{border-color:rgba(239,68,68,.7);color:rgba(239,68,68,.9);background:rgba(239,68,68,.1)}
 
@@ -398,6 +398,8 @@ body.lite .hp-heart{animation:none}
 .spgo-row-lbl{font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;letter-spacing:.08em;color:rgba(255,255,255,.55)}
 .spgo-row-val{font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--gold);letter-spacing:.06em}
 .spgo-subtitle{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,140,0,.75);text-align:center;margin-top:-8px}
+.spgo-res-cost{width:100%;padding:9px 14px;border-radius:10px;border:1.5px solid rgba(255,215,0,.28);background:rgba(255,215,0,.07);font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.6)}
+.spgo-res-cost strong{font-family:'Bebas Neue',sans-serif;font-size:20px;color:#FFD700;letter-spacing:.08em;margin-left:5px}
 .spgo-section-lbl{font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.28);padding:0 4px;margin-top:2px}
 .spgo-row-keep{border-color:rgba(255,140,0,.18)!important;background:rgba(255,140,0,.05)!important}
 .spgo-btns{display:flex;gap:12px;width:100%}
@@ -690,6 +692,7 @@ body.lite .hp-heart{animation:none}
   <div class="spgo-modal">
     <div class="spgo-title">💀 GAME OVER</div>
     <div class="spgo-subtitle" id="go-subtitle">Your gear carries over!</div>
+    <div class="spgo-res-cost">Resurrection Cost: <strong id="go-res-cost">50 GOLD</strong></div>
     <div class="spgo-divider"></div>
     <div class="spgo-stats">
       <div class="spgo-section-lbl">⬆ CARRIES OVER TO NEXT RUN</div>
@@ -796,6 +799,7 @@ const SP_TIMER_MAX    = 6;
 const SP_BETWEEN_MS   = 900;
 const SP_WRONG_LOCK   = 800;
 const SP_XP_LEVELS    = [0,100,250,450,700,1000,1400,1900,2500,3200,4000,4900,5900,7000,8200];
+const RESURRECTION_COST = 50;
 
 // ── ENEMY SYSTEM (uses enemies.js) ────────────────────────
 // Sorted once at startup by the `order` field defined in enemies.js
@@ -1791,6 +1795,8 @@ function _showGameOver() {
   document.getElementById('go-level').textContent   = _spLevel;
   document.getElementById('go-xp').textContent      = _spXP;
   document.getElementById('go-gold').textContent    = _spGold;
+  const resurrectionPayment = Math.min(RESURRECTION_COST, _spGold);
+  document.getElementById('go-res-cost').textContent = resurrectionPayment + ' GOLD';
   // Gear summary
   const armorStr  = _ARMOR_SLOTS.filter(slot => _spEquipment[slot]).map(slot => _spEquipment[slot].name).join(', ') || 'No Armor';
   const weaponStr = _spEquipment.sword?.name || 'Fists';
@@ -1802,13 +1808,16 @@ function _showGameOver() {
 }
 function _spPlayAgain() {
   document.getElementById('sp-gameover').classList.remove('open');
+  const resurrectionPayment = Math.min(RESURRECTION_COST, _spGold);
+  _spGold -= resurrectionPayment;
+  _updateGold();
   _startRun(); // roguelite: keep gear, reset run
 }
 // Roguelite restart — keeps XP / level / gold / armor / weapon
 // Only resets run progress (enemies, HP, streak, correct/wrong counts)
 function _startRun() {
   // Equipment objects intentionally survive with their current durability.
-  _spPlayerHP     = INITIAL_HP;
+  _spPlayerHP     = _spMaxHP;
   _spNpcIdx       = 0;
   _spNpcsDefeated = 0;
   _spStreak       = 0;
@@ -2083,7 +2092,9 @@ function _ngConfirm() {
   if (warn) warn.textContent = '';
   _spPlayerName     = name;
   _spSelectedAvatar = _avsSelectedIdx;
-  document.getElementById('sp-newgame-overlay').classList.remove('open');
+  document.getElementById('sp-newgame-overlay')?.classList.remove('open');
+  document.getElementById('sp-mode-overlay')?.classList.remove('open');
+  document.getElementById('sp-confirm-newgame')?.classList.remove('open');
   _startGame();
 }
 
@@ -2135,6 +2146,8 @@ function _cancelNewGame() {
   document.getElementById('sp-mode-overlay').classList.add('open');
 }
 function _doOpenNewGame() {
+  document.getElementById('sp-mode-overlay')?.classList.remove('open');
+  document.getElementById('sp-confirm-newgame')?.classList.remove('open');
   _avsSelectedIdx = 0;
   _spPlayerGrade  = null;
   _buildAvsGrid();
