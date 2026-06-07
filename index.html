@@ -196,6 +196,29 @@
       user-select: none;
     }
 
+    .role-banner {
+      width: 100%;
+      height: 160px;
+      position: relative;
+      overflow: hidden;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #1a0a14 0%, #0f1a3a 50%, #1a0a14 100%);
+      margin-bottom: 8px;
+    }
+
+    .role-banner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(0.82) saturate(1.08);
+      transition: transform 0.25s ease, filter 0.25s ease;
+    }
+
+    .role-card:hover .role-banner img {
+      transform: scale(1.06);
+      filter: brightness(0.95) saturate(1.18);
+    }
+
     .role-icon {
       font-size: 3.8rem;
       line-height: 1;
@@ -576,14 +599,18 @@
     <div class="role-grid">
 
       <div class="role-card teacher" onclick="selectRole('teacher')">
-        <div class="role-icon">👨‍🏫</div>
+        <div class="role-banner">
+          <img src="images/thumbnails/teacher_thumbnail.webp" alt="Teacher" loading="lazy" decoding="async">
+        </div>
         <div class="role-title">I'm a Teacher</div>
         <div class="role-sub">Access all classroom materials and activities</div>
         <div class="role-arrow">&#9654; &nbsp;Continue</div>
       </div>
 
       <div class="role-card student" onclick="selectRole('student')">
-        <div class="role-icon">🎓</div>
+        <div class="role-banner">
+          <img src="images/thumbnails/student_thumbnail.webp" alt="Student" loading="lazy" decoding="async">
+        </div>
         <div class="role-title">I'm a Student</div>
         <div class="role-sub">Explore vocabulary and solo learning activities</div>
         <div class="role-arrow">&#9654; &nbsp;Continue</div>
