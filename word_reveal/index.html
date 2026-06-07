@@ -1655,21 +1655,21 @@ function fillAllStudents() {
 }
 
 function saveStudentNames() {
-  try { localStorage.setItem(SAVE_KEY_STU, JSON.stringify({ inputs:studentInputs.map(c=>[...c]), groupCount })); } catch(e){}
+  try { localStorage.setItem(SAVE_KEY_STU + '_' + groupCount, JSON.stringify(studentInputs.map(c=>[...c]))); } catch(e){}
 }
 
 function loadStudentNames() {
   try {
-    const raw = localStorage.getItem(SAVE_KEY_STU);
+    const raw = localStorage.getItem(SAVE_KEY_STU + '_' + groupCount);
     if(!raw) return;
-    const s = JSON.parse(raw);
-    if(!Array.isArray(s.inputs)) return;
-    s.inputs.forEach((col,gi) => {
+    const inputs = JSON.parse(raw);
+    if(!Array.isArray(inputs)) return;
+    inputs.forEach((col,gi) => {
       if(!Array.isArray(col)) return;
       col.forEach((name,si) => {
-        if(si<STD_SLOTS && typeof name==='string') {
-          studentInputs[gi][si]=name;
-          _slotRevealed[gi][si]=true;
+        if(si < STD_SLOTS && typeof name === 'string') {
+          studentInputs[gi][si] = name;
+          _slotRevealed[gi][si] = true;
         }
       });
     });

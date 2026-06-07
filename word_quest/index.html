@@ -1,0 +1,2310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>WORD QUEST: SOLO</title>
+<style>
+/* ── LOCAL FONTS ── */
+@font-face{font-family:'Barlow';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/barlow-400-latin.woff2') format('woff2')}
+@font-face{font-family:'Barlow';font-style:normal;font-weight:600;font-display:swap;src:url('fonts/barlow-600-latin.woff2') format('woff2')}
+@font-face{font-family:'Barlow Condensed';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/barlowcondensed-400-latin.woff2') format('woff2')}
+@font-face{font-family:'Barlow Condensed';font-style:normal;font-weight:700;font-display:swap;src:url('fonts/barlowcondensed-700-latin.woff2') format('woff2')}
+@font-face{font-family:'Bebas Neue';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/bebasneue-400-latin.woff2') format('woff2')}
+
+/* ── RESET + ROOT ── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --gold:#FF8C00;--gold-dark:#CC5500;--gold-glow:rgba(255,140,0,.35);
+  --bg:#0a0200;--red:#E8213A;--green:#1DB954;
+  --white:#FFF4E8;--muted:rgba(255,244,232,.55);
+  --panel-bg:rgba(10,4,2,.82);--panel-border:rgba(255,140,0,.35);
+  --player-c:#4A8AF4;--npc-c:#ef4444;
+}
+html,body{height:100%;overflow:hidden;font-family:'Barlow',sans-serif;background:var(--bg);color:var(--white);user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
+#bg-layer{position:fixed;inset:0;z-index:0;background-size:cover;background-position:center;background-repeat:no-repeat;transition:opacity .8s ease;opacity:0;pointer-events:none}
+
+/* ── MAIN MENU ── */
+#main-menu{position:fixed;inset:0;z-index:10000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;background:url('mainmenu.webp') center/cover no-repeat}
+#main-menu.hidden{display:none}
+.mm-logo{display:flex;flex-direction:column;align-items:center;margin-bottom:52px;line-height:.88;background:rgba(0,0,0,.55);padding:18px 36px;border-radius:16px;backdrop-filter:blur(4px)}
+.mm-word1{font-family:'Bebas Neue',sans-serif;font-size:clamp(68px,13vw,152px);color:#fff;letter-spacing:.09em;text-shadow:0 0 50px rgba(255,140,0,.25),0 2px 0 rgba(0,0,0,.6)}
+.mm-word2{font-family:'Bebas Neue',sans-serif;font-size:clamp(52px,10vw,112px);color:var(--gold);letter-spacing:.09em;text-shadow:0 0 70px rgba(255,140,0,.9),0 0 140px rgba(255,140,0,.4),0 2px 0 rgba(0,0,0,.6)}
+.mm-credit{font-family:'Barlow Condensed',sans-serif;font-size:clamp(10px,1.2vw,14px);color:#FFE600;letter-spacing:.22em;text-transform:uppercase;margin-top:16px;background:rgba(0,0,0,.9);padding:5px 14px;border-radius:6px}
+.mm-early-access{font-family:'Barlow Condensed',sans-serif;font-size:clamp(9px,1vw,12px);font-weight:800;letter-spacing:.28em;text-transform:uppercase;color:#0f0f0f;background:linear-gradient(90deg,#f59e0b,#fcd34d);padding:3px 12px;border-radius:4px;margin-top:10px;display:inline-block;box-shadow:0 0 12px rgba(245,158,11,.6)}
+.mm-btns{display:flex;flex-direction:column;align-items:center;gap:16px}
+.mm-play{font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,4.2vw,52px);letter-spacing:.18em;padding:15px 84px;border-radius:16px;border:2px solid rgba(255,140,0,.6);background:rgba(10,5,0,.9);color:var(--gold);cursor:pointer;transition:background .15s,transform .12s,box-shadow .15s;text-shadow:0 0 20px rgba(255,140,0,.4)}
+.mm-play:hover{background:rgba(20,10,0,.95);border-color:rgba(255,140,0,1);transform:scale(1.04);box-shadow:0 0 32px rgba(255,140,0,.7),0 0 64px rgba(255,140,0,.3),inset 0 0 18px rgba(255,140,0,.1)}
+.mm-play:active{transform:scale(.97)}
+.mm-row{display:flex;gap:12px}
+.mm-icon-btn{font-family:'Barlow Condensed',sans-serif;font-size:clamp(12px,1.5vw,15px);font-weight:700;letter-spacing:.12em;padding:10px 22px;border-radius:10px;border:1px solid rgba(255,140,0,.28);background:rgba(0,0,0,.9);color:rgba(255,255,255,.85);cursor:pointer;transition:background .15s,color .15s,border-color .15s;display:flex;align-items:center;gap:7px}
+.mm-icon-btn:hover{background:rgba(15,8,0,.95);color:var(--gold);border-color:rgba(255,140,0,.9);box-shadow:0 0 16px rgba(255,140,0,.45),inset 0 0 10px rgba(255,140,0,.08);transform:translateY(-2px)}
+
+/* ── FIXED CONTROLS ── */
+#fs-btn{position:fixed;top:10px;right:10px;z-index:9960;background:rgba(0,0,0,.45);border:1.5px solid rgba(255,140,0,.28);border-radius:8px;color:rgba(255,140,0,.55);width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:17px;transition:color .15s,background .15s,border-color .15s;padding:0}
+#fs-btn:hover{color:var(--gold);background:rgba(255,140,0,.18);border-color:var(--gold)}
+#fs-btn:active{transform:scale(.88)}
+#lite-btn{position:fixed;top:48px;right:10px;z-index:9960;background:rgba(0,0,0,.45);border:1.5px solid rgba(34,197,94,.5);border-radius:8px;color:rgba(34,197,94,.8);width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:13px;font-family:'Barlow Condensed',sans-serif;font-weight:700;letter-spacing:.04em;transition:color .15s,background .15s,border-color .15s;padding:0}
+#lite-btn:hover{background:rgba(34,197,94,.12);border-color:rgba(34,197,94,.9);color:rgb(34,197,94)}
+#lite-btn.lite-on{border-color:rgba(239,68,68,.7);color:rgba(239,68,68,.9);background:rgba(239,68,68,.1)}
+
+/* ── LITE MODE ── */
+body.lite .sp-panel-hdr,body.lite .word-box,body.lite #settings-overlay,body.lite #sp-mode-overlay,body.lite #sp-newgame-overlay,body.lite #sp-npc-defeat,body.lite #sp-gameover,body.lite #countdown-overlay{backdrop-filter:none}
+body.lite .sp-npc-img{filter:none}
+body.lite .sp-player-img{filter:none}
+body.lite .sp-avatar-sway{animation:none}
+body.lite .hp-heart{animation:none}
+
+/* ── HP BARS ── */
+.hp-outer{width:100%;height:10px;background:rgba(0,0,0,.55);border-radius:5px;overflow:hidden;margin-top:5px}
+.hp-fill{height:100%;border-radius:5px;transition:width .5s ease,background .4s;background:linear-gradient(90deg,#22c55e,#4ade80)}
+.hp-fill.hp-damage{animation:hpShake .35s ease}
+@keyframes hpShake{0%,100%{transform:scaleX(1)}50%{transform:scaleX(.97)}}
+.hp-number{font-family:'Bebas Neue',sans-serif;font-size:clamp(16px,1.8vw,22px);letter-spacing:.06em;color:var(--white)}
+.hp-heart{display:inline-block;animation:heartbeat .85s ease-in-out infinite;transform-origin:center}
+@keyframes heartbeat{0%,100%{transform:scale(1)}14%{transform:scale(1.25)}28%{transform:scale(1)}42%{transform:scale(1.15)}70%{transform:scale(1)}}
+
+/* ── XP BAR ── */
+.xp-outer{width:100%;height:7px;background:rgba(0,0,0,.55);border-radius:4px;overflow:hidden;margin-top:4px}
+.xp-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,#7c3aed,#a855f7);transition:width .6s ease}
+.sp-level-row{display:flex;justify-content:space-between;align-items:center;margin-top:2px}
+.sp-level-lbl{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:.1em;color:rgba(216,180,254,.9)}
+.sp-xp-lbl{font-family:'Barlow Condensed',sans-serif;font-size:10px;color:rgba(255,255,255,.4);letter-spacing:.06em}
+
+/* ── GOLD DISPLAY ── */
+.sp-gold-row{display:flex;align-items:center;gap:5px;margin-top:5px;background:rgba(255,215,0,.07);border:1px solid rgba(255,215,0,.18);border-radius:7px;padding:3px 7px}
+.sp-gold-icon{font-size:12px;line-height:1}
+.sp-gold-val{font-family:'Bebas Neue',sans-serif;font-size:clamp(14px,1.6vw,19px);color:#FFD700;letter-spacing:.06em;text-shadow:0 0 10px rgba(255,215,0,.45)}
+.sp-gold-lbl{font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,215,0,.45);margin-left:1px}
+/* Armor row */
+.sp-armor-row{display:flex;align-items:center;gap:5px;margin-top:4px;background:rgba(148,163,184,.06);border:1px solid rgba(148,163,184,.2);border-radius:7px;padding:3px 7px}
+.sp-armor-icon{font-size:12px;line-height:1}
+.sp-armor-name{font-family:'Barlow Condensed',sans-serif;font-size:clamp(9px,1vw,11px);font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(203,213,225,.7);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sp-armor-val{font-family:'Bebas Neue',sans-serif;font-size:clamp(13px,1.5vw,17px);color:#94a3b8;letter-spacing:.06em;text-shadow:0 0 8px rgba(148,163,184,.4)}
+
+/* ── WEAPON ROW (player panel) ── */
+.sp-weapon-row{display:flex;align-items:center;gap:5px;margin-top:4px;background:rgba(251,191,36,.06);border:1px solid rgba(251,191,36,.18);border-radius:7px;padding:3px 7px}
+.sp-weapon-name{font-family:'Barlow Condensed',sans-serif;font-size:clamp(9px,1vw,11px);font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(253,230,138,.7);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sp-weapon-val{font-family:'Bebas Neue',sans-serif;font-size:clamp(13px,1.5vw,17px);color:#fbbf24;letter-spacing:.06em;text-shadow:0 0 8px rgba(251,191,36,.4)}
+.sp-gear-list{display:flex;flex-direction:column;gap:3px;margin-top:4px}
+.sp-gear-row{display:flex;align-items:center;gap:5px;background:rgba(148,163,184,.06);border:1px solid rgba(148,163,184,.16);border-radius:6px;padding:2px 6px;min-width:0}
+.sp-gear-icon{font-size:10px;line-height:1;width:12px;text-align:center}
+.sp-gear-name{font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:rgba(226,232,240,.72);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sp-gear-dur{font-family:'Bebas Neue',sans-serif;font-size:11px;color:#94a3b8;letter-spacing:.04em;white-space:nowrap}
+
+/* ── POTION INVENTORY ROW (player panel) ── */
+.sp-potion-row{display:flex;align-items:center;gap:5px;margin-top:4px;background:rgba(34,197,94,.06);border:1px solid rgba(34,197,94,.18);border-radius:7px;padding:3px 7px}
+.sp-potion-lbl{font-family:'Barlow Condensed',sans-serif;font-size:clamp(9px,1vw,11px);font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(134,239,172,.7);flex:1}
+.sp-potion-val{font-family:'Bebas Neue',sans-serif;font-size:clamp(13px,1.5vw,17px);color:#4ade80;letter-spacing:.06em;text-shadow:0 0 8px rgba(74,222,128,.4)}
+.sp-potion-val.empty{color:rgba(74,222,128,.25)}
+
+/* ── SHOP OVERLAY ── */
+#sp-shop{position:fixed;inset:0;z-index:9670;background:rgba(2,8,20,.97);display:none;align-items:center;justify-content:center;backdrop-filter:blur(14px)}
+#sp-shop.open{display:flex}
+.spsh-modal{background:rgba(255,255,255,.04);border:1px solid rgba(255,215,0,.2);border-radius:26px;padding:28px 32px 24px;width:min(94vw,620px);display:flex;flex-direction:column;gap:18px;align-items:center;animation:modalIn .35s cubic-bezier(.175,.885,.32,1.275)}
+.spsh-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,4vw,42px);color:#FFD700;letter-spacing:.14em;text-shadow:0 0 30px rgba(255,215,0,.5)}
+.spsh-subtitle{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-top:-12px}
+.spsh-gold-info{font-family:'Bebas Neue',sans-serif;font-size:20px;color:#FFD700;letter-spacing:.1em}
+.spsh-items{width:100%;display:flex;flex-direction:column;gap:10px}
+.spsh-item{display:flex;align-items:center;gap:14px;background:rgba(255,255,255,.05);border:1.5px solid rgba(255,255,255,.1);border-radius:14px;padding:14px 16px;transition:border-color .15s}
+.spsh-item.affordable{border-color:rgba(255,215,0,.3)}
+.spsh-item-icon{font-size:28px;flex-shrink:0;line-height:1}
+.spsh-item-info{flex:1;min-width:0}
+.spsh-item-name{font-family:'Bebas Neue',sans-serif;font-size:clamp(16px,2.2vw,22px);letter-spacing:.1em;color:#fff}
+.spsh-item-desc{font-family:'Barlow Condensed',sans-serif;font-size:12px;color:rgba(255,255,255,.45);letter-spacing:.06em;margin-top:2px}
+.spsh-item-price{font-family:'Bebas Neue',sans-serif;font-size:clamp(16px,2vw,22px);color:#FFD700;letter-spacing:.08em;flex-shrink:0;white-space:nowrap}
+.spsh-buy-btn{flex-shrink:0;padding:8px 18px;font-family:'Bebas Neue',sans-serif;font-size:clamp(14px,1.8vw,18px);letter-spacing:.14em;border:none;border-radius:10px;cursor:pointer;transition:transform .1s,opacity .15s}
+.spsh-buy-btn.can-buy{background:linear-gradient(135deg,#92400e,#d97706);color:#fff;box-shadow:0 3px 14px rgba(217,119,6,.4)}
+.spsh-buy-btn.can-buy:hover{transform:scale(1.06)}
+.spsh-buy-btn.owned{background:rgba(34,197,94,.15);color:#4ade80;border:1px solid rgba(34,197,94,.3);cursor:default}
+.spsh-buy-btn.no-gold{background:rgba(255,255,255,.06);color:rgba(255,255,255,.3);cursor:not-allowed}
+.spsh-divider{width:90%;height:1px;background:linear-gradient(90deg,transparent,rgba(255,215,0,.25),transparent)}
+.spsh-continue-btn{padding:13px 52px;font-family:'Bebas Neue',sans-serif;font-size:clamp(18px,2.4vw,26px);letter-spacing:.16em;background:linear-gradient(135deg,#1e3a5f,#2563eb);border:none;border-radius:14px;color:#fff;cursor:pointer;box-shadow:0 4px 20px rgba(37,99,235,.35);transition:transform .12s}
+.spsh-continue-btn:hover{transform:scale(1.03)}
+
+/* ── WORD BOX ── */
+.word-box{background:var(--panel-bg);border:1.5px solid var(--panel-border);border-radius:14px;padding:12px 14px;text-align:center;width:100%;backdrop-filter:blur(8px)}
+.wb-label{font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+.wb-word{font-family:'Bebas Neue',sans-serif;font-size:clamp(22px,3vw,36px);color:var(--gold);letter-spacing:.1em;text-shadow:0 0 30px var(--gold-glow);line-height:1.15;min-height:1.2em;transition:opacity .3s;white-space:nowrap;overflow:hidden}
+.wb-word.word-listening{opacity:0;user-select:none;pointer-events:none}
+
+/* ── SP TIMER BAR ── */
+#sp-timer-wrap{width:100%;max-width:520px;height:20px;background:rgba(0,0,0,.5);border-radius:10px;overflow:hidden;position:relative;border:1.5px solid rgba(255,255,255,.12);flex-shrink:0}
+#sp-timer-fill{height:100%;border-radius:8px;background:linear-gradient(90deg,#22c55e,#4ade80);transition:width .1s linear,background .4s}
+#sp-timer-fill.tmr-warn{background:linear-gradient(90deg,#f59e0b,#fbbf24)}
+#sp-timer-fill.tmr-urgent{background:linear-gradient(90deg,#ef4444,#f87171)}
+#sp-timer-num{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:.06em;color:rgba(255,255,255,.9);text-shadow:0 1px 3px rgba(0,0,0,.8);pointer-events:none}
+
+/* ── IMAGE GRID ── */
+.img-grid{
+  /* 250×250 base → scales with available viewport height, stays square */
+  width:min(100%, calc(100vh - 160px));
+  flex-shrink:0;
+  align-self:center;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:6px;
+}
+.img-cell{aspect-ratio:1/1;border-radius:10px;overflow:hidden;cursor:pointer;border:3px solid rgba(255,255,255,.28);transition:border-color .12s,box-shadow .12s,transform .08s;position:relative;background:rgba(0,0,0,.55)}
+.img-cell img{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none;transition:filter .2s}
+.img-cell:hover{border-color:rgba(255,255,255,.45);transform:scale(1.015)}
+.img-cell.locked{pointer-events:none}
+.img-cell.locked img{filter:brightness(.6)}
+.img-cell.shake{animation:imgShake .4s ease}
+.img-cell.wrong-flash{border-color:#ef4444;box-shadow:0 0 18px rgba(239,68,68,.5)}
+.img-cell.correct-flash{border-color:#22c55e;box-shadow:0 0 24px rgba(34,197,94,.7)}
+.img-cell.correct-flash img{filter:brightness(1.1)}
+.img-cell.dim-wrong{opacity:.35}
+.img-cell.dim-wrong img{opacity:0!important}
+.img-broken-ph{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;background:rgba(0,0,0,.75);border-radius:6px;pointer-events:none}
+.ibph-word{font-family:'Bebas Neue',sans-serif;font-size:clamp(13px,1.6vw,20px);color:#FFE600;letter-spacing:.06em;text-align:center;padding:0 4px}
+@keyframes imgShake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-10px)}40%,80%{transform:translateX(10px)}}
+.wrong-cooldown-badge{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(239,68,68,.25);font-family:'Bebas Neue',sans-serif;font-size:28px;color:#f87171;pointer-events:none;opacity:0;transition:opacity .15s}
+.wrong-cooldown-badge.show{opacity:1}
+
+/* ── STREAK BANNER ── */
+.streak-banner{position:fixed;z-index:5200;pointer-events:none;font-family:'Bebas Neue',sans-serif;font-size:clamp(15px,2vw,24px);letter-spacing:.14em;white-space:nowrap;color:var(--gold);text-shadow:0 0 18px rgba(255,140,0,.9),0 0 36px rgba(255,140,0,.4);animation:streakAnim 2.5s ease-out forwards}
+@keyframes streakAnim{0%{opacity:0;transform:translateX(-50%) translateY(6px) scale(.7)}12%{opacity:1;transform:translateX(-50%) translateY(-4px) scale(1.12)}25%{opacity:1;transform:translateX(-50%) translateY(0) scale(1)}85%{opacity:1;transform:translateX(-50%) translateY(-6px)}100%{opacity:0;transform:translateX(-50%) translateY(-38px)}}
+
+/* ── FLOAT TEXT ── */
+.sp-float{position:fixed;font-family:'Bebas Neue',sans-serif;font-size:clamp(18px,2.5vw,32px);letter-spacing:.08em;pointer-events:none;z-index:9100;text-shadow:0 0 14px currentColor;transform:translateX(-50%);animation:spFloatAnim 1.8s ease-out forwards}
+@keyframes spFloatAnim{0%{opacity:1;transform:translateX(-50%) translateY(0) scale(1)}60%{opacity:.9;transform:translateX(-50%) translateY(-50px) scale(1.06)}100%{opacity:0;transform:translateX(-50%) translateY(-100px) scale(.85)}}
+
+/* ── DAMAGE FLASH ── */
+#dmg-flash{position:fixed;inset:0;z-index:4800;pointer-events:none;opacity:0;transition:opacity .15s}
+#dmg-flash.show{opacity:1}
+
+/* ── ROUND ANNOUNCE ── */
+#round-announce{position:fixed;left:50%;bottom:10vh;transform:translateX(-50%);z-index:5100;pointer-events:none;opacity:0;transition:opacity .25s;text-align:center;white-space:nowrap}
+#round-announce.show{opacity:1}
+.ra-inner{font-family:'Bebas Neue',sans-serif;font-size:clamp(26px,3.2vw,48px);letter-spacing:.1em;text-shadow:0 0 40px currentColor;animation:raPop .3s cubic-bezier(.34,1.56,.64,1)}
+@keyframes raPop{0%{transform:scale(.5);opacity:0}100%{transform:scale(1);opacity:1}}
+.ra-correct{color:#22c55e}.ra-wrong{color:#ef4444}.ra-timeout{color:#f59e0b}
+
+/* ── LEVEL UP FLOAT ── */
+.levelup-float{position:fixed;pointer-events:none;z-index:5700;font-family:'Bebas Neue',sans-serif;font-size:clamp(26px,3.8vw,44px);letter-spacing:.14em;color:#4ade80;text-shadow:0 0 22px rgba(74,222,128,.9),0 0 44px rgba(74,222,128,.4);transform:translateX(-50%);white-space:nowrap;animation:lvlUpFloat 2s ease-out forwards}
+@keyframes lvlUpFloat{0%{opacity:1;transform:translateX(-50%) translateY(0) scale(1.5)}12%{opacity:1;transform:translateX(-50%) translateY(-18px) scale(1)}85%{opacity:1;transform:translateX(-50%) translateY(-90px)}100%{opacity:0;transform:translateX(-50%) translateY(-120px) scale(.9)}}
+
+/* ── HIT STAR EFFECT ── */
+.hit-star{position:fixed;pointer-events:none;z-index:5500;transform:translate(-50%,-50%);animation:hitStarPop .55s ease-out forwards}
+@keyframes hitStarPop{
+  0%  {opacity:1;transform:translate(-50%,-50%) scale(0)    rotate(-18deg)}
+  28% {opacity:1;transform:translate(-50%,-50%) scale(1.18) rotate(6deg)}
+  65% {opacity:.9;transform:translate(-50%,-50%) scale(.95) rotate(0deg)}
+  100%{opacity:0;transform:translate(-50%,-50%) scale(.55)  rotate(0deg)}
+}
+.hit-dmg{position:fixed;pointer-events:none;z-index:5600;font-family:'Bebas Neue',sans-serif;font-size:clamp(22px,2.8vw,36px);letter-spacing:.05em;transform:translateX(-50%);text-shadow:0 2px 6px rgba(0,0,0,.9),0 0 20px currentColor;animation:hitDmgFloat .82s ease-out forwards;white-space:nowrap}
+@keyframes hitDmgFloat{
+  0%  {opacity:1;transform:translateX(-50%) translateY(0)    scale(1.35)}
+  18% {opacity:1;transform:translateX(-50%) translateY(-10px) scale(1)}
+  100%{opacity:0;transform:translateX(-50%) translateY(-56px) scale(.88)}
+}
+
+/* ── SP GAME LAYOUT ── */
+#game-wrap{position:fixed;inset:0;z-index:1;display:flex;flex-direction:row}
+#sp-panel-player{width:240px;flex-shrink:0;display:flex;flex-direction:column;padding:10px;gap:8px;overflow:visible;border-right:1px solid rgba(74,138,244,.3);z-index:2}
+#sp-panel-center{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:8px;gap:6px;z-index:3}
+#sp-panel-npc{width:240px;flex-shrink:0;display:flex;flex-direction:column;padding:10px;gap:8px;overflow:visible;border-left:1px solid rgba(239,68,68,.3);z-index:2}
+#sp-panel-npc.loot-active{z-index:30}
+
+/* ── SP PANEL HEADERS ── */
+.sp-panel-hdr{flex-shrink:0;background:rgba(0,0,0,.72);border-radius:10px;padding:8px 10px;backdrop-filter:blur(6px)}
+.sp-panel-hdr.hdr-player{border:1.5px solid rgba(74,138,244,.4)}
+.sp-panel-hdr.hdr-npc{border:1.5px solid rgba(239,68,68,.4)}
+.sp-hdr-top{display:flex;align-items:center;justify-content:space-between}
+.sp-hdr-name{font-family:'Bebas Neue',sans-serif;font-size:clamp(13px,1.6vw,20px);letter-spacing:.1em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:110px}
+.sp-hdr-name.nm-player{color:var(--player-c);text-shadow:0 0 16px rgba(74,138,244,.55)}
+.sp-hdr-name.nm-npc{color:var(--npc-c);text-shadow:0 0 16px rgba(239,68,68,.55)}
+
+/* ── STREAK DISPLAY ── */
+.sp-streak-box{flex-shrink:0;background:rgba(0,0,0,.45);border-radius:10px;padding:8px 10px;border:1.5px solid rgba(255,215,0,.15);text-align:center}
+.sp-streak-num{font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,3.5vw,44px);color:#FFD700;line-height:1;text-shadow:0 0 20px rgba(255,215,0,.5)}
+.sp-streak-lbl{font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.4)}
+.sp-streak-mult{font-family:'Bebas Neue',sans-serif;font-size:15px;color:#f59e0b;letter-spacing:.06em;min-height:20px}
+
+/* ── PLAYER/NPC AVATAR AREAS ── */
+.sp-avatar-area{flex:1;min-height:0;display:flex;align-items:flex-end;justify-content:center;position:relative;overflow:visible}
+/* Sway wrapper — handles horizontal idle motion independently of img flip */
+.sp-avatar-sway{display:flex;align-items:flex-end;justify-content:center;width:100%;height:100%}
+.sp-avatar-sway.sway-player{animation:swayPlayer 3.2s ease-in-out infinite}
+.sp-avatar-sway.sway-npc{animation:swayNpc 2.8s ease-in-out infinite}
+.sp-avatar-sway.sway-npc.sway-flying{animation:swayNpcFlying 2.4s ease-in-out infinite}
+@keyframes swayPlayer   {0%,100%{transform:translateX(0)}              50%{transform:translateX(10px)}}
+@keyframes swayNpc      {0%,100%{transform:translateX(0)}              50%{transform:translateX(-10px)}}
+@keyframes swayNpcFlying{0%,100%{transform:translate(0,0)}  25%{transform:translate(-8px,-10px)}  50%{transform:translate(-12px,0)}  75%{transform:translate(-8px,10px)}}
+.sp-player-img{max-height:100%;width:clamp(180px,130%,320px);object-fit:contain;display:block;filter:drop-shadow(0 0 18px rgba(74,138,244,.4))}
+.sp-npc-img{object-fit:contain;display:block;filter:drop-shadow(0 0 18px rgba(239,68,68,.45)) hue-rotate(340deg) saturate(1.2)}
+.sp-npc-img.npc-vertical{max-height:100%;width:clamp(180px,130%,320px)}
+.sp-avatar-sway.npc-landscape-wrap{width:clamp(300px,195%,480px);height:auto;max-height:72%;aspect-ratio:3/2;flex:0 0 auto;align-items:flex-end}
+.sp-npc-img.npc-landscape{width:100%;height:100%;object-fit:cover;object-position:center center}
+.sp-avatar-sway.npc-oversized:not(.npc-landscape-wrap){width:130%;height:115%;flex:0 0 auto}
+.sp-avatar-sway.npc-oversized:not(.npc-landscape-wrap) .sp-npc-img.npc-vertical{max-height:115%;width:clamp(220px,160%,400px)}
+.sp-avatar-sway.npc-landscape-wrap.npc-oversized{width:clamp(360px,235%,580px);max-height:88%}
+.sp-npc-placeholder{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px}
+.sp-npc-emoji{font-size:clamp(80px,10vw,130px);line-height:1;filter:drop-shadow(0 0 24px rgba(239,68,68,.6))}
+.sp-npc-ph-name{font-family:'Bebas Neue',sans-serif;font-size:clamp(20px,2.5vw,30px);letter-spacing:.12em;text-shadow:0 0 14px rgba(239,68,68,.6)}
+.sp-npc-ph-lv{font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:.14em;color:rgba(255,255,255,.45);text-transform:uppercase}
+
+/* ── LOOT CHEST ── */
+.loot-chest-wrap{position:relative;width:100%;height:100%;display:flex;align-items:flex-end;justify-content:center;cursor:pointer}
+.loot-chest-img{width:clamp(150px,100%,250px);max-height:62%;object-fit:contain;filter:drop-shadow(0 0 20px rgba(255,180,40,.38));transform-origin:center bottom;animation:lootChestArrive .7s cubic-bezier(.2,.9,.3,1.25) both}
+.loot-chest-wrap.tap-shake .loot-chest-img{animation:lootChestShake .3s ease}
+.loot-chest-wrap.opened .loot-chest-img{animation:lootChestOpen .65s ease forwards;filter:drop-shadow(0 0 42px rgba(255,220,80,.95))}
+.loot-panel{position:absolute;right:92%;bottom:12%;width:230px;background:rgba(15,8,2,.96);border:1.5px solid rgba(255,215,0,.55);border-radius:14px;padding:14px;display:none;flex-direction:column;gap:8px;box-shadow:0 0 42px rgba(255,180,0,.3);z-index:20;text-align:center}
+.loot-panel.open{display:flex;animation:lootPanelIn .35s ease}
+.loot-title{font-family:'Bebas Neue',sans-serif;font-size:22px;color:#FFD700;letter-spacing:.12em}
+.loot-gold{font-family:'Bebas Neue',sans-serif;font-size:22px;color:#FFD700}
+.loot-item{font-family:'Bebas Neue',sans-serif;font-size:19px;letter-spacing:.08em;line-height:1.4;color:rgba(255,255,255,.45)}
+.loot-item.rarity-1{color:#a1a1aa}
+.loot-item.rarity-2{color:#fff}
+.loot-item.rarity-3{color:#7dd3fc;text-shadow:0 0 12px rgba(125,211,252,.55)}
+.loot-item.rarity-4{color:#c084fc;text-shadow:0 0 8px #fff,0 0 18px rgba(192,132,252,.95)}
+.loot-item.rarity-5{color:#fb923c;text-shadow:0 0 10px #FFD700,0 0 24px rgba(255,215,0,.95)}
+.loot-claim{font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:.12em;padding:8px;border:0;border-radius:8px;background:linear-gradient(135deg,#15803d,#22c55e);color:#fff;cursor:pointer}
+@keyframes lootChestArrive{0%{opacity:0;transform:translateY(-80px) scale(.45) rotate(-8deg);filter:drop-shadow(0 0 0 rgba(255,180,40,0))}65%{opacity:1;transform:translateY(10px) scale(1.08) rotate(3deg)}82%{transform:translateY(-5px) scale(.98) rotate(-1deg)}100%{opacity:1;transform:translateY(0) scale(1) rotate(0);filter:drop-shadow(0 0 20px rgba(255,180,40,.38))}}
+@keyframes lootChestShake{0%,100%{transform:rotate(0) scale(1)}25%{transform:rotate(-7deg) scale(1.05)}50%{transform:rotate(7deg) scale(1.08)}75%{transform:rotate(-4deg) scale(1.04)}}
+@keyframes lootChestOpen{0%{transform:scale(1)}40%{transform:scale(1.18)}70%{transform:scale(.96)}100%{transform:scale(1.05)}}
+@keyframes lootPanelIn{from{opacity:0;transform:translateX(15px) scale(.9)}to{opacity:1;transform:translateX(0) scale(1)}}
+
+/* ── CENTER BRAND LABEL ── */
+.center-brand{flex-shrink:0;background:rgba(100,0,20,.75);border:1.5px solid rgba(210,50,70,.4);border-radius:10px;padding:6px 14px;text-align:center}
+.cb-title{font-family:'Bebas Neue',sans-serif;font-size:18px;color:#FFE600;letter-spacing:.1em;line-height:1}
+.cb-sub{font-family:'Barlow Condensed',sans-serif;font-size:8px;color:rgba(255,255,255,.45);letter-spacing:.16em;text-transform:uppercase;margin-top:2px}
+
+/* ── NEW GAME CONFIRM ── */
+#sp-confirm-newgame{position:fixed;inset:0;z-index:9850;background:rgba(2,4,12,.82);display:none;align-items:center;justify-content:center}
+#sp-confirm-newgame.open{display:flex}
+.spcon-box{background:rgba(20,8,4,.97);border:1.5px solid rgba(239,68,68,.5);border-radius:20px;padding:28px 32px 24px;width:min(92vw,440px);display:flex;flex-direction:column;align-items:center;gap:16px;text-align:center;animation:modalIn .28s cubic-bezier(.175,.885,.32,1.275)}
+.spcon-icon{font-size:38px;line-height:1}
+.spcon-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(22px,3.2vw,30px);color:#f87171;letter-spacing:.1em}
+.spcon-body{font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;letter-spacing:.08em;color:rgba(255,255,255,.55);line-height:1.55}
+.spcon-body strong{color:rgba(255,140,0,.9)}
+.spcon-btns{display:flex;gap:12px;width:100%;margin-top:4px}
+.spcon-yes{flex:1;font-family:'Bebas Neue',sans-serif;font-size:clamp(16px,2.2vw,22px);letter-spacing:.14em;padding:11px 0;border-radius:11px;border:none;background:linear-gradient(135deg,#7f1d1d,#ef4444);color:#fff;cursor:pointer;transition:transform .1s}
+.spcon-yes:hover{transform:scale(1.04)}
+.spcon-no{flex:1;font-family:'Bebas Neue',sans-serif;font-size:clamp(16px,2.2vw,22px);letter-spacing:.14em;padding:11px 0;border-radius:11px;background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.2);color:rgba(255,255,255,.7);cursor:pointer;transition:all .1s}
+.spcon-no:hover{background:rgba(255,255,255,.15);color:#fff}
+
+/* ── MODE SELECT OVERLAY ── */
+#sp-mode-overlay{position:fixed;inset:0;z-index:9810;background:rgba(2,8,30,.96);display:none;align-items:center;justify-content:center;backdrop-filter:blur(14px)}
+#sp-mode-overlay.open{display:flex}
+.spm-modal{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.12);border-radius:24px;padding:36px 40px 30px;display:flex;flex-direction:column;align-items:center;gap:26px;width:min(92vw,520px)}
+.spm-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(24px,4vw,36px);color:var(--gold);letter-spacing:.12em;text-shadow:0 0 30px var(--gold-glow)}
+.spm-btns{display:flex;gap:20px;flex-wrap:wrap;justify-content:center;width:100%}
+.spm-btn{display:flex;flex-direction:column;align-items:center;gap:8px;padding:22px 32px;border-radius:16px;cursor:pointer;transition:transform .12s,box-shadow .15s,opacity .2s;min-width:160px;border:none;flex:1}
+.spm-btn.spm-new{background:linear-gradient(135deg,#1a3a2a,#15803d);border:1.5px solid rgba(34,197,94,.45);box-shadow:0 4px 24px rgba(34,197,94,.15)}
+.spm-btn.spm-new:hover{transform:translateY(-3px);box-shadow:0 8px 32px rgba(34,197,94,.35)}
+.spm-btn.spm-cont{background:linear-gradient(135deg,#1a2a3a,#1d4ed8);border:1.5px solid rgba(74,138,244,.45);box-shadow:0 4px 24px rgba(74,138,244,.15)}
+.spm-btn.spm-cont:hover:not(:disabled){transform:translateY(-3px);box-shadow:0 8px 32px rgba(74,138,244,.35)}
+.spm-btn:disabled{opacity:.28;cursor:not-allowed;pointer-events:none}
+.spm-btn-icon{font-size:34px;line-height:1}
+.spm-btn-label{font-family:'Bebas Neue',sans-serif;font-size:clamp(18px,2.8vw,26px);letter-spacing:.14em;color:#fff}
+.spm-btn-sub{font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:.1em;color:rgba(255,255,255,.4);text-transform:uppercase}
+.spm-cont-info{font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:.08em;color:rgba(255,255,255,.5);text-align:center;min-height:18px}
+.spm-footer{display:flex;gap:10px;align-items:center}
+.spm-settings-link{background:none;border:1px solid rgba(255,140,0,.25);color:rgba(255,140,0,.6);font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:.1em;padding:7px 18px;border-radius:8px;cursor:pointer;transition:all .15s}
+.spm-settings-link:hover{border-color:var(--gold);color:var(--gold)}
+
+/* ── NEW GAME OVERLAY ── */
+#sp-newgame-overlay{position:fixed;inset:0;z-index:9820;background:rgba(2,8,30,.96);display:none;align-items:center;justify-content:center;backdrop-filter:blur(14px);overflow:hidden}
+#sp-newgame-overlay.open{display:flex}
+.spng-modal{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:22px;padding:20px 22px 18px;width:min(96vw,520px);max-height:96vh;display:flex;flex-direction:column;gap:13px;overflow:hidden}
+.spng-header{display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.spng-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(20px,3.2vw,30px);color:var(--gold);letter-spacing:.12em}
+.spng-settings-btn{background:none;border:1px solid rgba(255,140,0,.25);color:rgba(255,140,0,.6);font-size:17px;width:32px;height:32px;border-radius:8px;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center}
+.spng-settings-btn:hover{border-color:var(--gold);color:var(--gold)}
+.spng-name-row{display:flex;align-items:center;gap:12px;flex-shrink:0}
+.spng-name-label{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+.spng-name-input{flex:1;background:rgba(255,255,255,.07);border:1.5px solid rgba(255,140,0,.32);border-radius:10px;padding:9px 14px;font-family:'Barlow Condensed',sans-serif;font-size:17px;font-weight:700;letter-spacing:.1em;color:var(--white);outline:none;transition:border-color .15s}
+.spng-name-input::placeholder{color:rgba(255,255,255,.22);font-weight:400}
+.spng-name-input:focus{border-color:rgba(255,140,0,.75)}
+.spng-content{display:flex;gap:14px;flex:1;min-height:0;overflow:hidden}
+/* Left-side floating avatar preview (outside modal, pinned to screen left) */
+.spng-left-preview{position:absolute;left:0;bottom:0;width:clamp(180px,18vw,300px);display:flex;flex-direction:column;align-items:center;pointer-events:none;z-index:1}
+.spng-left-preview img{width:100%;object-fit:contain;display:block;filter:drop-shadow(0 0 24px rgba(74,138,244,.55)) drop-shadow(0 8px 16px rgba(0,0,0,.7))}
+.spng-left-preview-name{font-family:'Bebas Neue',sans-serif;font-size:clamp(12px,1.4vw,17px);letter-spacing:.12em;color:var(--player-c);text-shadow:0 0 12px rgba(74,138,244,.6);margin-top:4px;padding-bottom:8px}
+/* Avatar grid inside modal */
+.spng-grid-wrap{display:flex;flex-direction:column;gap:7px;overflow:hidden;flex:1;min-height:0}
+.spng-grid-label{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.38);flex-shrink:0}
+.spng-avs-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;overflow-y:auto;flex:1}
+.spng-avs-card{background:rgba(255,255,255,.05);border:2px solid transparent;border-radius:10px;padding:7px 4px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;transition:border-color .13s,background .13s}
+.spng-avs-card:hover{background:rgba(255,255,255,.1)}
+.spng-avs-card.selected{border-color:var(--player-c);background:rgba(74,138,244,.15)}
+.spng-avs-card img{width:100%;max-height:70px;object-fit:contain}
+.spng-avs-card-name{font-size:8px;letter-spacing:.07em;color:rgba(255,255,255,.42);text-transform:uppercase;text-align:center;line-height:1.2}
+.spng-warn{font-family:'Barlow Condensed',sans-serif;font-size:13px;color:#f87171;text-align:center;min-height:16px;letter-spacing:.06em;flex-shrink:0}
+.spng-start-btn{padding:13px;font-family:'Bebas Neue',sans-serif;font-size:clamp(17px,2.4vw,24px);letter-spacing:.18em;background:linear-gradient(135deg,#1e3a5f,#2563eb);border:none;border-radius:12px;color:#fff;cursor:pointer;transition:transform .12s;flex-shrink:0}
+.spng-start-btn:hover{transform:scale(1.02)}
+
+/* ── GRADE SELECTOR (New Game) ── */
+.spng-grade-section{flex-shrink:0;display:flex;flex-direction:column;gap:6px}
+.spng-grade-label{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.38)}
+.spng-grade-scroll{display:flex;gap:7px;overflow-x:auto;padding-bottom:3px}
+.spng-grade-scroll::-webkit-scrollbar{height:3px}
+.spng-grade-scroll::-webkit-scrollbar-thumb{background:rgba(255,140,0,.3);border-radius:2px}
+.spng-grade-btn{flex-shrink:0;padding:7px 14px;font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:.1em;border-radius:9px;border:1.5px solid rgba(255,140,0,.2);background:rgba(255,255,255,.05);color:rgba(255,255,255,.5);cursor:pointer;transition:all .14s;white-space:nowrap}
+.spng-grade-btn:hover{border-color:rgba(255,140,0,.55);color:var(--gold);background:rgba(255,140,0,.08)}
+.spng-grade-btn.selected{border-color:var(--gold);background:rgba(255,140,0,.18);color:var(--gold);box-shadow:0 0 10px rgba(255,140,0,.3)}
+
+/* ── NPC UNIT BADGE ── */
+.sp-npc-unitbadge{font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.3);background:rgba(255,255,255,.06);border-radius:5px;padding:2px 6px;margin-top:2px;display:inline-block}
+
+/* ── SETTINGS OVERLAY ── */
+#settings-overlay{position:fixed;inset:0;z-index:10100;background:rgba(2,8,30,.97);display:none;align-items:center;justify-content:center;backdrop-filter:blur(12px)}
+#settings-overlay.open{display:flex}
+.sc-modal{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:22px;padding:28px;width:min(94vw,500px);display:flex;flex-direction:column;gap:18px}
+.sc-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(24px,3.5vw,34px);color:var(--gold);letter-spacing:.1em;text-align:center}
+.sc-section{display:flex;flex-direction:column;gap:8px}
+.sc-section-label{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.4)}
+.sc-mode-row{display:flex;gap:8px}
+.sc-mode-btn{flex:1;padding:9px 12px;font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;border-radius:10px;cursor:pointer;background:rgba(255,255,255,.05);border:1.5px solid rgba(255,140,0,.2);color:var(--muted);transition:all .15s}
+.sc-mode-btn.active{background:linear-gradient(135deg,#15803d,#1DB954);border-color:#4ade80;color:#fff;box-shadow:0 0 12px rgba(29,185,84,.35)}
+.sc-mode-btn:hover:not(.active){border-color:rgba(255,140,0,.5);color:var(--gold)}
+.sc-save-btn{padding:13px;font-family:'Barlow Condensed',sans-serif;font-size:17px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;background:linear-gradient(135deg,#CC5500,var(--gold));border:none;border-radius:12px;color:#fff;cursor:pointer;transition:transform .12s}
+.sc-save-btn:hover{transform:scale(1.02)}
+
+/* ── COUNTDOWN OVERLAY ── */
+#countdown-overlay{position:fixed;inset:0;z-index:9660;display:none;align-items:center;justify-content:center;pointer-events:none;background:rgba(2,8,30,.55);backdrop-filter:blur(6px)}
+#countdown-overlay.open{display:flex}
+#countdown-text{font-family:'Bebas Neue',sans-serif;font-size:clamp(120px,22vw,220px);letter-spacing:.04em;line-height:1;text-align:center;animation:cdPop .32s cubic-bezier(.34,1.56,.64,1)}
+@keyframes cdPop{0%{transform:scale(.3);opacity:0}100%{transform:scale(1);opacity:1}}
+#countdown-text.cd-3{color:#ef4444;text-shadow:0 0 60px rgba(239,68,68,.8)}
+#countdown-text.cd-2{color:#f59e0b;text-shadow:0 0 60px rgba(245,158,11,.8)}
+#countdown-text.cd-1{color:#22c55e;text-shadow:0 0 60px rgba(34,197,94,.8)}
+
+/* ── NPC DEFEAT OVERLAY ── */
+#sp-npc-defeat{position:fixed;inset:0;z-index:9640;background:rgba(2,8,30,.93);display:none;align-items:center;justify-content:center;backdrop-filter:blur(12px)}
+#sp-npc-defeat.open{display:flex}
+.spnd-modal{background:linear-gradient(145deg,#1a3a1a,#0a1f0a);border:1.5px solid rgba(34,197,94,.5);border-radius:26px;padding:32px 38px 28px;text-align:center;width:min(92vw,520px);display:flex;flex-direction:column;gap:14px;align-items:center;box-shadow:0 0 80px rgba(34,197,94,.15),0 24px 60px rgba(0,0,0,.7);animation:modalIn .35s cubic-bezier(.175,.885,.32,1.275)}
+.spnd-banner{font-family:'Bebas Neue',sans-serif;font-size:clamp(30px,4.5vw,48px);color:#4ade80;text-shadow:0 0 30px rgba(74,222,128,.7);letter-spacing:.08em;line-height:1}
+.spnd-npc-name{font-family:'Barlow Condensed',sans-serif;font-size:clamp(13px,1.7vw,17px);font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.55)}
+.spnd-divider{width:80%;height:1px;background:linear-gradient(90deg,transparent,rgba(34,197,94,.4),transparent)}
+.spnd-stats{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+.spnd-stat{display:flex;flex-direction:column;align-items:center;gap:3px}
+.spnd-stat-val{font-family:'Bebas Neue',sans-serif;font-size:clamp(26px,3.2vw,38px);color:var(--gold);text-shadow:0 0 20px rgba(255,140,0,.6);letter-spacing:.06em}
+.spnd-stat-val.gold-val{color:#FFD700;text-shadow:0 0 20px rgba(255,215,0,.6)}
+.spnd-stat-lbl{font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.4)}
+.spnd-continue-btn{font-family:'Bebas Neue',sans-serif;font-size:clamp(18px,2.6vw,28px);letter-spacing:.16em;padding:13px 48px;border-radius:14px;border:none;background:linear-gradient(135deg,#15803d,#22c55e);color:#fff;cursor:pointer;box-shadow:0 4px 22px rgba(34,197,94,.45);transition:transform .12s}
+.spnd-continue-btn:hover{transform:scale(1.05)}
+
+/* ── GAME OVER OVERLAY ── */
+#sp-gameover{position:fixed;inset:0;z-index:9650;background:rgba(2,6,20,.96);display:none;align-items:center;justify-content:center;backdrop-filter:blur(14px)}
+#sp-gameover.open{display:flex}
+.spgo-modal{background:linear-gradient(145deg,#3a0a0a,#1f0505);border:1.5px solid rgba(239,68,68,.5);border-radius:26px;padding:32px 38px 28px;text-align:center;width:min(92vw,460px);display:flex;flex-direction:column;gap:14px;align-items:center;box-shadow:0 0 80px rgba(239,68,68,.15),0 24px 60px rgba(0,0,0,.7);animation:modalIn .4s cubic-bezier(.175,.885,.32,1.275)}
+.spgo-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(40px,7vw,66px);color:#f87171;text-shadow:0 0 40px rgba(248,113,113,.7);letter-spacing:.06em;line-height:1}
+.spgo-divider{width:80%;height:1px;background:linear-gradient(90deg,transparent,rgba(239,68,68,.4),transparent)}
+.spgo-stats{width:100%;display:flex;flex-direction:column;gap:7px}
+.spgo-row{display:flex;justify-content:space-between;align-items:center;padding:7px 14px;background:rgba(255,255,255,.04);border-radius:10px;border:1px solid rgba(255,255,255,.07)}
+.spgo-row-lbl{font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;letter-spacing:.08em;color:rgba(255,255,255,.55)}
+.spgo-row-val{font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--gold);letter-spacing:.06em}
+.spgo-subtitle{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,140,0,.75);text-align:center;margin-top:-8px}
+.spgo-section-lbl{font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.28);padding:0 4px;margin-top:2px}
+.spgo-row-keep{border-color:rgba(255,140,0,.18)!important;background:rgba(255,140,0,.05)!important}
+.spgo-btns{display:flex;gap:12px;width:100%}
+.spgo-btn-again{flex:1;font-family:'Bebas Neue',sans-serif;font-size:clamp(16px,2.3vw,24px);letter-spacing:.14em;padding:12px 0;border-radius:12px;border:none;background:linear-gradient(135deg,#CC5500,var(--gold));color:#fff;cursor:pointer;box-shadow:0 4px 20px rgba(204,85,0,.4);transition:transform .12s}
+.spgo-btn-again:hover{transform:scale(1.04)}
+.spgo-btn-menu{flex:1;font-family:'Bebas Neue',sans-serif;font-size:clamp(14px,2vw,20px);letter-spacing:.12em;padding:12px 0;border-radius:12px;background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.2);color:rgba(255,255,255,.7);cursor:pointer;transition:all .15s}
+.spgo-btn-menu:hover{background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.4);color:#fff}
+
+@keyframes modalIn{0%{opacity:0;transform:scale(.88)}100%{opacity:1;transform:scale(1)}}
+
+/* ── VICTORY OVERLAY ── */
+#sp-victory{position:fixed;inset:0;z-index:9660;background:rgba(8,5,0,.97);display:none;align-items:center;justify-content:center;backdrop-filter:blur(14px)}
+#sp-victory.open{display:flex}
+.spvc-modal{background:linear-gradient(145deg,#2a1a00,#3d2700);border:2px solid rgba(255,215,0,.55);border-radius:28px;padding:30px 38px 26px;text-align:center;width:min(94vw,500px);display:flex;flex-direction:column;gap:14px;align-items:center;box-shadow:0 0 100px rgba(255,215,0,.2),0 0 40px rgba(255,140,0,.15),0 28px 70px rgba(0,0,0,.8);animation:modalIn .45s cubic-bezier(.175,.885,.32,1.275)}
+.spvc-crown{font-size:clamp(48px,8vw,72px);line-height:1;animation:crownBob 1.8s ease-in-out infinite}
+@keyframes crownBob{0%,100%{transform:translateY(0) rotate(-4deg)}50%{transform:translateY(-8px) rotate(4deg)}}
+.spvc-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(36px,6vw,58px);background:linear-gradient(135deg,#FFD700,#FF8C00,#FFD700);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:.06em;line-height:1;text-shadow:none}
+.spvc-subtitle{font-family:'Barlow Condensed',sans-serif;font-size:clamp(12px,1.5vw,16px);font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,215,0,.55)}
+.spvc-hero{font-family:'Bebas Neue',sans-serif;font-size:clamp(18px,2.6vw,28px);color:#fff;letter-spacing:.1em;background:rgba(255,215,0,.08);border:1px solid rgba(255,215,0,.2);border-radius:10px;padding:6px 20px}
+.spvc-divider{width:85%;height:1px;background:linear-gradient(90deg,transparent,rgba(255,215,0,.5),transparent)}
+.spvc-stats{width:100%;display:flex;flex-direction:column;gap:7px}
+.spvc-row{display:flex;justify-content:space-between;align-items:center;padding:7px 14px;background:rgba(255,255,255,.04);border-radius:10px;border:1px solid rgba(255,215,0,.1)}
+.spvc-row-lbl{font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;letter-spacing:.08em;color:rgba(255,255,255,.5)}
+.spvc-row-val{font-family:'Bebas Neue',sans-serif;font-size:22px;color:#FFD700;letter-spacing:.06em}
+.spvc-row-val.vc-gold{color:#FFD700;text-shadow:0 0 12px rgba(255,215,0,.4)}
+.spvc-btns{display:flex;gap:12px;width:100%}
+.spvc-btn-again{flex:1;font-family:'Bebas Neue',sans-serif;font-size:clamp(15px,2.2vw,22px);letter-spacing:.14em;padding:13px 0;border-radius:12px;border:none;background:linear-gradient(135deg,#92400e,#d97706,#fbbf24);color:#fff;cursor:pointer;box-shadow:0 4px 22px rgba(217,119,6,.45);transition:transform .12s}
+.spvc-btn-again:hover{transform:scale(1.04)}
+.spvc-btn-menu{flex:0 0 auto;font-family:'Bebas Neue',sans-serif;font-size:clamp(14px,2vw,20px);letter-spacing:.12em;padding:13px 22px;border-radius:12px;background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.2);color:rgba(255,255,255,.7);cursor:pointer;transition:all .15s}
+.spvc-btn-menu:hover{background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.4);color:#fff}
+</style>
+</head>
+<body>
+<div id="bg-layer"></div>
+
+<!-- ── MAIN MENU ── -->
+<div id="main-menu">
+  <div class="mm-logo">
+    <div class="mm-word1">WORD</div>
+    <div class="mm-word2">QUEST</div>
+    <div class="mm-credit">Designed by ADİL FIRAT OKTAV</div>
+    <div class="mm-early-access">⚠ Early Access</div>
+  </div>
+  <div class="mm-btns">
+    <button class="mm-play" onclick="_menuStart()">▶ &nbsp;PLAY</button>
+    <div class="mm-row">
+      <button class="mm-icon-btn" onclick="_menuFullscreen()">⛶ &nbsp;TAM EKRAN</button>
+      <button class="mm-icon-btn" onclick="_openSettingsFromMenu()">⚙ &nbsp;AYARLAR</button>
+    </div>
+  </div>
+</div>
+
+<!-- Arka plan müziği -->
+<audio id="bg-music" preload="none"></audio>
+
+<!-- ── GAME WRAP ── -->
+<div id="game-wrap">
+
+  <!-- Left: Player Panel -->
+  <div id="sp-panel-player">
+    <div class="sp-panel-hdr hdr-player">
+      <div class="sp-hdr-top">
+        <div class="sp-hdr-name nm-player" id="sp-player-name">PLAYER</div>
+        <div class="hp-number" id="hp-val-player">100 <span class="hp-heart">❤</span></div>
+      </div>
+      <div class="hp-outer"><div class="hp-fill" id="hp-fill-player"></div></div>
+      <div class="xp-outer"><div class="xp-fill" id="xp-fill"></div></div>
+      <div class="sp-level-row">
+        <span class="sp-level-lbl" id="sp-level-lbl">LEVEL 1</span>
+        <span class="sp-xp-lbl" id="sp-xp-lbl">0 XP</span>
+      </div>
+      <div class="sp-gold-row">
+        <span class="sp-gold-icon">💰</span>
+        <span class="sp-gold-val" id="sp-gold-val">0</span>
+        <span class="sp-gold-lbl">GOLD</span>
+      </div>
+      <div class="sp-gear-list" id="sp-gear-list">
+        <div class="sp-gear-row"><span class="sp-gear-icon">⚔</span><span class="sp-gear-name" id="gear-name-sword">Fists</span><span class="sp-gear-dur" id="gear-dur-sword">ATT 5 · —</span></div>
+        <div class="sp-gear-row"><span class="sp-gear-icon">⛑</span><span class="sp-gear-name" id="gear-name-helmet">Empty</span><span class="sp-gear-dur" id="gear-dur-helmet">DEF 0 · —</span></div>
+        <div class="sp-gear-row"><span class="sp-gear-icon">🛡</span><span class="sp-gear-name" id="gear-name-torso">Empty</span><span class="sp-gear-dur" id="gear-dur-torso">DEF 0 · —</span></div>
+        <div class="sp-gear-row"><span class="sp-gear-icon">🥊</span><span class="sp-gear-name" id="gear-name-gloves">Empty</span><span class="sp-gear-dur" id="gear-dur-gloves">DEF 0 · —</span></div>
+        <div class="sp-gear-row"><span class="sp-gear-icon">🥾</span><span class="sp-gear-name" id="gear-name-foot">Empty</span><span class="sp-gear-dur" id="gear-dur-foot">DEF 0 · —</span></div>
+      </div>
+      <div class="sp-potion-row">
+        <span style="font-size:12px;line-height:1">🧪</span>
+        <span class="sp-potion-lbl">POTION</span>
+        <span class="sp-potion-val empty" id="sp-potion-val">0</span>
+      </div>
+    </div>
+    <div class="sp-streak-box">
+      <div class="sp-streak-num" id="sp-streak-num">0</div>
+      <div class="sp-streak-lbl">STREAK</div>
+      <div class="sp-streak-mult" id="sp-streak-mult">&nbsp;</div>
+    </div>
+    <div class="sp-avatar-area" id="sp-player-avatar-area">
+      <!-- Player avatar injected here -->
+    </div>
+  </div>
+
+  <!-- Center: Word + Timer + Grid -->
+  <div id="sp-panel-center">
+    <div class="word-box">
+      <div class="wb-label" id="wb-label">WHAT IS THIS?</div>
+      <div class="wb-word" id="cur-word">—</div>
+    </div>
+    <div id="sp-timer-wrap">
+      <div id="sp-timer-fill"></div>
+      <div id="sp-timer-num">5</div>
+    </div>
+    <div class="img-grid" id="grid-sp">
+      <div class="img-cell" id="cell-sp-0" onclick="handleClick(0)">
+        <img id="img-sp-0" src="" alt="" decoding="async">
+        <div class="wrong-cooldown-badge" id="badge-sp-0">✕</div>
+      </div>
+      <div class="img-cell" id="cell-sp-1" onclick="handleClick(1)">
+        <img id="img-sp-1" src="" alt="" decoding="async">
+        <div class="wrong-cooldown-badge" id="badge-sp-1">✕</div>
+      </div>
+      <div class="img-cell" id="cell-sp-2" onclick="handleClick(2)">
+        <img id="img-sp-2" src="" alt="" decoding="async">
+        <div class="wrong-cooldown-badge" id="badge-sp-2">✕</div>
+      </div>
+      <div class="img-cell" id="cell-sp-3" onclick="handleClick(3)">
+        <img id="img-sp-3" src="" alt="" decoding="async">
+        <div class="wrong-cooldown-badge" id="badge-sp-3">✕</div>
+      </div>
+    </div>
+    <div class="center-brand">
+      <div class="cb-title">WORD QUEST</div>
+      <div class="cb-sub">SOLO MODE</div>
+    </div>
+  </div>
+
+  <!-- Right: NPC Panel -->
+  <div id="sp-panel-npc">
+    <div class="sp-panel-hdr hdr-npc">
+      <div class="sp-hdr-top">
+        <div class="sp-hdr-name nm-npc" id="sp-npc-name">ENEMY</div>
+        <div class="hp-number" id="hp-val-npc">30 <span class="hp-heart">❤</span></div>
+      </div>
+      <div class="hp-outer"><div class="hp-fill" id="hp-fill-npc"></div></div>
+      <div style="margin-top:4px;display:flex;align-items:center;justify-content:space-between">
+        <span style="font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.35)" id="sp-npc-lv-lbl">LEVEL 1</span>
+        <span style="font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(239,68,68,.55)">⚔ ATT <span style="font-family:'Bebas Neue',sans-serif;font-size:13px;color:#f87171;letter-spacing:.06em" id="sp-npc-att">—</span></span>
+      </div>
+      <div class="sp-npc-unitbadge" id="sp-npc-unitbadge"></div>
+    </div>
+    <div class="sp-avatar-area" id="sp-npc-avatar-area">
+      <!-- NPC avatar injected here -->
+    </div>
+  </div>
+
+  <!-- Fixed controls -->
+  <button id="fs-btn" onclick="toggleFullscreen()" title="Tam Ekran">⛶</button>
+  <button id="lite-btn" onclick="toggleLite()" title="Lite Mode">ECO</button>
+
+  <!-- Damage flash -->
+  <div id="dmg-flash"></div>
+
+  <!-- Round announce -->
+  <div id="round-announce">
+    <div class="ra-inner" id="ra-text">CORRECT!</div>
+  </div>
+</div>
+
+<!-- ── OVERLAYS ── -->
+
+<!-- New Game Confirm -->
+<div id="sp-confirm-newgame">
+  <div class="spcon-box">
+    <div class="spcon-icon">⚠️</div>
+    <div class="spcon-title">START OVER?</div>
+    <div class="spcon-body">
+      Bu işlem mevcut tüm ilerlemenizi silecek.<br>
+      <strong>Level, gold, ekipman — hepsi sıfırlanır.</strong><br>
+      Emin misiniz?
+    </div>
+    <div class="spcon-btns">
+      <button class="spcon-yes" onclick="_confirmNewGame()">✓ EVET, SIFIRLA</button>
+      <button class="spcon-no"  onclick="_cancelNewGame()">✕ İPTAL</button>
+    </div>
+  </div>
+</div>
+
+<!-- Mode Select (NEW GAME / CONTINUE) -->
+<div id="sp-mode-overlay">
+  <div class="spm-modal">
+    <div class="spm-title">⚔ CHOOSE MODE</div>
+    <div class="spm-btns">
+      <button class="spm-btn spm-new" onclick="_modeNewGame()">
+        <div class="spm-btn-icon">🆕</div>
+        <div class="spm-btn-label">NEW GAME</div>
+        <div class="spm-btn-sub">Start from scratch</div>
+      </button>
+      <button class="spm-btn spm-cont" id="spm-cont-btn" onclick="_modeContinue()">
+        <div class="spm-btn-icon">▶</div>
+        <div class="spm-btn-label">CONTINUE</div>
+        <div class="spm-btn-sub">Resume journey</div>
+      </button>
+    </div>
+    <div class="spm-cont-info" id="spm-cont-info"></div>
+    <div class="spm-footer">
+      <button class="spm-settings-link" onclick="_openSettingsFromMode()">⚙ SETTINGS</button>
+    </div>
+  </div>
+</div>
+
+<!-- New Game (name + avatar) -->
+<div id="sp-newgame-overlay">
+  <!-- Avatar preview: left side of screen, outside the modal -->
+  <div class="spng-left-preview" id="spng-left-preview">
+    <img id="spng-preview-img" src="" alt="">
+    <div class="spng-left-preview-name" id="spng-preview-name">—</div>
+  </div>
+  <!-- Modal -->
+  <div class="spng-modal">
+    <div class="spng-header">
+      <div class="spng-title">⚔ NEW BATTLE</div>
+      <button class="spng-settings-btn" onclick="_openSettingsFromNewgame()" title="Settings">⚙</button>
+    </div>
+    <div class="spng-name-row">
+      <label class="spng-name-label" for="spng-name-input">YOUR NAME:</label>
+      <input id="spng-name-input" class="spng-name-input" type="text" maxlength="20"
+             placeholder="Enter your hero name..." autocomplete="off" spellcheck="false"
+             onkeydown="if(event.key==='Enter')_ngConfirm()">
+    </div>
+    <div class="spng-grade-section">
+      <div class="spng-grade-label">CLASS / GRADE LEVEL</div>
+      <div class="spng-grade-scroll" id="spng-grade-scroll">
+        <!-- Populated dynamically from QUESTIONS -->
+      </div>
+    </div>
+    <div class="spng-grid-wrap">
+      <div class="spng-grid-label">CHOOSE YOUR HERO</div>
+      <div class="spng-avs-grid" id="spng-avs-grid"></div>
+    </div>
+    <div class="spng-warn" id="spng-warn"></div>
+    <button class="spng-start-btn" onclick="_ngConfirm()">▶ &nbsp;START BATTLE!</button>
+  </div>
+</div>
+
+<!-- Settings -->
+<div id="settings-overlay" onclick="if(event.target===this)closeSettings()">
+  <div class="sc-modal">
+    <div class="sc-title">⚙ SETTINGS</div>
+    <button class="sc-save-btn" onclick="closeSettings()">✓ CLOSE</button>
+  </div>
+</div>
+
+<!-- Countdown -->
+<div id="countdown-overlay">
+  <div id="countdown-text"></div>
+</div>
+
+<!-- NPC Defeated -->
+<div id="sp-npc-defeat">
+  <div class="spnd-modal">
+    <div class="spnd-banner" id="spnd-banner">⭐ ENEMY DEFEATED! ⭐</div>
+    <div class="spnd-npc-name" id="spnd-npc-name"></div>
+    <div class="spnd-divider"></div>
+    <div class="spnd-stats">
+      <div class="spnd-stat">
+        <div class="spnd-stat-val" id="spnd-xp">+0</div>
+        <div class="spnd-stat-lbl">XP</div>
+      </div>
+      <div class="spnd-stat">
+        <div class="spnd-stat-val gold-val" id="spnd-gold">+0</div>
+        <div class="spnd-stat-lbl">GOLD</div>
+      </div>
+      <div class="spnd-stat">
+        <div class="spnd-stat-val" id="spnd-streak">0</div>
+        <div class="spnd-stat-lbl">BEST STREAK</div>
+      </div>
+      <div class="spnd-stat">
+        <div class="spnd-stat-val" id="spnd-correct">0</div>
+        <div class="spnd-stat-lbl">CORRECT</div>
+      </div>
+    </div>
+    <div id="spnd-levelup" style="display:none;width:100%;background:rgba(74,222,128,.07);border:1.5px solid rgba(74,222,128,.35);border-radius:12px;padding:10px 14px;text-align:center">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:clamp(18px,2.6vw,26px);color:#4ade80;letter-spacing:.12em;text-shadow:0 0 18px rgba(74,222,128,.7)">⬆ LEVEL UP!</div>
+      <div id="spnd-levelup-detail" style="font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:.1em;color:rgba(255,255,255,.55);margin-top:4px"></div>
+    </div>
+    <div class="spnd-divider"></div>
+    <button class="spnd-continue-btn" id="spnd-next-btn" onclick="_spNextEnemy()">NEXT ENEMY ▶</button>
+  </div>
+</div>
+
+<!-- Game Over -->
+<div id="sp-gameover">
+  <div class="spgo-modal">
+    <div class="spgo-title">💀 GAME OVER</div>
+    <div class="spgo-subtitle" id="go-subtitle">Your gear carries over!</div>
+    <div class="spgo-divider"></div>
+    <div class="spgo-stats">
+      <div class="spgo-section-lbl">⬆ CARRIES OVER TO NEXT RUN</div>
+      <div class="spgo-row spgo-row-keep"><span class="spgo-row-lbl">LEVEL</span><span class="spgo-row-val" id="go-level">1</span></div>
+      <div class="spgo-row spgo-row-keep"><span class="spgo-row-lbl">TOTAL XP</span><span class="spgo-row-val" id="go-xp">0</span></div>
+      <div class="spgo-row spgo-row-keep"><span class="spgo-row-lbl">GOLD</span><span class="spgo-row-val" id="go-gold" style="color:#FFD700">0</span></div>
+      <div class="spgo-row spgo-row-keep"><span class="spgo-row-lbl">ARMOR / WEAPON</span><span class="spgo-row-val" id="go-gear" style="font-size:15px;color:rgba(255,255,255,.75)">—</span></div>
+      <div class="spgo-section-lbl" style="margin-top:4px">THIS RUN</div>
+      <div class="spgo-row"><span class="spgo-row-lbl">ENEMIES DEFEATED</span><span class="spgo-row-val" id="go-npcs">0</span></div>
+      <div class="spgo-row"><span class="spgo-row-lbl">BEST STREAK</span><span class="spgo-row-val" id="go-streak">0</span></div>
+      <div class="spgo-row"><span class="spgo-row-lbl">CORRECT ANSWERS</span><span class="spgo-row-val" id="go-correct">0</span></div>
+    </div>
+    <div class="spgo-btns">
+      <button class="spgo-btn-again" onclick="_spPlayAgain()">↺ TRY AGAIN</button>
+      <button class="spgo-btn-menu"  onclick="_spGoMenu()">⌂ MENU</button>
+    </div>
+  </div>
+</div>
+
+<!-- Victory -->
+<div id="sp-victory">
+  <div class="spvc-modal">
+    <div class="spvc-crown">👑</div>
+    <div class="spvc-title">VICTORY!</div>
+    <div class="spvc-subtitle">Adventure Complete</div>
+    <div class="spvc-hero" id="vc-name">HERO</div>
+    <div class="spvc-divider"></div>
+    <div class="spvc-stats">
+      <div class="spvc-row"><span class="spvc-row-lbl">FINAL LEVEL</span><span class="spvc-row-val" id="vc-level">1</span></div>
+      <div class="spvc-row"><span class="spvc-row-lbl">TOTAL XP</span><span class="spvc-row-val" id="vc-xp">0</span></div>
+      <div class="spvc-row"><span class="spvc-row-lbl">GOLD EARNED</span><span class="spvc-row-val vc-gold" id="vc-gold">0</span></div>
+      <div class="spvc-row"><span class="spvc-row-lbl">ENEMIES DEFEATED</span><span class="spvc-row-val" id="vc-enemies">0</span></div>
+      <div class="spvc-row"><span class="spvc-row-lbl">BEST STREAK</span><span class="spvc-row-val" id="vc-streak">0</span></div>
+      <div class="spvc-row"><span class="spvc-row-lbl">CORRECT ANSWERS</span><span class="spvc-row-val" id="vc-correct">0</span></div>
+    </div>
+    <div class="spvc-divider"></div>
+    <div class="spvc-btns">
+      <button class="spvc-btn-again" onclick="_spVictoryNewGame()">🔄 PLAY AGAIN</button>
+      <button class="spvc-btn-menu"  onclick="_spGoMenu()">⌂ MENU</button>
+    </div>
+  </div>
+</div>
+
+<!-- Shop (appears every 5 defeated enemies) -->
+<div id="sp-shop">
+  <div class="spsh-modal">
+    <div class="spsh-title">🏪 SHOP</div>
+    <div class="spsh-subtitle">Spend your gold wisely</div>
+    <div class="spsh-gold-info">💰 <span id="spsh-gold-display">0</span> GOLD</div>
+    <div class="spsh-items">
+      <!-- Health Potion -->
+      <div class="spsh-item" id="spsh-item-potion">
+        <div class="spsh-item-icon">🧪</div>
+        <div class="spsh-item-info">
+          <div class="spsh-item-name">HEALTH POTION</div>
+          <div class="spsh-item-desc">Restore 30 HP instantly</div>
+        </div>
+        <div class="spsh-item-price">10 💰</div>
+        <button class="spsh-buy-btn" id="spsh-btn-potion" onclick="_buyHealthPotion()">BUY</button>
+      </div>
+      <div class="spsh-divider"></div>
+      <!-- Leather Armor -->
+      <div class="spsh-item" id="spsh-item-armor">
+        <div class="spsh-item-icon">🛡</div>
+        <div class="spsh-item-info">
+          <div class="spsh-item-name">LEATHER ARMOR</div>
+          <div class="spsh-item-desc">DEF +3 — Reduce incoming damage</div>
+        </div>
+        <div class="spsh-item-price">30 💰</div>
+        <button class="spsh-buy-btn" id="spsh-btn-armor" onclick="_buyLeatherArmor()">BUY</button>
+      </div>
+      <div class="spsh-divider"></div>
+      <!-- Shortsword -->
+      <div class="spsh-item" id="spsh-item-sword">
+        <div class="spsh-item-icon">⚔</div>
+        <div class="spsh-item-info">
+          <div class="spsh-item-name">SHORTSWORD</div>
+          <div class="spsh-item-desc">ATT +3 — Deal more damage</div>
+        </div>
+        <div class="spsh-item-price">30 💰</div>
+        <button class="spsh-buy-btn" id="spsh-btn-sword" onclick="_buyShortsword()">BUY</button>
+      </div>
+    </div>
+    <button class="spsh-continue-btn" onclick="_closeShop()">CONTINUE ▶</button>
+  </div>
+</div>
+
+<!-- ── SCRIPTS ── -->
+<script src="words.js"></script>
+<script src="names.js" onerror="void 0"></script>
+<script src="avatars.js"></script>
+<script src="enemies.js"></script>
+<script src="items.js"></script>
+<script src="taunt.js"></script>
+<script>
+// ══════════════════════════════════════════════════════════
+//  WORD RIVALS: SOLO — Game Logic
+// ══════════════════════════════════════════════════════════
+
+// ── CONSTANTS ─────────────────────────────────────────────
+let   INITIAL_HP      = 100;
+const HP_PER_LOSS     = 10; // fallback only — actual damage comes from npc.att
+const SP_TIMER_MAX    = 6;
+const SP_BETWEEN_MS   = 900;
+const SP_WRONG_LOCK   = 800;
+const SP_XP_LEVELS    = [0,100,250,450,700,1000,1400,1900,2500,3200,4000,4900,5900,7000,8200];
+
+// ── ENEMY SYSTEM (uses enemies.js) ────────────────────────
+// Sorted once at startup by the `order` field defined in enemies.js
+const _ENEMY_LIST = (typeof ENEMIES !== 'undefined' && ENEMIES.length > 0)
+  ? [...ENEMIES].sort((a, b) => (a.order ?? 999) - (b.order ?? 999))
+  : [{ order:1, id:'enemy', name:'ENEMY', level:1, maxHp:30, xpReward:40, goldReward:[15,30], emoji:'👾', color:'#ef4444', img:null, facesRight:false }];
+
+// Returns the NPC for the given slot, or null when all enemies are beaten
+function _getNpc(idx) {
+  return _ENEMY_LIST[idx] ?? null;
+}
+function _hasMoreEnemies(afterIdx) {
+  return afterIdx + 1 < _ENEMY_LIST.length;
+}
+function _isLastEnemy(idx) {
+  return idx === _ENEMY_LIST.length - 1;
+}
+
+// ── STATE ─────────────────────────────────────────────────
+let _spPlayerHP     = 100;
+let _spNpcHP        = 30;
+let _spNpcIdx       = 0;
+let _spStreak       = 0;
+let _spBestStreak   = 0;
+let _spXP           = 0;
+let _spLevel        = 1;
+let _spGold         = 0;
+let _spPlayerName   = '';
+let _spNpcsDefeated = 0;
+let _spTotalCorrect = 0;
+let _spTotalWrong   = 0;
+let _spRoundActive  = false;
+let _spClickLocked  = false;
+let _spTimerLeft    = 5;
+let _spTimerInterval   = null;
+let _spWordRevealTimer = null;
+let _spWordRepeatTimer = null;
+let _currentWord    = '';
+let _spCorrectPos   = -1;
+let _spGridImages   = [];
+let _spSelectedAvatar = null;
+let _spPlayerGrade    = null;  // null until selected in New Game
+let _spPlayerAtt         = 5;    // base ATT from level progression
+let _spEquipment         = { sword:null, helmet:null, torso:null, gloves:null, foot:null };
+let _spPotions           = 0;    // inventory: health potions (auto-use below 30 HP)
+let _spMaxHP             = 100;  // effective max HP — grows +10 per level
+let _spLevelAtFightStart = 1;    // track level changes per fight
+let _lootTapCount        = 0;
+let _lootLastTapAt       = 0;
+let _pendingLootGold     = 0;
+let _pendingLootText     = '';
+let _pendingLootRarity   = 0;
+let _pendingLootItem     = null;
+let _pendingChestImage   = 'ironchest.png';
+
+// ── SETTINGS STATE ────────────────────────────────────────
+let usedQIdx       = new Set();
+let _listeningMode = true;
+let _musicEnabled  = true;
+let _liteMode      = false;
+let _timerAudioCtx = null;
+
+// ── AUDIO ─────────────────────────────────────────────────
+const BG_MUSIC_FULL = 0.35;
+const BG_MENU_TRACK = 'sounds/mainmenu.mp3';
+const BG_TRACKS     = ['sounds/main.mp3','sounds/main2.mp3','sounds/main3.mp3'];
+let   _bgTrackIdx   = 0;
+let   _musicCueAudio = null;
+let   _musicCueTimer = null;
+let   _menuMusicResetTimer = null;
+
+function _cancelBgTrackSwitch() {
+  const a = document.getElementById('bg-music');
+  if (!a) return;
+  clearTimeout(a._switchTimer);
+  a._switchTimer = null;
+}
+function _stopMusicCue() {
+  clearTimeout(_musicCueTimer);
+  _musicCueTimer = null;
+  if (!_musicCueAudio) return;
+  _musicCueAudio.pause();
+  _musicCueAudio.currentTime = 0;
+  _musicCueAudio = null;
+}
+function _playMusicCue(src, vol, delay) {
+  _stopMusicCue();
+  if (!_musicEnabled) return;
+  _musicCueTimer = setTimeout(() => {
+    _musicCueTimer = null;
+    if (!_musicEnabled) return;
+    const cue = new Audio(src);
+    _musicCueAudio = cue;
+    cue.volume = vol ?? 0.7;
+    cue.addEventListener('ended', () => {
+      if (_musicCueAudio === cue) _musicCueAudio = null;
+    }, { once: true });
+    cue.play().catch(() => {
+      if (_musicCueAudio === cue) _musicCueAudio = null;
+    });
+  }, delay || 0);
+}
+
+function _bgMusicFade(target, ms) {
+  const a = document.getElementById('bg-music');
+  if (!a) return;
+  clearInterval(a._fadeTimer);
+  const start = a.volume, diff = target - start;
+  if (Math.abs(diff) < 0.005) { a.volume = target; return; }
+  const steps = 24, iv = ms / steps;
+  let step = 0;
+  a._fadeTimer = setInterval(() => {
+    step++;
+    a.volume = Math.min(1, Math.max(0, start + diff * (step / steps)));
+    if (step >= steps) clearInterval(a._fadeTimer);
+  }, iv);
+}
+function _switchBgTrack() {
+  if (!_musicEnabled) return;
+  const a = document.getElementById('bg-music');
+  if (!a || !a._wkStarted) return;
+  _cancelBgTrackSwitch();
+  _bgTrackIdx = (_bgTrackIdx + 1) % BG_TRACKS.length;
+  _bgMusicFade(0, 500);
+  a._switchTimer = setTimeout(() => {
+    a._switchTimer = null;
+    if (!_musicEnabled) return;
+    clearInterval(a._fadeTimer);
+    a.pause(); a.src = BG_TRACKS[_bgTrackIdx]; a.loop = true; a.volume = 0; a.load();
+    a.play().catch(() => {});
+    _bgMusicFade(BG_MUSIC_FULL, 800);
+  }, 550);
+}
+function _playSound(src, vol) {
+  try { const a = new Audio(src); a.volume = vol || 0.7; a.play().catch(() => {}); } catch(e) {}
+}
+function getAudio() {
+  try {
+    if (!_timerAudioCtx) _timerAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    return _timerAudioCtx;
+  } catch(e) { return null; }
+}
+
+// ── SPEECH SYNTHESIS ──────────────────────────────────────
+let _spVoice = null;
+function _initVoice() {
+  const voices = window.speechSynthesis?.getVoices() || [];
+  _spVoice = voices.find(v => v.lang.startsWith('en') && v.localService)
+          || voices.find(v => v.lang.startsWith('en')) || null;
+}
+function _speak(word) {
+  if (!window.speechSynthesis || !word) return;
+  window.speechSynthesis.cancel();
+  const utt = new SpeechSynthesisUtterance(word);
+  utt.lang = 'en-US'; utt.rate = 0.9; utt.pitch = 1;
+  if (_spVoice) utt.voice = _spVoice;
+  window.speechSynthesis.speak(utt);
+}
+
+// ── FULLSCREEN + LITE ─────────────────────────────────────
+function toggleFullscreen() {
+  if (!document.fullscreenElement) document.documentElement.requestFullscreen?.();
+  else document.exitFullscreen?.();
+}
+function toggleLite() {
+  _liteMode = !_liteMode;
+  document.body.classList.toggle('lite', _liteMode);
+  document.getElementById('lite-btn')?.classList.toggle('lite-on', _liteMode);
+}
+
+// ── QUESTION SYSTEM ───────────────────────────────────────
+// Returns the active filter for the current NPC (grade + unitSet)
+function _qFilter(q, unitSet) {
+  if (!q[q.length - 1]) return false;                          // must have image
+  if (_spPlayerGrade !== null && q[1] !== _spPlayerGrade) return false; // grade filter
+  if (unitSet && unitSet.length > 0 && !unitSet.includes(q[2])) return false; // unit filter
+  return true;
+}
+// Get current NPC's unitSet (null = all units)
+function _curUnitSet() {
+  return _getNpc(_spNpcIdx)?.unitSet ?? null;
+}
+
+function _pickQuestion() {
+  const unitSet = _curUnitSet();
+  const avail = QUESTIONS.reduce((a, q, i) => {
+    if (!usedQIdx.has(i) && _qFilter(q, unitSet)) a.push(i);
+    return a;
+  }, []);
+  // If no questions match (e.g. unit not in grade), fall back to grade-only
+  if (!avail.length) {
+    usedQIdx.clear();
+    const fallback = QUESTIONS.reduce((a, q, i) => {
+      if (_spPlayerGrade !== null && q[1] !== _spPlayerGrade && q[q.length-1]) return a;
+      if (q[q.length - 1]) a.push(i);
+      return a;
+    }, []);
+    const fi = fallback[Math.floor(Math.random() * fallback.length)] ?? 0;
+    usedQIdx.add(fi);
+    return QUESTIONS[fi];
+  }
+  const i = avail[Math.floor(Math.random() * avail.length)];
+  usedQIdx.add(i);
+  return QUESTIONS[i];
+}
+
+function _buildGrid(correctQ) {
+  const unitSet     = _curUnitSet();
+  const correctImg  = correctQ[correctQ.length - 1];
+  const correctSyns = correctQ.slice(3, -1).filter(s => s && typeof s === 'string');
+  // Distractor pool: same grade, can come from ANY unit (so we always have enough options)
+  let pool = QUESTIONS.filter(q => {
+    const qImg  = q[q.length - 1];
+    const qSyns = q.slice(3, -1).filter(s => s && typeof s === 'string');
+    if (!qImg || q === correctQ || qImg === correctImg) return false;
+    if (q[0] === correctQ[0]) return false;
+    if (correctSyns.includes(q[0]) || qSyns.includes(correctQ[0])) return false;
+    if (_spPlayerGrade !== null && q[1] !== _spPlayerGrade) return false; // grade match
+    return true;
+  });
+  // If too few, widen to all grades
+  if (pool.length < 3) {
+    pool = QUESTIONS.filter(q => {
+      const qImg = q[q.length - 1];
+      return q !== correctQ && qImg && qImg !== correctImg && q[0] !== correctQ[0];
+    });
+  }
+  const usedImgs = new Set([correctImg]);
+  const wrongs   = [];
+  const rem      = pool.slice();
+  while (wrongs.length < 3 && rem.length > 0) {
+    const ri = Math.floor(Math.random() * rem.length);
+    const q  = rem[ri];
+    rem[ri]  = rem[rem.length - 1]; rem.pop();
+    const qImg = q[q.length - 1];
+    if (!usedImgs.has(qImg)) { usedImgs.add(qImg); wrongs.push(q); }
+  }
+  while (wrongs.length < 3) wrongs.push(pool[Math.floor(Math.random() * pool.length)] || correctQ);
+  const imgs = [
+    { src: correctImg,                        isCorrect: true,  word: correctQ[0] },
+    { src: wrongs[0][wrongs[0].length - 1],   isCorrect: false, word: wrongs[0][0] },
+    { src: wrongs[1][wrongs[1].length - 1],   isCorrect: false, word: wrongs[1][0] },
+    { src: wrongs[2][wrongs[2].length - 1],   isCorrect: false, word: wrongs[2][0] },
+  ];
+  for (let i = imgs.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [imgs[i], imgs[j]] = [imgs[j], imgs[i]];
+  }
+  _spGridImages = imgs;
+  for (let p = 0; p < 4; p++) {
+    const cell = document.getElementById('cell-sp-' + p);
+    const img  = document.getElementById('img-sp-' + p);
+    if (!cell || !img) continue;
+    cell.className = 'img-cell';
+    cell.onclick   = () => handleClick(p);
+    img.src        = imgs[p].src;
+    img.onerror    = () => {
+      img.onerror = null; img.style.display = 'none';
+      let ph = cell.querySelector('.img-broken-ph');
+      if (!ph) { ph = document.createElement('div'); ph.className = 'img-broken-ph'; cell.appendChild(ph); }
+      ph.innerHTML = `<div class="ibph-word">${imgs[p].word}</div>`;
+    };
+    if (imgs[p].isCorrect) _spCorrectPos = p;
+  }
+}
+
+// ── HP / XP / GOLD UI ────────────────────────────────────
+function _updatePlayerHP() {
+  const pct  = Math.max(0, _spPlayerHP) / _spMaxHP * 100;
+  const fill = document.getElementById('hp-fill-player');
+  const val  = document.getElementById('hp-val-player');
+  if (fill) {
+    fill.style.width      = pct + '%';
+    fill.style.background = pct > 50 ? 'linear-gradient(90deg,#22c55e,#4ade80)'
+                          : pct > 25 ? 'linear-gradient(90deg,#f59e0b,#fbbf24)'
+                          :            'linear-gradient(90deg,#ef4444,#f87171)';
+    fill.classList.add('hp-damage'); setTimeout(() => fill.classList.remove('hp-damage'), 400);
+  }
+  if (val) val.innerHTML = Math.max(0, _spPlayerHP) + ' <span class="hp-heart">❤</span>';
+}
+function _updateNpcHP() {
+  const npc  = _getNpc(_spNpcIdx);
+  if (!npc) return;
+  const pct  = Math.max(0, _spNpcHP) / npc.maxHp * 100;
+  const fill = document.getElementById('hp-fill-npc');
+  const val  = document.getElementById('hp-val-npc');
+  if (fill) {
+    fill.style.width      = pct + '%';
+    fill.style.background = pct > 50 ? 'linear-gradient(90deg,#22c55e,#4ade80)'
+                          : pct > 25 ? 'linear-gradient(90deg,#f59e0b,#fbbf24)'
+                          :            'linear-gradient(90deg,#ef4444,#f87171)';
+    fill.classList.add('hp-damage'); setTimeout(() => fill.classList.remove('hp-damage'), 400);
+  }
+  if (val) val.innerHTML = Math.max(0, _spNpcHP) + ' <span class="hp-heart">❤</span>';
+}
+function _updateXP() {
+  const lvl    = _spLevel;
+  const curr   = _spXP - (SP_XP_LEVELS[lvl - 1] || 0);
+  const next   = (SP_XP_LEVELS[lvl] || SP_XP_LEVELS[SP_XP_LEVELS.length - 1] + 1000) - (SP_XP_LEVELS[lvl - 1] || 0);
+  const pct    = Math.min(100, (curr / next) * 100);
+  const fill   = document.getElementById('xp-fill');
+  const lvlLbl = document.getElementById('sp-level-lbl');
+  const xpLbl  = document.getElementById('sp-xp-lbl');
+  if (fill)   fill.style.width = pct + '%';
+  if (lvlLbl) lvlLbl.textContent = 'LEVEL ' + lvl;
+  if (xpLbl)  xpLbl.textContent  = curr + '/' + next + ' XP';
+}
+function _addXP(amount) {
+  _spXP += amount;
+  const maxLevel = SP_XP_LEVELS.length;
+  while (_spLevel < maxLevel && _spXP >= SP_XP_LEVELS[_spLevel]) {
+    _spLevel++;
+    // Level-up bonuses
+    _spMaxHP    += 10;
+    _spPlayerHP  = Math.min(_spMaxHP, _spPlayerHP + 10);
+    _spPlayerAtt++;
+    _updatePlayerHP();
+    _updateWeapon();
+    _playSound('sounds/levelup.mp3', 0.75);
+    _showLevelUpEffect();
+  }
+  _updateXP();
+}
+function _showLevelUpEffect() {
+  const area = document.getElementById('sp-player-avatar-area');
+  if (!area) return;
+  const img = area.querySelector('img');
+  const r   = img ? img.getBoundingClientRect() : area.getBoundingClientRect();
+  const cx  = r.left + r.width * 0.5;
+  const cy  = r.top  + r.height * (img ? 0.25 : 0.35);
+  const el  = document.createElement('div');
+  el.className   = 'levelup-float';
+  el.textContent = 'LEVEL UP!!';
+  el.style.left  = cx + 'px';
+  el.style.top   = cy + 'px';
+  document.body.appendChild(el);
+  el.addEventListener('animationend', () => el.remove(), {once: true});
+}
+function _updateGold() {
+  const el = document.getElementById('sp-gold-val');
+  if (el) el.textContent = _spGold;
+}
+function _addGold(amount) {
+  _spGold += amount;
+  _updateGold();
+  _spawnFloat('+' + amount + ' 💰', '#FFD700');
+}
+const _EQUIPMENT_SLOTS = ['sword','helmet','torso','gloves','foot'];
+const _ARMOR_SLOTS = ['helmet','torso','gloves','foot'];
+function _getEquipmentAtt() {
+  return _EQUIPMENT_SLOTS.reduce((n, slot) => n + (_spEquipment[slot]?.att || 0), 0);
+}
+function _getEquipmentDef() {
+  return _ARMOR_SLOTS.reduce((n, slot) => n + (_spEquipment[slot]?.def || 0), 0);
+}
+function _updateEquipmentUI() {
+  _EQUIPMENT_SLOTS.forEach(slot => {
+    const item = _spEquipment[slot];
+    const nameEl = document.getElementById('gear-name-' + slot);
+    const durEl = document.getElementById('gear-dur-' + slot);
+    if (nameEl) nameEl.textContent = item?.name || (slot === 'sword' ? 'Fists' : 'Empty');
+    if (durEl) {
+      const statText = slot === 'sword'
+        ? 'ATT ' + (_spPlayerAtt + (item?.att || 0))
+        : item ? 'DEF ' + (item.def || 0) : 'DEF 0';
+      durEl.textContent = statText + ' · ' + (item ? item.currentDur + '/' + item.dur : '—');
+      durEl.style.color = item && item.currentDur <= Math.max(1, Math.ceil(item.dur * .25)) ? '#f87171' : '#94a3b8';
+    }
+  });
+}
+function _cloneEquipmentItem(item) {
+  return { ...item, currentDur: item.dur };
+}
+function _equipLootItem(item) {
+  const current = _spEquipment[item.slot];
+  if (!current) {
+    _spEquipment[item.slot] = _cloneEquipmentItem(item);
+    _pendingLootText = item.name;
+  } else if (item.value <= current.value) {
+    current.currentDur += item.dur;
+    _pendingLootText = item.name;
+  } else {
+    _spGold += current.value;
+    _pendingLootGold += current.value;
+    _spEquipment[item.slot] = _cloneEquipmentItem(item);
+    _pendingLootText = item.name;
+  }
+  _updateGold();
+  _updateEquipmentUI();
+}
+function _damageEquipment(slots) {
+  slots.forEach(slot => {
+    const item = _spEquipment[slot];
+    if (!item) return;
+    item.currentDur--;
+    if (item.currentDur <= 0) {
+      _spEquipment[slot] = null;
+      _spawnFloat('BROKEN: ' + item.name, '#f87171');
+    }
+  });
+  _updateEquipmentUI();
+  _spSave();
+}
+function _updatePotions() {
+  const el = document.getElementById('sp-potion-val');
+  if (!el) return;
+  el.textContent = _spPotions;
+  el.className = 'sp-potion-val' + (_spPotions > 0 ? '' : ' empty');
+}
+function _tryAutoPotion() {
+  // Low-HP non-lethal auto-use (called with delay for visual polish)
+  if (_spPotions <= 0 || _spPlayerHP <= 0 || _spPlayerHP >= 30) return;
+  _spPotions--;
+  _spPlayerHP = Math.min(_spMaxHP, _spPlayerHP + 30);
+  _updatePlayerHP();
+  _updatePotions();
+  _spawnFloat('🧪 AUTO +30 HP', '#4ade80');
+  _playSound('sounds/gulp.mp3', 0.6);
+}
+// Applies damage, runs potion guards, returns true if player is truly dead
+function _handlePlayerDamage(rawDmg) {
+  _spPlayerHP = Math.max(0, _spPlayerHP - rawDmg);
+  _updatePlayerHP();
+  // Guard 1: lethal hit — potion saves from death immediately
+  if (_spPlayerHP <= 0 && _spPotions > 0) {
+    _spPotions--;
+    _spPlayerHP = 30;
+    _updatePlayerHP();
+    _updatePotions();
+    _spawnFloat('🧪 SAVED! +30 HP', '#4ade80');
+    _playSound('sounds/gulp.mp3', 0.65);
+    return false; // survived
+  }
+  if (_spPlayerHP <= 0) return true; // dead, no potion
+  // Guard 2: non-lethal but low HP — auto-use after visual delay
+  if (_spPlayerHP < 30 && _spPotions > 0) setTimeout(_tryAutoPotion, 450);
+  return false; // alive
+}
+function _updateWeapon() {
+  _updateEquipmentUI();
+}
+// Apply armor reduction to incoming damage (minimum 1)
+function _calcIncomingDmg(rawAtt) {
+  return Math.max(1, rawAtt - _getEquipmentDef());
+}
+function _updateStreakUI() {
+  const numEl  = document.getElementById('sp-streak-num');
+  const multEl = document.getElementById('sp-streak-mult');
+  if (numEl)  numEl.textContent = _spStreak;
+  if (multEl) {
+    const m = _calcStreakMult(_spStreak);
+    multEl.textContent = m > 1 ? '×' + m.toFixed(1) + ' DAMAGE' : '';
+  }
+}
+function _calcStreakMult(streak) {
+  if (streak >= 7) return 2.5;
+  if (streak >= 5) return 2.0;
+  if (streak >= 3) return 1.5;
+  return 1.0;
+}
+function _calcDamage() {
+  return Math.max(1, _spPlayerAtt + _getEquipmentAtt());
+}
+
+// ── NPC DISPLAY ───────────────────────────────────────────
+function _renderNpc(npc) {
+  if (!npc) return;
+  document.getElementById('sp-panel-npc')?.classList.remove('loot-active');
+  _spLevelAtFightStart = _spLevel; // snapshot level at fight start for defeat screen
+  const nameEl = document.getElementById('sp-npc-name');
+  const lvLbl  = document.getElementById('sp-npc-lv-lbl');
+  const area   = document.getElementById('sp-npc-avatar-area');
+  const hdrNpc = document.querySelector('.hdr-npc');
+  if (nameEl) {
+    nameEl.textContent = npc.name;
+    nameEl.style.color = npc.color || '#ef4444';
+    nameEl.style.textShadow = '0 0 16px ' + (npc.color || '#ef4444') + '88';
+  }
+  if (lvLbl)  lvLbl.textContent = 'LEVEL ' + npc.level;
+  const attEl = document.getElementById('sp-npc-att');
+  if (attEl)  attEl.textContent = npc.att ?? '—';
+  if (hdrNpc) hdrNpc.style.borderColor = (npc.color || '#ef4444') + '66';
+  const badge = document.getElementById('sp-npc-unitbadge');
+  if (badge) {
+    const us = npc.unitSet;
+    badge.textContent = us && us.length ? 'UNITS: ' + us.join(', ') : 'ALL UNITS';
+    badge.style.display = '';
+  }
+  if (area) {
+    if (npc.img) {
+      const _swayClass = npc.flying ? 'sp-avatar-sway sway-npc sway-flying' : 'sp-avatar-sway sway-npc';
+      const _isVertical = npc.vertical !== 0; // old entries default to portrait
+      const _layoutClass = _isVertical ? 'npc-vertical' : 'npc-landscape';
+      const _wrapClass = _isVertical ? '' : ' npc-landscape-wrap';
+      const _oversizedClass = npc.oversized ? ' npc-oversized' : '';
+      area.innerHTML = `<div class="${_swayClass}${_wrapClass}${_oversizedClass}"><img class="sp-npc-img ${_layoutClass}" src="${npc.img}" alt="${npc.name}"></div>`;
+    } else {
+      const _swayClass2 = npc.flying ? 'sp-avatar-sway sway-npc sway-flying' : 'sp-avatar-sway sway-npc';
+      area.innerHTML = `<div class="${_swayClass2}"><div class="sp-npc-placeholder">
+        <div class="sp-npc-emoji" style="color:${npc.color||'#ef4444'}">${npc.emoji||'👾'}</div>
+        <div class="sp-npc-ph-name" style="color:${npc.color||'#ef4444'}">${npc.name}</div>
+        <div class="sp-npc-ph-lv">LEVEL ${npc.level}</div>
+      </div></div>`;
+    }
+  }
+  _spNpcHP = npc.maxHp;
+  _updateNpcHP();
+}
+function _renderPlayerAvatar() {
+  const area = document.getElementById('sp-player-avatar-area');
+  if (!area || _spSelectedAvatar === null || !AVATARS[_spSelectedAvatar]) return;
+  const av   = AVATARS[_spSelectedAvatar];
+  const flip = av.facesRight ? '' : 'scaleX(-1)'; // player faces right (toward NPC)
+  area.innerHTML = `<div class="sp-avatar-sway sway-player"><img class="sp-player-img" src="${av.src}" alt="player" style="transform:${flip}"></div>`;
+  const nameEl = document.getElementById('sp-player-name');
+  if (nameEl) nameEl.textContent = _spPlayerName || 'PLAYER';
+}
+
+// ── SP TIMER ──────────────────────────────────────────────
+function _startTimer() {
+  // Full reset — new enemy or game start
+  _stopTimer();
+  _spTimerLeft = SP_TIMER_MAX;
+  _updateTimerUI();
+  _spTimerInterval = setInterval(_timerTick, 1000);
+}
+function _resumeTimer() {
+  // Resume from current _spTimerLeft — used after correct answers
+  _stopTimer();
+  _updateTimerUI();
+  _spTimerInterval = setInterval(_timerTick, 1000);
+}
+function _stopTimer() {
+  if (_spTimerInterval) { clearInterval(_spTimerInterval); _spTimerInterval = null; }
+}
+function _timerTick() {
+  _spTimerLeft = Math.max(0, _spTimerLeft - 1);
+  _updateTimerUI();
+  if (_spTimerLeft <= 3 && _spTimerLeft > 0) {
+    try {
+      const ctx  = getAudio();
+      const freq = _spTimerLeft === 3 ? 480 : _spTimerLeft === 2 ? 780 : 1200;
+      const dur  = 0.09;
+      const osc  = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.connect(gain); gain.connect(ctx.destination);
+      osc.type = 'sine'; osc.frequency.value = freq;
+      gain.gain.setValueAtTime(0.22, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + dur);
+      osc.start(ctx.currentTime); osc.stop(ctx.currentTime + dur);
+    } catch(e) {}
+  }
+  if (_spTimerLeft <= 0) { _stopTimer(); _onTimerExpire(); }
+}
+function _updateTimerUI() {
+  const fill = document.getElementById('sp-timer-fill');
+  const num  = document.getElementById('sp-timer-num');
+  const pct  = (_spTimerLeft / SP_TIMER_MAX) * 100;
+  if (fill) {
+    fill.style.width = pct + '%';
+    fill.className   = _spTimerLeft <= 1 ? 'tmr-urgent' : _spTimerLeft <= 2 ? 'tmr-warn' : '';
+  }
+  if (num) num.textContent = _spTimerLeft;
+}
+function _onTimerExpire() {
+  if (!_spRoundActive) return;
+  // Resimler değişmez — düşman saldırır, timer sıfırlanır, aynı soru devam eder
+  const incomingDmg = _calcIncomingDmg(_getNpc(_spNpcIdx)?.att ?? HP_PER_LOSS);
+  _damageEquipment(_ARMOR_SLOTS);
+  _spStreak   = 0;
+  _updateStreakUI();
+  _flashDmg('#f59e0b33');
+  _showHitEffect('sp-player-avatar-area', '-' + incomingDmg, '#f59e0b', '#fcd34d');
+  _playSound('sounds/dmgtaken.mp3', 0.6);
+  if (_handlePlayerDamage(incomingDmg)) {
+    _spRoundActive = false;
+    _spClickLocked = true;
+    document.getElementById('cell-sp-' + _spCorrectPos)?.classList.add('correct-flash');
+    setTimeout(_showGameOver, 1200);
+  } else {
+    // Aynı soru — timer yeniden başlar
+    _spTimerLeft = SP_TIMER_MAX;
+    _spTimerInterval = setInterval(_timerTick, 1000);
+  }
+}
+
+// ── GAME FLOW ─────────────────────────────────────────────
+function _startGame() {
+  // Full reset — keeps playerName and selectedAvatar
+  _spMaxHP        = INITIAL_HP;
+  _spPlayerHP     = _spMaxHP;
+  _spNpcIdx       = 0;
+  _spStreak       = 0;
+  _spBestStreak   = 0;
+  _spXP           = 0;
+  _spLevel        = 1;
+  _spGold         = 0;
+  _spPlayerAtt    = 5;
+  _spEquipment    = { sword:null, helmet:null, torso:null, gloves:null, foot:null };
+  _spPotions      = 0;
+  _spNpcsDefeated = 0;
+  _spTotalCorrect = 0;
+  _spTotalWrong   = 0;
+  usedQIdx.clear();
+  _startGameCore();
+}
+function _startGameFromSave() {
+  // Continue from saved state — _spLoad() must be called first
+  _spNpcIdx     = _spNpcsDefeated; // start at next enemy after last defeated
+  _spPlayerHP   = _spMaxHP;
+  _spStreak     = 0;
+  _spTotalWrong = 0;
+  usedQIdx.clear();
+  _startGameCore();
+}
+function _startGameCore() {
+  document.body.classList.add('game-active');
+  _spTimerLeft = SP_TIMER_MAX; // always start fresh
+  // Cancel any lingering game-over/victory fade before starting music fresh
+  clearTimeout(_menuMusicResetTimer);
+  _menuMusicResetTimer = null;
+  _stopMusicCue();
+  _cancelBgTrackSwitch();
+  const _bgAudio = document.getElementById('bg-music');
+  if (_bgAudio) { clearInterval(_bgAudio._fadeTimer); _bgAudio.volume = 0; }
+  _bgTrackIdx = BG_TRACKS.length - 1;
+  _switchBgTrack();
+  _updateBg(true); // set correct background for starting NPC immediately
+  _updatePlayerHP();
+  _updateXP();
+  _updateGold();
+  _updateEquipmentUI();
+  _updatePotions();
+  _updateStreakUI();
+  _renderPlayerAvatar();
+  _renderNpc(_getNpc(_spNpcIdx));
+  _showCountdown(3, _startRound);
+}
+function _startRound() {
+  _spRoundActive = false;
+  _spClickLocked = false;
+  clearTimeout(_spWordRevealTimer);
+  clearTimeout(_spWordRepeatTimer);
+  if (window.speechSynthesis) window.speechSynthesis.cancel();
+  const q = _pickQuestion();
+  _buildGrid(q);
+  const word = q[0];
+  _currentWord = word;
+  const ww = document.getElementById('cur-word');
+  if (_listeningMode) {
+    // Hide instantly (no transition), then reveal after 2s
+    if (ww) {
+      ww.style.transition = 'none';          // bypass opacity transition
+      ww.classList.add('word-listening');    // opacity:0 instantly
+      ww.textContent = word;
+      _fitWordSize(word);
+      void ww.offsetHeight;                  // force reflow
+      ww.style.transition = '';              // restore transition for the reveal
+    }
+    document.getElementById('wb-label').textContent = 'LISTEN:';
+    _speak(word);
+    _spWordRevealTimer = setTimeout(() => {
+      if (ww) {
+        ww.classList.remove('word-listening');
+        document.getElementById('wb-label').textContent = 'WHAT IS THIS?';
+      }
+    }, 2000);
+  } else {
+    if (ww) { ww.textContent = word; _fitWordSize(word); ww.classList.remove('word-listening'); ww.style.opacity = ''; }
+    document.getElementById('wb-label').textContent = 'WHAT IS THIS?';
+    _speak(word);
+  }
+  setTimeout(() => {
+    _spRoundActive = true;
+    _resumeTimer();
+  }, 200);
+}
+
+// ── CLICK HANDLER ─────────────────────────────────────────
+function handleClick(pos) {
+  if (!_spRoundActive || _spClickLocked) return;
+  const cell = document.getElementById('cell-sp-' + pos);
+  if (!cell || cell.classList.contains('locked')) return;
+  const isCorrect = _spGridImages[pos]?.isCorrect;
+  if (isCorrect) {
+    _stopTimer();
+    _spRoundActive = false;
+    _spClickLocked = true;
+    clearTimeout(_spWordRepeatTimer);
+    if (window.speechSynthesis) window.speechSynthesis.cancel();
+    const dmg = _calcDamage();
+    _damageEquipment(['sword']);
+    _spStreak++;
+    if (_spStreak > _spBestStreak) _spBestStreak = _spStreak;
+    _spTotalCorrect++;
+    _addXP(dmg);
+    _spNpcHP = Math.max(0, _spNpcHP - dmg);
+    _updateNpcHP();
+    _updateStreakUI();
+    cell.classList.add('correct-flash');
+    _showHitEffect('sp-npc-avatar-area', '-' + dmg, '#FFD700', '#fff');
+    _playSound('sounds/punch.mp3', 0.7);
+    for (let p = 0; p < 4; p++) {
+      if (p !== pos) document.getElementById('cell-sp-' + p)?.classList.add('dim-wrong');
+    }
+    if (_spStreak >= 3) {
+      const mult = _calcStreakMult(_spStreak);
+      _spawnStreakBanner(_spStreak + ' STREAK! ×' + mult.toFixed(1));
+    }
+    if (_spNpcHP <= 0) {
+      setTimeout(_showNpcDefeated, 700);
+    } else {
+      setTimeout(() => {
+        cell.classList.remove('correct-flash');
+        for (let p = 0; p < 4; p++) document.getElementById('cell-sp-' + p)?.classList.remove('dim-wrong');
+        _startRound();
+      }, SP_BETWEEN_MS);
+    }
+  } else {
+    // Wrong answer
+    cell.classList.add('wrong-flash', 'locked', 'shake');
+    setTimeout(() => cell.classList.remove('shake'), 450);
+    const _incomingDmg2 = _calcIncomingDmg(_getNpc(_spNpcIdx)?.att ?? HP_PER_LOSS);
+    _damageEquipment(_ARMOR_SLOTS);
+    _spStreak   = 0;
+    _spTotalWrong++;
+    _updateStreakUI();
+    _flashDmg('#ef444422');
+    _showHitEffect('sp-player-avatar-area', '-' + _incomingDmg2, '#ef4444', '#fca5a5');
+    _playSound('sounds/dmgtaken.mp3', 0.7);
+    const badge = document.getElementById('badge-sp-' + pos);
+    if (badge) { badge.classList.add('show'); setTimeout(() => badge.classList.remove('show'), SP_WRONG_LOCK); }
+    setTimeout(() => cell.classList.remove('wrong-flash', 'locked'), SP_WRONG_LOCK);
+    if (_handlePlayerDamage(_incomingDmg2)) {
+      _stopTimer();
+      _spRoundActive = false;
+      _spClickLocked = true;
+      document.getElementById('cell-sp-' + _spCorrectPos)?.classList.add('correct-flash');
+      setTimeout(_showGameOver, 1400);
+    }
+  }
+}
+
+// ── NPC DEFEATED ──────────────────────────────────────────
+function _showNpcDefeated() {
+  _stopTimer();
+  _spRoundActive = false;
+  _spNpcsDefeated++;
+  const npc = _getNpc(_spNpcIdx);
+  if (!npc) return;
+  _addXP(npc.xpReward);
+  _playSound('sounds/finalcheer.mp3', 0.6);
+  _prepareLoot(npc);
+  _showLootChest();
+}
+function _randomGold(reward) {
+  const range = Array.isArray(reward) ? reward : [Number(reward) || 0, Number(reward) || 0];
+  const min = Math.min(range[0], range[1]);
+  const max = Math.max(range[0], range[1]);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+function _weightedItemRoll() {
+  if (typeof ITEMS === 'undefined' || !ITEMS.length) return null;
+  const slot = _EQUIPMENT_SLOTS[Math.floor(Math.random() * _EQUIPMENT_SLOTS.length)];
+  const pool = ITEMS.filter(item => item.slot === slot);
+  const total = pool.reduce((n, item) => n + item.droprate, 0);
+  let roll = Math.random() * total;
+  for (const item of pool) {
+    roll -= item.droprate;
+    if (roll < 0) return item;
+  }
+  return pool[pool.length - 1] || null;
+}
+function _prepareLoot(npc) {
+  _pendingLootGold = _randomGold(npc.goldReward);
+  _pendingLootItem = Math.random() < .20 ? _weightedItemRoll() : null;
+  _pendingLootRarity = _pendingLootItem?.rarity || 0;
+  _pendingLootText = '';
+  _pendingChestImage = _pendingLootRarity >= 4
+    ? 'goldchest.png'
+    : _pendingLootRarity === 3
+      ? 'silverchest.png'
+      : 'ironchest.png';
+}
+function _showLootChest() {
+  const area = document.getElementById('sp-npc-avatar-area');
+  if (!area) return;
+  document.getElementById('sp-panel-npc')?.classList.add('loot-active');
+  _lootTapCount = 0;
+  _lootLastTapAt = 0;
+  area.innerHTML = `<div class="loot-chest-wrap">
+    <img class="loot-chest-img" src="${_pendingChestImage}" alt="Loot chest">
+    <div class="loot-panel" id="loot-panel">
+      <div class="loot-title">CHEST OPENED!</div>
+      <div class="loot-gold" id="loot-gold"></div>
+      <div class="loot-item" id="loot-item"></div>
+      <button class="loot-claim">CLAIM LOOT ▶</button>
+    </div>
+  </div>`;
+  const wrap = area.querySelector('.loot-chest-wrap');
+  const claim = area.querySelector('.loot-claim');
+  wrap?.addEventListener('click', _tapLootChest);
+  claim?.addEventListener('click', e => {
+    e.stopPropagation();
+    _finishLoot();
+  });
+}
+function _tapLootChest() {
+  const wrap = document.querySelector('.loot-chest-wrap');
+  if (!wrap || wrap.classList.contains('opened')) return;
+  const now = Date.now();
+  _lootTapCount = now - _lootLastTapAt > 1000 ? 1 : _lootTapCount + 1;
+  _lootLastTapAt = now;
+  wrap.classList.remove('tap-shake');
+  void wrap.offsetHeight;
+  wrap.classList.add('tap-shake');
+  if (_lootTapCount >= 5) _openLootChest();
+}
+function _openLootChest() {
+  const wrap = document.querySelector('.loot-chest-wrap');
+  if (!wrap || wrap.classList.contains('opened')) return;
+  wrap.classList.add('opened');
+  _pendingLootText = '';
+  _spGold += _pendingLootGold;
+  if (_pendingLootItem) _equipLootItem(_pendingLootItem);
+  _updateGold();
+  document.getElementById('loot-gold').textContent = '+' + _pendingLootGold + ' GOLD';
+  const lootItem = document.getElementById('loot-item');
+  lootItem.textContent = _pendingLootText;
+  lootItem.className = 'loot-item' + (_pendingLootRarity ? ' rarity-' + _pendingLootRarity : '');
+  lootItem.style.display = _pendingLootText ? '' : 'none';
+  document.getElementById('loot-panel').classList.add('open');
+  _spSave();
+}
+function _finishLoot() {
+  const npc = _getNpc(_spNpcIdx);
+  if (!npc) return;
+  document.getElementById('sp-panel-npc')?.classList.remove('loot-active');
+  const panel = document.getElementById('loot-panel');
+  if (panel) panel.classList.remove('open');
+  _showDefeatSummary(npc);
+}
+function _showDefeatSummary(npc) {
+  const isLast = _isLastEnemy(_spNpcIdx);
+  document.getElementById('spnd-banner').textContent  = isLast
+    ? '👑 FINAL BOSS DEFEATED! 👑'
+    : '⭐ ' + npc.name + ' DEFEATED! ⭐';
+  document.getElementById('spnd-npc-name').textContent = 'ENEMY #' + (_spNpcIdx + 1) + '  ·  LEVEL ' + npc.level;
+  document.getElementById('spnd-xp').textContent      = '+' + npc.xpReward;
+  document.getElementById('spnd-gold').textContent    = '+' + _pendingLootGold;
+  document.getElementById('spnd-streak').textContent  = _spBestStreak;
+  document.getElementById('spnd-correct').textContent = _spTotalCorrect;
+  // Level-up announcement
+  const luEl     = document.getElementById('spnd-levelup');
+  const luDetail = document.getElementById('spnd-levelup-detail');
+  if (luEl && luDetail) {
+    if (_spLevel > _spLevelAtFightStart) {
+      const gained = _spLevel - _spLevelAtFightStart;
+      luDetail.textContent = 'Lv ' + _spLevelAtFightStart + ' → Lv ' + _spLevel
+        + '  ·  ATT +' + gained + '  ·  Max HP +' + (gained * 10);
+      luEl.style.display = '';
+    } else {
+      luEl.style.display = 'none';
+    }
+  }
+  // Button: next enemy or claim victory
+  const btn = document.getElementById('spnd-next-btn');
+  if (btn) {
+    btn.textContent = isLast ? '🏆 CLAIM VICTORY' : 'NEXT ENEMY ▶';
+    btn.style.background = isLast
+      ? 'linear-gradient(135deg,#92400e,#d97706)'
+      : 'linear-gradient(135deg,#15803d,#22c55e)';
+  }
+  document.getElementById('sp-npc-defeat').classList.add('open');
+}
+function _spNextEnemy() {
+  document.getElementById('sp-npc-defeat').classList.remove('open');
+  // If this was the last enemy, trigger victory
+  if (_isLastEnemy(_spNpcIdx)) {
+    setTimeout(_showVictory, 400);
+    return;
+  }
+  // Shop every 5 defeated enemies (after boss 5, 10, 15, ...)
+  if (_spNpcsDefeated > 0 && _spNpcsDefeated % 5 === 0) {
+    setTimeout(_openShop, 350);
+  } else {
+    setTimeout(_advanceToNextEnemy, 350);
+  }
+}
+function _advanceToNextEnemy() {
+  _spNpcIdx++;
+  const npc = _getNpc(_spNpcIdx);
+  if (!npc) { setTimeout(_showVictory, 400); return; } // safety
+  _spStreak = 0; _updateStreakUI();
+  _renderNpc(npc);
+  _spTimerLeft = SP_TIMER_MAX; // new enemy → fresh timer
+  _switchBgTrack();
+  _updateBg(); // switch background if crossing a 10-boss threshold
+  // usedQIdx intentionally NOT cleared — questions don't repeat across the whole run
+  setTimeout(_startRound, 600);
+}
+
+// ── SHOP ──────────────────────────────────────────────────
+function _openShop() {
+  document.getElementById('spsh-gold-display').textContent = _spGold;
+  _refreshShopUI();
+  document.getElementById('sp-shop').classList.add('open');
+}
+function _refreshShopUI() {
+  const gold = _spGold;
+  // — Potion (repeatable) —
+  const btnP  = document.getElementById('spsh-btn-potion');
+  const itemP = document.getElementById('spsh-item-potion');
+  if (btnP)  btnP.className  = gold >= 10 ? 'spsh-buy-btn can-buy' : 'spsh-buy-btn no-gold';
+  if (itemP) itemP.className = 'spsh-item' + (gold >= 10 ? ' affordable' : '');
+  const potionDesc = document.querySelector('#spsh-item-potion .spsh-item-desc');
+  if (potionDesc) potionDesc.textContent = 'Add to inventory · Have: ' + _spPotions;
+  // — Leather Armor (one-time) —
+  const btnA  = document.getElementById('spsh-btn-armor');
+  const itemA = document.getElementById('spsh-item-armor');
+  const armorOwned = !!_spEquipment.torso;
+  if (btnA) {
+    if (armorOwned)      { btnA.className = 'spsh-buy-btn owned';  btnA.textContent = 'OWNED'; }
+    else if (gold >= 30) { btnA.className = 'spsh-buy-btn can-buy'; btnA.textContent = 'BUY'; }
+    else                 { btnA.className = 'spsh-buy-btn no-gold'; btnA.textContent = 'BUY'; }
+  }
+  if (itemA) itemA.className = 'spsh-item' + (!armorOwned && gold >= 30 ? ' affordable' : '');
+  // — Shortsword (one-time) —
+  const btnS  = document.getElementById('spsh-btn-sword');
+  const itemS = document.getElementById('spsh-item-sword');
+  const swordOwned = !!_spEquipment.sword;
+  if (btnS) {
+    if (swordOwned)      { btnS.className = 'spsh-buy-btn owned';  btnS.textContent = 'OWNED'; }
+    else if (gold >= 30) { btnS.className = 'spsh-buy-btn can-buy'; btnS.textContent = 'BUY'; }
+    else                 { btnS.className = 'spsh-buy-btn no-gold'; btnS.textContent = 'BUY'; }
+  }
+  if (itemS) itemS.className = 'spsh-item' + (!swordOwned && gold >= 30 ? ' affordable' : '');
+}
+function _buyHealthPotion() {
+  if (_spGold < 10) return;
+  _spGold -= 10;
+  _updateGold();
+  document.getElementById('spsh-gold-display').textContent = _spGold;
+  if (_spPlayerHP <= _spMaxHP - 30) {
+    // HP düşük — anında kullan
+    _spPlayerHP = Math.min(_spMaxHP, _spPlayerHP + 30);
+    _updatePlayerHP();
+    _spawnFloat('🧪 +30 HP', '#4ade80');
+  } else {
+    // HP yüksek — inventory'e ekle
+    _spPotions++;
+    _updatePotions();
+    _spawnFloat('🧪 +1 POTION', '#4ade80');
+  }
+  _playSound('sounds/gulp.mp3', 0.6);
+  _refreshShopUI();
+}
+function _buyLeatherArmor() {
+  if (_spGold < 30 || _spEquipment.torso) return;
+  _spGold -= 30;
+  const item = ITEMS.find(x => x.id === 'leather_armor');
+  if (item) _spEquipment.torso = _cloneEquipmentItem(item);
+  _updateEquipmentUI();
+  _updateGold();
+  document.getElementById('spsh-gold-display').textContent = _spGold;
+  _refreshShopUI();
+}
+function _buyShortsword() {
+  if (_spGold < 30 || _spEquipment.sword) return;
+  _spGold -= 30;
+  const item = ITEMS.find(x => x.id === 'iron_shortsword');
+  if (item) _spEquipment.sword = _cloneEquipmentItem(item);
+  _updateEquipmentUI();
+  _updateGold();
+  document.getElementById('spsh-gold-display').textContent = _spGold;
+  _spawnFloat('⚔ Shortsword', '#fbbf24');
+  _playSound('sounds/punch.mp3', 0.45);
+  _refreshShopUI();
+}
+function _closeShop() {
+  document.getElementById('sp-shop').classList.remove('open');
+  _spSave();
+  _advanceToNextEnemy();
+}
+
+// ── GAME OVER ─────────────────────────────────────────────
+function _showGameOver() {
+  _stopTimer();
+  _spRoundActive = false;
+  _spSave();
+  _bgMusicFade(0, 350);
+  _playMusicCue('sounds/final.mp3', 0.6, 400);
+  document.getElementById('go-level').textContent   = _spLevel;
+  document.getElementById('go-xp').textContent      = _spXP;
+  document.getElementById('go-gold').textContent    = _spGold;
+  // Gear summary
+  const armorStr  = _ARMOR_SLOTS.filter(slot => _spEquipment[slot]).map(slot => _spEquipment[slot].name).join(', ') || 'No Armor';
+  const weaponStr = _spEquipment.sword?.name || 'Fists';
+  document.getElementById('go-gear').textContent    = armorStr + '  /  ' + weaponStr;
+  document.getElementById('go-npcs').textContent    = _spNpcsDefeated;
+  document.getElementById('go-streak').textContent  = _spBestStreak;
+  document.getElementById('go-correct').textContent = _spTotalCorrect;
+  document.getElementById('sp-gameover').classList.add('open');
+}
+function _spPlayAgain() {
+  document.getElementById('sp-gameover').classList.remove('open');
+  _startRun(); // roguelite: keep gear, reset run
+}
+// Roguelite restart — keeps XP / level / gold / armor / weapon
+// Only resets run progress (enemies, HP, streak, correct/wrong counts)
+function _startRun() {
+  // Equipment objects intentionally survive with their current durability.
+  _spPlayerHP     = INITIAL_HP;
+  _spNpcIdx       = 0;
+  _spNpcsDefeated = 0;
+  _spStreak       = 0;
+  _spTotalCorrect = 0;
+  _spTotalWrong   = 0;
+  usedQIdx.clear();
+  _spSave(); // persist fresh run start so CONTINUE also lands at enemy #1
+  _startGameCore();
+}
+function _spGoMenu() {
+  document.getElementById('sp-gameover').classList.remove('open');
+  document.getElementById('sp-victory').classList.remove('open');
+  document.body.classList.remove('game-active');
+  document.getElementById('main-menu').classList.remove('hidden');
+  _stopMusicCue();
+  _cancelBgTrackSwitch();
+  _bgMusicFade(0, 400);
+  clearTimeout(_menuMusicResetTimer);
+  _menuMusicResetTimer = setTimeout(() => {
+    _menuMusicResetTimer = null;
+    const a = document.getElementById('bg-music');
+    if (a) { a.pause(); a.src = BG_MENU_TRACK; a.loop = true; a.volume = 0; a.load(); a._wkStarted = false; }
+  }, 450);
+}
+
+function _spVictoryNewGame() {
+  document.getElementById('sp-victory').classList.remove('open');
+  _startGame(); // keeps name and avatar, resets all progress
+}
+
+// ── VICTORY ───────────────────────────────────────────────
+function _showVictory() {
+  _stopTimer();
+  _spRoundActive = false;
+  // Mark save as completed — CONTINUE will be unavailable until new game
+  _spSave(true);
+  _bgMusicFade(0, 350);
+  _playMusicCue('sounds/finalcheer.mp3', 0.75, 320);
+  document.getElementById('vc-name').textContent    = _spPlayerName || 'HERO';
+  document.getElementById('vc-level').textContent   = _spLevel;
+  document.getElementById('vc-xp').textContent      = _spXP;
+  document.getElementById('vc-gold').textContent    = _spGold;
+  document.getElementById('vc-enemies').textContent = _spNpcsDefeated;
+  document.getElementById('vc-streak').textContent  = _spBestStreak;
+  document.getElementById('vc-correct').textContent = _spTotalCorrect;
+  document.getElementById('sp-victory').classList.add('open');
+}
+
+// ── PROGRESS SAVE / LOAD ──────────────────────────────────
+const SP_SAVE_KEY = 'wr_sp_progress_v1';
+function _spSave(completed) {
+  try {
+    localStorage.setItem(SP_SAVE_KEY, JSON.stringify({
+      playerName:   _spPlayerName,
+      avatar:       _spSelectedAvatar,
+      grade:        _spPlayerGrade,
+      xp:           _spXP,
+      level:        _spLevel,
+      gold:         _spGold,
+      playerAtt:    _spPlayerAtt,
+      equipment:    _spEquipment,
+      potions:      _spPotions,
+      npcsDefeated: _spNpcsDefeated,
+      bestStreak:   _spBestStreak,
+      totalCorrect: _spTotalCorrect,
+      completed:    !!completed,
+      maxHp:        _spMaxHP,
+    }));
+  } catch(e) {}
+}
+function _spLoad() {
+  try {
+    const raw = localStorage.getItem(SP_SAVE_KEY);
+    if (!raw) return;
+    const d = JSON.parse(raw);
+    if (typeof d.playerName === 'string' && d.playerName) _spPlayerName     = d.playerName;
+    if (typeof d.avatar === 'number' && d.avatar >= 0 && d.avatar < AVATARS.length)
+                                                          _spSelectedAvatar  = d.avatar;
+    if (typeof d.grade  === 'number') _spPlayerGrade  = d.grade;
+    if (typeof d.xp           === 'number') _spXP           = d.xp;
+    if (typeof d.level        === 'number') _spLevel        = Math.max(1, d.level);
+    if (typeof d.gold         === 'number') _spGold         = d.gold;
+    if (typeof d.playerAtt    === 'number') _spPlayerAtt    = d.playerAtt;
+    if (d.equipment && typeof d.equipment === 'object') {
+      _EQUIPMENT_SLOTS.forEach(slot => {
+        const item = d.equipment[slot];
+        _spEquipment[slot] = item && typeof item.id === 'string' && item.currentDur > 0 ? item : null;
+      });
+    }
+    if (typeof d.potions      === 'number') _spPotions      = d.potions;
+    if (typeof d.npcsDefeated === 'number') _spNpcsDefeated = d.npcsDefeated;
+    if (typeof d.bestStreak   === 'number') _spBestStreak   = d.bestStreak;
+    if (typeof d.totalCorrect === 'number') _spTotalCorrect = d.totalCorrect;
+    if (typeof d.maxHp        === 'number' && d.maxHp >= INITIAL_HP) _spMaxHP = d.maxHp;
+  } catch(e) {}
+}
+
+// ── HIT STAR EFFECT ───────────────────────────────────────
+// 12-pointed irregular star — anime impact burst (24 polygon points, rotation baked into SVG)
+function _hitStarSVG(color, rot) {
+  const pts = '60,3 66,38 92,9 75,44 112,28 83,51 119,60 83,69 112,92 75,76 92,111 66,82 60,117 54,82 28,111 45,76 7,92 37,69 1,60 37,51 7,28 45,44 28,9 54,38';
+  return `<svg viewBox="0 0 120 120" width="88" height="88"><polygon points="${pts}" fill="${color}" opacity=".93" transform="rotate(${rot},60,60)"/></svg>`;
+}
+function _showHitEffect(areaId, text, starColor, textColor) {
+  const area = document.getElementById(areaId);
+  if (!area) return;
+  // Target the actual character image for precise positioning
+  const img  = area.querySelector('img');
+  const r    = img ? img.getBoundingClientRect() : area.getBoundingClientRect();
+  const cx   = r.left + r.width  * 0.5;
+  const cy   = r.top  + r.height * (img ? 0.28 : 0.4); // upper body of character
+  const rot  = (Math.random() * 36 - 18) | 0; // random rotation per hit
+
+  const star = document.createElement('div');
+  star.className    = 'hit-star';
+  star.style.left   = cx + 'px';
+  star.style.top    = cy + 'px';
+  star.innerHTML    = _hitStarSVG(starColor, rot);
+  document.body.appendChild(star);
+  star.addEventListener('animationend', () => star.remove(), {once:true});
+
+  const dmg = document.createElement('div');
+  dmg.className   = 'hit-dmg';
+  dmg.textContent = text;
+  dmg.style.color = textColor || starColor;
+  dmg.style.left  = cx + 'px';
+  dmg.style.top   = (cy - 12) + 'px';
+  document.body.appendChild(dmg);
+  dmg.addEventListener('animationend', () => dmg.remove(), {once:true});
+}
+
+// ── UI HELPERS ────────────────────────────────────────────
+function _showAnnounce(text, cls) {
+  const el  = document.getElementById('round-announce');
+  const txt = document.getElementById('ra-text');
+  if (!el || !txt) return;
+  txt.className   = 'ra-inner ' + cls;
+  txt.textContent = text;
+  el.classList.add('show');
+  clearTimeout(el._hideT);
+  el._hideT = setTimeout(() => el.classList.remove('show'), 1200);
+}
+function _flashDmg(color) {
+  const el = document.getElementById('dmg-flash');
+  if (!el) return;
+  el.style.background = color || 'rgba(239,68,68,.18)';
+  el.classList.add('show');
+  setTimeout(() => el.classList.remove('show'), 200);
+}
+function _spawnFloat(text, color) {
+  const el       = document.createElement('div');
+  el.className   = 'sp-float';
+  el.textContent = text;
+  el.style.color = color || '#fff';
+  el.style.left  = '50%';
+  el.style.top   = (window.innerHeight * 0.42) + 'px';
+  document.body.appendChild(el);
+  el.addEventListener('animationend', () => el.remove(), { once: true });
+}
+function _spawnStreakBanner(text) {
+  const el       = document.createElement('div');
+  el.className   = 'streak-banner';
+  el.textContent = text;
+  el.style.left  = '50%';
+  el.style.top   = (window.innerHeight * 0.2) + 'px';
+  document.body.appendChild(el);
+  el.addEventListener('animationend', () => el.remove(), { once: true });
+}
+function _fitWordSize(word) {
+  const ww = document.getElementById('cur-word');
+  if (!ww) return;
+  const l = word ? word.length : 0;
+  ww.style.fontSize = l > 18 ? 'clamp(14px,1.8vw,22px)' : l > 12 ? 'clamp(18px,2.4vw,30px)' : 'clamp(22px,3vw,36px)';
+}
+
+// ── COUNTDOWN ─────────────────────────────────────────────
+function _showCountdown(from, cb) {
+  const ov  = document.getElementById('countdown-overlay');
+  const txt = document.getElementById('countdown-text');
+  if (!ov || !txt) { cb(); return; }
+  ov.classList.add('open');
+  let n = from;
+  function tick() {
+    txt.className   = 'cd-' + n;
+    txt.textContent = n;
+    txt.style.animation = 'none';
+    txt.offsetHeight;
+    txt.style.animation = '';
+    if (n > 1) { n--; setTimeout(tick, 850); }
+    else {
+      setTimeout(() => { ov.classList.remove('open'); cb(); }, 700);
+    }
+  }
+  tick();
+}
+
+// ── GRADE SELECTOR ────────────────────────────────────────
+function _buildGradeSelector() {
+  const scroll = document.getElementById('spng-grade-scroll');
+  if (!scroll) return;
+  // Extract unique grades from QUESTIONS, sorted ascending
+  const grades = [...new Set(
+    QUESTIONS.filter(q => q[q.length - 1]).map(q => q[1])
+  )].filter(g => g != null).sort((a, b) => a - b);
+  scroll.innerHTML = '';
+  grades.forEach(g => {
+    const btn       = document.createElement('button');
+    btn.className   = 'spng-grade-btn' + (g === _spPlayerGrade ? ' selected' : '');
+    btn.textContent = g + '. SINIF';
+    btn.dataset.grade = g;
+    btn.onclick     = () => _setPlayerGrade(g);
+    scroll.appendChild(btn);
+  });
+}
+function _setPlayerGrade(g) {
+  _spPlayerGrade = g;
+  document.querySelectorAll('#spng-grade-scroll .spng-grade-btn').forEach(b =>
+    b.classList.toggle('selected', +b.dataset.grade === g));
+}
+
+// ── AVATAR SELECTION ──────────────────────────────────────
+let _avsSelectedIdx = 0;
+
+function _buildAvsGrid() {
+  const grid = document.getElementById('spng-avs-grid');
+  if (!grid) return;
+  grid.innerHTML = '';
+  AVATARS.forEach((av, idx) => {
+    if (/_dmg\.[^.]+$/i.test(av.src)) return;
+    const card       = document.createElement('div');
+    card.className   = 'spng-avs-card' + (idx === _avsSelectedIdx ? ' selected' : '');
+    card.dataset.idx = idx;
+    card.onclick     = () => {
+      _avsSelectedIdx = idx;
+      grid.querySelectorAll('.spng-avs-card').forEach(c =>
+        c.classList.toggle('selected', +c.dataset.idx === idx));
+      _updateAvsPreview();
+    };
+    const img   = document.createElement('img');
+    img.src     = av.src; img.alt = '';
+    const label = document.createElement('div');
+    label.className   = 'spng-avs-card-name';
+    label.textContent = av.src.replace(/\.[^.]+$/, '').split('_').slice(2).join(' ').toUpperCase() || 'AVATAR';
+    card.appendChild(img); card.appendChild(label);
+    grid.appendChild(card);
+  });
+}
+function _updateAvsPreview() {
+  const previewImg  = document.getElementById('spng-preview-img');
+  const previewName = document.getElementById('spng-preview-name');
+  if (_avsSelectedIdx === null || !AVATARS[_avsSelectedIdx]) return;
+  const av = AVATARS[_avsSelectedIdx];
+  if (previewImg) {
+    previewImg.src             = av.src;
+    previewImg.style.transform = av.facesRight ? '' : 'scaleX(-1)';
+  }
+  const name = av.src.replace(/\.[^.]+$/, '').split('_').slice(2).join(' ').toUpperCase() || 'AVATAR';
+  if (previewName) previewName.textContent = name;
+}
+function _ngConfirm() {
+  const inp  = document.getElementById('spng-name-input');
+  const name = (inp?.value || '').trim();
+  const warn = document.getElementById('spng-warn');
+  if (!name) {
+    if (warn) { warn.textContent = '⚠ Please enter your name!'; setTimeout(() => warn.textContent = '', 2500); }
+    inp?.focus(); return;
+  }
+  if (_spPlayerGrade === null) {
+    if (warn) { warn.textContent = '⚠ Please select your class / grade level!'; setTimeout(() => warn.textContent = '', 2500); }
+    return;
+  }
+  if (warn) warn.textContent = '';
+  _spPlayerName     = name;
+  _spSelectedAvatar = _avsSelectedIdx;
+  document.getElementById('sp-newgame-overlay').classList.remove('open');
+  _startGame();
+}
+
+// ── MODE OVERLAY ──────────────────────────────────────────
+function _openModeOverlay() {
+  const raw     = localStorage.getItem(SP_SAVE_KEY);
+  const hasSave = !!raw;
+  const contBtn  = document.getElementById('spm-cont-btn');
+  const contInfo = document.getElementById('spm-cont-info');
+  let completed  = false;
+  if (hasSave) {
+    try { completed = !!JSON.parse(raw).completed; } catch(e) {}
+  }
+  // CONTINUE disabled if no save OR if run was already completed
+  if (contBtn) contBtn.disabled = !hasSave || completed;
+  if (contInfo) {
+    if (!hasSave) {
+      contInfo.textContent = 'No save data found';
+    } else if (completed) {
+      contInfo.textContent = '🏆 ADVENTURE COMPLETED! Start a New Game to play again.';
+    } else {
+      try {
+        const d = JSON.parse(raw);
+        const gradeStr = d.grade != null ? '  ·  Grade ' + d.grade : '';
+        contInfo.textContent = (d.playerName || 'PLAYER') + gradeStr
+          + '  ·  LV' + (d.level || 1)
+          + '  ·  ' + (d.npcsDefeated || 0) + '/' + _ENEMY_LIST.length + ' enemies  ·  ' + (d.gold || 0) + ' 💰';
+      } catch(e) { contInfo.textContent = ''; }
+    }
+  }
+  document.getElementById('sp-mode-overlay').classList.add('open');
+}
+function _modeNewGame() {
+  // If save data exists warn the player before wiping everything
+  const hasSave = !!localStorage.getItem(SP_SAVE_KEY);
+  if (hasSave) {
+    document.getElementById('sp-mode-overlay').classList.remove('open');
+    document.getElementById('sp-confirm-newgame').classList.add('open');
+  } else {
+    _doOpenNewGame();
+  }
+}
+function _confirmNewGame() {
+  document.getElementById('sp-confirm-newgame').classList.remove('open');
+  _doOpenNewGame();
+}
+function _cancelNewGame() {
+  document.getElementById('sp-confirm-newgame').classList.remove('open');
+  document.getElementById('sp-mode-overlay').classList.add('open');
+}
+function _doOpenNewGame() {
+  _avsSelectedIdx = 0;
+  _spPlayerGrade  = null;
+  _buildAvsGrid();
+  _updateAvsPreview();
+  _buildGradeSelector();
+  const inp = document.getElementById('spng-name-input');
+  if (inp) { inp.value = ''; setTimeout(() => inp.focus(), 250); }
+  document.getElementById('sp-newgame-overlay').classList.add('open');
+}
+function _modeContinue() {
+  document.getElementById('sp-mode-overlay').classList.remove('open');
+  _spLoad();
+  _startGameFromSave();
+}
+
+// ── SETTINGS ──────────────────────────────────────────────
+const _TC_LS_KEY = 'wr_sp_settings_v1';
+
+function openSettings() {
+  document.getElementById('sc-listen-on') .classList.toggle('active',  _listeningMode);
+  document.getElementById('sc-listen-off').classList.toggle('active', !_listeningMode);
+  document.getElementById('sc-music-on') .classList.toggle('active',  _musicEnabled);
+  document.getElementById('sc-music-off').classList.toggle('active', !_musicEnabled);
+  [10, 50, 100, 200].forEach(v => {
+    document.getElementById('sc-hp-' + v)?.classList.toggle('active', v === INITIAL_HP);
+  });
+  document.getElementById('settings-overlay').classList.add('open');
+}
+function closeSettings() {
+  document.getElementById('settings-overlay').classList.remove('open');
+  _saveSettings();
+  const ret = window._settingsReturn;
+  window._settingsReturn = null;
+  if      (ret === 'newgame') document.getElementById('sp-newgame-overlay').classList.add('open');
+  else if (ret === 'mode')    document.getElementById('sp-mode-overlay').classList.add('open');
+  // If ret is 'menu' or null, just close — user sees main menu or game
+}
+function _openSettingsFromMenu() {
+  window._settingsReturn = 'menu';
+  openSettings();
+}
+function _openSettingsFromMode() {
+  document.getElementById('sp-mode-overlay').classList.remove('open');
+  window._settingsReturn = 'mode';
+  openSettings();
+}
+function _openSettingsFromNewgame() {
+  document.getElementById('sp-newgame-overlay').classList.remove('open');
+  window._settingsReturn = 'newgame';
+  openSettings();
+}
+function _loadSettings() {
+  try {
+    const raw = localStorage.getItem(_TC_LS_KEY);
+    if (!raw) return;
+    const d = JSON.parse(raw);
+    if (typeof d.listeningMode === 'boolean') setListeningMode(d.listeningMode);
+    if ([10, 50, 100, 200].includes(d.initialHP)) setInitialHP(d.initialHP);
+    if (typeof d.musicEnabled === 'boolean') _musicEnabled = d.musicEnabled;
+  } catch(e) {}
+}
+function _saveSettings() {
+  try {
+    localStorage.setItem(_TC_LS_KEY, JSON.stringify({
+      listeningMode: _listeningMode,
+      musicEnabled:  _musicEnabled,
+      initialHP:     INITIAL_HP,
+    }));
+  } catch(e) {}
+}
+function setListeningMode(on) {
+  _listeningMode = on;
+  document.getElementById('sc-listen-on') .classList.toggle('active',  on);
+  document.getElementById('sc-listen-off').classList.toggle('active', !on);
+}
+function setInitialHP(val) {
+  INITIAL_HP = val;
+  [10, 50, 100, 200].forEach(v => document.getElementById('sc-hp-' + v)?.classList.toggle('active', v === val));
+}
+function setMusicEnabled(on) {
+  _musicEnabled = on;
+  document.getElementById('sc-music-on') .classList.toggle('active',  on);
+  document.getElementById('sc-music-off').classList.toggle('active', !on);
+  const audio = document.getElementById('bg-music');
+  if (!audio) return;
+  if (on) {
+    if (!audio._wkStarted) {
+      audio._wkStarted = true;
+      audio.volume = BG_MUSIC_FULL;
+      audio.play().catch(() => { audio._wkStarted = false; });
+    } else {
+      _bgMusicFade(BG_MUSIC_FULL, 500);
+    }
+  } else {
+    _stopMusicCue();
+    _cancelBgTrackSwitch();
+    _bgMusicFade(0, 400);
+  }
+}
+
+// ── MAIN MENU ─────────────────────────────────────────────
+function _menuStart() {
+  _startBgMusic();
+  document.getElementById('main-menu').classList.add('hidden');
+  _openModeOverlay();
+}
+function _menuFullscreen() {
+  _startBgMusic();
+  setTimeout(() => toggleFullscreen(), 80);
+}
+function _startBgMusic() {
+  if (!_musicEnabled) return;
+  clearTimeout(_menuMusicResetTimer);
+  _menuMusicResetTimer = null;
+  const audio = document.getElementById('bg-music');
+  if (!audio || audio._wkStarted) return;
+  audio._wkStarted = true;
+  audio.volume = BG_MUSIC_FULL;
+  audio.play().catch(() => { audio._wkStarted = false; });
+}
+
+// ── BACKGROUND — NPC index driven ─────────────────────────
+// Boss 1-10 → bg1 | 11-20 → bg2 | 21-30 → bg3 | 31-40 → bg4 | 41+ → bg5
+const BG_IMAGES = [
+  'background1.webp',
+  'background2.webp',
+  'background3.webp',
+  'background4.webp',
+  'background5.webp',
+];
+let _bgImgIdx = 0;
+function _getBgIdxForNpc(npcIdx) {
+  return Math.min(BG_IMAGES.length - 1, Math.floor(npcIdx / 10));
+}
+function _updateBg(immediate) {
+  const target = _getBgIdxForNpc(_spNpcIdx);
+  if (target === _bgImgIdx && !immediate) return; // no change needed
+  _bgImgIdx = target;
+  const layer = document.getElementById('bg-layer');
+  if (!layer) return;
+  if (immediate) {
+    layer.style.backgroundImage = `url('${BG_IMAGES[_bgImgIdx]}')`;
+    layer.style.opacity = '1';
+  } else {
+    layer.style.opacity = '0';
+    setTimeout(() => {
+      layer.style.backgroundImage = `url('${BG_IMAGES[_bgImgIdx]}')`;
+      layer.style.opacity = '1';
+    }, 800);
+  }
+}
+
+// ── PREVENT CONTEXT MENU ──────────────────────────────────
+document.addEventListener('contextmenu', e => e.preventDefault());
+
+// ── STARTUP ───────────────────────────────────────────────
+window.addEventListener('load', () => {
+  _loadSettings();
+
+  const audio = document.getElementById('bg-music');
+  if (audio) { audio.src = BG_MENU_TRACK; audio.loop = true; audio.volume = 0; audio.load(); }
+
+  if (window.speechSynthesis) {
+    _initVoice();
+    window.speechSynthesis.onvoiceschanged = _initVoice;
+  }
+
+  const layer = document.getElementById('bg-layer');
+  if (layer) { layer.style.backgroundImage = `url('${BG_IMAGES[0]}')`; layer.style.opacity = '1'; }
+});
+</script>
+</body>
+</html>
