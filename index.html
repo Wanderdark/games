@@ -38,7 +38,10 @@
         radial-gradient(ellipse 30% 20% at 30% 85%, rgba(0,150,180,0.06) 0%, transparent 55%);
     }
 
-    header, .hub-section, .practice-section, footer { position: relative; z-index: 1; }
+    header, .role-section, .hub-section, .practice-section, footer {
+      position: relative;
+      z-index: 1;
+    }
 
     /* ── HEADER ── */
     header {
@@ -107,9 +110,8 @@
       color: rgba(255,255,255,0.45);
     }
 
-    @keyframes creditShimmer  { 0% { background-position: 250% center; } 100% { background-position: -150% center; } }
-    @keyframes creditBreathe  { 0%,100% { transform: none; } 50% { transform: none; } }
-    @keyframes creditGlow     { 0%,100% { filter: drop-shadow(0 0 4px rgba(255,160,0,.8)) drop-shadow(0 0 16px rgba(255,120,0,.5)); } 50% { filter: drop-shadow(0 0 12px rgba(255,255,180,1)) drop-shadow(0 0 32px rgba(255,200,0,1)) drop-shadow(0 0 70px rgba(255,130,0,.65)); } }
+    @keyframes creditShimmer { 0% { background-position: 250% center; } 100% { background-position: -150% center; } }
+    @keyframes creditGlow    { 0%,100% { filter: drop-shadow(0 0 4px rgba(255,160,0,.8)) drop-shadow(0 0 16px rgba(255,120,0,.5)); } 50% { filter: drop-shadow(0 0 12px rgba(255,255,180,1)) drop-shadow(0 0 32px rgba(255,200,0,1)) drop-shadow(0 0 70px rgba(255,130,0,.65)); } }
 
     .header-credit {
       display: inline-block;
@@ -124,18 +126,151 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      animation: creditShimmer 8s linear infinite, creditBreathe 3.6s ease-in-out infinite, creditGlow 3.6s ease-in-out infinite;
+      animation: creditShimmer 8s linear infinite, creditGlow 3.6s ease-in-out infinite;
     }
 
     /* ══════════════════════════════════════
-       HUB SECTION (default view)
+       SHARED: BACK BAR
     ══════════════════════════════════════ */
-    .hub-section {
+    .back-bar {
+      display: flex;
+      align-items: center;
+      padding: 32px 32px 0;
+    }
+
+    .back-btn {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.5);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      padding: 9px 22px;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s, color 0.2s;
+    }
+
+    .back-btn:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: rgba(255,255,255,0.22);
+      color: #fff;
+    }
+
+    /* ══════════════════════════════════════
+       ROLE SECTION (root / default view)
+    ══════════════════════════════════════ */
+    .role-section {
       display: flex;
       align-items: center;
       justify-content: center;
       flex: 1;
       padding: 70px 24px 80px;
+    }
+
+    .role-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 36px;
+      max-width: 760px;
+      width: 100%;
+    }
+
+    @media (max-width: 560px) {
+      .role-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+
+    .role-card {
+      background: #10101f;
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 26px;
+      padding: 58px 32px 52px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      cursor: pointer;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+      user-select: none;
+    }
+
+    .role-icon {
+      font-size: 3.8rem;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .role-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(1.6rem, 4vw, 2.2rem);
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      line-height: 1.1;
+      text-align: center;
+    }
+
+    .role-sub {
+      font-size: 0.86rem;
+      color: rgba(255,255,255,0.38);
+      text-align: center;
+      line-height: 1.55;
+      letter-spacing: 0.04em;
+      margin-top: 2px;
+    }
+
+    .role-arrow {
+      margin-top: 14px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      opacity: 0.3;
+      transition: opacity 0.2s;
+    }
+
+    /* TEACHER — gold */
+    .role-card.teacher:hover {
+      transform: translateY(-9px);
+      box-shadow: 0 22px 60px rgba(255,200,0,0.24), 0 0 36px rgba(255,180,0,0.16), 0 4px 16px rgba(0,0,0,0.5);
+      border-color: rgba(255,200,0,0.55);
+    }
+    .role-card.teacher .role-title { color: #ffd700; }
+    .role-card.teacher:hover .role-title {
+      text-shadow: 0 0 18px rgba(255,215,0,0.9), 0 0 40px rgba(255,160,0,0.5);
+    }
+    .role-card.teacher:hover .role-arrow { opacity: 0.85; color: #ffd700; }
+
+    /* STUDENT — blue */
+    .role-card.student:hover {
+      transform: translateY(-9px);
+      box-shadow: 0 22px 60px rgba(74,138,244,0.28), 0 0 40px rgba(74,138,244,0.16), 0 4px 16px rgba(0,0,0,0.5);
+      border-color: rgba(74,138,244,0.55);
+    }
+    .role-card.student .role-title { color: #6ba3f5; }
+    .role-card.student:hover .role-title {
+      text-shadow: 0 0 18px rgba(107,163,245,0.9), 0 0 40px rgba(74,138,244,0.5);
+    }
+    .role-card.student:hover .role-arrow { opacity: 0.85; color: #6ba3f5; }
+
+    /* ══════════════════════════════════════
+       HUB SECTION (Learn / Practice)
+    ══════════════════════════════════════ */
+    .hub-section {
+      display: none;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .hub-cards-area {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex: 1;
+      padding: 40px 24px 80px;
     }
 
     .hub-grid {
@@ -204,13 +339,10 @@
     /* LEARN — teal/blue */
     .hub-card.learn:hover {
       transform: translateY(-9px);
-      box-shadow:
-        0 22px 60px rgba(74,138,244,0.28),
-        0 0 40px rgba(74,138,244,0.16),
-        0 4px 16px rgba(0,0,0,0.5);
+      box-shadow: 0 22px 60px rgba(74,138,244,0.28), 0 0 40px rgba(74,138,244,0.16), 0 4px 16px rgba(0,0,0,0.5);
       border-color: rgba(74,138,244,0.55);
     }
-    .hub-card.learn .hub-title  { color: #6ba3f5; }
+    .hub-card.learn .hub-title { color: #6ba3f5; }
     .hub-card.learn:hover .hub-title {
       text-shadow: 0 0 18px rgba(107,163,245,0.9), 0 0 40px rgba(74,138,244,0.5);
     }
@@ -219,10 +351,7 @@
     /* PRACTICE — gold */
     .hub-card.practice:hover {
       transform: translateY(-9px);
-      box-shadow:
-        0 22px 60px rgba(255,200,0,0.24),
-        0 0 36px rgba(255,180,0,0.16),
-        0 4px 16px rgba(0,0,0,0.5);
+      box-shadow: 0 22px 60px rgba(255,200,0,0.24), 0 0 36px rgba(255,180,0,0.16), 0 4px 16px rgba(0,0,0,0.5);
       border-color: rgba(255,200,0,0.55);
     }
     .hub-card.practice .hub-title { color: #ffd700; }
@@ -232,39 +361,12 @@
     .hub-card.practice:hover .hub-arrow { opacity: 0.85; color: #ffd700; }
 
     /* ══════════════════════════════════════
-       PRACTICE SECTION (games view)
+       PRACTICE SECTION (game cards view)
     ══════════════════════════════════════ */
     .practice-section {
       display: none;
       flex-direction: column;
       flex: 1;
-    }
-
-    .back-bar {
-      display: flex;
-      align-items: center;
-      padding: 32px 32px 0;
-    }
-
-    .back-btn {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.1);
-      color: rgba(255,255,255,0.5);
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 0.82rem;
-      font-weight: 700;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      padding: 9px 22px;
-      border-radius: 30px;
-      cursor: pointer;
-      transition: background 0.2s, border-color 0.2s, color 0.2s;
-    }
-
-    .back-btn:hover {
-      background: rgba(255,255,255,0.1);
-      border-color: rgba(255,255,255,0.22);
-      color: #fff;
     }
 
     /* ── GRID ── */
@@ -345,13 +447,6 @@
         radial-gradient(circle at 50% 20%, rgba(255,200,80,0.16), transparent 55%);
     }
 
-    .card-banner-icon {
-      font-size: 4.5rem;
-      line-height: 1;
-      filter: drop-shadow(0 0 20px rgba(233,69,96,0.6));
-      z-index: 1;
-    }
-
     .card-banner-title {
       font-family: 'Barlow Condensed', sans-serif;
       font-size: 1.72rem;
@@ -364,6 +459,8 @@
       margin: 2px 0 4px;
       transition: color 0.18s ease, text-shadow 0.18s ease, transform 0.18s ease;
       text-shadow: 0 0 18px rgba(255,244,232,0.18);
+      position: relative;
+      z-index: 1;
     }
 
     .game-card:hover .card-banner-title {
@@ -410,6 +507,12 @@
       color: #6ba3f5;
     }
 
+    .card-tag.amber {
+      background: rgba(255,160,0,0.12);
+      border-color: rgba(255,160,0,0.4);
+      color: #ffaa33;
+    }
+
     .card-body p {
       font-size: 0.88rem;
       color: rgba(255,255,255,0.5);
@@ -447,19 +550,6 @@
       z-index: 1;
     }
 
-    .footer-credit {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 1rem;
-      font-weight: 600;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.6);
-    }
-
-    .footer-credit span {
-      color: #e94560;
-    }
-
     .footer-sub {
       font-size: 0.78rem;
       color: rgba(255,255,255,0.2);
@@ -479,29 +569,63 @@
     <div class="header-credit">Designed by ADİL FIRAT OKTAV</div>
   </header>
 
-  <!-- ── HUB VIEW (default) ── -->
-  <div id="hub-view" class="hub-section">
-    <div class="hub-grid">
+  <!-- ══════════════════════════════════════
+       ROLE VIEW  (default)
+  ══════════════════════════════════════ -->
+  <div id="role-view" class="role-section">
+    <div class="role-grid">
 
-      <a class="hub-card learn" href="vocab_presenter/index.html">
-        <div class="hub-icon">📖</div>
-        <div class="hub-title">Learn</div>
-        <div class="hub-sub">Vocabulary presenter &amp; flashcard tools for structured learning</div>
-        <div class="hub-arrow">▶ &nbsp;Open</div>
-      </a>
+      <div class="role-card teacher" onclick="selectRole('teacher')">
+        <div class="role-icon">👨‍🏫</div>
+        <div class="role-title">I'm a Teacher</div>
+        <div class="role-sub">Access all classroom materials and activities</div>
+        <div class="role-arrow">&#9654; &nbsp;Continue</div>
+      </div>
 
-      <div class="hub-card practice" onclick="showPractice()">
-        <div class="hub-icon">🎯</div>
-        <div class="hub-title">Practice</div>
-        <div class="hub-sub">Interactive classroom activities &amp; vocabulary practice</div>
-        <div class="hub-arrow">▶ &nbsp;Open</div>
+      <div class="role-card student" onclick="selectRole('student')">
+        <div class="role-icon">🎓</div>
+        <div class="role-title">I'm a Student</div>
+        <div class="role-sub">Explore vocabulary and solo learning activities</div>
+        <div class="role-arrow">&#9654; &nbsp;Continue</div>
       </div>
 
     </div>
   </div>
 
-  <!-- ── PRACTICE VIEW (games) ── -->
-  <div id="practice-view" class="practice-section">
+  <!-- ══════════════════════════════════════
+       HUB VIEW  (Learn / Practice)
+  ══════════════════════════════════════ -->
+  <div id="hub-view" class="hub-section">
+
+    <div class="back-bar">
+      <button class="back-btn" onclick="showRoles()">&#8592; &nbsp;Back</button>
+    </div>
+
+    <div class="hub-cards-area">
+      <div class="hub-grid">
+
+        <a class="hub-card learn" href="vocab_presenter/index.html">
+          <div class="hub-icon">📖</div>
+          <div class="hub-title">Learn</div>
+          <div class="hub-sub">Vocabulary presenter &amp; flashcard tools for structured learning</div>
+          <div class="hub-arrow">&#9654; &nbsp;Open</div>
+        </a>
+
+        <div class="hub-card practice" onclick="showPractice()">
+          <div class="hub-icon">🎯</div>
+          <div class="hub-title">Practice</div>
+          <div class="hub-sub" id="hub-practice-sub">Interactive classroom activities &amp; vocabulary practice</div>
+          <div class="hub-arrow">&#9654; &nbsp;Open</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       TEACHER PRACTICE VIEW
+  ══════════════════════════════════════ -->
+  <div id="teacher-practice-view" class="practice-section">
 
     <div class="back-bar">
       <button class="back-btn" onclick="showHub()">&#8592; &nbsp;Back</button>
@@ -512,9 +636,9 @@
       <a class="game-card" href="word_master/index.html">
         <div class="card-banner">
           <img class="card-thumb" src="images/thumbnails/w_master_thmb.webp" alt="Word Master thumbnail" loading="lazy" decoding="async">
+          <div class="card-banner-title">Word Master</div>
         </div>
         <div class="card-body">
-          <div class="card-banner-title">Word Master</div>
           <div class="card-meta">
             <span class="card-tag">Vocabulary</span>
             <span class="card-tag blue">Team</span>
@@ -527,9 +651,9 @@
       <a class="game-card" href="word_builder/index.html">
         <div class="card-banner">
           <img class="card-thumb" src="images/thumbnails/w_builder_thmb.webp" alt="Word Builder thumbnail" loading="lazy" decoding="async">
+          <div class="card-banner-title">Word Builder</div>
         </div>
         <div class="card-body">
-          <div class="card-banner-title">Word Builder</div>
           <div class="card-meta">
             <span class="card-tag">Vocabulary</span>
             <span class="card-tag blue">Team</span>
@@ -542,9 +666,9 @@
       <a class="game-card" href="word_contest/index.html">
         <div class="card-banner">
           <img class="card-thumb" src="images/thumbnails/w_contest_thmb.webp" alt="Word Contest thumbnail" loading="lazy" decoding="async">
+          <div class="card-banner-title">Word Contest</div>
         </div>
         <div class="card-body">
-          <div class="card-banner-title">Word Contest</div>
           <div class="card-meta">
             <span class="card-tag">Vocabulary</span>
             <span class="card-tag blue">Team</span>
@@ -557,9 +681,9 @@
       <a class="game-card" href="word_rivals/index.html">
         <div class="card-banner">
           <img class="card-thumb" src="images/thumbnails/w_rivals_thmb.webp" alt="Word Rivals thumbnail" loading="lazy" decoding="async">
+          <div class="card-banner-title">Word Rivals</div>
         </div>
         <div class="card-body">
-          <div class="card-banner-title">Word Rivals</div>
           <div class="card-meta">
             <span class="card-tag">Vocabulary</span>
             <span class="card-tag blue">Team</span>
@@ -572,9 +696,9 @@
       <a class="game-card" href="word_hunt/clash_of_words_v7.HTML">
         <div class="card-banner">
           <img class="card-thumb" src="images/thumbnails/w_hunt.thmb.webp" alt="Word Hunt thumbnail" loading="lazy" decoding="async">
+          <div class="card-banner-title">Word Hunt</div>
         </div>
         <div class="card-body">
-          <div class="card-banner-title">Word Hunt</div>
           <div class="card-meta">
             <span class="card-tag">Vocabulary</span>
             <span class="card-tag blue">Team</span>
@@ -587,9 +711,9 @@
       <a class="game-card" href="wordopia/index.html">
         <div class="card-banner">
           <img class="card-thumb" src="images/thumbnails/w_topia_thmb.webp" alt="Wordopia thumbnail" loading="lazy" decoding="async">
+          <div class="card-banner-title">Wordopia</div>
         </div>
         <div class="card-body">
-          <div class="card-banner-title">Wordopia</div>
           <div class="card-meta">
             <span class="card-tag">Vocabulary</span>
             <span class="card-tag blue">Team</span>
@@ -602,9 +726,9 @@
       <a class="game-card" href="word_reveal/index.html">
         <div class="card-banner">
           <img class="card-thumb reveal-thumb" src="images/thumbnails/w_reveal_thmb.webp" alt="Word Reveal thumbnail" loading="lazy" decoding="async">
+          <div class="card-banner-title">Word Reveal</div>
         </div>
         <div class="card-body">
-          <div class="card-banner-title">Word Reveal</div>
           <div class="card-meta">
             <span class="card-tag">Vocabulary</span>
             <span class="card-tag blue">Team</span>
@@ -617,26 +741,84 @@
     </div>
   </div>
 
+  <!-- ══════════════════════════════════════
+       STUDENT PRACTICE VIEW
+  ══════════════════════════════════════ -->
+  <div id="student-practice-view" class="practice-section">
+
+    <div class="back-bar">
+      <button class="back-btn" onclick="showHub()">&#8592; &nbsp;Back</button>
+    </div>
+
+    <div class="games-grid">
+
+      <a class="game-card" href="word_quest/index.html">
+        <div class="card-banner">
+          <img class="card-thumb" src="images/thumbnails/w_quest_thmb.webp" alt="Word Quest thumbnail" loading="lazy" decoding="async">
+          <div class="card-banner-title">Word Quest</div>
+        </div>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-tag">Vocabulary</span>
+            <span class="card-tag blue">Solo</span>
+            <span class="card-tag amber">Early Access</span>
+          </div>
+          <p>Embark on a solo vocabulary journey. Answer questions, collect stars and advance through levels at your own pace!</p>
+          <div class="card-play">&#9654;  Explore</div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+
   <footer>
     <div class="footer-sub">All materials are designed for classroom use</div>
   </footer>
 
   <script>
-    /* ── NAV ── */
+    /* ══════════════════════════════════════
+       NAVIGATION
+    ══════════════════════════════════════ */
+    let currentRole = null;
+
+    function selectRole(role) {
+      currentRole = role;
+      // Update Practice subtitle based on role
+      const sub = document.getElementById('hub-practice-sub');
+      if (role === 'student') {
+        sub.textContent = 'Solo vocabulary activities designed for self-directed learning';
+      } else {
+        sub.textContent = 'Interactive classroom activities & vocabulary practice';
+      }
+      document.getElementById('role-view').style.display = 'none';
+      const hv = document.getElementById('hub-view');
+      hv.style.display = 'flex';
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    }
+
+    function showRoles() {
+      document.getElementById('hub-view').style.display = 'none';
+      document.getElementById('role-view').style.display = 'flex';
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    }
+
     function showPractice() {
       document.getElementById('hub-view').style.display = 'none';
-      const pv = document.getElementById('practice-view');
-      pv.style.display = 'flex';
+      const viewId = currentRole === 'student' ? 'student-practice-view' : 'teacher-practice-view';
+      document.getElementById(viewId).style.display = 'flex';
       window.scrollTo({ top: 0, behavior: 'instant' });
     }
 
     function showHub() {
-      document.getElementById('practice-view').style.display = 'none';
+      document.getElementById('teacher-practice-view').style.display = 'none';
+      document.getElementById('student-practice-view').style.display = 'none';
       document.getElementById('hub-view').style.display = 'flex';
       window.scrollTo({ top: 0, behavior: 'instant' });
     }
 
-    /* ── STARS ── */
+    /* ══════════════════════════════════════
+       STARS
+    ══════════════════════════════════════ */
     const canvas = document.getElementById('star-canvas');
     const ctx = canvas.getContext('2d');
 
@@ -649,13 +831,13 @@
 
     const STAR_COUNT = 180;
     const stars = Array.from({ length: STAR_COUNT }, () => ({
-      x:       Math.random(),
-      y:       Math.random(),
-      r:       Math.random() * 1.4 + 0.3,
-      phase:   Math.random() * Math.PI * 2,
-      speed:   Math.random() * 0.4 + 0.15,
-      minA:    Math.random() * 0.1 + 0.05,
-      maxA:    Math.random() * 0.5 + 0.4,
+      x:     Math.random(),
+      y:     Math.random(),
+      r:     Math.random() * 1.4 + 0.3,
+      phase: Math.random() * Math.PI * 2,
+      speed: Math.random() * 0.4 + 0.15,
+      minA:  Math.random() * 0.1 + 0.05,
+      maxA:  Math.random() * 0.5 + 0.4,
     }));
 
     function draw(ts) {
