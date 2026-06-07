@@ -186,78 +186,84 @@
       background: #10101f;
       border: 1px solid rgba(255,255,255,0.07);
       border-radius: 26px;
-      padding: 58px 32px 52px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 16px;
       cursor: pointer;
       transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
       user-select: none;
+      overflow: hidden;
+    }
+
+    /* Role card — full portrait image, text overlaid at bottom */
+    .role-card {
+      padding: 0;
+      overflow: hidden;
+      position: relative;
     }
 
     .role-banner {
-      width: 100%;
-      height: 160px;
       position: relative;
-      overflow: hidden;
-      border-radius: 14px;
+      width: 100%;
+      aspect-ratio: 2 / 3;
       background: linear-gradient(135deg, #1a0a14 0%, #0f1a3a 50%, #1a0a14 100%);
-      margin-bottom: 8px;
     }
 
     .role-banner img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      filter: brightness(0.82) saturate(1.08);
-      transition: transform 0.25s ease, filter 0.25s ease;
+      display: block;
+      transition: transform 0.3s ease, filter 0.3s ease;
+      filter: brightness(0.88) saturate(1.05);
     }
 
     .role-card:hover .role-banner img {
-      transform: scale(1.06);
-      filter: brightness(0.95) saturate(1.18);
+      transform: scale(1.04);
+      filter: brightness(1) saturate(1.12);
     }
 
-    .role-icon {
-      font-size: 3.8rem;
-      line-height: 1;
-      margin-bottom: 4px;
+    .role-overlay {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 60px 28px 32px;
+      background: linear-gradient(to top, rgba(8,8,18,0.97) 0%, rgba(8,8,18,0.75) 45%, transparent 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
     }
 
     .role-title {
       font-family: 'Barlow Condensed', sans-serif;
-      font-size: clamp(1.6rem, 4vw, 2.2rem);
+      font-size: clamp(1.8rem, 4vw, 2.4rem);
       font-weight: 800;
       letter-spacing: 0.1em;
       text-transform: uppercase;
       line-height: 1.1;
       text-align: center;
+      transition: text-shadow 0.25s ease;
     }
 
     .role-sub {
-      font-size: 0.86rem;
-      color: rgba(255,255,255,0.38);
+      font-size: 0.84rem;
+      color: rgba(255,255,255,0.5);
       text-align: center;
-      line-height: 1.55;
+      line-height: 1.5;
       letter-spacing: 0.04em;
-      margin-top: 2px;
     }
 
     .role-arrow {
-      margin-top: 14px;
+      margin-top: 8px;
       font-family: 'Barlow Condensed', sans-serif;
       font-size: 0.8rem;
       font-weight: 700;
       letter-spacing: 0.18em;
       text-transform: uppercase;
-      opacity: 0.3;
-      transition: opacity 0.2s;
+      opacity: 0.35;
+      transition: opacity 0.2s, color 0.2s;
     }
 
     /* TEACHER — gold */
     .role-card.teacher:hover {
-      transform: translateY(-9px);
+      transform: translateY(-7px);
       box-shadow: 0 22px 60px rgba(255,200,0,0.24), 0 0 36px rgba(255,180,0,0.16), 0 4px 16px rgba(0,0,0,0.5);
       border-color: rgba(255,200,0,0.55);
     }
@@ -265,11 +271,11 @@
     .role-card.teacher:hover .role-title {
       text-shadow: 0 0 18px rgba(255,215,0,0.9), 0 0 40px rgba(255,160,0,0.5);
     }
-    .role-card.teacher:hover .role-arrow { opacity: 0.85; color: #ffd700; }
+    .role-card.teacher:hover .role-arrow { opacity: 0.9; color: #ffd700; }
 
     /* STUDENT — blue */
     .role-card.student:hover {
-      transform: translateY(-9px);
+      transform: translateY(-7px);
       box-shadow: 0 22px 60px rgba(74,138,244,0.28), 0 0 40px rgba(74,138,244,0.16), 0 4px 16px rgba(0,0,0,0.5);
       border-color: rgba(74,138,244,0.55);
     }
@@ -277,7 +283,7 @@
     .role-card.student:hover .role-title {
       text-shadow: 0 0 18px rgba(107,163,245,0.9), 0 0 40px rgba(74,138,244,0.5);
     }
-    .role-card.student:hover .role-arrow { opacity: 0.85; color: #6ba3f5; }
+    .role-card.student:hover .role-arrow { opacity: 0.9; color: #6ba3f5; }
 
     /* ══════════════════════════════════════
        HUB SECTION (Learn / Practice)
@@ -601,19 +607,23 @@
       <div class="role-card teacher" onclick="selectRole('teacher')">
         <div class="role-banner">
           <img src="images/thumbnails/teacher_thumbnail.webp" alt="Teacher" loading="lazy" decoding="async">
+          <div class="role-overlay">
+            <div class="role-title">I'm a Teacher</div>
+            <div class="role-sub">Access all classroom materials and activities</div>
+            <div class="role-arrow">&#9654; &nbsp;Continue</div>
+          </div>
         </div>
-        <div class="role-title">I'm a Teacher</div>
-        <div class="role-sub">Access all classroom materials and activities</div>
-        <div class="role-arrow">&#9654; &nbsp;Continue</div>
       </div>
 
       <div class="role-card student" onclick="selectRole('student')">
         <div class="role-banner">
           <img src="images/thumbnails/student_thumbnail.webp" alt="Student" loading="lazy" decoding="async">
+          <div class="role-overlay">
+            <div class="role-title">I'm a Student</div>
+            <div class="role-sub">Explore vocabulary and solo learning activities</div>
+            <div class="role-arrow">&#9654; &nbsp;Continue</div>
+          </div>
         </div>
-        <div class="role-title">I'm a Student</div>
-        <div class="role-sub">Explore vocabulary and solo learning activities</div>
-        <div class="role-arrow">&#9654; &nbsp;Continue</div>
       </div>
 
     </div>
