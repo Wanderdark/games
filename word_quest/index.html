@@ -86,8 +86,14 @@ body.lite .hp-heart{animation:none}
 .sp-weapon-row{display:flex;align-items:center;gap:5px;margin-top:4px;background:rgba(251,191,36,.06);border:1px solid rgba(251,191,36,.18);border-radius:7px;padding:3px 7px}
 .sp-weapon-name{font-family:'Barlow Condensed',sans-serif;font-size:clamp(9px,1vw,11px);font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(253,230,138,.7);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .sp-weapon-val{font-family:'Bebas Neue',sans-serif;font-size:clamp(13px,1.5vw,17px);color:#fbbf24;letter-spacing:.06em;text-shadow:0 0 8px rgba(251,191,36,.4)}
-.sp-gear-list{display:flex;flex-direction:column;gap:3px;margin-top:4px}
+.sp-gear-list{display:flex;flex-direction:column;gap:3px;margin-top:4px;cursor:pointer}
+.sp-gear-list:hover .sp-gear-row{background:rgba(255,255,255,.09)}
 .sp-gear-row{display:flex;align-items:center;gap:5px;background:rgba(148,163,184,.06);border:1px solid rgba(148,163,184,.16);border-radius:6px;padding:2px 6px;min-width:0}
+.sp-gear-row.rarity-1{border-color:rgba(161,161,170,.55)}.sp-gear-row.rarity-1 .sp-gear-name{color:#a1a1aa}
+.sp-gear-row.rarity-2{border-color:rgba(255,255,255,.62)}.sp-gear-row.rarity-2 .sp-gear-name{color:#fff}
+.sp-gear-row.rarity-3{border-color:rgba(125,211,252,.65)}.sp-gear-row.rarity-3 .sp-gear-name{color:#7dd3fc}
+.sp-gear-row.rarity-4{border-color:rgba(192,132,252,.72);box-shadow:inset 0 0 10px rgba(192,132,252,.08)}.sp-gear-row.rarity-4 .sp-gear-name{color:#c084fc}
+.sp-gear-row.rarity-5{border-color:rgba(255,215,0,.82);box-shadow:0 0 10px rgba(255,215,0,.24),inset 0 0 10px rgba(255,215,0,.08)}.sp-gear-row.rarity-5 .sp-gear-name{color:#FFD700;text-shadow:0 0 7px rgba(255,215,0,.72)}
 .sp-gear-icon{font-size:10px;line-height:1;width:12px;text-align:center}
 .sp-gear-name{font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:rgba(226,232,240,.72);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .sp-gear-dur{font-family:'Bebas Neue',sans-serif;font-size:11px;color:#94a3b8;letter-spacing:.04em;white-space:nowrap}
@@ -101,14 +107,23 @@ body.lite .hp-heart{animation:none}
 /* ── SHOP OVERLAY ── */
 #sp-shop{position:fixed;inset:0;z-index:9670;background:rgba(2,8,20,.97);display:none;align-items:center;justify-content:center;backdrop-filter:blur(14px)}
 #sp-shop.open{display:flex}
-.spsh-modal{background:rgba(255,255,255,.04);border:1px solid rgba(255,215,0,.2);border-radius:26px;padding:28px 32px 24px;width:min(94vw,620px);display:flex;flex-direction:column;gap:18px;align-items:center;animation:modalIn .35s cubic-bezier(.175,.885,.32,1.275)}
+.spsh-modal{background:rgba(255,255,255,.04);border:1px solid rgba(255,215,0,.2);border-radius:26px;padding:24px 28px 22px;width:min(94vw,860px);max-height:94vh;overflow:auto;display:flex;flex-direction:column;gap:14px;align-items:center;animation:modalIn .35s cubic-bezier(.175,.885,.32,1.275)}
 .spsh-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,4vw,42px);color:#FFD700;letter-spacing:.14em;text-shadow:0 0 30px rgba(255,215,0,.5)}
 .spsh-subtitle{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-top:-12px}
 .spsh-gold-info{font-family:'Bebas Neue',sans-serif;font-size:20px;color:#FFD700;letter-spacing:.1em}
+.spsh-top-actions{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap}
+.spsh-gear-btn{padding:7px 14px;border-radius:9px;border:1px solid rgba(125,211,252,.38);background:rgba(125,211,252,.08);color:#7dd3fc;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:.14em;cursor:pointer}
 .spsh-items{width:100%;display:flex;flex-direction:column;gap:10px}
+.spsh-gear-items{width:100%;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
 .spsh-item{display:flex;align-items:center;gap:14px;background:rgba(255,255,255,.05);border:1.5px solid rgba(255,255,255,.1);border-radius:14px;padding:14px 16px;transition:border-color .15s}
 .spsh-item.affordable{border-color:rgba(255,215,0,.3)}
+.spsh-item.rarity-1{border-color:rgba(161,161,170,.42)}.spsh-item.rarity-1 .spsh-item-name{color:#a1a1aa}
+.spsh-item.rarity-2{border-color:rgba(255,255,255,.68)}.spsh-item.rarity-2 .spsh-item-name{color:#fff}
+.spsh-item.rarity-3{border-color:rgba(125,211,252,.55)}.spsh-item.rarity-3 .spsh-item-name{color:#7dd3fc}
+.spsh-item.rarity-4{border-color:rgba(192,132,252,.62);box-shadow:inset 0 0 18px rgba(192,132,252,.08)}.spsh-item.rarity-4 .spsh-item-name{color:#c084fc}
+.spsh-item.rarity-5{border-color:rgba(255,215,0,.82);box-shadow:0 0 18px rgba(255,215,0,.28),inset 0 0 24px rgba(255,215,0,.1)}.spsh-item.rarity-5 .spsh-item-name{color:#FFD700;text-shadow:0 0 8px rgba(255,245,160,.95),0 0 18px rgba(255,215,0,.72)}
 .spsh-item-icon{font-size:28px;flex-shrink:0;line-height:1}
+.spsh-item-icon-img{width:48px;height:48px;object-fit:contain;display:block}
 .spsh-item-info{flex:1;min-width:0}
 .spsh-item-name{font-family:'Bebas Neue',sans-serif;font-size:clamp(16px,2.2vw,22px);letter-spacing:.1em;color:#fff}
 .spsh-item-desc{font-family:'Barlow Condensed',sans-serif;font-size:12px;color:rgba(255,255,255,.45);letter-spacing:.06em;margin-top:2px}
@@ -117,10 +132,31 @@ body.lite .hp-heart{animation:none}
 .spsh-buy-btn.can-buy{background:linear-gradient(135deg,#92400e,#d97706);color:#fff;box-shadow:0 3px 14px rgba(217,119,6,.4)}
 .spsh-buy-btn.can-buy:hover{transform:scale(1.06)}
 .spsh-buy-btn.owned{background:rgba(34,197,94,.15);color:#4ade80;border:1px solid rgba(34,197,94,.3);cursor:default}
+.spsh-buy-btn.out-stock{background:rgba(239,68,68,.12);color:#f87171;border:1px solid rgba(239,68,68,.25);cursor:default}
 .spsh-buy-btn.no-gold{background:rgba(255,255,255,.06);color:rgba(255,255,255,.3);cursor:not-allowed}
 .spsh-divider{width:90%;height:1px;background:linear-gradient(90deg,transparent,rgba(255,215,0,.25),transparent)}
 .spsh-continue-btn{padding:13px 52px;font-family:'Bebas Neue',sans-serif;font-size:clamp(18px,2.4vw,26px);letter-spacing:.16em;background:linear-gradient(135deg,#1e3a5f,#2563eb);border:none;border-radius:14px;color:#fff;cursor:pointer;box-shadow:0 4px 20px rgba(37,99,235,.35);transition:transform .12s}
 .spsh-continue-btn:hover{transform:scale(1.03)}
+@media(max-width:720px){.spsh-gear-items{grid-template-columns:1fr}.spsh-modal{padding:18px 16px}}
+
+/* ── EQUIPPED GEAR OVERLAY ── */
+#equipped-gear-overlay{position:fixed;inset:0;z-index:10050;background:rgba(2,8,20,.9);display:none;align-items:center;justify-content:center;backdrop-filter:blur(12px)}
+#equipped-gear-overlay.open{display:flex}
+.eg-modal{width:min(94vw,980px);max-height:92vh;overflow:auto;background:linear-gradient(145deg,#111827,#07111f);border:1.5px solid rgba(125,211,252,.38);border-radius:24px;padding:24px;box-shadow:0 24px 70px rgba(0,0,0,.72);animation:modalIn .25s ease}
+.eg-head{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:18px}
+.eg-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,4vw,42px);letter-spacing:.13em;color:#7dd3fc;text-shadow:0 0 24px rgba(125,211,252,.4)}
+.eg-close{width:38px;height:38px;border-radius:10px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.07);color:#fff;font-size:22px;cursor:pointer}
+.eg-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
+.eg-card{min-width:0;border:2px solid rgba(148,163,184,.22);border-radius:16px;padding:12px;background:rgba(0,0,0,.24);display:flex;flex-direction:column;gap:8px;text-align:center}
+.eg-card.rarity-1{border-color:#a1a1aa}.eg-card.rarity-2{border-color:#fff}.eg-card.rarity-3{border-color:#7dd3fc}.eg-card.rarity-4{border-color:#c084fc;box-shadow:0 0 18px rgba(192,132,252,.28)}.eg-card.rarity-5{border-color:#FFD700;box-shadow:0 0 14px rgba(255,245,160,.7),0 0 28px rgba(255,215,0,.45)}
+.eg-slot{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:.18em;color:rgba(255,255,255,.42);text-transform:uppercase}
+.eg-image-wrap{aspect-ratio:1;border-radius:12px;background:rgba(0,0,0,.25);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.eg-image{width:100%;height:100%;object-fit:contain}
+.eg-empty-icon{font-size:40px;opacity:.25}
+.eg-name{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:.07em;color:#94a3b8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.eg-card.rarity-1 .eg-name{color:#a1a1aa}.eg-card.rarity-2 .eg-name{color:#fff}.eg-card.rarity-3 .eg-name{color:#7dd3fc}.eg-card.rarity-4 .eg-name{color:#c084fc}.eg-card.rarity-5 .eg-name{color:#FFD700;text-shadow:0 0 9px rgba(255,215,0,.8)}
+.eg-stats{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:.06em;color:rgba(255,255,255,.6);line-height:1.45}
+@media(max-width:800px){.eg-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 
 /* ── WORD BOX ── */
 .word-box{background:var(--panel-bg);border:1.5px solid var(--panel-border);border-radius:14px;padding:12px 14px;text-align:center;width:100%;backdrop-filter:blur(8px)}
@@ -246,12 +282,20 @@ body.lite .hp-heart{animation:none}
 .sp-npc-ph-lv{font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:.14em;color:rgba(255,255,255,.45);text-transform:uppercase}
 
 /* ── LOOT CHEST ── */
-.loot-chest-wrap{position:relative;width:100%;height:100%;display:flex;align-items:flex-end;justify-content:center;cursor:pointer}
-.loot-chest-img{width:clamp(150px,100%,250px);max-height:62%;object-fit:contain;filter:drop-shadow(0 0 20px rgba(255,180,40,.38));transform-origin:center bottom;animation:lootChestArrive .7s cubic-bezier(.2,.9,.3,1.25) both}
+.loot-chest-wrap{position:relative;width:100%;height:100%;display:flex;align-items:flex-end;justify-content:center;cursor:pointer;isolation:isolate}
+.loot-chest-wrap::before,.loot-chest-wrap::after{content:'';position:absolute;left:50%;bottom:5%;width:72%;aspect-ratio:1;border-radius:50%;pointer-events:none;opacity:0;transform:translateX(-50%) scale(.55);z-index:-1}
+.loot-chest-wrap.chest-epic::before{background:radial-gradient(circle,rgba(255,245,160,.78) 0%,rgba(255,185,0,.36) 34%,rgba(255,120,0,.14) 58%,transparent 74%);filter:blur(9px);opacity:.78;animation:lootEpicAura 1.4s ease-in-out infinite}
+.loot-chest-wrap.chest-epic::after{width:92%;background:conic-gradient(from 0deg,transparent,rgba(255,215,0,.52),transparent 22%,rgba(255,125,0,.46),transparent 48%,rgba(255,245,175,.58),transparent 74%);filter:blur(7px);opacity:.6;animation:lootEpicRays 4s linear infinite}
+.loot-chest-img{position:relative;z-index:1;width:clamp(150px,100%,250px);max-height:62%;object-fit:contain;filter:drop-shadow(0 0 20px rgba(255,180,40,.38));transform-origin:center bottom;animation:lootChestArrive .7s cubic-bezier(.2,.9,.3,1.25) both}
+.loot-chest-wrap.chest-epic .loot-chest-img{filter:drop-shadow(0 0 15px rgba(255,245,170,.9)) drop-shadow(0 0 36px rgba(255,165,0,.78));animation:lootChestArrive .7s cubic-bezier(.2,.9,.3,1.25) both,lootEpicChestPulse 1.25s ease-in-out .7s infinite}
 .loot-chest-wrap.tap-shake .loot-chest-img{animation:lootChestShake .3s ease}
 .loot-chest-wrap.opened .loot-chest-img{animation:lootChestOpen .65s ease forwards;filter:drop-shadow(0 0 42px rgba(255,220,80,.95))}
+.loot-chest-wrap.chest-epic.opened::before{opacity:1;animation:lootEpicBurst .9s ease-out forwards,lootEpicAura 1.4s ease-in-out .9s infinite}
+.loot-chest-wrap.chest-epic.opened::after{opacity:1;animation:lootEpicRayBurst .9s ease-out forwards,lootEpicRays 4s linear .9s infinite}
+.loot-chest-wrap.chest-epic.opened .loot-chest-img{animation:lootEpicChestOpen .8s ease forwards;filter:drop-shadow(0 0 22px #fff7b0) drop-shadow(0 0 52px #ffd000) drop-shadow(0 0 85px rgba(255,120,0,.95))}
 .loot-panel{position:absolute;right:92%;bottom:12%;width:230px;background:rgba(15,8,2,.96);border:1.5px solid rgba(255,215,0,.55);border-radius:14px;padding:14px;display:none;flex-direction:column;gap:8px;box-shadow:0 0 42px rgba(255,180,0,.3);z-index:20;text-align:center}
 .loot-panel.open{display:flex;animation:lootPanelIn .35s ease}
+.loot-panel.rarity-1{border-color:#a1a1aa;box-shadow:0 0 28px rgba(161,161,170,.2)}.loot-panel.rarity-2{border-color:#fff;box-shadow:0 0 28px rgba(255,255,255,.2)}.loot-panel.rarity-3{border-color:#7dd3fc;box-shadow:0 0 32px rgba(125,211,252,.32)}.loot-panel.rarity-4{border-color:#c084fc;box-shadow:0 0 36px rgba(192,132,252,.4)}.loot-panel.rarity-5{border-color:#FFD700;box-shadow:0 0 18px rgba(255,245,160,.75),0 0 42px rgba(255,215,0,.48)}
 .loot-title{font-family:'Bebas Neue',sans-serif;font-size:22px;color:#FFD700;letter-spacing:.12em}
 .loot-gold{font-family:'Bebas Neue',sans-serif;font-size:22px;color:#FFD700}
 .loot-item{font-family:'Bebas Neue',sans-serif;font-size:19px;letter-spacing:.08em;line-height:1.4;color:rgba(255,255,255,.45)}
@@ -259,11 +303,17 @@ body.lite .hp-heart{animation:none}
 .loot-item.rarity-2{color:#fff}
 .loot-item.rarity-3{color:#7dd3fc;text-shadow:0 0 12px rgba(125,211,252,.55)}
 .loot-item.rarity-4{color:#c084fc;text-shadow:0 0 8px #fff,0 0 18px rgba(192,132,252,.95)}
-.loot-item.rarity-5{color:#fb923c;text-shadow:0 0 10px #FFD700,0 0 24px rgba(255,215,0,.95)}
+.loot-item.rarity-5{color:#FFD700;text-shadow:0 0 8px rgba(255,245,160,.95),0 0 24px rgba(255,215,0,.95)}
 .loot-claim{font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:.12em;padding:8px;border:0;border-radius:8px;background:linear-gradient(135deg,#15803d,#22c55e);color:#fff;cursor:pointer}
 @keyframes lootChestArrive{0%{opacity:0;transform:translateY(-80px) scale(.45) rotate(-8deg);filter:drop-shadow(0 0 0 rgba(255,180,40,0))}65%{opacity:1;transform:translateY(10px) scale(1.08) rotate(3deg)}82%{transform:translateY(-5px) scale(.98) rotate(-1deg)}100%{opacity:1;transform:translateY(0) scale(1) rotate(0);filter:drop-shadow(0 0 20px rgba(255,180,40,.38))}}
 @keyframes lootChestShake{0%,100%{transform:rotate(0) scale(1)}25%{transform:rotate(-7deg) scale(1.05)}50%{transform:rotate(7deg) scale(1.08)}75%{transform:rotate(-4deg) scale(1.04)}}
 @keyframes lootChestOpen{0%{transform:scale(1)}40%{transform:scale(1.18)}70%{transform:scale(.96)}100%{transform:scale(1.05)}}
+@keyframes lootEpicAura{0%,100%{transform:translateX(-50%) scale(.78);opacity:.55}50%{transform:translateX(-50%) scale(1.08);opacity:1}}
+@keyframes lootEpicRays{from{transform:translateX(-50%) scale(.9) rotate(0)}to{transform:translateX(-50%) scale(.9) rotate(360deg)}}
+@keyframes lootEpicChestPulse{0%,100%{transform:scale(1);filter:drop-shadow(0 0 15px rgba(255,245,170,.9)) drop-shadow(0 0 30px rgba(255,165,0,.7))}50%{transform:scale(1.045);filter:drop-shadow(0 0 28px #fff5a0) drop-shadow(0 0 56px rgba(255,145,0,.95))}}
+@keyframes lootEpicBurst{0%{transform:translateX(-50%) scale(.4);opacity:.25}55%{transform:translateX(-50%) scale(1.55);opacity:1}100%{transform:translateX(-50%) scale(1);opacity:.78}}
+@keyframes lootEpicRayBurst{0%{transform:translateX(-50%) scale(.35) rotate(0);opacity:0}60%{transform:translateX(-50%) scale(1.5) rotate(130deg);opacity:1}100%{transform:translateX(-50%) scale(1) rotate(220deg);opacity:.68}}
+@keyframes lootEpicChestOpen{0%{transform:scale(1)}35%{transform:scale(1.28) translateY(-8px)}65%{transform:scale(.98) translateY(2px)}100%{transform:scale(1.08) translateY(0)}}
 @keyframes lootPanelIn{from{opacity:0;transform:translateX(15px) scale(.9)}to{opacity:1;transform:translateX(0) scale(1)}}
 
 /* ── CENTER BRAND LABEL ── */
@@ -384,6 +434,22 @@ body.lite .hp-heart{animation:none}
 .spnd-stat-val{font-family:'Bebas Neue',sans-serif;font-size:clamp(26px,3.2vw,38px);color:var(--gold);text-shadow:0 0 20px rgba(255,140,0,.6);letter-spacing:.06em}
 .spnd-stat-val.gold-val{color:#FFD700;text-shadow:0 0 20px rgba(255,215,0,.6)}
 .spnd-stat-lbl{font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.4)}
+.spnd-loot-card{display:none;width:100%;padding:12px 14px;border-radius:14px;background:rgba(0,0,0,.24);border:1.5px solid rgba(255,255,255,.16);text-align:left;gap:12px;align-items:center;box-shadow:inset 0 0 24px rgba(0,0,0,.22)}
+.spnd-loot-card.show{display:flex;animation:lootPanelIn .35s ease}
+.spnd-loot-card.rarity-1{border-color:#a1a1aa}.spnd-loot-card.rarity-2{border-color:#fff}.spnd-loot-card.rarity-3{border-color:#7dd3fc}.spnd-loot-card.rarity-4{border-color:#c084fc}.spnd-loot-card.rarity-5{border-color:#FFD700;box-shadow:0 0 18px rgba(255,245,160,.55),0 0 34px rgba(255,215,0,.32),inset 0 0 24px rgba(255,215,0,.08)}
+.spnd-loot-visual{width:78px;height:78px;flex:0 0 78px;border-radius:13px;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.2);border:2px solid rgba(255,255,255,.18);overflow:hidden}
+.spnd-loot-visual.rarity-1{border-color:#a1a1aa}.spnd-loot-visual.rarity-2{border-color:#fff}.spnd-loot-visual.rarity-3{border-color:#7dd3fc;box-shadow:0 0 14px rgba(125,211,252,.35)}.spnd-loot-visual.rarity-4{border-color:#c084fc;box-shadow:0 0 17px rgba(192,132,252,.5)}.spnd-loot-visual.rarity-5{border-color:#FFD700;box-shadow:0 0 12px rgba(255,245,160,.9),0 0 24px rgba(255,215,0,.65)}
+.spnd-loot-img{width:100%;height:100%;object-fit:contain;display:block}
+.spnd-loot-fallback{display:none;font-size:34px}
+.spnd-loot-info{min-width:0;flex:1;display:flex;flex-direction:column;gap:7px}
+.spnd-loot-name{font-family:'Bebas Neue',sans-serif;font-size:23px;letter-spacing:.08em;line-height:1}
+.spnd-loot-name.rarity-1{color:#a1a1aa}.spnd-loot-name.rarity-2{color:#fff}.spnd-loot-name.rarity-3{color:#7dd3fc;text-shadow:0 0 12px rgba(125,211,252,.55)}.spnd-loot-name.rarity-4{color:#c084fc;text-shadow:0 0 8px rgba(255,255,255,.8),0 0 18px rgba(192,132,252,.95)}.spnd-loot-name.rarity-5{color:#FFD700;text-shadow:0 0 8px rgba(255,245,160,.95),0 0 24px rgba(255,215,0,.95)}
+.spnd-loot-stats{display:flex;gap:6px;flex-wrap:wrap}
+.spnd-loot-chip{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:.08em;color:rgba(255,255,255,.74);background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:6px;padding:3px 7px}
+.spnd-loot-result{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:.15em;color:#4ade80;text-transform:uppercase}
+.spnd-actions{display:flex;width:100%;gap:10px;justify-content:center}
+.spnd-gear-btn{font-family:'Bebas Neue',sans-serif;font-size:clamp(16px,2.2vw,23px);letter-spacing:.14em;padding:13px 22px;border-radius:14px;border:1.5px solid rgba(125,211,252,.48);background:rgba(30,58,95,.72);color:#7dd3fc;cursor:pointer;box-shadow:0 4px 18px rgba(37,99,235,.2);transition:transform .12s}
+.spnd-gear-btn:hover{transform:scale(1.04)}
 .spnd-continue-btn{font-family:'Bebas Neue',sans-serif;font-size:clamp(18px,2.6vw,28px);letter-spacing:.16em;padding:13px 48px;border-radius:14px;border:none;background:linear-gradient(135deg,#15803d,#22c55e);color:#fff;cursor:pointer;box-shadow:0 4px 22px rgba(34,197,94,.45);transition:transform .12s}
 .spnd-continue-btn:hover{transform:scale(1.05)}
 
@@ -476,7 +542,7 @@ body.lite .hp-heart{animation:none}
         <span class="sp-gold-val" id="sp-gold-val">0</span>
         <span class="sp-gold-lbl">GOLD</span>
       </div>
-      <div class="sp-gear-list" id="sp-gear-list">
+      <div class="sp-gear-list" id="sp-gear-list" onclick="_openEquippedGear()" title="View equipped gear">
         <div class="sp-gear-row"><span class="sp-gear-icon">⚔</span><span class="sp-gear-name" id="gear-name-sword">Fists</span><span class="sp-gear-dur" id="gear-dur-sword">ATT 5 · —</span></div>
         <div class="sp-gear-row"><span class="sp-gear-icon">⛑</span><span class="sp-gear-name" id="gear-name-helmet">Empty</span><span class="sp-gear-dur" id="gear-dur-helmet">DEF 0 · —</span></div>
         <div class="sp-gear-row"><span class="sp-gear-icon">🛡</span><span class="sp-gear-name" id="gear-name-torso">Empty</span><span class="sp-gear-dur" id="gear-dur-torso">DEF 0 · —</span></div>
@@ -682,8 +748,22 @@ body.lite .hp-heart{animation:none}
       <div style="font-family:'Bebas Neue',sans-serif;font-size:clamp(18px,2.6vw,26px);color:#4ade80;letter-spacing:.12em;text-shadow:0 0 18px rgba(74,222,128,.7)">⬆ LEVEL UP!</div>
       <div id="spnd-levelup-detail" style="font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:.1em;color:rgba(255,255,255,.55);margin-top:4px"></div>
     </div>
+    <div class="spnd-loot-card" id="spnd-loot-card">
+      <div class="spnd-loot-visual" id="spnd-loot-visual">
+        <img class="spnd-loot-img" id="spnd-loot-img" src="" alt="">
+        <div class="spnd-loot-fallback" id="spnd-loot-fallback">&#9876;&#65039;</div>
+      </div>
+      <div class="spnd-loot-info">
+        <div class="spnd-loot-name" id="spnd-loot-name"></div>
+        <div class="spnd-loot-stats" id="spnd-loot-stats"></div>
+        <div class="spnd-loot-result" id="spnd-loot-result"></div>
+      </div>
+    </div>
     <div class="spnd-divider"></div>
-    <button class="spnd-continue-btn" id="spnd-next-btn" onclick="_spNextEnemy()">NEXT ENEMY ▶</button>
+    <div class="spnd-actions">
+      <button class="spnd-gear-btn" onclick="_openEquippedGear()">VIEW GEAR</button>
+      <button class="spnd-continue-btn" id="spnd-next-btn" onclick="_spNextEnemy()">NEXT ENEMY ▶</button>
+    </div>
   </div>
 </div>
 
@@ -741,42 +821,36 @@ body.lite .hp-heart{animation:none}
   <div class="spsh-modal">
     <div class="spsh-title">🏪 SHOP</div>
     <div class="spsh-subtitle">Spend your gold wisely</div>
-    <div class="spsh-gold-info">💰 <span id="spsh-gold-display">0</span> GOLD</div>
+    <div class="spsh-top-actions">
+      <div class="spsh-gold-info">💰 <span id="spsh-gold-display">0</span> GOLD</div>
+      <button class="spsh-gear-btn" onclick="_openEquippedGear()">EQUIPPED GEAR</button>
+    </div>
     <div class="spsh-items">
       <!-- Health Potion -->
       <div class="spsh-item" id="spsh-item-potion">
-        <div class="spsh-item-icon">🧪</div>
+        <div class="spsh-item-icon"><img class="spsh-item-icon-img" id="spsh-potion-img" src="items/potions/health.png" alt="Health Potion"></div>
         <div class="spsh-item-info">
-          <div class="spsh-item-name">HEALTH POTION</div>
-          <div class="spsh-item-desc">Restore 30 HP instantly</div>
+          <div class="spsh-item-name" id="spsh-potion-name">HEALTH POTION</div>
+          <div class="spsh-item-desc" id="spsh-potion-desc">Restore 30 HP instantly</div>
         </div>
-        <div class="spsh-item-price">10 💰</div>
+        <div class="spsh-item-price" id="spsh-potion-price">10 💰</div>
         <button class="spsh-buy-btn" id="spsh-btn-potion" onclick="_buyHealthPotion()">BUY</button>
       </div>
       <div class="spsh-divider"></div>
-      <!-- Leather Armor -->
-      <div class="spsh-item" id="spsh-item-armor">
-        <div class="spsh-item-icon">🛡</div>
-        <div class="spsh-item-info">
-          <div class="spsh-item-name">LEATHER ARMOR</div>
-          <div class="spsh-item-desc">DEF +3 — Reduce incoming damage</div>
-        </div>
-        <div class="spsh-item-price">30 💰</div>
-        <button class="spsh-buy-btn" id="spsh-btn-armor" onclick="_buyLeatherArmor()">BUY</button>
-      </div>
-      <div class="spsh-divider"></div>
-      <!-- Shortsword -->
-      <div class="spsh-item" id="spsh-item-sword">
-        <div class="spsh-item-icon">⚔</div>
-        <div class="spsh-item-info">
-          <div class="spsh-item-name">SHORTSWORD</div>
-          <div class="spsh-item-desc">ATT +3 — Deal more damage</div>
-        </div>
-        <div class="spsh-item-price">30 💰</div>
-        <button class="spsh-buy-btn" id="spsh-btn-sword" onclick="_buyShortsword()">BUY</button>
-      </div>
+      <div class="spsh-gear-items" id="spsh-gear-items"></div>
     </div>
     <button class="spsh-continue-btn" onclick="_closeShop()">CONTINUE ▶</button>
+  </div>
+</div>
+
+<!-- Equipped Gear -->
+<div id="equipped-gear-overlay" onclick="if(event.target===this)_closeEquippedGear()">
+  <div class="eg-modal">
+    <div class="eg-head">
+      <div class="eg-title">EQUIPPED GEAR</div>
+      <button class="eg-close" onclick="_closeEquippedGear()">×</button>
+    </div>
+    <div class="eg-grid" id="equipped-gear-grid"></div>
   </div>
 </div>
 
@@ -853,7 +927,14 @@ let _pendingLootGold     = 0;
 let _pendingLootText     = '';
 let _pendingLootRarity   = 0;
 let _pendingLootItem     = null;
+let _pendingLootDisposition = '';
 let _pendingChestImage   = 'ironchest.png';
+let _pendingChestOpenImage = 'ironchest_open.png';
+let _shopOffers          = [];
+let _shopPotionSold      = false;
+const _SHOP_HEALTH_POTION = typeof POTIONS !== 'undefined'
+  ? POTIONS.find(potion => potion.id === 'health_potion')
+  : null;
 
 // ── SETTINGS STATE ────────────────────────────────────────
 let usedQIdx       = new Set();
@@ -864,12 +945,14 @@ let _timerAudioCtx = null;
 
 // ── AUDIO ─────────────────────────────────────────────────
 const BG_MUSIC_FULL = 0.35;
+const BG_MUSIC_BATTLE = BG_MUSIC_FULL * 0.5;
 const BG_MENU_TRACK = 'sounds/mainmenu.mp3';
 const BG_TRACKS     = ['sounds/main.mp3','sounds/main2.mp3','sounds/main3.mp3'];
 let   _bgTrackIdx   = 0;
 let   _musicCueAudio = null;
 let   _musicCueTimer = null;
 let   _menuMusicResetTimer = null;
+let   _battleMusicDucked = false;
 
 function _cancelBgTrackSwitch() {
   const a = document.getElementById('bg-music');
@@ -917,6 +1000,11 @@ function _bgMusicFade(target, ms) {
     if (step >= steps) clearInterval(a._fadeTimer);
   }, iv);
 }
+function _setBattleMusicDucked(ducked) {
+  if (_battleMusicDucked === ducked) return;
+  _battleMusicDucked = ducked;
+  if (_musicEnabled) _bgMusicFade(ducked ? BG_MUSIC_BATTLE : BG_MUSIC_FULL, 450);
+}
 function _switchBgTrack() {
   if (!_musicEnabled) return;
   const a = document.getElementById('bg-music');
@@ -930,7 +1018,7 @@ function _switchBgTrack() {
     clearInterval(a._fadeTimer);
     a.pause(); a.src = BG_TRACKS[_bgTrackIdx]; a.loop = true; a.volume = 0; a.load();
     a.play().catch(() => {});
-    _bgMusicFade(BG_MUSIC_FULL, 800);
+    _bgMusicFade(_battleMusicDucked ? BG_MUSIC_BATTLE : BG_MUSIC_FULL, 800);
   }, 550);
 }
 function _playSound(src, vol) {
@@ -1006,17 +1094,26 @@ function _pickQuestion() {
   return QUESTIONS[i];
 }
 
+function _normalizeQuestionTerm(term) {
+  return String(term || '').trim().toLocaleLowerCase('en-US');
+}
+function _questionTerms(q) {
+  return new Set([q[0], ...q.slice(3, -1)]
+    .filter(term => term && typeof term === 'string')
+    .map(_normalizeQuestionTerm));
+}
+function _questionsConflict(a, b) {
+  if (!a || !b) return false;
+  if (a[a.length - 1] === b[b.length - 1]) return true;
+  const aTerms = _questionTerms(a);
+  return [..._questionTerms(b)].some(term => aTerms.has(term));
+}
 function _buildGrid(correctQ) {
-  const unitSet     = _curUnitSet();
   const correctImg  = correctQ[correctQ.length - 1];
-  const correctSyns = correctQ.slice(3, -1).filter(s => s && typeof s === 'string');
   // Distractor pool: same grade, can come from ANY unit (so we always have enough options)
   let pool = QUESTIONS.filter(q => {
     const qImg  = q[q.length - 1];
-    const qSyns = q.slice(3, -1).filter(s => s && typeof s === 'string');
-    if (!qImg || q === correctQ || qImg === correctImg) return false;
-    if (q[0] === correctQ[0]) return false;
-    if (correctSyns.includes(q[0]) || qSyns.includes(correctQ[0])) return false;
+    if (!qImg || q === correctQ || _questionsConflict(correctQ, q)) return false;
     if (_spPlayerGrade !== null && q[1] !== _spPlayerGrade) return false; // grade match
     return true;
   });
@@ -1024,20 +1121,29 @@ function _buildGrid(correctQ) {
   if (pool.length < 3) {
     pool = QUESTIONS.filter(q => {
       const qImg = q[q.length - 1];
-      return q !== correctQ && qImg && qImg !== correctImg && q[0] !== correctQ[0];
+      return q !== correctQ && qImg && !_questionsConflict(correctQ, q);
     });
   }
-  const usedImgs = new Set([correctImg]);
   const wrongs   = [];
   const rem      = pool.slice();
   while (wrongs.length < 3 && rem.length > 0) {
     const ri = Math.floor(Math.random() * rem.length);
     const q  = rem[ri];
     rem[ri]  = rem[rem.length - 1]; rem.pop();
-    const qImg = q[q.length - 1];
-    if (!usedImgs.has(qImg)) { usedImgs.add(qImg); wrongs.push(q); }
+    if (![correctQ, ...wrongs].some(selected => _questionsConflict(selected, q))) wrongs.push(q);
   }
-  while (wrongs.length < 3) wrongs.push(pool[Math.floor(Math.random() * pool.length)] || correctQ);
+  if (wrongs.length < 3) {
+    const safeFallback = QUESTIONS.filter(q =>
+      q !== correctQ && q[q.length - 1] &&
+      ![correctQ, ...wrongs].some(selected => _questionsConflict(selected, q))
+    );
+    while (wrongs.length < 3 && safeFallback.length) {
+      const ri = Math.floor(Math.random() * safeFallback.length);
+      const q = safeFallback.splice(ri, 1)[0];
+      if (![correctQ, ...wrongs].some(selected => _questionsConflict(selected, q))) wrongs.push(q);
+    }
+  }
+  while (wrongs.length < 3) wrongs.push(correctQ);
   const imgs = [
     { src: correctImg,                        isCorrect: true,  word: correctQ[0] },
     { src: wrongs[0][wrongs[0].length - 1],   isCorrect: false, word: wrongs[0][0] },
@@ -1079,6 +1185,7 @@ function _updatePlayerHP() {
     fill.classList.add('hp-damage'); setTimeout(() => fill.classList.remove('hp-damage'), 400);
   }
   if (val) val.innerHTML = Math.max(0, _spPlayerHP) + ' <span class="hp-heart">❤</span>';
+  _syncPlayerAvatarDamageState();
 }
 function _updateNpcHP() {
   const npc  = _getNpc(_spNpcIdx);
@@ -1160,6 +1267,8 @@ function _updateEquipmentUI() {
     const item = _spEquipment[slot];
     const nameEl = document.getElementById('gear-name-' + slot);
     const durEl = document.getElementById('gear-dur-' + slot);
+    const rowEl = nameEl?.closest('.sp-gear-row');
+    if (rowEl) rowEl.className = 'sp-gear-row' + (item?.rarity ? ' rarity-' + item.rarity : '');
     if (nameEl) nameEl.textContent = item?.name || (slot === 'sword' ? 'Fists' : 'Empty');
     if (durEl) {
       const statText = slot === 'sword'
@@ -1169,6 +1278,44 @@ function _updateEquipmentUI() {
       durEl.style.color = item && item.currentDur <= Math.max(1, Math.ceil(item.dur * .25)) ? '#f87171' : '#94a3b8';
     }
   });
+  if (document.getElementById('equipped-gear-overlay')?.classList.contains('open')) _renderEquippedGear();
+}
+function _renderEquippedGear() {
+  const grid = document.getElementById('equipped-gear-grid');
+  if (!grid) return;
+  const icons = { sword:'⚔', helmet:'⛑', torso:'🛡', gloves:'🥊', foot:'🥾' };
+  const labels = { sword:'Weapon', helmet:'Helmet', torso:'Torso', gloves:'Gloves', foot:'Boots' };
+  grid.innerHTML = _EQUIPMENT_SLOTS.map(slot => {
+    const item = _spEquipment[slot];
+    if (!item) {
+      const emptyName = slot === 'sword' ? 'Fists' : 'Empty';
+      const emptyStat = slot === 'sword' ? 'BASE ATT ' + _spPlayerAtt : 'DEF 0';
+      return `<div class="eg-card">
+        <div class="eg-slot">${labels[slot]}</div>
+        <div class="eg-image-wrap"><div class="eg-empty-icon">${icons[slot]}</div></div>
+        <div class="eg-name">${emptyName}</div>
+        <div class="eg-stats">${emptyStat}<br>DUR —</div>
+      </div>`;
+    }
+    const statParts = [
+      item.att ? 'ATT ' + item.att : '',
+      item.def ? 'DEF ' + item.def : '',
+      'DUR ' + item.currentDur + '/' + item.dur
+    ].filter(Boolean);
+    return `<div class="eg-card rarity-${item.rarity}">
+      <div class="eg-slot">${labels[slot]}</div>
+      <div class="eg-image-wrap"><img class="eg-image" src="${item.imagePath}" alt="${item.name}"></div>
+      <div class="eg-name">${item.name}</div>
+      <div class="eg-stats">${statParts.join('<br>')}</div>
+    </div>`;
+  }).join('');
+}
+function _openEquippedGear() {
+  _renderEquippedGear();
+  document.getElementById('equipped-gear-overlay')?.classList.add('open');
+}
+function _closeEquippedGear() {
+  document.getElementById('equipped-gear-overlay')?.classList.remove('open');
 }
 function _cloneEquipmentItem(item) {
   return { ...item, currentDur: item.dur };
@@ -1178,14 +1325,17 @@ function _equipLootItem(item) {
   if (!current) {
     _spEquipment[item.slot] = _cloneEquipmentItem(item);
     _pendingLootText = item.name;
+    _pendingLootDisposition = 'EQUIPPED';
   } else if (item.value <= current.value) {
     current.currentDur += item.dur;
     _pendingLootText = item.name;
+    _pendingLootDisposition = 'DURABILITY +' + item.dur;
   } else {
     _spGold += current.value;
     _pendingLootGold += current.value;
     _spEquipment[item.slot] = _cloneEquipmentItem(item);
     _pendingLootText = item.name;
+    _pendingLootDisposition = 'EQUIPPED · OLD ITEM SOLD +' + current.value + ' GOLD';
   }
   _updateGold();
   _updateEquipmentUI();
@@ -1212,11 +1362,12 @@ function _updatePotions() {
 function _tryAutoPotion() {
   // Low-HP non-lethal auto-use (called with delay for visual polish)
   if (_spPotions <= 0 || _spPlayerHP <= 0 || _spPlayerHP >= 30) return;
+  const healAmount = _SHOP_HEALTH_POTION?.amount ?? 30;
   _spPotions--;
-  _spPlayerHP = Math.min(_spMaxHP, _spPlayerHP + 30);
+  _spPlayerHP = Math.min(_spMaxHP, _spPlayerHP + healAmount);
   _updatePlayerHP();
   _updatePotions();
-  _spawnFloat('🧪 AUTO +30 HP', '#4ade80');
+  _spawnFloat('🧪 AUTO +' + healAmount + ' HP', '#4ade80');
   _playSound('sounds/gulp.mp3', 0.6);
 }
 // Applies damage, runs potion guards, returns true if player is truly dead
@@ -1225,11 +1376,12 @@ function _handlePlayerDamage(rawDmg) {
   _updatePlayerHP();
   // Guard 1: lethal hit — potion saves from death immediately
   if (_spPlayerHP <= 0 && _spPotions > 0) {
+    const healAmount = _SHOP_HEALTH_POTION?.amount ?? 30;
     _spPotions--;
-    _spPlayerHP = 30;
+    _spPlayerHP = Math.min(_spMaxHP, healAmount);
     _updatePlayerHP();
     _updatePotions();
-    _spawnFloat('🧪 SAVED! +30 HP', '#4ade80');
+    _spawnFloat('🧪 SAVED! +' + healAmount + ' HP', '#4ade80');
     _playSound('sounds/gulp.mp3', 0.65);
     return false; // survived
   }
@@ -1308,12 +1460,23 @@ function _renderNpc(npc) {
   _spNpcHP = npc.maxHp;
   _updateNpcHP();
 }
+function _getPlayerAvatarSrc(av) {
+  return _spPlayerHP / _spMaxHP <= 0.40 && av.dmgSrc ? av.dmgSrc : av.src;
+}
+function _syncPlayerAvatarDamageState() {
+  if (_spSelectedAvatar === null || !AVATARS[_spSelectedAvatar]) return;
+  const img = document.querySelector('#sp-player-avatar-area .sp-player-img');
+  if (!img) return;
+  const av = AVATARS[_spSelectedAvatar];
+  const nextSrc = _getPlayerAvatarSrc(av);
+  if (img.getAttribute('src') !== nextSrc) img.src = nextSrc;
+}
 function _renderPlayerAvatar() {
   const area = document.getElementById('sp-player-avatar-area');
   if (!area || _spSelectedAvatar === null || !AVATARS[_spSelectedAvatar]) return;
   const av   = AVATARS[_spSelectedAvatar];
   const flip = av.facesRight ? '' : 'scaleX(-1)'; // player faces right (toward NPC)
-  area.innerHTML = `<div class="sp-avatar-sway sway-player"><img class="sp-player-img" src="${av.src}" alt="player" style="transform:${flip}"></div>`;
+  area.innerHTML = `<div class="sp-avatar-sway sway-player"><img class="sp-player-img" src="${_getPlayerAvatarSrc(av)}" alt="player" style="transform:${flip}"></div>`;
   const nameEl = document.getElementById('sp-player-name');
   if (nameEl) nameEl.textContent = _spPlayerName || 'PLAYER';
 }
@@ -1371,9 +1534,12 @@ function _onTimerExpire() {
   _damageEquipment(_ARMOR_SLOTS);
   _spStreak   = 0;
   _updateStreakUI();
-  _flashDmg('#f59e0b33');
-  _showHitEffect('sp-player-avatar-area', '-' + incomingDmg, '#f59e0b', '#fcd34d');
-  _playSound('sounds/dmgtaken.mp3', 0.6);
+  _playAttackLunge('sp-npc-avatar-area', 'sp-player-avatar-area', () => {
+    _flashDmg('#f59e0b33');
+    _shakeHitTarget('sp-player-avatar-area');
+    _showHitEffect('sp-player-avatar-area', '-' + incomingDmg, '#f59e0b', '#fcd34d');
+    _playSound('sounds/dmgtaken.mp3', 0.6);
+  });
   if (_handlePlayerDamage(incomingDmg)) {
     _spRoundActive = false;
     _spClickLocked = true;
@@ -1417,6 +1583,7 @@ function _startGameFromSave() {
 }
 function _startGameCore() {
   document.body.classList.add('game-active');
+  _battleMusicDucked = false;
   _spTimerLeft = SP_TIMER_MAX; // always start fresh
   // Cancel any lingering game-over/victory fade before starting music fresh
   clearTimeout(_menuMusicResetTimer);
@@ -1439,6 +1606,7 @@ function _startGameCore() {
   _showCountdown(3, _startRound);
 }
 function _startRound() {
+  _setBattleMusicDucked(true);
   _spRoundActive = false;
   _spClickLocked = false;
   clearTimeout(_spWordRevealTimer);
@@ -1500,8 +1668,11 @@ function handleClick(pos) {
     _updateNpcHP();
     _updateStreakUI();
     cell.classList.add('correct-flash');
-    _showHitEffect('sp-npc-avatar-area', '-' + dmg, '#FFD700', '#fff');
-    _playSound('sounds/punch.mp3', 0.7);
+    _playAttackLunge('sp-player-avatar-area', 'sp-npc-avatar-area', () => {
+      _shakeHitTarget('sp-npc-avatar-area');
+      _showHitEffect('sp-npc-avatar-area', '-' + dmg, '#FFD700', '#fff');
+      _playSound('sounds/punch.mp3', 0.7);
+    });
     for (let p = 0; p < 4; p++) {
       if (p !== pos) document.getElementById('cell-sp-' + p)?.classList.add('dim-wrong');
     }
@@ -1527,9 +1698,12 @@ function handleClick(pos) {
     _spStreak   = 0;
     _spTotalWrong++;
     _updateStreakUI();
-    _flashDmg('#ef444422');
-    _showHitEffect('sp-player-avatar-area', '-' + _incomingDmg2, '#ef4444', '#fca5a5');
-    _playSound('sounds/dmgtaken.mp3', 0.7);
+    _playAttackLunge('sp-npc-avatar-area', 'sp-player-avatar-area', () => {
+      _flashDmg('#ef444422');
+      _shakeHitTarget('sp-player-avatar-area');
+      _showHitEffect('sp-player-avatar-area', '-' + _incomingDmg2, '#ef4444', '#fca5a5');
+      _playSound('sounds/dmgtaken.mp3', 0.7);
+    });
     const badge = document.getElementById('badge-sp-' + pos);
     if (badge) { badge.classList.add('show'); setTimeout(() => badge.classList.remove('show'), SP_WRONG_LOCK); }
     setTimeout(() => cell.classList.remove('wrong-flash', 'locked'), SP_WRONG_LOCK);
@@ -1547,6 +1721,7 @@ function handleClick(pos) {
 function _showNpcDefeated() {
   _stopTimer();
   _spRoundActive = false;
+  _setBattleMusicDucked(false);
   _spNpcsDefeated++;
   const npc = _getNpc(_spNpcIdx);
   if (!npc) return;
@@ -1575,14 +1750,20 @@ function _weightedItemRoll() {
 }
 function _prepareLoot(npc) {
   _pendingLootGold = _randomGold(npc.goldReward);
-  _pendingLootItem = Math.random() < .20 ? _weightedItemRoll() : null;
+  _pendingLootItem = Math.random() < .3 ? _weightedItemRoll() : null;
   _pendingLootRarity = _pendingLootItem?.rarity || 0;
   _pendingLootText = '';
+  _pendingLootDisposition = '';
   _pendingChestImage = _pendingLootRarity >= 4
     ? 'goldchest.png'
     : _pendingLootRarity === 3
       ? 'silverchest.png'
       : 'ironchest.png';
+  _pendingChestOpenImage = _pendingLootRarity >= 4
+    ? 'goldchest_open.png'
+    : _pendingLootRarity === 3
+      ? 'silverchest_open.png'
+      : 'ironchest_open.png';
 }
 function _showLootChest() {
   const area = document.getElementById('sp-npc-avatar-area');
@@ -1590,7 +1771,8 @@ function _showLootChest() {
   document.getElementById('sp-panel-npc')?.classList.add('loot-active');
   _lootTapCount = 0;
   _lootLastTapAt = 0;
-  area.innerHTML = `<div class="loot-chest-wrap">
+  const chestClass = _pendingLootRarity >= 4 ? ' chest-epic' : '';
+  area.innerHTML = `<div class="loot-chest-wrap${chestClass}">
     <img class="loot-chest-img" src="${_pendingChestImage}" alt="Loot chest">
     <div class="loot-panel" id="loot-panel">
       <div class="loot-title">CHEST OPENED!</div>
@@ -1621,7 +1803,10 @@ function _tapLootChest() {
 function _openLootChest() {
   const wrap = document.querySelector('.loot-chest-wrap');
   if (!wrap || wrap.classList.contains('opened')) return;
+  const chestImg = wrap.querySelector('.loot-chest-img');
+  if (chestImg) chestImg.src = _pendingChestOpenImage;
   wrap.classList.add('opened');
+  _playSound('sounds/chestopen.mp3', 0.75);
   _pendingLootText = '';
   _spGold += _pendingLootGold;
   if (_pendingLootItem) _equipLootItem(_pendingLootItem);
@@ -1631,7 +1816,8 @@ function _openLootChest() {
   lootItem.textContent = _pendingLootText;
   lootItem.className = 'loot-item' + (_pendingLootRarity ? ' rarity-' + _pendingLootRarity : '');
   lootItem.style.display = _pendingLootText ? '' : 'none';
-  document.getElementById('loot-panel').classList.add('open');
+  const lootPanel = document.getElementById('loot-panel');
+  if (lootPanel) lootPanel.className = 'loot-panel open' + (_pendingLootRarity ? ' rarity-' + _pendingLootRarity : '');
   _spSave();
 }
 function _finishLoot() {
@@ -1641,6 +1827,48 @@ function _finishLoot() {
   const panel = document.getElementById('loot-panel');
   if (panel) panel.classList.remove('open');
   _showDefeatSummary(npc);
+}
+function _updateDefeatLootCard() {
+  const card = document.getElementById('spnd-loot-card');
+  if (!card) return;
+  const item = _pendingLootItem;
+  card.className = 'spnd-loot-card' + (item ? ' show rarity-' + item.rarity : '');
+  if (!item) return;
+
+  const slotEmoji = {
+    sword: '\u2694\uFE0F',
+    helmet: '\u26D1\uFE0F',
+    torso: '\uD83D\uDEE1\uFE0F',
+    gloves: '\uD83E\uDD4A',
+    foot: '\uD83E\uDD7E'
+  };
+  const rarityNames = ['','COMMON','UNCOMMON','RARE','EPIC','LEGENDARY'];
+  const visual = document.getElementById('spnd-loot-visual');
+  const img = document.getElementById('spnd-loot-img');
+  const fallback = document.getElementById('spnd-loot-fallback');
+  if (visual) visual.className = 'spnd-loot-visual rarity-' + item.rarity;
+  if (fallback) {
+    fallback.textContent = slotEmoji[item.slot] || '\uD83C\uDF81';
+    fallback.style.display = item.imagePath ? 'none' : 'block';
+  }
+  if (img) {
+    img.alt = item.name;
+    img.style.display = item.imagePath ? 'block' : 'none';
+    img.onerror = () => {
+      img.style.display = 'none';
+      if (fallback) fallback.style.display = 'block';
+    };
+    img.src = item.imagePath || '';
+  }
+  const nameEl = document.getElementById('spnd-loot-name');
+  nameEl.textContent = item.name;
+  nameEl.className = 'spnd-loot-name rarity-' + item.rarity;
+  document.getElementById('spnd-loot-stats').innerHTML =
+    '<span class="spnd-loot-chip">ATT ' + item.att + '</span>' +
+    '<span class="spnd-loot-chip">DEF ' + item.def + '</span>' +
+    '<span class="spnd-loot-chip">DUR ' + item.dur + '</span>' +
+    '<span class="spnd-loot-chip">' + (rarityNames[item.rarity] || 'UNKNOWN') + '</span>';
+  document.getElementById('spnd-loot-result').textContent = _pendingLootDisposition;
 }
 function _showDefeatSummary(npc) {
   const isLast = _isLastEnemy(_spNpcIdx);
@@ -1652,6 +1880,7 @@ function _showDefeatSummary(npc) {
   document.getElementById('spnd-gold').textContent    = '+' + _pendingLootGold;
   document.getElementById('spnd-streak').textContent  = _spBestStreak;
   document.getElementById('spnd-correct').textContent = _spTotalCorrect;
+  _updateDefeatLootCard();
   // Level-up announcement
   const luEl     = document.getElementById('spnd-levelup');
   const luDetail = document.getElementById('spnd-levelup-detail');
@@ -1704,50 +1933,111 @@ function _advanceToNextEnemy() {
 
 // ── SHOP ──────────────────────────────────────────────────
 function _openShop() {
+  _shopPotionSold = false;
+  _shopOffers = [
+    ..._weightedShopPicks(ITEMS.filter(item => item.slot === 'sword'), 2),
+    ..._weightedShopPicks(ITEMS.filter(item => _ARMOR_SLOTS.includes(item.slot)), 2)
+  ].map(item => ({ item, sold:false }));
+  _renderShopPotion();
+  _renderShopOffers();
   document.getElementById('spsh-gold-display').textContent = _spGold;
   _refreshShopUI();
   document.getElementById('sp-shop').classList.add('open');
 }
+function _renderShopPotion() {
+  const potion = _SHOP_HEALTH_POTION;
+  if (!potion) return;
+  const card = document.getElementById('spsh-item-potion');
+  if (card) card.className = 'spsh-item rarity-' + potion.rarity;
+  const img = document.getElementById('spsh-potion-img');
+  if (img) { img.src = potion.imagePath; img.alt = potion.name; }
+  const name = document.getElementById('spsh-potion-name');
+  if (name) name.textContent = potion.name.toUpperCase();
+  const price = document.getElementById('spsh-potion-price');
+  if (price) price.textContent = potion.value + ' 💰';
+}
+function _weightedShopPicks(source, count) {
+  const pool = [...source];
+  const picks = [];
+  while (pool.length && picks.length < count) {
+    const total = pool.reduce((sum, item) => sum + item.droprate, 0);
+    let roll = Math.random() * total;
+    let pickedIdx = pool.length - 1;
+    for (let i = 0; i < pool.length; i++) {
+      roll -= pool[i].droprate;
+      if (roll < 0) { pickedIdx = i; break; }
+    }
+    picks.push(pool.splice(pickedIdx, 1)[0]);
+  }
+  return picks;
+}
+function _shopItemPrice(item) {
+  return Math.max(30, item.value * 3);
+}
+function _renderShopOffers() {
+  const wrap = document.getElementById('spsh-gear-items');
+  if (!wrap) return;
+  const icons = { sword:'⚔', helmet:'⛑', torso:'🛡', gloves:'🥊', foot:'🥾' };
+  const rarityNames = ['','COMMON','UNCOMMON','RARE','EPIC','LEGENDARY'];
+  wrap.innerHTML = _shopOffers.map((offer, idx) => {
+    const item = offer.item;
+    const stats = [
+      item.att ? 'ATT +' + item.att : '',
+      item.def ? 'DEF +' + item.def : '',
+      'DUR ' + item.dur,
+      rarityNames[item.rarity]
+    ].filter(Boolean).join(' · ');
+    return `<div class="spsh-item rarity-${item.rarity}" id="spsh-offer-${idx}">
+      <div class="spsh-item-icon">${icons[item.slot] || '◆'}</div>
+      <div class="spsh-item-info">
+        <div class="spsh-item-name">${item.name}</div>
+        <div class="spsh-item-desc">${stats}</div>
+      </div>
+      <div class="spsh-item-price">${_shopItemPrice(item)} 💰</div>
+      <button class="spsh-buy-btn" id="spsh-offer-btn-${idx}" onclick="_buyShopItem(${idx})">BUY</button>
+    </div>`;
+  }).join('');
+}
 function _refreshShopUI() {
   const gold = _spGold;
-  // — Potion (repeatable) —
+  const potion = _SHOP_HEALTH_POTION;
+  const potionPrice = potion?.value ?? 10;
   const btnP  = document.getElementById('spsh-btn-potion');
   const itemP = document.getElementById('spsh-item-potion');
-  if (btnP)  btnP.className  = gold >= 10 ? 'spsh-buy-btn can-buy' : 'spsh-buy-btn no-gold';
-  if (itemP) itemP.className = 'spsh-item' + (gold >= 10 ? ' affordable' : '');
-  const potionDesc = document.querySelector('#spsh-item-potion .spsh-item-desc');
-  if (potionDesc) potionDesc.textContent = 'Add to inventory · Have: ' + _spPotions;
-  // — Leather Armor (one-time) —
-  const btnA  = document.getElementById('spsh-btn-armor');
-  const itemA = document.getElementById('spsh-item-armor');
-  const armorOwned = !!_spEquipment.torso;
-  if (btnA) {
-    if (armorOwned)      { btnA.className = 'spsh-buy-btn owned';  btnA.textContent = 'OWNED'; }
-    else if (gold >= 30) { btnA.className = 'spsh-buy-btn can-buy'; btnA.textContent = 'BUY'; }
-    else                 { btnA.className = 'spsh-buy-btn no-gold'; btnA.textContent = 'BUY'; }
+  if (btnP) {
+    btnP.textContent = _shopPotionSold ? 'OUT OF STOCK' : 'BUY';
+    btnP.className = _shopPotionSold ? 'spsh-buy-btn out-stock'
+      : gold >= potionPrice ? 'spsh-buy-btn can-buy' : 'spsh-buy-btn no-gold';
   }
-  if (itemA) itemA.className = 'spsh-item' + (!armorOwned && gold >= 30 ? ' affordable' : '');
-  // — Shortsword (one-time) —
-  const btnS  = document.getElementById('spsh-btn-sword');
-  const itemS = document.getElementById('spsh-item-sword');
-  const swordOwned = !!_spEquipment.sword;
-  if (btnS) {
-    if (swordOwned)      { btnS.className = 'spsh-buy-btn owned';  btnS.textContent = 'OWNED'; }
-    else if (gold >= 30) { btnS.className = 'spsh-buy-btn can-buy'; btnS.textContent = 'BUY'; }
-    else                 { btnS.className = 'spsh-buy-btn no-gold'; btnS.textContent = 'BUY'; }
-  }
-  if (itemS) itemS.className = 'spsh-item' + (!swordOwned && gold >= 30 ? ' affordable' : '');
+  if (itemP) itemP.className = 'spsh-item rarity-' + (potion?.rarity ?? 1) + (!_shopPotionSold && gold >= potionPrice ? ' affordable' : '');
+  const potionDesc = document.getElementById('spsh-potion-desc');
+  if (potionDesc) potionDesc.textContent = 'Restore ' + (potion?.amount ?? 30) + ' HP · Have: ' + _spPotions;
+  _shopOffers.forEach((offer, idx) => {
+    const price = _shopItemPrice(offer.item);
+    const btn = document.getElementById('spsh-offer-btn-' + idx);
+    const card = document.getElementById('spsh-offer-' + idx);
+    if (btn) {
+      btn.textContent = offer.sold ? 'SOLD' : 'BUY';
+      btn.className = offer.sold ? 'spsh-buy-btn owned'
+        : gold >= price ? 'spsh-buy-btn can-buy' : 'spsh-buy-btn no-gold';
+    }
+    if (card) card.classList.toggle('affordable', !offer.sold && gold >= price);
+  });
 }
 function _buyHealthPotion() {
-  if (_spGold < 10) return;
-  _spGold -= 10;
+  const potion = _SHOP_HEALTH_POTION;
+  const price = potion?.value ?? 10;
+  const healAmount = potion?.amount ?? 30;
+  if (_shopPotionSold || _spGold < price) return;
+  _spGold -= price;
+  _shopPotionSold = true;
   _updateGold();
   document.getElementById('spsh-gold-display').textContent = _spGold;
-  if (_spPlayerHP <= _spMaxHP - 30) {
+  if (_spPlayerHP <= _spMaxHP - healAmount) {
     // HP düşük — anında kullan
-    _spPlayerHP = Math.min(_spMaxHP, _spPlayerHP + 30);
+    _spPlayerHP = Math.min(_spMaxHP, _spPlayerHP + healAmount);
     _updatePlayerHP();
-    _spawnFloat('🧪 +30 HP', '#4ade80');
+    _spawnFloat('🧪 +' + healAmount + ' HP', '#4ade80');
   } else {
     // HP yüksek — inventory'e ekle
     _spPotions++;
@@ -1757,30 +2047,28 @@ function _buyHealthPotion() {
   _playSound('sounds/gulp.mp3', 0.6);
   _refreshShopUI();
 }
-function _buyLeatherArmor() {
-  if (_spGold < 30 || _spEquipment.torso) return;
-  _spGold -= 30;
-  const item = ITEMS.find(x => x.id === 'leather_armor');
-  if (item) _spEquipment.torso = _cloneEquipmentItem(item);
+function _buyShopItem(idx) {
+  const offer = _shopOffers[idx];
+  if (!offer || offer.sold) return;
+  const item = offer.item;
+  const price = _shopItemPrice(item);
+  if (_spGold < price) return;
+  _spGold -= price;
+  const oldItem = _spEquipment[item.slot];
+  if (oldItem) _spGold += oldItem.value;
+  _spEquipment[item.slot] = _cloneEquipmentItem(item);
+  offer.sold = true;
   _updateEquipmentUI();
   _updateGold();
   document.getElementById('spsh-gold-display').textContent = _spGold;
-  _refreshShopUI();
-}
-function _buyShortsword() {
-  if (_spGold < 30 || _spEquipment.sword) return;
-  _spGold -= 30;
-  const item = ITEMS.find(x => x.id === 'iron_shortsword');
-  if (item) _spEquipment.sword = _cloneEquipmentItem(item);
-  _updateEquipmentUI();
-  _updateGold();
-  document.getElementById('spsh-gold-display').textContent = _spGold;
-  _spawnFloat('⚔ Shortsword', '#fbbf24');
+  _spawnFloat(item.name + (oldItem ? ' · OLD ITEM SOLD +' + oldItem.value : ''), '#fbbf24');
   _playSound('sounds/punch.mp3', 0.45);
   _refreshShopUI();
 }
 function _closeShop() {
   document.getElementById('sp-shop').classList.remove('open');
+  _shopPotionSold = false;
+  _shopOffers = [];
   _spSave();
   _advanceToNextEnemy();
 }
@@ -1917,6 +2205,68 @@ function _spLoad() {
 
 // ── HIT STAR EFFECT ───────────────────────────────────────
 // 12-pointed irregular star — anime impact burst (24 polygon points, rotation baked into SVG)
+function _playAttackLunge(attackerAreaId, targetAreaId, onImpact) {
+  const attackerArea = document.getElementById(attackerAreaId);
+  const targetArea   = document.getElementById(targetAreaId);
+  const impact       = typeof onImpact === 'function' ? onImpact : () => {};
+  if (!attackerArea || !targetArea) { impact(); return; }
+
+  const mover        = attackerArea.querySelector('.sp-avatar-sway, .sp-npc-placeholder');
+  const attackerBody = attackerArea.querySelector('img, .sp-npc-placeholder') || mover;
+  const targetBody   = targetArea.querySelector('img, .sp-npc-placeholder') || targetArea;
+  if (!mover || !attackerBody || !targetBody || typeof mover.animate !== 'function') {
+    impact();
+    return;
+  }
+
+  const a = attackerBody.getBoundingClientRect();
+  const t = targetBody.getBoundingClientRect();
+  const direction = t.left + t.width / 2 >= a.left + a.width / 2 ? 1 : -1;
+  const contactGap = Math.max(34, Math.min(a.width, t.width) * 0.28);
+  const travelX = (t.left + t.width / 2) - (a.left + a.width / 2) -
+    direction * ((a.width + t.width) / 2 - contactGap);
+  const travelY = Math.max(-28, Math.min(28,
+    (t.top + t.height * 0.58) - (a.top + a.height * 0.58)));
+  const duration = 440;
+
+  if (mover._attackAnimation) mover._attackAnimation.cancel();
+  mover._attackAnimation = mover.animate([
+    { transform: 'translate(0, 0)', offset: 0 },
+    { transform: `translate(${travelX * 0.16}px, ${travelY * 0.16}px)`, offset: 0.18 },
+    { transform: `translate(${travelX}px, ${travelY}px) scale(1.04)`, offset: 0.48 },
+    { transform: `translate(${travelX * 0.92}px, ${travelY * 0.92}px) scale(1.02)`, offset: 0.58 },
+    { transform: 'translate(0, 0)', offset: 1 }
+  ], {
+    duration,
+    easing: 'cubic-bezier(.22,.8,.25,1)',
+    fill: 'none'
+  });
+  setTimeout(impact, duration * 0.48);
+  mover._attackAnimation.addEventListener('finish', () => { mover._attackAnimation = null; }, {once:true});
+}
+
+function _shakeHitTarget(areaId) {
+  const area = document.getElementById(areaId);
+  const target = area?.querySelector('img, .sp-npc-placeholder');
+  if (!target || typeof target.animate !== 'function') return;
+
+  if (target._hitShakeAnimation) target._hitShakeAnimation.cancel();
+  target._hitShakeAnimation = target.animate([
+    { transform: 'translate(0, 0) rotate(0)', offset: 0 },
+    { transform: 'translate(-13px, 2px) rotate(-2deg)', offset: 0.18 },
+    { transform: 'translate(11px, -2px) rotate(1.5deg)', offset: 0.38 },
+    { transform: 'translate(-7px, 1px) rotate(-1deg)', offset: 0.58 },
+    { transform: 'translate(4px, 0) rotate(.5deg)', offset: 0.78 },
+    { transform: 'translate(0, 0) rotate(0)', offset: 1 }
+  ], {
+    duration: 260,
+    easing: 'ease-out'
+  });
+  target._hitShakeAnimation.addEventListener('finish', () => {
+    target._hitShakeAnimation = null;
+  }, {once:true});
+}
+
 function _hitStarSVG(color, rot) {
   const pts = '60,3 66,38 92,9 75,44 112,28 83,51 119,60 83,69 112,92 75,76 92,111 66,82 60,117 54,82 28,111 45,76 7,92 37,69 1,60 37,51 7,28 45,44 28,9 54,38';
   return `<svg viewBox="0 0 120 120" width="88" height="88"><polygon points="${pts}" fill="${color}" opacity=".93" transform="rotate(${rot},60,60)"/></svg>`;
@@ -2239,7 +2589,7 @@ function setMusicEnabled(on) {
       audio.volume = BG_MUSIC_FULL;
       audio.play().catch(() => { audio._wkStarted = false; });
     } else {
-      _bgMusicFade(BG_MUSIC_FULL, 500);
+      _bgMusicFade(_battleMusicDucked ? BG_MUSIC_BATTLE : BG_MUSIC_FULL, 500);
     }
   } else {
     _stopMusicCue();
