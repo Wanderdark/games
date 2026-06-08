@@ -25,7 +25,7 @@ html,body{height:100%;overflow:hidden;font-family:'Barlow',sans-serif;background
 #bg-layer{position:fixed;inset:0;z-index:0;background-size:cover;background-position:center;background-repeat:no-repeat;transition:opacity .8s ease;opacity:0;pointer-events:none}
 
 /* ── MAIN MENU ── */
-#main-menu{position:fixed;inset:0;z-index:10000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;background:url('mainmenu.webp') center/cover no-repeat}
+#main-menu{position:fixed;inset:0;z-index:10000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;background:url('images/mainmenu.webp') center/cover no-repeat}
 #main-menu.hidden{display:none}
 .mm-logo{display:flex;flex-direction:column;align-items:center;margin-bottom:52px;line-height:.88;background:rgba(0,0,0,.55);padding:18px 36px;border-radius:16px;backdrop-filter:blur(4px)}
 .mm-word1{font-family:'Bebas Neue',sans-serif;font-size:clamp(68px,13vw,152px);color:#fff;letter-spacing:.09em;text-shadow:0 0 50px rgba(255,140,0,.25),0 2px 0 rgba(0,0,0,.6)}
@@ -259,9 +259,9 @@ body.lite .hp-heart{animation:none}
 .sp-streak-mult{font-family:'Bebas Neue',sans-serif;font-size:15px;color:#f59e0b;letter-spacing:.06em;min-height:20px}
 
 /* ── PLAYER/NPC AVATAR AREAS ── */
-.sp-avatar-area{flex:1;min-height:0;display:flex;align-items:flex-end;justify-content:center;position:relative;overflow:visible}
+.sp-avatar-area{flex:1;min-height:0;display:flex;align-items:flex-end;justify-content:center;position:relative;overflow:visible;isolation:isolate}
 /* Sway wrapper — handles horizontal idle motion independently of img flip */
-.sp-avatar-sway{display:flex;align-items:flex-end;justify-content:center;width:100%;height:100%}
+.sp-avatar-sway{display:flex;align-items:flex-end;justify-content:center;width:100%;height:100%;position:relative;z-index:1}
 .sp-avatar-sway.sway-player{animation:swayPlayer 3.2s ease-in-out infinite}
 .sp-avatar-sway.sway-npc{animation:swayNpc 2.8s ease-in-out infinite}
 .sp-avatar-sway.sway-npc.sway-flying{animation:swayNpcFlying 2.4s ease-in-out infinite}
@@ -398,6 +398,12 @@ body.lite .hp-heart{animation:none}
 
 /* ── NPC UNIT BADGE ── */
 .sp-npc-unitbadge{font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.3);background:rgba(255,255,255,.06);border-radius:5px;padding:2px 6px;margin-top:2px;display:inline-block}
+.sp-npc-rarity{font-family:'Bebas Neue',sans-serif;font-size:12px;letter-spacing:.14em;margin-left:6px}
+.enemy-rarity-stars{position:absolute;top:4px;left:50%;transform:translateX(-50%);z-index:8;font-size:clamp(16px,2vw,24px);letter-spacing:3px;white-space:nowrap;pointer-events:none}
+.enemy-rarity-stars.rarity-1,.sp-npc-rarity.rarity-1{color:#a1a1aa}.enemy-rarity-stars.rarity-2,.sp-npc-rarity.rarity-2{color:#fff}.enemy-rarity-stars.rarity-3,.sp-npc-rarity.rarity-3{color:#7dd3fc;text-shadow:0 0 10px rgba(125,211,252,.65)}.enemy-rarity-stars.rarity-4,.sp-npc-rarity.rarity-4{color:#c084fc;text-shadow:0 0 12px rgba(192,132,252,.8)}.enemy-rarity-stars.rarity-5,.sp-npc-rarity.rarity-5{color:#FFD700;text-shadow:0 0 9px #fff5a0,0 0 20px rgba(255,215,0,.95)}
+.sp-npc-img.enemy-rarity-3{filter:drop-shadow(0 0 12px rgba(125,211,252,.95)) drop-shadow(0 0 28px rgba(56,189,248,.8))}
+.sp-npc-img.enemy-rarity-4{filter:drop-shadow(0 0 14px rgba(233,213,255,1)) drop-shadow(0 0 32px rgba(192,132,252,.95)) drop-shadow(0 0 52px rgba(126,34,206,.75))}
+.sp-npc-img.enemy-rarity-5{filter:drop-shadow(0 0 12px rgba(255,255,220,1)) drop-shadow(0 0 30px rgba(255,215,0,1)) drop-shadow(0 0 58px rgba(255,180,0,.95)) drop-shadow(0 0 82px rgba(255,140,0,.75))}
 
 /* ── SETTINGS OVERLAY ── */
 #settings-overlay{position:fixed;inset:0;z-index:10100;background:rgba(2,8,30,.97);display:none;align-items:center;justify-content:center;backdrop-filter:blur(12px)}
@@ -421,6 +427,12 @@ body.lite .hp-heart{animation:none}
 #countdown-text.cd-3{color:#ef4444;text-shadow:0 0 60px rgba(239,68,68,.8)}
 #countdown-text.cd-2{color:#f59e0b;text-shadow:0 0 60px rgba(245,158,11,.8)}
 #countdown-text.cd-1{color:#22c55e;text-shadow:0 0 60px rgba(34,197,94,.8)}
+
+#opponent-overlay{position:fixed;inset:0;z-index:9655;background:rgba(2,8,20,.9);display:none;align-items:center;justify-content:center;backdrop-filter:blur(12px)}
+#opponent-overlay.open{display:flex}
+.opp-modal{width:min(92vw,620px);max-height:94vh;overflow-y:auto;background:linear-gradient(145deg,#111827,#07111f);border:2px solid var(--opp-color,#a1a1aa);border-radius:26px;padding:26px;text-align:center;box-shadow:0 24px 70px rgba(0,0,0,.75);animation:modalIn .3s ease}
+.opp-kicker{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:.28em;color:rgba(255,255,255,.5);text-transform:uppercase}.opp-rarity{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:.18em;color:var(--opp-color);margin-top:8px}.opp-stars{font-size:28px;letter-spacing:5px;color:var(--opp-color);text-shadow:0 0 14px var(--opp-color);min-height:34px}.opp-name{font-family:'Bebas Neue',sans-serif;font-size:clamp(34px,6vw,58px);letter-spacing:.1em;color:var(--opp-color);text-shadow:0 0 22px var(--opp-color);line-height:1}
+.opp-image-wrap{height:240px;margin:14px auto;display:flex;align-items:center;justify-content:center}.opp-image{max-width:100%;max-height:100%;object-fit:contain}.opp-stats{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin:12px 0 18px}.opp-stat{min-width:100px;padding:8px 12px;border:1px solid var(--opp-color);border-radius:10px;background:rgba(255,255,255,.04)}.opp-stat-value{font-family:'Bebas Neue',sans-serif;font-size:24px;color:#fff;letter-spacing:.08em}.opp-stat-label{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:.16em;color:rgba(255,255,255,.45)}.opp-fight{padding:12px 54px;border:0;border-radius:13px;background:linear-gradient(135deg,#991b1b,#ef4444);color:#fff;font-family:'Bebas Neue',sans-serif;font-size:25px;letter-spacing:.18em;cursor:pointer;box-shadow:0 5px 24px rgba(239,68,68,.4)}
 
 /* ── NPC DEFEAT OVERLAY ── */
 #sp-npc-defeat{position:fixed;inset:0;z-index:9640;background:rgba(2,8,30,.93);display:none;align-items:center;justify-content:center;backdrop-filter:blur(12px)}
@@ -608,7 +620,10 @@ body.lite .hp-heart{animation:none}
       </div>
       <div class="hp-outer"><div class="hp-fill" id="hp-fill-npc"></div></div>
       <div style="margin-top:4px;display:flex;align-items:center;justify-content:space-between">
-        <span style="font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.35)" id="sp-npc-lv-lbl">LEVEL 1</span>
+        <span>
+          <span style="font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.35)" id="sp-npc-lv-lbl">LEVEL 1</span>
+          <span class="sp-npc-rarity" id="sp-npc-rarity"></span>
+        </span>
         <span style="font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(239,68,68,.55)">⚔ ATT <span style="font-family:'Bebas Neue',sans-serif;font-size:13px;color:#f87171;letter-spacing:.06em" id="sp-npc-att">—</span></span>
       </div>
       <div class="sp-npc-unitbadge" id="sp-npc-unitbadge"></div>
@@ -718,6 +733,27 @@ body.lite .hp-heart{animation:none}
 <!-- Countdown -->
 <div id="countdown-overlay">
   <div id="countdown-text"></div>
+</div>
+
+<!-- Opponent Intro -->
+<div id="opponent-overlay">
+  <div class="opp-modal" id="opponent-modal">
+    <div class="opp-kicker">YOUR OPPONENT IS</div>
+    <div class="opp-rarity" id="opp-rarity"></div>
+    <div class="opp-stars" id="opp-stars"></div>
+    <div class="opp-name" id="opp-name"></div>
+    <div class="opp-image-wrap">
+      <img class="opp-image" id="opp-image" src="" alt="">
+    </div>
+    <div class="opp-stats">
+      <div class="opp-stat"><div class="opp-stat-value" id="opp-hp"></div><div class="opp-stat-label">HP</div></div>
+      <div class="opp-stat"><div class="opp-stat-value" id="opp-att"></div><div class="opp-stat-label">ATT</div></div>
+      <div class="opp-stat"><div class="opp-stat-value" id="opp-speed"></div><div class="opp-stat-label">ATTACK SPEED</div></div>
+      <div class="opp-stat"><div class="opp-stat-value" id="opp-xp"></div><div class="opp-stat-label">XP REWARD</div></div>
+      <div class="opp-stat"><div class="opp-stat-value" id="opp-gold"></div><div class="opp-stat-label">GOLD</div></div>
+    </div>
+    <button class="opp-fight" onclick="_acceptOpponent()">FIGHT &#9654;</button>
+  </div>
 </div>
 
 <!-- NPC Defeated -->
@@ -862,14 +898,14 @@ body.lite .hp-heart{animation:none}
 <script src="items.js"></script>
 <script src="taunt.js"></script>
 <script>
-const GAME_VERSION = '0.2';
+const GAME_VERSION = '0.3';
 document.getElementById('game-version').textContent = GAME_VERSION;
 
 // ══════════════════════════════════════════════════════════
 //  WORD RIVALS: SOLO — Game Logic
 // ══════════════════════════════════════════════════════════
 
-// ── CONSTANTS ─────────────────────────────────────────────
+// ── CONSTANTS ───────────────────────────────────────────── 50-30-15-4-1
 let   INITIAL_HP      = 100;
 const HP_PER_LOSS     = 10; // fallback only — actual damage comes from npc.att
 const SP_TIMER_MAX    = 6;
@@ -877,6 +913,14 @@ const SP_BETWEEN_MS   = 900;
 const SP_WRONG_LOCK   = 800;
 const SP_XP_LEVELS    = [0,100,250,450,700,1000,1400,1900,2500,3200,4000,4900,5900,7000,8200];
 const RESURRECTION_COST = 50;
+const ENEMY_RARITIES = {
+  common:    { name:'COMMON',    stars:1, color:'#a1a1aa', chance:50, itemChance:.20, lootWeights:{1:1,    2:1,    3:1,   4:1, 5:1} },
+  uncommon:  { name:'UNCOMMON',  stars:2, color:'#ffffff', chance:30, itemChance:.28, lootWeights:{1:.75,  2:1.3,  3:1.4, 4:1.5, 5:1.6} },
+  rare:      { name:'RARE',      stars:3, color:'#7dd3fc', chance:15, itemChance:.40, lootWeights:{1:.45,  2:.9,   3:1.8, 4:2.2, 5:2.6} },
+  epic:      { name:'EPIC',      stars:4, color:'#c084fc', chance:4,  itemChance:.60, lootWeights:{1:.20,  2:.5,   3:1.5, 4:3,   5:4} },
+  legendary: { name:'LEGENDARY', stars:5, color:'#FFD700', chance:1,  itemChance:1,   lootWeights:{1:.08,  2:.25,  3:1,   4:3,   5:6} },
+};
+const ENEMY_RARITY_KEYS = Object.keys(ENEMY_RARITIES);
 
 // ── ENEMY SYSTEM (uses enemies.js) ────────────────────────
 // Sorted once at startup by the `order` field defined in enemies.js
@@ -884,9 +928,44 @@ const _ENEMY_LIST = (typeof ENEMIES !== 'undefined' && ENEMIES.length > 0)
   ? [...ENEMIES].sort((a, b) => (a.order ?? 999) - (b.order ?? 999))
   : [{ order:1, id:'enemy', name:'ENEMY', level:1, maxHp:30, xpReward:40, goldReward:[15,30], emoji:'👾', color:'#ef4444', img:null, facesRight:false }];
 
-// Returns the NPC for the given slot, or null when all enemies are beaten
+function _rollEnemyRarity(baseNpc) {
+  const keys = baseNpc?.order % 5 === 0 ? ['rare', 'epic', 'legendary'] : ENEMY_RARITY_KEYS;
+  const total = keys.reduce((sum, key) => sum + ENEMY_RARITIES[key].chance, 0);
+  let roll = Math.random() * total;
+  for (const key of keys) {
+    roll -= ENEMY_RARITIES[key].chance;
+    if (roll < 0) return key;
+  }
+  return keys[0];
+}
+function _ensureEnemyRarity(idx) {
+  const baseNpc = _ENEMY_LIST[idx];
+  if (!baseNpc) return null;
+  const saved = _spEnemyRarities[baseNpc.id];
+  const bossRarities = ['rare', 'epic', 'legendary'];
+  if (ENEMY_RARITIES[saved] && (baseNpc.order % 5 !== 0 || bossRarities.includes(saved))) return saved;
+  const rolled = _rollEnemyRarity(baseNpc);
+  _spEnemyRarities[baseNpc.id] = rolled;
+  _spSave();
+  return rolled;
+}
+// Returns a rarity-scaled NPC for the given slot, or null when all enemies are beaten.
 function _getNpc(idx) {
-  return _ENEMY_LIST[idx] ?? null;
+  const baseNpc = _ENEMY_LIST[idx];
+  if (!baseNpc) return null;
+  const rarityKey = _ensureEnemyRarity(idx);
+  const rarity = ENEMY_RARITIES[rarityKey];
+  const variant = baseNpc.rarityVersions?.[rarityKey] || {};
+  return {
+    ...baseNpc,
+    maxHp: variant.hp ?? baseNpc.maxHp,
+    att: variant.att ?? baseNpc.att,
+    speed: variant.speed ?? baseNpc.speed ?? SP_TIMER_MAX,
+    xpReward: variant.xpReward ?? baseNpc.xpReward,
+    goldReward: variant.goldReward ?? baseNpc.goldReward,
+    rarityKey,
+    rarity,
+  };
 }
 function _hasMoreEnemies(afterIdx) {
   return afterIdx + 1 < _ENEMY_LIST.length;
@@ -899,6 +978,7 @@ function _isLastEnemy(idx) {
 let _spPlayerHP     = 100;
 let _spNpcHP        = 30;
 let _spNpcIdx       = 0;
+let _spEnemyRarities = {};
 let _spStreak       = 0;
 let _spBestStreak   = 0;
 let _spXP           = 0;
@@ -910,7 +990,7 @@ let _spTotalCorrect = 0;
 let _spTotalWrong   = 0;
 let _spRoundActive  = false;
 let _spClickLocked  = false;
-let _spTimerLeft    = 5;
+let _spTimerLeft    = SP_TIMER_MAX;
 let _spTimerInterval   = null;
 let _spWordRevealTimer = null;
 let _spWordRepeatTimer = null;
@@ -931,8 +1011,8 @@ let _pendingLootText     = '';
 let _pendingLootRarity   = 0;
 let _pendingLootItem     = null;
 let _pendingLootDisposition = '';
-let _pendingChestImage   = 'ironchest.png';
-let _pendingChestOpenImage = 'ironchest_open.png';
+let _pendingChestImage   = 'images/ironchest.webp';
+let _pendingChestOpenImage = 'images/ironchest_open.webp';
 let _shopOffers          = [];
 let _shopPotionSold      = false;
 const _SHOP_HEALTH_POTION = typeof POTIONS !== 'undefined'
@@ -1426,17 +1506,25 @@ function _renderNpc(npc) {
   _spLevelAtFightStart = _spLevel; // snapshot level at fight start for defeat screen
   const nameEl = document.getElementById('sp-npc-name');
   const lvLbl  = document.getElementById('sp-npc-lv-lbl');
+  const rarityEl = document.getElementById('sp-npc-rarity');
   const area   = document.getElementById('sp-npc-avatar-area');
   const hdrNpc = document.querySelector('.hdr-npc');
+  const rarityColor = npc.rarity?.color || npc.color || '#ef4444';
+  const rarityStars = npc.rarity?.stars || 1;
+  const imageRarityClass = rarityStars >= 3 ? ` enemy-rarity-${rarityStars}` : '';
   if (nameEl) {
     nameEl.textContent = npc.name;
-    nameEl.style.color = npc.color || '#ef4444';
-    nameEl.style.textShadow = '0 0 16px ' + (npc.color || '#ef4444') + '88';
+    nameEl.style.color = rarityColor;
+    nameEl.style.textShadow = '0 0 16px ' + rarityColor + '88';
   }
   if (lvLbl)  lvLbl.textContent = 'LEVEL ' + npc.level;
+  if (rarityEl) {
+    rarityEl.textContent = npc.rarity?.name || '';
+    rarityEl.className = 'sp-npc-rarity rarity-' + rarityStars;
+  }
   const attEl = document.getElementById('sp-npc-att');
   if (attEl)  attEl.textContent = npc.att ?? '—';
-  if (hdrNpc) hdrNpc.style.borderColor = (npc.color || '#ef4444') + '66';
+  if (hdrNpc) hdrNpc.style.borderColor = rarityColor + '99';
   const badge = document.getElementById('sp-npc-unitbadge');
   if (badge) {
     const us = npc.unitSet;
@@ -1450,10 +1538,10 @@ function _renderNpc(npc) {
       const _layoutClass = _isVertical ? 'npc-vertical' : 'npc-landscape';
       const _wrapClass = _isVertical ? '' : ' npc-landscape-wrap';
       const _oversizedClass = npc.oversized ? ' npc-oversized' : '';
-      area.innerHTML = `<div class="${_swayClass}${_wrapClass}${_oversizedClass}"><img class="sp-npc-img ${_layoutClass}" src="${npc.img}" alt="${npc.name}"></div>`;
+      area.innerHTML = `<div class="enemy-rarity-stars rarity-${rarityStars}">${'&#9733;'.repeat(rarityStars)}</div><div class="${_swayClass}${_wrapClass}${_oversizedClass}"><img class="sp-npc-img ${_layoutClass}${imageRarityClass}" src="${npc.img}" alt="${npc.name}"></div>`;
     } else {
       const _swayClass2 = npc.flying ? 'sp-avatar-sway sway-npc sway-flying' : 'sp-avatar-sway sway-npc';
-      area.innerHTML = `<div class="${_swayClass2}"><div class="sp-npc-placeholder">
+      area.innerHTML = `<div class="enemy-rarity-stars rarity-${rarityStars}">${'&#9733;'.repeat(rarityStars)}</div><div class="${_swayClass2}"><div class="sp-npc-placeholder">
         <div class="sp-npc-emoji" style="color:${npc.color||'#ef4444'}">${npc.emoji||'👾'}</div>
         <div class="sp-npc-ph-name" style="color:${npc.color||'#ef4444'}">${npc.name}</div>
         <div class="sp-npc-ph-lv">LEVEL ${npc.level}</div>
@@ -1485,10 +1573,13 @@ function _renderPlayerAvatar() {
 }
 
 // ── SP TIMER ──────────────────────────────────────────────
+function _getEnemyAttackSpeed() {
+  return Math.max(2, Number(_getNpc(_spNpcIdx)?.speed) || SP_TIMER_MAX);
+}
 function _startTimer() {
   // Full reset — new enemy or game start
   _stopTimer();
-  _spTimerLeft = SP_TIMER_MAX;
+  _spTimerLeft = _getEnemyAttackSpeed();
   _updateTimerUI();
   _spTimerInterval = setInterval(_timerTick, 1000);
 }
@@ -1523,7 +1614,7 @@ function _timerTick() {
 function _updateTimerUI() {
   const fill = document.getElementById('sp-timer-fill');
   const num  = document.getElementById('sp-timer-num');
-  const pct  = (_spTimerLeft / SP_TIMER_MAX) * 100;
+  const pct  = (_spTimerLeft / _getEnemyAttackSpeed()) * 100;
   if (fill) {
     fill.style.width = pct + '%';
     fill.className   = _spTimerLeft <= 1 ? 'tmr-urgent' : _spTimerLeft <= 2 ? 'tmr-warn' : '';
@@ -1550,7 +1641,7 @@ function _onTimerExpire() {
     setTimeout(_showGameOver, 1200);
   } else {
     // Aynı soru — timer yeniden başlar
-    _spTimerLeft = SP_TIMER_MAX;
+    _spTimerLeft = _getEnemyAttackSpeed();
     _spTimerInterval = setInterval(_timerTick, 1000);
   }
 }
@@ -1561,6 +1652,7 @@ function _startGame() {
   _spMaxHP        = INITIAL_HP;
   _spPlayerHP     = _spMaxHP;
   _spNpcIdx       = 0;
+  _spEnemyRarities = {};
   _spStreak       = 0;
   _spBestStreak   = 0;
   _spXP           = 0;
@@ -1587,7 +1679,7 @@ function _startGameFromSave() {
 function _startGameCore() {
   document.body.classList.add('game-active');
   _battleMusicDucked = false;
-  _spTimerLeft = SP_TIMER_MAX; // always start fresh
+  _spTimerLeft = _getEnemyAttackSpeed(); // always start fresh
   // Cancel any lingering game-over/victory fade before starting music fresh
   clearTimeout(_menuMusicResetTimer);
   _menuMusicResetTimer = null;
@@ -1605,7 +1697,36 @@ function _startGameCore() {
   _updatePotions();
   _updateStreakUI();
   _renderPlayerAvatar();
-  _renderNpc(_getNpc(_spNpcIdx));
+  _beginEnemyEncounter();
+}
+function _beginEnemyEncounter() {
+  const npc = _getNpc(_spNpcIdx);
+  if (!npc) { _showVictory(); return; }
+  _renderNpc(npc);
+  _showOpponentIntro(npc);
+}
+function _showOpponentIntro(npc) {
+  const rarity = npc.rarity || ENEMY_RARITIES.common;
+  const modal = document.getElementById('opponent-modal');
+  const image = document.getElementById('opp-image');
+  if (modal) modal.style.setProperty('--opp-color', rarity.color);
+  document.getElementById('opp-rarity').textContent = rarity.name;
+  document.getElementById('opp-stars').textContent = '\u2605'.repeat(rarity.stars);
+  document.getElementById('opp-name').textContent = npc.name;
+  document.getElementById('opp-hp').textContent = npc.maxHp;
+  document.getElementById('opp-att').textContent = npc.att;
+  document.getElementById('opp-speed').textContent = npc.speed + 's';
+  document.getElementById('opp-xp').textContent = npc.xpReward;
+  document.getElementById('opp-gold').textContent = Array.isArray(npc.goldReward) ? npc.goldReward.join('-') : npc.goldReward;
+  if (image) {
+    image.src = npc.img || '';
+    image.alt = npc.name;
+    image.style.display = npc.img ? '' : 'none';
+  }
+  document.getElementById('opponent-overlay').classList.add('open');
+}
+function _acceptOpponent() {
+  document.getElementById('opponent-overlay').classList.remove('open');
   _showCountdown(3, _startRound);
 }
 function _startRound() {
@@ -1739,34 +1860,37 @@ function _randomGold(reward) {
   const max = Math.max(range[0], range[1]);
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
-function _weightedItemRoll() {
+function _weightedItemRoll(enemyRarityKey = 'common') {
   if (typeof ITEMS === 'undefined' || !ITEMS.length) return null;
   const slot = _EQUIPMENT_SLOTS[Math.floor(Math.random() * _EQUIPMENT_SLOTS.length)];
   const pool = ITEMS.filter(item => item.slot === slot);
-  const total = pool.reduce((n, item) => n + item.droprate, 0);
+  const lootWeights = ENEMY_RARITIES[enemyRarityKey]?.lootWeights || ENEMY_RARITIES.common.lootWeights;
+  const weightedDrop = item => item.droprate * (lootWeights[item.rarity] || 1);
+  const total = pool.reduce((n, item) => n + weightedDrop(item), 0);
   let roll = Math.random() * total;
   for (const item of pool) {
-    roll -= item.droprate;
+    roll -= weightedDrop(item);
     if (roll < 0) return item;
   }
   return pool[pool.length - 1] || null;
 }
 function _prepareLoot(npc) {
   _pendingLootGold = _randomGold(npc.goldReward);
-  _pendingLootItem = Math.random() < .3 ? _weightedItemRoll() : null;
+  const itemChance = npc.rarity?.itemChance ?? ENEMY_RARITIES.common.itemChance;
+  _pendingLootItem = Math.random() < itemChance ? _weightedItemRoll(npc.rarityKey) : null;
   _pendingLootRarity = _pendingLootItem?.rarity || 0;
   _pendingLootText = '';
   _pendingLootDisposition = '';
   _pendingChestImage = _pendingLootRarity >= 4
-    ? 'goldchest.png'
+    ? 'images/goldchest.webp'
     : _pendingLootRarity === 3
-      ? 'silverchest.png'
-      : 'ironchest.png';
+      ? 'images/silverchest.webp'
+      : 'images/ironchest.webp';
   _pendingChestOpenImage = _pendingLootRarity >= 4
-    ? 'goldchest_open.png'
+    ? 'images/goldchest_open.webp'
     : _pendingLootRarity === 3
-      ? 'silverchest_open.png'
-      : 'ironchest_open.png';
+      ? 'images/silverchest_open.webp'
+      : 'images/ironchest_open.webp';
 }
 function _showLootChest() {
   const area = document.getElementById('sp-npc-avatar-area');
@@ -1878,7 +2002,7 @@ function _showDefeatSummary(npc) {
   document.getElementById('spnd-banner').textContent  = isLast
     ? '👑 FINAL BOSS DEFEATED! 👑'
     : '⭐ ' + npc.name + ' DEFEATED! ⭐';
-  document.getElementById('spnd-npc-name').textContent = 'ENEMY #' + (_spNpcIdx + 1) + '  ·  LEVEL ' + npc.level;
+  document.getElementById('spnd-npc-name').textContent = 'ENEMY #' + (_spNpcIdx + 1) + '  ·  LEVEL ' + npc.level + '  ·  ' + (npc.rarity?.name || 'COMMON') + ' ' + '\u2605'.repeat(npc.rarity?.stars || 1);
   document.getElementById('spnd-xp').textContent      = '+' + npc.xpReward;
   document.getElementById('spnd-gold').textContent    = '+' + _pendingLootGold;
   document.getElementById('spnd-streak').textContent  = _spBestStreak;
@@ -1926,12 +2050,11 @@ function _advanceToNextEnemy() {
   const npc = _getNpc(_spNpcIdx);
   if (!npc) { setTimeout(_showVictory, 400); return; } // safety
   _spStreak = 0; _updateStreakUI();
-  _renderNpc(npc);
-  _spTimerLeft = SP_TIMER_MAX; // new enemy → fresh timer
+  _spTimerLeft = _getEnemyAttackSpeed(); // new enemy → fresh timer
   _switchBgTrack();
   _updateBg(); // switch background if crossing a 10-boss threshold
   // usedQIdx intentionally NOT cleared — questions don't repeat across the whole run
-  setTimeout(_startRound, 600);
+  setTimeout(_beginEnemyEncounter, 600);
 }
 
 // ── SHOP ──────────────────────────────────────────────────
@@ -2110,6 +2233,7 @@ function _startRun() {
   // Equipment objects intentionally survive with their current durability.
   _spPlayerHP     = _spMaxHP;
   _spNpcIdx       = 0;
+  _spEnemyRarities = {};
   _spNpcsDefeated = 0;
   _spStreak       = 0;
   _spTotalCorrect = 0;
@@ -2171,6 +2295,7 @@ function _spSave(completed) {
       playerAtt:    _spPlayerAtt,
       equipment:    _spEquipment,
       potions:      _spPotions,
+      enemyRarities:_spEnemyRarities,
       npcsDefeated: _spNpcsDefeated,
       bestStreak:   _spBestStreak,
       totalCorrect: _spTotalCorrect,
@@ -2199,6 +2324,13 @@ function _spLoad() {
       });
     }
     if (typeof d.potions      === 'number') _spPotions      = d.potions;
+    _spEnemyRarities = {};
+    if (d.enemyRarities && typeof d.enemyRarities === 'object') {
+      _ENEMY_LIST.forEach(enemy => {
+        const rarityKey = d.enemyRarities[enemy.id];
+        if (ENEMY_RARITIES[rarityKey]) _spEnemyRarities[enemy.id] = rarityKey;
+      });
+    }
     if (typeof d.npcsDefeated === 'number') _spNpcsDefeated = d.npcsDefeated;
     if (typeof d.bestStreak   === 'number') _spBestStreak   = d.bestStreak;
     if (typeof d.totalCorrect === 'number') _spTotalCorrect = d.totalCorrect;
@@ -2625,11 +2757,11 @@ function _startBgMusic() {
 // ── BACKGROUND — NPC index driven ─────────────────────────
 // Boss 1-10 → bg1 | 11-20 → bg2 | 21-30 → bg3 | 31-40 → bg4 | 41+ → bg5
 const BG_IMAGES = [
-  'background1.webp',
-  'background2.webp',
-  'background3.webp',
-  'background4.webp',
-  'background5.webp',
+  'images/background1.webp',
+  'images/background2.webp',
+  'images/background3.webp',
+  'images/background4.webp',
+  'images/background5.webp',
 ];
 let _bgImgIdx = 0;
 function _getBgIdxForNpc(npcIdx) {

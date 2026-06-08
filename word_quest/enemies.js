@@ -7,6 +7,7 @@
 //   level      : seviye (NPC panel'de görünür)
 //   maxHp      : maksimum can puanı
 //   att        : saldırı gücü — yanlış cevap / süre dolunca oyuncuya bu kadar HP vurur
+//   speed      : düşmanın saldırması için gereken saniye (düşük değer = daha hızlı)
 //   xpReward   : yenilince kazanılan XP
 //   goldReward : sandıktan çıkacak altın aralığı [minimum, maksimum]
 //   emoji      : görsel yoksa placeholder emoji
@@ -19,6 +20,20 @@
 //   unitSet    : soru gelecek ünite numaraları — null → tüm üniteler
 // ============================================================
 
+// Enemy rarity stat sets are stored here so balancing stays in enemies.js.
+// Boss encounters (every 5th enemy) roll Rare or better in the game logic.
+function enemyRarityVersions(hp, att, speed, xpReward, goldReward) {
+  const gold = Array.isArray(goldReward) ? goldReward : [goldReward, goldReward];
+  const scaleRange = mult => gold.map(value => Math.max(1, Math.round(value * mult)));
+  return {
+    common:    { hp,                      att,                      speed,                  xpReward,                      goldReward: gold },
+    uncommon:  { hp: Math.round(hp*1.3), att: Math.round(att*1.2), speed,                  xpReward: Math.round(xpReward*1.3), goldReward: scaleRange(1.3) },
+    rare:      { hp: Math.round(hp*1.7), att: Math.round(att*1.5), speed,                  xpReward: Math.round(xpReward*1.7), goldReward: scaleRange(1.7) },
+    epic:      { hp: Math.round(hp*2.3), att: Math.round(att*1.9), speed,                  xpReward: Math.round(xpReward*2.3), goldReward: scaleRange(2.3) },
+    legendary: { hp: Math.round(hp*3.5), att: Math.round(att*2.5), speed,                  xpReward: Math.round(xpReward*3.5), goldReward: scaleRange(3.5) },
+  };
+}
+
 const ENEMIES = [
   {
     order: 1,
@@ -27,6 +42,7 @@ const ENEMIES = [
     level: 1,
     maxHp: 20,
     att: 5,
+    speed: 6,
     xpReward: 20,
     goldReward: [5, 10],
     emoji: '🐀',
@@ -44,7 +60,8 @@ const ENEMIES = [
     name: 'BOAR',
     level: 1,
     maxHp: 30,
-    att: 7,
+    att: 4,
+    speed: 4,
     xpReward: 25,
     goldReward: [5, 10],
     emoji: '🐗',
@@ -62,6 +79,7 @@ const ENEMIES = [
     level: 2,
     maxHp: 35,
     att: 9,
+    speed: 5,
     xpReward: 25,
     goldReward: [5, 10],
     emoji: '🦇',
@@ -79,6 +97,7 @@ const ENEMIES = [
     level: 2,
     maxHp: 40,
     att: 10,
+    speed: 5,
     xpReward: 30,
     goldReward: [10, 20],
     emoji: '👺',
@@ -96,6 +115,7 @@ const ENEMIES = [
     level: 3,
     maxHp: 50,
     att: 11,
+    speed: 6,
     xpReward: 35,
     goldReward: [15, 30],
     emoji: '👿',
@@ -113,6 +133,7 @@ const ENEMIES = [
     level: 3,
     maxHp: 55,
     att: 12,
+    speed: 5,
     xpReward: 40,
     goldReward: [15, 30],
     emoji: '👾',
@@ -130,6 +151,7 @@ const ENEMIES = [
     level: 4,
     maxHp: 60,
     att: 15,
+    speed: 5,
     xpReward: 45,
     goldReward: [20, 40],
     emoji: '🧌',
@@ -147,6 +169,7 @@ const ENEMIES = [
     level: 4,
     maxHp: 65,
     att: 18,
+    speed: 5,
     xpReward: 50,
     goldReward: [25, 50],
     emoji: '☠️',
@@ -164,7 +187,8 @@ const ENEMIES = [
     name: 'BANDIT HENCHMAN',
     level: 5,
     maxHp: 70,
-    att: 20,
+    att: 25,
+    speed: 6,
     xpReward: 75,
     goldReward: [30, 60],
     emoji: '☠️',
@@ -181,7 +205,8 @@ const ENEMIES = [
     name: 'BANDIT LEADER',
     level: 8,
     maxHp: 80,
-    att: 25,
+    att: 30,
+    speed: 5,
     xpReward: 100,
     goldReward: [25, 50],
     emoji: '☠️',
@@ -201,6 +226,7 @@ const ENEMIES = [
     level: 5,
     maxHp: 70,
     att: 20,
+    speed: 6,
     xpReward: 75,
     goldReward: [30, 60],
     emoji: '☠️',
@@ -219,6 +245,7 @@ const ENEMIES = [
     level: 6,
     maxHp: 75,
     att: 25,
+    speed: 6,
     xpReward: 75,
     goldReward: [35, 70],
     emoji: '☠️',
@@ -239,7 +266,8 @@ const ENEMIES = [
     name: 'MYCONID',
     level: 6,
     maxHp: 80,
-    att: 25,
+    att: 30,
+    speed: 7,
     xpReward: 80,
     goldReward: [40, 80],
     emoji: '☠️',
@@ -260,6 +288,7 @@ const ENEMIES = [
     level: 7,
     maxHp: 85,
     att: 30,
+    speed: 6,
     xpReward: 85,
     goldReward: [45, 90],
     emoji: '☠️',
@@ -281,6 +310,7 @@ const ENEMIES = [
     level: 7,
     maxHp: 90,
     att: 35,
+    speed: 6,
     xpReward: 90,
     goldReward: [50, 100],
     emoji: '☠️',
@@ -301,7 +331,8 @@ const ENEMIES = [
     name: 'WEREWOLF',
     level: 8,
     maxHp: 95,
-    att: 35,
+    att: 30,
+    speed: 4,
     xpReward: 95,
     goldReward: [55, 110],
     emoji: '☠️',
@@ -322,7 +353,8 @@ const ENEMIES = [
     name: 'BASILISK',
     level: 8,
     maxHp: 100,
-    att: 40,
+    att: 45,
+    speed: 7,
     xpReward: 100,
     goldReward: [60, 120],
     emoji: '☠️',
@@ -342,7 +374,8 @@ const ENEMIES = [
     name: 'TROLL',
     level: 9,
     maxHp: 110,
-    att: 45,
+    att: 50,
+    speed: 7,
     xpReward: 105,
     goldReward: [65, 130],
     emoji: '☠️',
@@ -364,6 +397,7 @@ const ENEMIES = [
     level: 9,
     maxHp: 115,
     att: 50,
+    speed: 6,
     xpReward: 110,
     goldReward: [70, 140],
     emoji: '☠️',
@@ -384,6 +418,7 @@ const ENEMIES = [
     level: 12,
     maxHp: 150,
     att: 70,
+    speed: 6,
     xpReward: 150,
     goldReward: [100, 150],
     emoji: '☠️',
@@ -398,3 +433,13 @@ const ENEMIES = [
 
   },
 ];
+
+ENEMIES.forEach(enemy => {
+  enemy.rarityVersions = enemy.rarityVersions || enemyRarityVersions(
+    enemy.maxHp,
+    enemy.att,
+    enemy.speed,
+    enemy.xpReward,
+    enemy.goldReward
+  );
+});
