@@ -6,6 +6,7 @@
 //   gold         : grants a random amount in [min, max]
 //   xp           : grants a random amount in [min, max]
 //   potion       : grants the specified number of health potions
+//   mana_restore : restores mana, or all mana when full is true
 //   hp_loss      : removes a percentage of max HP, but cannot kill
 //   nothing      : no gameplay effect
 //
@@ -21,6 +22,14 @@ const RANDOM_EVENTS = [
     imagePath: 'images/events/healing_spring.webp',
     description: 'You discover a peaceful spring glowing between the ruins. Some of your wounds have healed.',
     effect: { type: 'heal_percent', value: 0.30 },
+  },
+  {
+    id: 'mana_fountain',
+    title: 'MANA FOUNTAIN',
+    icon: '\u2727',
+    imagePath: 'images/events/mana_fountain.webp',
+    description: 'Arcane water flows from an ancient fountain. You drink from it and it restores your mana.',
+    effect: { type: 'mana_restore', full: true },
   },
   {
     id: 'forgotten_purse',

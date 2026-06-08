@@ -10,7 +10,7 @@ const POTIONS = [
   { id: 'health_potion',         name: 'Health Potion',         imagePath: 'items/potions/health.png',        effect: 'heal',    amount: 30,  value: 10, rarity: 1, droprate: 50 },
   { id: 'greater_health_potion', name: 'Greater Health Potion', imagePath: 'items/potions/greaterhealth.png', effect: 'heal',    amount: 60,  value: 50, rarity: 2, droprate: 25 },
   { id: 'mega_health_potion',    name: 'Mega Health Potion',    imagePath: 'items/potions/megahealth.png',    effect: 'heal',    amount: 100, value: 100, rarity: 3, droprate: 15 },
-  { id: 'mana_potion',           name: 'Mana Potion',           imagePath: 'items/potions/mana.png',          effect: 'mana',    amount: 50,  value: 50, rarity: 3, droprate: 8  },
+  { id: 'mana_potion',           name: 'Mana Potion',           imagePath: 'items/potions/mana.png',          effect: 'mana',    amount: 20,  value: 25, rarity: 3, droprate: 8  },
   { id: 'stamina_potion',        name: 'Stamina Potion',        imagePath: 'items/potions/stamina.png',       effect: 'stamina', amount: 50,  value: 50, rarity: 3, droprate: 8  },
 ];
 
