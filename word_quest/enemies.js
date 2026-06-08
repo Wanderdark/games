@@ -368,7 +368,7 @@ const ENEMIES = [
     goldReward: [70, 140],
     emoji: '☠️',
     color: '#FFD700',
-    img: 'enemies/wendigo.webp',
+    img: 'enemies/vendigo.webp',
     facesRight: false,
     flying: 0,
     vertical: 1,
