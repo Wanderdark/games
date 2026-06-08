@@ -2435,10 +2435,24 @@ function _closeShop() {
 }
 
 // ── GAME OVER ─────────────────────────────────────────────
+// Keeps permanent progression and current gear durability; clears only run state.
+function _resetRunProgress() {
+  _spPlayerHP         = _spMaxHP;
+  _spNpcIdx           = 0;
+  _spEnemyRarities    = {};
+  _randomEventCounter = 0;
+  _pendingRandomEventId = null;
+  _lastRandomEventId  = null;
+  _spNpcsDefeated     = 0;
+  _spStreak           = 0;
+  _spTotalCorrect     = 0;
+  _spTotalWrong       = 0;
+  usedQIdx.clear();
+}
+
 function _showGameOver() {
   _stopTimer();
   _spRoundActive = false;
-  _spSave();
   _bgMusicFade(0, 350);
   _playMusicCue('sounds/final.mp3', 0.6, 400);
   document.getElementById('go-level').textContent   = _spLevel;
@@ -2453,6 +2467,8 @@ function _showGameOver() {
   document.getElementById('go-npcs').textContent    = _spNpcsDefeated;
   document.getElementById('go-streak').textContent  = _spBestStreak;
   document.getElementById('go-correct').textContent = _spTotalCorrect;
+  _resetRunProgress();
+  _spSave(); // MENU -> CONTINUE must always begin a fresh run.
   document.getElementById('sp-gameover').classList.add('open');
 }
 function _spPlayAgain() {
@@ -2465,18 +2481,7 @@ function _spPlayAgain() {
 // Roguelite restart — keeps XP / level / gold / armor / weapon
 // Only resets run progress (enemies, HP, streak, correct/wrong counts)
 function _startRun() {
-  // Equipment objects intentionally survive with their current durability.
-  _spPlayerHP     = _spMaxHP;
-  _spNpcIdx       = 0;
-  _spEnemyRarities = {};
-  _randomEventCounter = 0;
-  _pendingRandomEventId = null;
-  _lastRandomEventId = null;
-  _spNpcsDefeated = 0;
-  _spStreak       = 0;
-  _spTotalCorrect = 0;
-  _spTotalWrong   = 0;
-  usedQIdx.clear();
+  _resetRunProgress();
   _spSave(); // persist fresh run start so CONTINUE also lands at enemy #1
   _startGameCore();
 }
