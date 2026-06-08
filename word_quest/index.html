@@ -507,7 +507,7 @@ body.lite .hp-heart{animation:none}
     <div class="mm-word1">WORD</div>
     <div class="mm-word2">QUEST</div>
     <div class="mm-credit">Designed by ADİL FIRAT OKTAV</div>
-    <div class="mm-early-access">⚠ Early Access</div>
+    <div class="mm-early-access">⚠ Early Access · v<span id="game-version"></span></div>
   </div>
   <div class="mm-btns">
     <button class="mm-play" onclick="_menuStart()">▶ &nbsp;PLAY</button>
@@ -862,6 +862,9 @@ body.lite .hp-heart{animation:none}
 <script src="items.js"></script>
 <script src="taunt.js"></script>
 <script>
+const GAME_VERSION = '0.2';
+document.getElementById('game-version').textContent = GAME_VERSION;
+
 // ══════════════════════════════════════════════════════════
 //  WORD RIVALS: SOLO — Game Logic
 // ══════════════════════════════════════════════════════════
