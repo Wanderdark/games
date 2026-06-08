@@ -1166,6 +1166,15 @@
     margin-top:8px;
   }
   .winner-exit:hover { transform:translateY(-2px); background:rgba(185,28,28,0.2); border-color:#f87171; color:#f87171; }
+  .winner-home {
+    width:100%; padding:11px; font-family:'Barlow Condensed',sans-serif;
+    font-size:15px; font-weight:700; letter-spacing:.12em; text-transform:uppercase;
+    background:transparent; border:1.5px solid rgba(255,215,0,0.35);
+    border-radius:12px; color:rgba(255,215,0,0.75); cursor:pointer;
+    transition:transform .15s, background .15s, border-color .15s, color .15s;
+    margin-top:6px;
+  }
+  .winner-home:hover { transform:translateY(-2px); background:rgba(255,215,0,0.1); border-color:var(--gold); color:var(--gold); }
   .winner-scores-section {
     flex:1; min-width:0; display:flex; gap:14px; overflow:hidden;
   }
@@ -1867,6 +1876,7 @@
       <div class="winner-ann-pts"   id="wl-pts"></div>
       <div class="winner-ann-sub">points</div>
       <div class="winner-ann-all"   id="wl-all"></div>
+      <button class="winner-home" onclick="goToMainMenu()">🏠 Ana Sayfa</button>
       <button class="winner-exit" onclick="exitGame()">✕ Tam Ekrandan Çık</button>
     </div>
     <!-- Orta + sağ: skor detayları -->
@@ -4689,6 +4699,23 @@ function confirmEndGame() {
   document.getElementById('overlay').classList.remove('open');
   questionShown = false; isLocked = false;
   announceWinner();
+}
+
+function goToMainMenu() {
+  // Ses/timer temizle
+  stopTimer(); stopDiffMusic(); stopAnswerAudio(); stopAllMusic();
+  document.getElementById('overlay').classList.remove('open');
+  document.getElementById('winner-overlay').classList.remove('open');
+  // State sıfırla
+  groupScores    = [0,0,0];
+  turnsPlayed    = [0,0,0];
+  currentRound   = 1;
+  turnsThisRound = 0;
+  questionShown  = false;
+  isLocked       = false;
+  // Ana menüye dön + müzik başlat
+  document.getElementById('main-menu').style.display = 'flex';
+  playMainMenu();
 }
 
 // Sayfa yüklenince direkt oyunu başlat — CSV bekleme yok

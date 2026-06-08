@@ -334,6 +334,8 @@ html,body{user-select:none;-webkit-user-select:none}
 .winner-play-again:hover{transform:translateY(-2px)}
 .winner-exit{width:100%;margin-top:7px;padding:10px;font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;background:transparent;border:1.5px solid rgba(248,113,113,.4);border-radius:12px;color:rgba(248,113,113,.8);cursor:pointer;transition:all .15s}
 .winner-exit:hover{background:rgba(185,28,28,.2);border-color:#f87171;color:#f87171}
+.winner-home{width:100%;margin-top:7px;padding:10px;font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;background:transparent;border:1.5px solid rgba(148,163,184,.3);border-radius:12px;color:rgba(148,163,184,.7);cursor:pointer;transition:all .15s}
+.winner-home:hover{background:rgba(148,163,184,.1);border-color:rgba(148,163,184,.7);color:#cbd5e1}
 /* Right scores section */
 .winner-scores-section{flex:1;min-width:0;display:flex;gap:14px;overflow:hidden}
 .sp-left{width:220px;flex-shrink:0;background:rgba(255,255,255,.03);border:1px solid rgba(255,215,0,.18);border-radius:16px;padding:16px 14px;display:flex;flex-direction:column;gap:8px;overflow-y:auto}
@@ -407,6 +409,7 @@ html,body{user-select:none;-webkit-user-select:none}
   .winner-ann-all p.w-top{font-size:22px}
   .winner-play-again{padding:17px;font-size:22px;border-radius:15px}
   .winner-exit{padding:14px;font-size:19px;border-radius:15px}
+  .winner-home{padding:14px;font-size:19px;border-radius:15px}
   .winner-scores-section{gap:24px}
 
   .scores-modal .sp-left,.winner-wrapper .sp-left{width:340px;padding:24px 22px;gap:13px;border-radius:22px}
@@ -895,7 +898,8 @@ body.game-active #lite-btn{display:flex!important}
       <div class="winner-ann-sub">points</div>
       <div class="winner-ann-all" id="wl-all"></div>
       <button class="winner-play-again" onclick="playAgain()">🔄 Tekrar Oyna</button>
-      <button class="winner-exit" onclick="exitGame()">✕ Çık</button>
+      <button class="winner-exit" onclick="exitGame()">✕ Yeniden Başlat</button>
+      <button class="winner-home" onclick="location.href='../index.html'">🏠 Ana Sayfa</button>
     </div>
     <!-- Sağ: skor detayları -->
     <div class="winner-scores-section">

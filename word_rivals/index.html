@@ -402,6 +402,8 @@ body.tb-mode .team-joker-row{display:flex}
 .tbr-stop-conf{background:linear-gradient(135deg,#1a1a2e,#2d1b69);box-shadow:0 4px 20px rgba(45,27,105,.4);font-size:17px;padding:12px;margin-top:6px}
 .tbr-stop-conf:hover{transform:translateY(-2px)}
 .tbr-stop-conf.stopped{background:linear-gradient(135deg,#14532d,#166534);box-shadow:0 4px 20px rgba(22,101,52,.4)}
+.tbr-home{background:linear-gradient(135deg,#1c2333,#0f172a);box-shadow:0 4px 20px rgba(15,23,42,.5);font-size:17px;padding:12px;margin-top:6px;border:1.5px solid rgba(148,163,184,.25)}
+.tbr-home:hover{background:linear-gradient(135deg,#1e3a5f,#1e293b);border-color:rgba(148,163,184,.5)}
 .tbr-scores-section{flex:1;min-width:0;display:flex;gap:24px;overflow:hidden}
 @media (max-width:1366px),(max-height:800px){
     .scores-wrapper{width:min(96vw,1040px);height:min(90vh,720px);max-height:90vh;border-radius:24px;padding:24px 26px 22px;gap:16px}
@@ -1220,6 +1222,7 @@ body.tb-mode .hp-outer{opacity:0;pointer-events:none}
       <div class="tbr-scores-compare" id="tbr-scores-compare"></div>
       <button class="tbr-again" onclick="exitFullscreenOnly()">⛶ EXIT FULL SCREEN</button>
       <button class="tbr-again tbr-stop-conf" id="tbr-stop-conf-btn" onclick="_stopConfetti()">🎊 KONFETİLERİ DURDUR</button>
+      <button class="tbr-again tbr-home" onclick="_goToMainMenu()">🏠 ANA SAYFAYA DÖN</button>
     </div>
     <div class="tbr-scores-section">
       <div class="sp-left">
@@ -1517,6 +1520,10 @@ function _stopConfetti() {
   document.querySelectorAll('.win-conf,.win-star,.winner-rays').forEach(el => el.remove());
   const btn = document.getElementById('tbr-stop-conf-btn');
   if (btn) { btn.classList.add('stopped'); btn.textContent = '✓ KONFETİLER DURDURULDU'; btn.disabled = true; }
+}
+function _goToMainMenu() {
+  if (typeof FinalScreen !== 'undefined') FinalScreen.stop();
+  location.reload();
 }
 
 // ── LITE MODE ─────────────────────────────────────────────

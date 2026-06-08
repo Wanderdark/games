@@ -1928,6 +1928,15 @@
     margin-top:8px;
   }
   .winner-exit:hover { transform:translateY(-2px); background:rgba(185,28,28,0.2); border-color:#f87171; color:#f87171; }
+  .winner-home {
+    width:100%; padding:11px; font-family:'Barlow Condensed',sans-serif;
+    font-size:15px; font-weight:700; letter-spacing:.12em; text-transform:uppercase;
+    background:transparent; border:1.5px solid rgba(251,191,36,0.4);
+    border-radius:12px; color:rgba(251,191,36,0.8); cursor:pointer;
+    transition:transform .15s, background .15s, border-color .15s, color .15s;
+    margin-top:6px;
+  }
+  .winner-home:hover { transform:translateY(-2px); background:rgba(120,80,0,0.2); border-color:#fbbf24; color:#fbbf24; }
 
   /* ── WINNER VFX — bkz. F:\MODULES\finalscreen.js ── */
   /* Crown pulse */
@@ -2848,6 +2857,7 @@
       <div class="winner-ann-sub">points</div>
       <div class="winner-ann-all"   id="wl-all"></div>
       <button class="winner-exit" onclick="exitGame()">✕ Tam Ekrandan Çık</button>
+      <button class="winner-home" onclick="window.location.href='../index.html'">🏠 Ana Sayfaya Dön</button>
     </div>
     <!-- Orta + sağ: skor detayları -->
     <div class="winner-scores-section">

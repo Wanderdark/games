@@ -1022,9 +1022,10 @@ body.lite .kb-key{animation:none!important}
     <div class="go-title">🏆 FINAL RESULTS</div>
     <div class="go-subtitle" id="go-subtitle">— — —</div>
     <div class="go-grid" id="go-grid"></div>
-    <div style="display:flex;gap:10px;justify-content:center;margin-top:4px">
+    <div style="display:flex;gap:10px;justify-content:center;margin-top:4px;flex-wrap:wrap">
       <button class="sugg-trigger" id="sugg-trigger" onclick="showSuggestions()">📋 ÖNERİLER<span class="sugg-dot" id="sugg-dot"></span></button>
       <button class="go-play-again-btn" onclick="restartGame()">▶ YENİ OYUN</button>
+      <button class="go-play-again-btn" style="background:linear-gradient(135deg,#1e3a5f,#2563eb);box-shadow:0 6px 28px rgba(37,99,235,.4)" onclick="goToMainMenu()">🏠 ANA SAYFA</button>
     </div>
   </div>
 </div>
@@ -3129,6 +3130,10 @@ function restartGame(){
   selectedClass=null; selectedPlayers=[]; pairs=[]; _pairingMode=false; _pairingSource=null; _lastSelected=null; seats=[[],[],[]]; _selectedFromPool=null;
   roundNumber=0; wordHistory=new Set(); playerScores={}; playerWordCount={}; playerUniqueCount={}; playerBonusCount={}; playerStreak={}; categoryHistory=[]; bonusHistory=[];
   document.getElementById('end-game-btn').classList.remove('visible');
+}
+
+function goToMainMenu(){
+  restartGame();
 }
 
 // ── CHECK SCREEN COUNTDOWN TIMER ──────────────────────────
