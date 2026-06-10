@@ -3133,7 +3133,8 @@ function restartGame(){
 }
 
 function goToMainMenu(){
-  restartGame();
+  stopMainGameMusic(); stopMenuMusic();
+  window.location.href = '../index.html';
 }
 
 // ── CHECK SCREEN COUNTDOWN TIMER ──────────────────────────

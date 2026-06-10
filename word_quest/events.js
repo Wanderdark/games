@@ -7,6 +7,7 @@
 //   xp           : grants a random amount in [min, max]
 //   potion       : grants the specified number of health potions
 //   mana_restore : restores mana, or all mana when full is true
+//   blacksmith   : opens the wandering blacksmith Trade/Repair interface
 //   hp_loss      : removes a percentage of max HP, but cannot kill
 //   nothing      : no gameplay effect
 //
@@ -75,6 +76,17 @@ const RANDOM_EVENTS = [
     choices: [
       { label: 'BUY FOR 30 GOLD', cost: { type: 'gold', value: 30 }, effect: { type: 'potion', value: 1 } },
       { label: 'REFUSE AND WALK AWAY', effect: { type: 'nothing' } },
+    ],
+  },
+  {
+    id: 'wandering_blacksmith',
+    title: 'WANDERING BLACKSMITH',
+    icon: '\u2692',
+    imagePath: 'images/events/wandering_blacksmith.webp',
+    description: 'The ringing of a hammer echoes along the road. A wandering blacksmith offers to trade and repair your equipment.',
+    choices: [
+      { label: 'VISIT BLACKSMITH', effect: { type: 'blacksmith' } },
+      { label: 'CONTINUE JOURNEY', effect: { type: 'nothing' } },
     ],
   },
 ];

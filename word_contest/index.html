@@ -1876,7 +1876,7 @@
       <div class="winner-ann-pts"   id="wl-pts"></div>
       <div class="winner-ann-sub">points</div>
       <div class="winner-ann-all"   id="wl-all"></div>
-      <button class="winner-home" onclick="goToMainMenu()">🏠 Ana Sayfa</button>
+      <button class="winner-home" onclick="window.location.href='../'">🏠 Ana Sayfa</button>
       <button class="winner-exit" onclick="exitGame()">✕ Tam Ekrandan Çık</button>
     </div>
     <!-- Orta + sağ: skor detayları -->
@@ -4701,22 +4701,6 @@ function confirmEndGame() {
   announceWinner();
 }
 
-function goToMainMenu() {
-  // Ses/timer temizle
-  stopTimer(); stopDiffMusic(); stopAnswerAudio(); stopAllMusic();
-  document.getElementById('overlay').classList.remove('open');
-  document.getElementById('winner-overlay').classList.remove('open');
-  // State sıfırla
-  groupScores    = [0,0,0];
-  turnsPlayed    = [0,0,0];
-  currentRound   = 1;
-  turnsThisRound = 0;
-  questionShown  = false;
-  isLocked       = false;
-  // Ana menüye dön + müzik başlat
-  document.getElementById('main-menu').style.display = 'flex';
-  playMainMenu();
-}
 
 // Sayfa yüklenince direkt oyunu başlat — CSV bekleme yok
 window.addEventListener('DOMContentLoaded', startGame);

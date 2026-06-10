@@ -144,24 +144,25 @@ body.lite .hp-heart{animation:none}
 .town-shop-panel{position:absolute;left:50%;bottom:18px;transform:translateX(-50%);width:min(1040px,calc(100vw - 36px));padding:16px 18px;background:rgba(4,10,20,.88);border:1.5px solid rgba(251,191,36,.5);border-radius:20px;backdrop-filter:blur(10px);box-shadow:0 18px 60px rgba(0,0,0,.7)}
 .town-shop-head{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:12px}.town-shop-title{font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:.14em;color:#fbbf24}.town-shop-gold{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.1em;color:#FFD700}
 .town-shop-items{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.town-shop-item{display:flex;align-items:center;gap:10px;padding:10px;border:1.5px solid rgba(255,255,255,.18);border-radius:13px;background:rgba(0,0,0,.35)}.town-shop-item img{width:62px;height:62px;object-fit:contain}.town-shop-info{flex:1;min-width:0}.town-shop-name{font-family:'Bebas Neue',sans-serif;font-size:19px;letter-spacing:.08em;color:#fff}.town-shop-desc{font-family:'Barlow Condensed',sans-serif;font-size:11px;color:rgba(255,255,255,.55);margin-top:2px}.town-shop-buy{padding:8px 12px;border:0;border-radius:9px;background:linear-gradient(135deg,#92400e,#d97706);color:#fff;font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:.1em;cursor:pointer}.town-shop-buy:disabled{opacity:.32;cursor:not-allowed}.town-shop-leave{margin-top:12px;width:100%;padding:9px;border:1px solid rgba(74,222,128,.42);border-radius:10px;background:rgba(21,128,61,.28);color:#bbf7d0;font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:.13em;cursor:pointer}
-.blacksmith-panel{position:absolute;left:50%;bottom:18px;transform:translateX(-50%);width:min(1180px,calc(100vw - 36px));padding:16px 18px;background:rgba(4,10,20,.9);border:1.5px solid rgba(251,146,60,.58);border-radius:20px;backdrop-filter:blur(10px);box-shadow:0 18px 60px rgba(0,0,0,.75)}
+.blacksmith-menu{position:absolute;left:24px;top:50%;transform:translateY(-50%);width:min(260px,calc(100vw - 48px));padding:20px;background:rgba(4,10,20,.88);border:1.5px solid rgba(251,146,60,.58);border-radius:20px;backdrop-filter:blur(10px);box-shadow:0 18px 60px rgba(0,0,0,.72);display:flex;flex-direction:column;gap:10px}.blacksmith-menu .town-btn.active{background:rgba(194,65,12,.52);border-color:#fb923c;color:#fff7ed;box-shadow:0 0 18px rgba(249,115,22,.24)}
+.blacksmith-panel{position:absolute;left:calc(50% + 140px);bottom:18px;transform:translateX(-50%);width:min(1120px,calc(100vw - 330px));max-height:72vh;overflow:auto;padding:16px 18px;background:rgba(4,10,20,.9);border:1.5px solid rgba(251,146,60,.58);border-radius:20px;backdrop-filter:blur(10px);box-shadow:0 18px 60px rgba(0,0,0,.75)}
 .blacksmith-head{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:12px}.blacksmith-title{font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:.14em;color:#fdba74}.blacksmith-gold{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.1em;color:#FFD700}
-.blacksmith-items{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}.blacksmith-item{min-width:0;padding:10px;border:2px solid rgba(255,255,255,.18);border-radius:13px;background:rgba(0,0,0,.42);text-align:center}.blacksmith-item.rarity-1{border-color:#a1a1aa}.blacksmith-item.rarity-2{border-color:#fff}.blacksmith-item.rarity-3{border-color:#3b82f6}.blacksmith-item.rarity-4{border-color:#c084fc;box-shadow:0 0 15px rgba(192,132,252,.22)}.blacksmith-item.rarity-5{border-color:#FFD700;box-shadow:0 0 18px rgba(255,215,0,.4)}
-.blacksmith-item img{width:70px;height:70px;object-fit:contain}.blacksmith-slot{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:.15em;color:rgba(255,255,255,.45)}.blacksmith-name{font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:.07em;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.blacksmith-desc{font-family:'Barlow Condensed',sans-serif;font-size:11px;color:rgba(255,255,255,.58);margin:3px 0 8px}.blacksmith-actions{display:grid;grid-template-columns:1fr 1fr;gap:6px}.blacksmith-btn{padding:7px 5px;border:0;border-radius:8px;font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:.07em;cursor:pointer}.blacksmith-btn:disabled{opacity:.28;cursor:not-allowed}.blacksmith-repair{background:rgba(234,88,12,.35);border:1px solid rgba(251,146,60,.45);color:#fed7aa}.blacksmith-sell{background:rgba(21,128,61,.3);border:1px solid rgba(74,222,128,.35);color:#bbf7d0}.blacksmith-empty{opacity:.45}.blacksmith-footer{display:flex;gap:10px;margin-top:12px}.blacksmith-footer button{flex:1;padding:9px;border-radius:10px;font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:.12em;cursor:pointer}.blacksmith-all{border:1px solid rgba(251,146,60,.48);background:rgba(154,52,18,.38);color:#fed7aa}.blacksmith-all:disabled{opacity:.3;cursor:not-allowed}.blacksmith-status{min-height:18px;margin-top:8px;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:.1em;color:#fdba74;text-align:center}
-@media(max-width:800px){.town-shop-items{grid-template-columns:1fr}.town-shop-panel,.blacksmith-panel{max-height:70vh;overflow:auto}.blacksmith-items{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.blacksmith-items{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}.blacksmith-section-title{grid-column:1/-1;font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:.12em;color:#fdba74;border-bottom:1px solid rgba(251,146,60,.24);padding-bottom:5px}.blacksmith-item{min-width:0;padding:10px;border:2px solid rgba(255,255,255,.18);border-radius:13px;background:rgba(0,0,0,.42);text-align:center}.blacksmith-item.rarity-1{border-color:#a1a1aa}.blacksmith-item.rarity-2{border-color:#fff}.blacksmith-item.rarity-3{border-color:#3b82f6}.blacksmith-item.rarity-4{border-color:#c084fc;box-shadow:0 0 15px rgba(192,132,252,.22)}.blacksmith-item.rarity-5{border-color:#FFD700;box-shadow:0 0 18px rgba(255,215,0,.4)}
+.blacksmith-item img{width:70px;height:70px;object-fit:contain}.blacksmith-slot{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:.15em;color:rgba(255,255,255,.45)}.blacksmith-name{font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:.07em;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.blacksmith-desc{font-family:'Barlow Condensed',sans-serif;font-size:11px;color:rgba(255,255,255,.58);margin:3px 0 8px}.blacksmith-actions{display:grid;grid-template-columns:1fr;gap:6px}.blacksmith-btn{padding:7px 5px;border:0;border-radius:8px;font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:.07em;cursor:pointer}.blacksmith-btn:disabled{opacity:.28;cursor:not-allowed}.blacksmith-repair{background:rgba(234,88,12,.35);border:1px solid rgba(251,146,60,.45);color:#fed7aa}.blacksmith-sell{background:rgba(21,128,61,.3);border:1px solid rgba(74,222,128,.35);color:#bbf7d0}.blacksmith-buy{background:rgba(180,83,9,.38);border:1px solid rgba(251,191,36,.4);color:#fef3c7}.blacksmith-empty{opacity:.45}.blacksmith-footer{display:flex;gap:10px;margin-top:12px}.blacksmith-footer button{flex:1;padding:9px;border-radius:10px;font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:.12em;cursor:pointer}.blacksmith-all{border:1px solid rgba(251,146,60,.48);background:rgba(154,52,18,.38);color:#fed7aa}.blacksmith-all:disabled{opacity:.3;cursor:not-allowed}.blacksmith-status{min-height:18px;margin-top:8px;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:.1em;color:#fdba74;text-align:center}
+@media(max-width:800px){.town-shop-items{grid-template-columns:1fr}.town-shop-panel,.blacksmith-panel{max-height:70vh;overflow:auto}.blacksmith-menu{left:10px;top:10px;transform:none;width:calc(100vw - 20px);flex-direction:row}.blacksmith-menu .town-title{display:none}.blacksmith-panel{left:10px;bottom:10px;transform:none;width:calc(100vw - 20px);max-height:62vh}.blacksmith-items{grid-template-columns:repeat(2,minmax(0,1fr))}}
 
 /* ── SHOP OVERLAY ── */
-#sp-shop{position:fixed;inset:0;z-index:9670;background:rgba(2,8,20,.97);display:none;align-items:center;justify-content:center;backdrop-filter:blur(14px)}
+#sp-shop{position:fixed;inset:0;z-index:9670;background-image:linear-gradient(180deg,rgba(2,8,20,.06) 0%,rgba(2,8,20,.08) 45%,rgba(2,8,20,.82) 100%),var(--field-shop-bg,linear-gradient(145deg,#172033,#07111f));background-position:center;background-size:cover;background-repeat:no-repeat;display:none;align-items:flex-end;justify-content:center;padding:18px}
 #sp-shop.open{display:flex}
-.spsh-modal{background:rgba(255,255,255,.04);border:1px solid rgba(255,215,0,.2);border-radius:26px;padding:24px 28px 22px;width:min(94vw,860px);max-height:94vh;overflow:auto;display:flex;flex-direction:column;gap:14px;align-items:center;animation:modalIn .35s cubic-bezier(.175,.885,.32,1.275)}
-.spsh-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,4vw,42px);color:#FFD700;letter-spacing:.14em;text-shadow:0 0 30px rgba(255,215,0,.5)}
+.spsh-modal{background:rgba(4,10,20,.72);border:1.5px solid rgba(255,215,0,.42);border-radius:22px;padding:16px 20px;width:min(1180px,calc(100vw - 36px));max-height:58vh;overflow:auto;display:flex;flex-direction:column;gap:10px;align-items:center;backdrop-filter:blur(7px);box-shadow:0 18px 60px rgba(0,0,0,.72);animation:modalIn .35s cubic-bezier(.175,.885,.32,1.275)}
+.spsh-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(25px,3.4vw,36px);color:#FFD700;letter-spacing:.14em;text-shadow:0 0 30px rgba(255,215,0,.5)}
 .spsh-subtitle{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-top:-12px}
 .spsh-gold-info{font-family:'Bebas Neue',sans-serif;font-size:20px;color:#FFD700;letter-spacing:.1em}
 .spsh-top-actions{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap}
 .spsh-gear-btn{padding:7px 14px;border-radius:9px;border:1px solid rgba(125,211,252,.38);background:rgba(125,211,252,.08);color:#7dd3fc;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:.14em;cursor:pointer}
-.spsh-items{width:100%;display:flex;flex-direction:column;gap:10px}
-.spsh-gear-items{width:100%;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-.spsh-item{display:flex;align-items:center;gap:14px;background:rgba(255,255,255,.05);border:1.5px solid rgba(255,255,255,.1);border-radius:14px;padding:14px 16px;transition:border-color .15s}
+.spsh-items{width:100%;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.spsh-gear-items{grid-column:1/-1;width:100%;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.spsh-item{display:flex;align-items:center;gap:10px;background:rgba(0,0,0,.34);border:1.5px solid rgba(255,255,255,.1);border-radius:13px;padding:9px 11px;transition:border-color .15s}
 .spsh-item.affordable{border-color:rgba(255,215,0,.3)}
 .spsh-item.rarity-1{border-color:rgba(161,161,170,.42)}.spsh-item.rarity-1 .spsh-item-name{color:#a1a1aa}
 .spsh-item.rarity-2{border-color:rgba(255,255,255,.68)}.spsh-item.rarity-2 .spsh-item-name{color:#fff}
@@ -169,7 +170,7 @@ body.lite .hp-heart{animation:none}
 .spsh-item.rarity-4{border-color:rgba(192,132,252,.62);box-shadow:inset 0 0 18px rgba(192,132,252,.08)}.spsh-item.rarity-4 .spsh-item-name{color:#c084fc}
 .spsh-item.rarity-5{border-color:rgba(255,215,0,.82);box-shadow:0 0 18px rgba(255,215,0,.28),inset 0 0 24px rgba(255,215,0,.1)}.spsh-item.rarity-5 .spsh-item-name{color:#FFD700;text-shadow:0 0 8px rgba(255,245,160,.95),0 0 18px rgba(255,215,0,.72)}
 .spsh-item-icon{font-size:28px;flex-shrink:0;line-height:1}
-.spsh-item-icon-img{width:48px;height:48px;object-fit:contain;display:block}
+.spsh-item-icon-img{width:52px;height:52px;object-fit:contain;display:block}
 .spsh-item-info{flex:1;min-width:0}
 .spsh-item-name{font-family:'Bebas Neue',sans-serif;font-size:clamp(16px,2.2vw,22px);letter-spacing:.1em;color:#fff}
 .spsh-item-desc{font-family:'Barlow Condensed',sans-serif;font-size:12px;color:rgba(255,255,255,.45);letter-spacing:.06em;margin-top:2px}
@@ -180,10 +181,10 @@ body.lite .hp-heart{animation:none}
 .spsh-buy-btn.owned{background:rgba(34,197,94,.15);color:#4ade80;border:1px solid rgba(34,197,94,.3);cursor:default}
 .spsh-buy-btn.out-stock{background:rgba(239,68,68,.12);color:#f87171;border:1px solid rgba(239,68,68,.25);cursor:default}
 .spsh-buy-btn.no-gold{background:rgba(255,255,255,.06);color:rgba(255,255,255,.3);cursor:not-allowed}
-.spsh-divider{width:90%;height:1px;background:linear-gradient(90deg,transparent,rgba(255,215,0,.25),transparent)}
-.spsh-continue-btn{padding:13px 52px;font-family:'Bebas Neue',sans-serif;font-size:clamp(18px,2.4vw,26px);letter-spacing:.16em;background:linear-gradient(135deg,#1e3a5f,#2563eb);border:none;border-radius:14px;color:#fff;cursor:pointer;box-shadow:0 4px 20px rgba(37,99,235,.35);transition:transform .12s}
+.spsh-divider{display:none}
+.spsh-continue-btn{padding:9px 52px;font-family:'Bebas Neue',sans-serif;font-size:clamp(17px,2.1vw,23px);letter-spacing:.16em;background:linear-gradient(135deg,#1e3a5f,#2563eb);border:none;border-radius:12px;color:#fff;cursor:pointer;box-shadow:0 4px 20px rgba(37,99,235,.35);transition:transform .12s}
 .spsh-continue-btn:hover{transform:scale(1.03)}
-@media(max-width:720px){.spsh-gear-items{grid-template-columns:1fr}.spsh-modal{padding:18px 16px}}
+@media(max-width:720px){#sp-shop{padding:10px}.spsh-items,.spsh-gear-items{grid-template-columns:1fr}.spsh-modal{padding:14px 12px;max-height:76vh}.spsh-item{padding:8px}}
 
 /* ── EQUIPPED GEAR OVERLAY ── */
 #equipped-gear-overlay{position:fixed;inset:0;z-index:10050;background:rgba(2,8,20,.9);display:none;align-items:center;justify-content:center;backdrop-filter:blur(12px)}
@@ -412,8 +413,6 @@ body.lite .hp-heart{animation:none}
 .spng-modal{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:22px;padding:20px 22px 18px;width:min(96vw,520px);max-height:96vh;display:flex;flex-direction:column;gap:13px;overflow:hidden}
 .spng-header{display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
 .spng-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(20px,3.2vw,30px);color:var(--gold);letter-spacing:.12em}
-.spng-settings-btn{background:none;border:1px solid rgba(255,140,0,.25);color:rgba(255,140,0,.6);font-size:17px;width:32px;height:32px;border-radius:8px;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center}
-.spng-settings-btn:hover{border-color:var(--gold);color:var(--gold)}
 .spng-name-row{display:flex;align-items:center;gap:12px;flex-shrink:0}
 .spng-name-label{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
 .spng-name-input{flex:1;background:rgba(255,255,255,.07);border:1.5px solid rgba(255,140,0,.32);border-radius:10px;padding:9px 14px;font-family:'Barlow Condensed',sans-serif;font-size:17px;font-weight:700;letter-spacing:.1em;color:var(--white);outline:none;transition:border-color .15s}
@@ -482,7 +481,7 @@ body.lite .hp-heart{animation:none}
 #opponent-overlay{position:fixed;inset:0;z-index:9655;background:rgba(2,8,20,.9);display:none;align-items:center;justify-content:center;backdrop-filter:blur(12px)}
 #opponent-overlay.open{display:flex}
 .opp-modal{width:min(92vw,620px);max-height:94vh;overflow-y:auto;background:linear-gradient(145deg,#111827,#07111f);border:2px solid var(--opp-color,#a1a1aa);border-radius:26px;padding:26px;text-align:center;box-shadow:0 24px 70px rgba(0,0,0,.75);animation:modalIn .3s ease}
-.opp-kicker{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:.28em;color:rgba(255,255,255,.5);text-transform:uppercase}.opp-rarity{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:.18em;color:var(--opp-color);margin-top:8px}.opp-stars{font-size:28px;letter-spacing:5px;color:var(--opp-color);text-shadow:0 0 14px var(--opp-color);min-height:34px}.opp-name{font-family:'Bebas Neue',sans-serif;font-size:clamp(34px,6vw,58px);letter-spacing:.1em;color:var(--opp-color);text-shadow:0 0 22px var(--opp-color);line-height:1}
+.opp-kicker{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:.28em;color:rgba(255,255,255,.5);text-transform:uppercase}.opp-stars{font-size:28px;letter-spacing:5px;color:var(--opp-color);text-shadow:0 0 14px var(--opp-color);min-height:34px}.opp-name{font-family:'Bebas Neue',sans-serif;font-size:clamp(34px,6vw,58px);letter-spacing:.1em;color:var(--opp-color);text-shadow:0 0 22px var(--opp-color);line-height:1}
 .opp-image-wrap{height:240px;margin:14px auto;display:flex;align-items:center;justify-content:center}.opp-image{max-width:100%;max-height:100%;object-fit:contain}.opp-stats{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin:12px 0 18px}.opp-stat{min-width:100px;padding:8px 12px;border:1px solid var(--opp-color);border-radius:10px;background:rgba(255,255,255,.04)}.opp-stat-value{font-family:'Bebas Neue',sans-serif;font-size:24px;color:#fff;letter-spacing:.08em}.opp-stat-label{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:.16em;color:rgba(255,255,255,.45)}.opp-fight{padding:12px 54px;border:0;border-radius:13px;background:linear-gradient(135deg,#991b1b,#ef4444);color:#fff;font-family:'Bebas Neue',sans-serif;font-size:25px;letter-spacing:.18em;cursor:pointer;box-shadow:0 5px 24px rgba(239,68,68,.4)}
 
 /* ── RANDOM EVENT OVERLAY ── */
@@ -774,7 +773,6 @@ body.lite .hp-heart{animation:none}
   <div class="spng-modal">
     <div class="spng-header">
       <div class="spng-title">⚔ NEW BATTLE</div>
-      <button class="spng-settings-btn" onclick="_openSettingsFromNewgame()" title="Settings">⚙</button>
     </div>
     <div class="spng-name-row">
       <label class="spng-name-label" for="spng-name-input">YOUR NAME:</label>
@@ -814,7 +812,6 @@ body.lite .hp-heart{animation:none}
 <div id="opponent-overlay">
   <div class="opp-modal" id="opponent-modal">
     <div class="opp-kicker">YOUR OPPONENT IS</div>
-    <div class="opp-rarity" id="opp-rarity"></div>
     <div class="opp-stars" id="opp-stars"></div>
     <div class="opp-name" id="opp-name"></div>
     <div class="opp-image-wrap">
@@ -986,6 +983,12 @@ body.lite .hp-heart{animation:none}
     <div class="town-shop-items" id="town-shop-items"></div>
     <button class="town-shop-leave" onclick="_leaveTownShop()">LEAVE SHOP</button>
   </div>
+  <div class="blacksmith-menu" id="blacksmith-menu" style="display:none">
+    <div class="town-title">BLACKSMITH</div>
+    <button class="town-btn" id="blacksmith-trade-tab" onclick="_showBlacksmithTrade()">TRADE</button>
+    <button class="town-btn" id="blacksmith-repair-tab" onclick="_showBlacksmithRepair()">REPAIR</button>
+    <button class="town-btn leave" onclick="_leaveBlacksmith()">LEAVE</button>
+  </div>
   <div class="blacksmith-panel" id="blacksmith-panel" style="display:none">
     <div class="blacksmith-head">
       <div class="blacksmith-title">BLACKSMITH</div>
@@ -995,7 +998,6 @@ body.lite .hp-heart{animation:none}
     <div class="blacksmith-status" id="blacksmith-status"></div>
     <div class="blacksmith-footer">
       <button class="blacksmith-all" id="blacksmith-repair-all" onclick="_repairAllEquipment()">REPAIR ALL</button>
-      <button class="town-shop-leave" style="margin-top:0" onclick="_leaveBlacksmith()">LEAVE BLACKSMITH</button>
     </div>
   </div>
 </div>
@@ -1057,7 +1059,7 @@ body.lite .hp-heart{animation:none}
 <script src="events.js"></script>
 <script src="taunt.js"></script>
 <script>
-const GAME_VERSION = '0.4';
+const GAME_VERSION = '0.5';
 document.getElementById('game-version').textContent = GAME_VERSION;
 
 // ══════════════════════════════════════════════════════════
@@ -1070,7 +1072,11 @@ const HP_PER_LOSS     = 10; // fallback only — actual damage comes from npc.at
 const SP_TIMER_MAX    = 6;
 const SP_BETWEEN_MS   = 900;
 const SP_WRONG_LOCK   = 800;
-const SP_XP_LEVELS    = [0,100,250,450,700,1000,1400,1900,2500,3200,4000,4900,5900,7000,8200];
+const SP_XP_LEVELS    = [
+  0,100,250,450,700,1000,1400,1900,2500,3200,
+  4000,4900,5900,7000,8200,9500,10900,12400,14000,15700,
+  17500,19400,21400,23500,25700,28000,30400,32900,35500,38200
+];
 const RESURRECTION_COST = 50;
 const INITIAL_MANA = 20;
 const MANA_PER_LEVEL = 5;
@@ -1079,7 +1085,14 @@ const SLOW_SECONDS = 3;
 const INN_REST_COST = 50;
 const INN_REST_HEAL = 75;
 const INN_REST_SECONDS = 10;
-const TOWN_TEST_AFTER_FIRST_ENEMY = true;
+const TOWN_TEST_AFTER_FIRST_ENEMY = false;
+const FIELD_SHOP_IMAGES = [
+  'images/shops/field_shop_1.webp',
+  'images/shops/field_shop_2.webp',
+  'images/shops/field_shop_3.webp',
+  'images/shops/field_shop_4.webp',
+  'images/shops/field_shop_5.webp',
+];
 const RANDOM_EVENT_BASE_CHANCE = .10;
 const RANDOM_EVENT_CHANCE_STEP = .08;
 const RANDOM_EVENT_CHANCE_CAP  = .70;
@@ -1090,6 +1103,8 @@ const ENEMY_RARITIES = {
   epic:      { name:'EPIC',      stars:4, color:'#c084fc', chance:4,  itemChance:.60, lootWeights:{1:.20,  2:.5,   3:1.5, 4:3,   5:4} },
   legendary: { name:'LEGENDARY', stars:5, color:'#FFD700', chance:1,  itemChance:1,   lootWeights:{1:.08,  2:.25,  3:1,   4:3,   5:6} },
 };
+const BIOME_BOSS_ITEM_CHANCES = { rare:.85, epic:.95, legendary:1 };
+const BIOME_BOSS_LOOT_WEIGHTS = { 1:.15, 2:.40, 3:1.80, 4:4, 5:8 };
 const ENEMY_RARITY_KEYS = Object.keys(ENEMY_RARITIES);
 
 // ── ENEMY SYSTEM (uses enemies.js) ────────────────────────
@@ -1111,6 +1126,13 @@ function _rollEnemyRarity(baseNpc) {
 function _ensureEnemyRarity(idx) {
   const baseNpc = _ENEMY_LIST[idx];
   if (!baseNpc) return null;
+  if (baseNpc.norarity === 1) {
+    if (_spEnemyRarities[baseNpc.id] !== 'common') {
+      _spEnemyRarities[baseNpc.id] = 'common';
+      _spSave();
+    }
+    return 'common';
+  }
   const saved = _spEnemyRarities[baseNpc.id];
   const bossRarities = ['rare', 'epic', 'legendary'];
   if (ENEMY_RARITIES[saved] && (baseNpc.order % 10 !== 0 || bossRarities.includes(saved))) return saved;
@@ -1119,6 +1141,29 @@ function _ensureEnemyRarity(idx) {
   _spSave();
   return rolled;
 }
+function _getEnemyTier(rarityKey) {
+  if (rarityKey === 'rare') return 2;
+  if (rarityKey === 'epic' || rarityKey === 'legendary') return 3;
+  return 1;
+}
+function _resolveEnemyTierData(baseNpc, rarityKey) {
+  const tier = _getEnemyTier(rarityKey);
+  const tierNames = baseNpc.tierNames || {};
+  const tierImages = baseNpc.tierImages || {};
+  const name = tierNames[tier] || tierNames[tier - 1] || tierNames[1] || baseNpc.name || 'ENEMY';
+  let img = null;
+  for (let fallbackTier = tier; fallbackTier >= 1; fallbackTier--) {
+    if (tierImages[fallbackTier]) {
+      img = tierImages[fallbackTier];
+      break;
+    }
+  }
+  if (!img) img = baseNpc.img || null;
+  const oversized = tier === 3 && baseNpc.tier3Oversized !== undefined
+    ? !!baseNpc.tier3Oversized
+    : !!baseNpc.oversized;
+  return { tier, name, img, oversized };
+}
 // Returns a rarity-scaled NPC for the given slot, or null when all enemies are beaten.
 function _getNpc(idx) {
   const baseNpc = _ENEMY_LIST[idx];
@@ -1126,8 +1171,10 @@ function _getNpc(idx) {
   const rarityKey = _ensureEnemyRarity(idx);
   const rarity = ENEMY_RARITIES[rarityKey];
   const variant = baseNpc.rarityVersions?.[rarityKey] || {};
+  const tierData = _resolveEnemyTierData(baseNpc, rarityKey);
   return {
     ...baseNpc,
+    ...tierData,
     maxHp: variant.hp ?? baseNpc.maxHp,
     att: variant.att ?? baseNpc.att,
     speed: variant.speed ?? baseNpc.speed ?? SP_TIMER_MAX,
@@ -1149,6 +1196,7 @@ let _spPlayerHP     = 100;
 let _spNpcHP        = 30;
 let _spNpcIdx       = 0;
 let _spEnemyRarities = {};
+let _spBiomeBackgrounds = {};
 let _spStreak       = 0;
 let _spBestStreak   = 0;
 let _spXP           = 0;
@@ -1192,11 +1240,14 @@ let _pendingLootItem     = null;
 let _randomEventCounter  = 0;
 let _pendingRandomEventId = null;
 let _lastRandomEventId   = null;
+let _wanderingBlacksmithActive = false;
 let _pendingTown         = false;
 let _innRestInterval     = null;
 let _innResting          = false;
 let _innRestEndsAt       = 0;
 let _townShopStock      = {};
+let _blacksmithMode     = 'repair';
+let _blacksmithTradeOffers = [];
 let _pendingLootDisposition = '';
 let _pendingChestImage   = 'images/ironchest.webp';
 let _pendingChestOpenImage = 'images/ironchest_open.webp';
@@ -1226,12 +1277,14 @@ const BG_MUSIC_BATTLE = BG_MUSIC_FULL * 0.5;
 const BG_MENU_TRACK = 'sounds/mainmenu.mp3';
 const BG_TOWN_TRACK = 'sounds/town.mp3';
 const BG_INN_TRACK  = 'sounds/inn.mp3';
+const BLACKSMITH_AMBIENT_TRACK = 'sounds/blacksmith.mp3';
 const BG_TRACKS     = ['sounds/main.mp3','sounds/main2.mp3','sounds/main3.mp3'];
 let   _bgTrackIdx   = 0;
 let   _musicCueAudio = null;
 let   _musicCueTimer = null;
 let   _menuMusicResetTimer = null;
 let   _battleMusicDucked = false;
+let   _blacksmithAmbientAudio = null;
 
 function _cancelBgTrackSwitch() {
   const a = document.getElementById('bg-music');
@@ -1323,6 +1376,20 @@ function _switchToLocationTrack(src) {
 }
 function _playSound(src, vol) {
   try { const a = new Audio(src); a.volume = vol || 0.7; a.play().catch(() => {}); } catch(e) {}
+}
+function _startBlacksmithAmbient() {
+  if (!_musicEnabled) return;
+  if (!_blacksmithAmbientAudio) {
+    _blacksmithAmbientAudio = new Audio(BLACKSMITH_AMBIENT_TRACK);
+    _blacksmithAmbientAudio.loop = true;
+    _blacksmithAmbientAudio.volume = 0.55;
+  }
+  _blacksmithAmbientAudio.play().catch(() => {});
+}
+function _stopBlacksmithAmbient() {
+  if (!_blacksmithAmbientAudio) return;
+  _blacksmithAmbientAudio.pause();
+  _blacksmithAmbientAudio.currentTime = 0;
 }
 function getAudio() {
   try {
@@ -2052,11 +2119,15 @@ function _startGame() {
   _spPlayerHP     = _spMaxHP;
   _spNpcIdx       = 0;
   _spEnemyRarities = {};
+  _spBiomeBackgrounds = {};
   _randomEventCounter = 0;
   _pendingRandomEventId = null;
   _lastRandomEventId = null;
+  _wanderingBlacksmithActive = false;
   _pendingTown = false;
   _innRestEndsAt = 0;
+  _townShopStock = {};
+  _blacksmithTradeOffers = [];
   _spStreak       = 0;
   _spBestStreak   = 0;
   _spXP           = 0;
@@ -2080,14 +2151,14 @@ function _startGameFromSave() {
   // Continue from saved state — _spLoad() must be called first
   const resumePendingEvent = !!_pendingRandomEventId;
   const resumeTown = _pendingTown;
-  _spNpcIdx     = (resumePendingEvent || resumeTown) ? Math.max(0, _spNpcsDefeated - 1) : _spNpcsDefeated;
+  _spNpcIdx     = (resumePendingEvent || resumeTown || _wanderingBlacksmithActive) ? Math.max(0, _spNpcsDefeated - 1) : _spNpcsDefeated;
   if (!resumeTown) _spPlayerHP = _spMaxHP;
   _spStreak     = 0;
   _spTotalWrong = 0;
   usedQIdx.clear();
-  _startGameCore(resumePendingEvent, resumeTown);
+  _startGameCore(resumePendingEvent, resumeTown, _wanderingBlacksmithActive);
 }
-function _startGameCore(resumePendingEvent = false, resumeTown = false) {
+function _startGameCore(resumePendingEvent = false, resumeTown = false, resumeWanderingBlacksmith = false) {
   document.body.classList.add('game-active');
   _battleMusicDucked = false;
   _spEnemySlowed = false;
@@ -2110,7 +2181,10 @@ function _startGameCore(resumePendingEvent = false, resumeTown = false) {
   _updateMana();
   _updateStreakUI();
   _renderPlayerAvatar();
-  if (resumeTown) {
+  if (resumeWanderingBlacksmith) {
+    _hideQuestionGrid();
+    setTimeout(_openWanderingBlacksmith, 300);
+  } else if (resumeTown) {
     _hideQuestionGrid();
     setTimeout(_openTown, 300);
   } else if (resumePendingEvent) {
@@ -2136,7 +2210,6 @@ function _showOpponentIntro(npc) {
   const modal = document.getElementById('opponent-modal');
   const image = document.getElementById('opp-image');
   if (modal) modal.style.setProperty('--opp-color', rarity.color);
-  document.getElementById('opp-rarity').textContent = rarity.name;
   document.getElementById('opp-stars').textContent = '\u2605'.repeat(rarity.stars);
   document.getElementById('opp-name').textContent = npc.name;
   document.getElementById('opp-hp').textContent = npc.maxHp;
@@ -2291,12 +2364,14 @@ function _randomGold(reward) {
   const max = Math.max(range[0], range[1]);
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
-function _weightedItemRoll(enemyRarityKey = 'common') {
+function _weightedItemRoll(enemyRarityKey = 'common', biomeBoss = false) {
   if (typeof ITEMS === 'undefined' || !ITEMS.length) return null;
   const slot = _EQUIPMENT_SLOTS[Math.floor(Math.random() * _EQUIPMENT_SLOTS.length)];
   const pool = ITEMS.filter(item => item.slot === slot);
   const lootWeights = ENEMY_RARITIES[enemyRarityKey]?.lootWeights || ENEMY_RARITIES.common.lootWeights;
-  const weightedDrop = item => item.droprate * (lootWeights[item.rarity] || 1);
+  const weightedDrop = item => item.droprate
+    * (lootWeights[item.rarity] || 1)
+    * (biomeBoss ? (BIOME_BOSS_LOOT_WEIGHTS[item.rarity] || 1) : 1);
   const total = pool.reduce((n, item) => n + weightedDrop(item), 0);
   let roll = Math.random() * total;
   for (const item of pool) {
@@ -2307,8 +2382,12 @@ function _weightedItemRoll(enemyRarityKey = 'common') {
 }
 function _prepareLoot(npc) {
   _pendingLootGold = _randomGold(npc.goldReward);
-  const itemChance = npc.rarity?.itemChance ?? ENEMY_RARITIES.common.itemChance;
-  _pendingLootItem = Math.random() < itemChance ? _weightedItemRoll(npc.rarityKey) : null;
+  const biomeBoss = npc.order % 10 === 0;
+  const baseItemChance = npc.rarity?.itemChance ?? ENEMY_RARITIES.common.itemChance;
+  const itemChance = biomeBoss
+    ? (BIOME_BOSS_ITEM_CHANCES[npc.rarityKey] ?? Math.max(.85, baseItemChance))
+    : baseItemChance;
+  _pendingLootItem = Math.random() < itemChance ? _weightedItemRoll(npc.rarityKey, biomeBoss) : null;
   _pendingLootRarity = _pendingLootItem?.rarity || 0;
   _pendingLootText = '';
   _pendingLootDisposition = '';
@@ -2487,8 +2566,10 @@ function _continuePostBattleRoute() {
 }
 
 function _openTown() {
+  _stopBlacksmithAmbient();
   const enteringTown = !_pendingTown;
   _pendingTown = true;
+  if (enteringTown) _blacksmithTradeOffers = [];
   if (enteringTown || !_hasTownShopStock()) _resetTownShopStock();
   _switchToLocationTrack(BG_TOWN_TRACK);
   if (_innRestInterval) { clearInterval(_innRestInterval); _innRestInterval = null; }
@@ -2504,11 +2585,13 @@ function _openTown() {
   document.getElementById('town-main-menu').style.display = '';
   document.getElementById('town-inn-menu').style.display = 'none';
   document.getElementById('town-shop-panel').style.display = 'none';
+  document.getElementById('blacksmith-menu').style.display = 'none';
   document.getElementById('blacksmith-panel').style.display = 'none';
   _spSave();
 }
 function _openInn() {
   if (_innResting) return;
+  _stopBlacksmithAmbient();
   _switchToLocationTrack(BG_INN_TRACK);
   const overlay = document.getElementById('town-overlay');
   overlay?.classList.add('inn-view');
@@ -2516,16 +2599,19 @@ function _openInn() {
   document.getElementById('town-main-menu').style.display = 'none';
   document.getElementById('town-inn-menu').style.display = '';
   document.getElementById('town-shop-panel').style.display = 'none';
+  document.getElementById('blacksmith-menu').style.display = 'none';
   document.getElementById('blacksmith-panel').style.display = 'none';
   _refreshInnUI();
 }
 function _openTownShop() {
+  _stopBlacksmithAmbient();
   const overlay = document.getElementById('town-overlay');
   overlay?.classList.remove('inn-view', 'resting-view', 'blacksmith-view');
   overlay?.classList.add('shop-view');
   document.getElementById('town-main-menu').style.display = 'none';
   document.getElementById('town-inn-menu').style.display = 'none';
   document.getElementById('town-shop-panel').style.display = '';
+  document.getElementById('blacksmith-menu').style.display = 'none';
   document.getElementById('blacksmith-panel').style.display = 'none';
   _renderTownShop();
 }
@@ -2590,16 +2676,54 @@ function _blacksmithSellPrice(item) {
   return item ? Math.max(1, Math.floor(item.value * 0.5)) : 0;
 }
 function _openBlacksmith() {
+  _startBlacksmithAmbient();
   const overlay = document.getElementById('town-overlay');
   overlay?.classList.remove('inn-view', 'resting-view', 'shop-view');
   overlay?.classList.add('blacksmith-view');
   document.getElementById('town-main-menu').style.display = 'none';
   document.getElementById('town-inn-menu').style.display = 'none';
   document.getElementById('town-shop-panel').style.display = 'none';
+  document.getElementById('blacksmith-menu').style.display = '';
   document.getElementById('blacksmith-panel').style.display = '';
-  _renderBlacksmith();
+  const tradeTab = document.getElementById('blacksmith-trade-tab');
+  if (tradeTab) tradeTab.style.display = _wanderingBlacksmithActive ? 'none' : '';
+  _showBlacksmithRepair();
 }
-function _renderBlacksmith(message = '') {
+function _openWanderingBlacksmith() {
+  const enteringEvent = !_wanderingBlacksmithActive;
+  _wanderingBlacksmithActive = true;
+  if (enteringEvent) _blacksmithTradeOffers = [];
+  document.getElementById('random-event-overlay')?.classList.remove('open');
+  document.getElementById('town-overlay')?.classList.add('open');
+  _openBlacksmith();
+  _spSave();
+}
+function _setBlacksmithMode(mode) {
+  _blacksmithMode = mode;
+  const title = document.querySelector('#blacksmith-panel .blacksmith-title');
+  if (title) title.textContent = mode === 'trade' ? 'BLACKSMITH - TRADE' : 'BLACKSMITH - REPAIR';
+  document.getElementById('blacksmith-trade-tab')?.classList.toggle('active', mode === 'trade');
+  document.getElementById('blacksmith-repair-tab')?.classList.toggle('active', mode === 'repair');
+  const repairAllBtn = document.getElementById('blacksmith-repair-all');
+  if (repairAllBtn) repairAllBtn.style.display = mode === 'repair' ? '' : 'none';
+}
+function _showBlacksmithRepair() {
+  _setBlacksmithMode('repair');
+  _renderBlacksmithRepair();
+}
+function _showBlacksmithTrade() {
+  if (_wanderingBlacksmithActive) {
+    _showBlacksmithRepair();
+    return;
+  }
+  _setBlacksmithMode('trade');
+  if (!_blacksmithTradeOffers.length) {
+    _blacksmithTradeOffers = _weightedShopPicks(ITEMS, 5).map(item => ({ item, sold:false }));
+    _spSave();
+  }
+  _renderBlacksmithTrade();
+}
+function _renderBlacksmithRepair(message = '') {
   const wrap = document.getElementById('blacksmith-items');
   const gold = document.getElementById('blacksmith-gold');
   const status = document.getElementById('blacksmith-status');
@@ -2616,7 +2740,6 @@ function _renderBlacksmith(message = '') {
       <div class="blacksmith-desc">NO ITEM EQUIPPED</div>
     </div>`;
     const repairCost = _blacksmithRepairCost(item);
-    const sellPrice = _blacksmithSellPrice(item);
     return `<div class="blacksmith-item rarity-${item.rarity}">
       <div class="blacksmith-slot">${labels[slot]}</div>
       <img src="${item.imagePath}" alt="${item.name}">
@@ -2624,7 +2747,6 @@ function _renderBlacksmith(message = '') {
       <div class="blacksmith-desc">DUR ${item.currentDur}/${item.dur} · ATT ${item.att || 0} · DEF ${item.def || 0}</div>
       <div class="blacksmith-actions">
         <button class="blacksmith-btn blacksmith-repair" onclick="_repairEquipment('${slot}')"${repairCost <= 0 || _spGold < repairCost ? ' disabled' : ''}>${repairCost > 0 ? 'REPAIR ' + repairCost : 'FULL'}</button>
-        <button class="blacksmith-btn blacksmith-sell" onclick="_sellEquipment('${slot}')">SELL ${sellPrice}</button>
       </div>
     </div>`;
   }).join('');
@@ -2633,6 +2755,65 @@ function _renderBlacksmith(message = '') {
     repairAllBtn.textContent = totalRepairCost > 0 ? 'REPAIR ALL - ' + totalRepairCost + ' GOLD' : 'ALL GEAR FULLY REPAIRED';
     repairAllBtn.disabled = totalRepairCost <= 0 || _spGold < totalRepairCost;
   }
+}
+function _renderBlacksmithTrade(message = '') {
+  const wrap = document.getElementById('blacksmith-items');
+  const gold = document.getElementById('blacksmith-gold');
+  const status = document.getElementById('blacksmith-status');
+  if (gold) gold.textContent = _spGold;
+  if (status) status.textContent = message;
+  if (!wrap) return;
+  const rarityNames = ['','COMMON','UNCOMMON','RARE','EPIC','LEGENDARY'];
+  const offersHtml = _blacksmithTradeOffers.map((offer, idx) => {
+    const item = offer.item;
+    const price = _shopItemPrice(item);
+    return `<div class="blacksmith-item rarity-${item.rarity}">
+      <div class="blacksmith-slot">${rarityNames[item.rarity]}</div>
+      <img src="${item.imagePath}" alt="${item.name}">
+      <div class="blacksmith-name">${item.name}</div>
+      <div class="blacksmith-desc">ATT ${item.att || 0} · DEF ${item.def || 0} · DUR ${item.dur}</div>
+      <div class="blacksmith-actions">
+        <button class="blacksmith-btn blacksmith-buy" onclick="_buyBlacksmithItem(${idx})"${offer.sold || _spGold < price ? ' disabled' : ''}>${offer.sold ? 'SOLD' : 'BUY ' + price}</button>
+      </div>
+    </div>`;
+  }).join('');
+  const labels = { sword:'WEAPON', helmet:'HELMET', torso:'TORSO', gloves:'GLOVES', foot:'BOOTS' };
+  const sellHtml = _EQUIPMENT_SLOTS.map(slot => {
+    const item = _spEquipment[slot];
+    if (!item) return `<div class="blacksmith-item blacksmith-empty">
+      <div class="blacksmith-slot">${labels[slot]}</div>
+      <div class="blacksmith-name">EMPTY</div>
+      <div class="blacksmith-desc">NOTHING TO SELL</div>
+    </div>`;
+    const price = _blacksmithSellPrice(item);
+    return `<div class="blacksmith-item rarity-${item.rarity}">
+      <div class="blacksmith-slot">${labels[slot]}</div>
+      <img src="${item.imagePath}" alt="${item.name}">
+      <div class="blacksmith-name">${item.name}</div>
+      <div class="blacksmith-desc">DUR ${item.currentDur}/${item.dur} · ATT ${item.att || 0} · DEF ${item.def || 0}</div>
+      <div class="blacksmith-actions">
+        <button class="blacksmith-btn blacksmith-sell" onclick="_sellEquipment('${slot}')">SELL ${price}</button>
+      </div>
+    </div>`;
+  }).join('');
+  wrap.innerHTML = `<div class="blacksmith-section-title">FOR SALE</div>${offersHtml}<div class="blacksmith-section-title">YOUR EQUIPPED GEAR</div>${sellHtml}`;
+}
+function _buyBlacksmithItem(idx) {
+  const offer = _blacksmithTradeOffers[idx];
+  if (!offer || offer.sold) return;
+  const item = offer.item;
+  const price = _shopItemPrice(item);
+  if (_spGold < price) return;
+  _spGold -= price;
+  const oldItem = _spEquipment[item.slot];
+  if (oldItem) _spGold += _blacksmithSellPrice(oldItem);
+  _spEquipment[item.slot] = _cloneEquipmentItem(item);
+  offer.sold = true;
+  _updateGold();
+  _updateEquipmentUI();
+  _spSave();
+  _playSound('sounds/punch.mp3', 0.42);
+  _renderBlacksmithTrade(item.name.toUpperCase() + ' EQUIPPED' + (oldItem ? ' - OLD ITEM SOLD' : ''));
 }
 function _repairEquipment(slot) {
   const item = _spEquipment[slot];
@@ -2644,7 +2825,7 @@ function _repairEquipment(slot) {
   _updateEquipmentUI();
   _spSave();
   _playSound('sounds/punch.mp3', 0.38);
-  _renderBlacksmith(item.name.toUpperCase() + ' REPAIRED FOR ' + cost + ' GOLD');
+  _renderBlacksmithRepair(item.name.toUpperCase() + ' REPAIRED FOR ' + cost + ' GOLD');
 }
 function _repairAllEquipment() {
   const repairable = _EQUIPMENT_SLOTS.map(slot => _spEquipment[slot]).filter(item => _blacksmithRepairCost(item) > 0);
@@ -2656,7 +2837,7 @@ function _repairAllEquipment() {
   _updateEquipmentUI();
   _spSave();
   _playSound('sounds/punch.mp3', 0.45);
-  _renderBlacksmith('ALL EQUIPMENT REPAIRED FOR ' + totalCost + ' GOLD');
+  _renderBlacksmithRepair('ALL EQUIPMENT REPAIRED FOR ' + totalCost + ' GOLD');
 }
 function _sellEquipment(slot) {
   const item = _spEquipment[slot];
@@ -2668,9 +2849,20 @@ function _sellEquipment(slot) {
   _updateEquipmentUI();
   _spSave();
   _playSound('sounds/punch.mp3', 0.35);
-  _renderBlacksmith(item.name.toUpperCase() + ' SOLD FOR ' + price + ' GOLD');
+  _renderBlacksmithTrade(item.name.toUpperCase() + ' SOLD FOR ' + price + ' GOLD');
 }
 function _leaveBlacksmith() {
+  if (_wanderingBlacksmithActive) {
+    _wanderingBlacksmithActive = false;
+    _pendingRandomEventId = null;
+    _stopBlacksmithAmbient();
+    document.getElementById('town-overlay')?.classList.remove('open', 'blacksmith-view');
+    document.getElementById('blacksmith-menu').style.display = 'none';
+    document.getElementById('blacksmith-panel').style.display = 'none';
+    _spSave();
+    _continuePostBattleRoute();
+    return;
+  }
   _openTown();
 }
 function _refreshInnUI() {
@@ -2705,6 +2897,7 @@ function _resumeInnRest() {
   document.getElementById('town-main-menu').style.display = 'none';
   document.getElementById('town-inn-menu').style.display = '';
   document.getElementById('town-shop-panel').style.display = 'none';
+  document.getElementById('blacksmith-menu').style.display = 'none';
   document.getElementById('blacksmith-panel').style.display = 'none';
   overlay?.classList.remove('inn-view');
   overlay?.classList.add('resting-view');
@@ -2745,6 +2938,7 @@ function _leaveInn() {
 }
 function _leaveTown() {
   if (_innResting) return;
+  _stopBlacksmithAmbient();
   _pendingTown = false;
   document.getElementById('town-overlay')?.classList.remove('open', 'inn-view', 'resting-view', 'shop-view', 'blacksmith-view');
   _spSave();
@@ -2874,6 +3068,8 @@ function _applyRandomEventEffect(effect) {
     const restored = _spMana - before;
     _updateMana();
     result = restored > 0 ? '+' + restored + ' MP RESTORED' : 'MANA ALREADY FULL';
+  } else if (effect.type === 'blacksmith') {
+    result = 'OPEN_BLACKSMITH';
   } else if (effect.type === 'nothing') {
     result = 'NOTHING HAPPENED';
   }
@@ -2889,6 +3085,10 @@ function _chooseRandomEvent(choiceIdx) {
   const costResult = _applyRandomEventCost(choice.cost);
   const effectResult = _applyRandomEventEffect(choice.effect);
   const rewardResult = _applyRandomEventEffect(choice.reward);
+  if (effectResult === 'OPEN_BLACKSMITH') {
+    _openWanderingBlacksmith();
+    return;
+  }
   _finishRandomEvent([costResult, effectResult, rewardResult].filter(Boolean).join('  ·  '));
 }
 function _resolveRandomEvent() {
@@ -2925,11 +3125,15 @@ function _advanceToNextEnemy() {
 
 // ── SHOP ──────────────────────────────────────────────────
 function _openShop() {
+  const shopVisitIndex = Math.max(0, Math.floor((_spNpcsDefeated - 5) / 10));
+  const shopImage = FIELD_SHOP_IMAGES[shopVisitIndex % FIELD_SHOP_IMAGES.length];
+  document.getElementById('sp-shop')?.style.setProperty('--field-shop-bg', `url('${shopImage}')`);
   _shopPotionSold = false;
   _shopManaPotionSold = false;
+  const affordableItems = ITEMS.filter(item => _shopItemPrice(item) <= _spGold);
   _shopOffers = [
-    ..._weightedShopPicks(ITEMS.filter(item => item.slot === 'sword'), 2),
-    ..._weightedShopPicks(ITEMS.filter(item => _ARMOR_SLOTS.includes(item.slot)), 2)
+    ..._weightedShopPicks(affordableItems.filter(item => item.slot === 'sword'), 2),
+    ..._weightedShopPicks(affordableItems.filter(item => _ARMOR_SLOTS.includes(item.slot)), 2)
   ].map(item => ({ item, sold:false }));
   _renderShopPotion();
   _renderShopManaPotion();
@@ -2983,7 +3187,6 @@ function _shopItemPrice(item) {
 function _renderShopOffers() {
   const wrap = document.getElementById('spsh-gear-items');
   if (!wrap) return;
-  const icons = { sword:'⚔', helmet:'⛑', torso:'🛡', gloves:'🥊', foot:'🥾' };
   const rarityNames = ['','COMMON','UNCOMMON','RARE','EPIC','LEGENDARY'];
   wrap.innerHTML = _shopOffers.map((offer, idx) => {
     const item = offer.item;
@@ -2994,7 +3197,7 @@ function _renderShopOffers() {
       rarityNames[item.rarity]
     ].filter(Boolean).join(' · ');
     return `<div class="spsh-item rarity-${item.rarity}" id="spsh-offer-${idx}">
-      <div class="spsh-item-icon">${icons[item.slot] || '◆'}</div>
+      <div class="spsh-item-icon"><img class="spsh-item-icon-img" src="${item.imagePath}" alt="${item.name}"></div>
       <div class="spsh-item-info">
         <div class="spsh-item-name">${item.name}</div>
         <div class="spsh-item-desc">${stats}</div>
@@ -3114,12 +3317,15 @@ function _resetRunProgress() {
   _spPlayerHP         = _spMaxHP;
   _spNpcIdx           = 0;
   _spEnemyRarities    = {};
+  _spBiomeBackgrounds = {};
   _randomEventCounter = 0;
   _pendingRandomEventId = null;
   _lastRandomEventId  = null;
+  _wanderingBlacksmithActive = false;
   _pendingTown        = false;
   _innRestEndsAt      = 0;
   _townShopStock      = {};
+  _blacksmithTradeOffers = [];
   _spNpcsDefeated     = 0;
   _spStreak           = 0;
   _spTotalCorrect     = 0;
@@ -3227,12 +3433,15 @@ function _spSave(completed) {
       mana:          _spMana,
       maxMana:       _spMaxMana,
       enemyRarities:_spEnemyRarities,
+      biomeBackgrounds:_spBiomeBackgrounds,
       randomEventCounter: _randomEventCounter,
       pendingRandomEventId: _pendingRandomEventId,
       lastRandomEventId: _lastRandomEventId,
+      wanderingBlacksmithActive: _wanderingBlacksmithActive,
       pendingTown:   _pendingTown,
       innRestEndsAt: _innRestEndsAt,
       townShopStock: _townShopStock,
+      blacksmithTradeOffers: _blacksmithTradeOffers.map(offer => ({ id:offer.item.id, sold:!!offer.sold })),
       npcsDefeated: _spNpcsDefeated,
       bestStreak:   _spBestStreak,
       totalCorrect: _spTotalCorrect,
@@ -3271,6 +3480,7 @@ function _spLoad() {
     _randomEventCounter = typeof d.randomEventCounter === 'number' ? Math.max(0, d.randomEventCounter) : 0;
     _pendingRandomEventId = _getRandomEvent(d.pendingRandomEventId) ? d.pendingRandomEventId : null;
     _lastRandomEventId = _getRandomEvent(d.lastRandomEventId) ? d.lastRandomEventId : null;
+    _wanderingBlacksmithActive = d.wanderingBlacksmithActive === true;
     _pendingTown = d.pendingTown === true;
     _innRestEndsAt = typeof d.innRestEndsAt === 'number' ? Math.max(0, d.innRestEndsAt) : 0;
     if (d.townShopStock && typeof d.townShopStock === 'object') {
@@ -3279,11 +3489,24 @@ function _spLoad() {
         _townShopStock[id] = Math.max(0, Math.floor(Number(d.townShopStock[id]) || 0));
       });
     }
+    _blacksmithTradeOffers = Array.isArray(d.blacksmithTradeOffers)
+      ? d.blacksmithTradeOffers.map(saved => {
+          const item = ITEMS.find(candidate => candidate.id === saved.id);
+          return item ? { item, sold:!!saved.sold } : null;
+        }).filter(Boolean).slice(0, 5)
+      : [];
     _spEnemyRarities = {};
     if (d.enemyRarities && typeof d.enemyRarities === 'object') {
       _ENEMY_LIST.forEach(enemy => {
         const rarityKey = d.enemyRarities[enemy.id];
-        if (ENEMY_RARITIES[rarityKey]) _spEnemyRarities[enemy.id] = rarityKey;
+        if (enemy.norarity === 1) _spEnemyRarities[enemy.id] = 'common';
+        else if (ENEMY_RARITIES[rarityKey]) _spEnemyRarities[enemy.id] = rarityKey;
+      });
+    }
+    _spBiomeBackgrounds = {};
+    if (d.biomeBackgrounds && typeof d.biomeBackgrounds === 'object') {
+      Object.entries(d.biomeBackgrounds).forEach(([idx, imagePath]) => {
+        if (/^images\/background[1-5][ab]\.webp$/.test(imagePath)) _spBiomeBackgrounds[idx] = imagePath;
       });
     }
     if (typeof d.npcsDefeated === 'number') _spNpcsDefeated = d.npcsDefeated;
@@ -3639,8 +3862,7 @@ function closeSettings() {
   _saveSettings();
   const ret = window._settingsReturn;
   window._settingsReturn = null;
-  if      (ret === 'newgame') document.getElementById('sp-newgame-overlay').classList.add('open');
-  else if (ret === 'mode')    document.getElementById('sp-mode-overlay').classList.add('open');
+  if (ret === 'mode') document.getElementById('sp-mode-overlay').classList.add('open');
   // If ret is 'menu' or null, just close — user sees main menu or game
 }
 function _openSettingsFromMenu() {
@@ -3650,11 +3872,6 @@ function _openSettingsFromMenu() {
 function _openSettingsFromMode() {
   document.getElementById('sp-mode-overlay').classList.remove('open');
   window._settingsReturn = 'mode';
-  openSettings();
-}
-function _openSettingsFromNewgame() {
-  document.getElementById('sp-newgame-overlay').classList.remove('open');
-  window._settingsReturn = 'newgame';
   openSettings();
 }
 function _loadSettings() {
@@ -3699,8 +3916,10 @@ function setMusicEnabled(on) {
     } else {
       _bgMusicFade(_battleMusicDucked ? BG_MUSIC_BATTLE : BG_MUSIC_FULL, 500);
     }
+    if (document.getElementById('town-overlay')?.classList.contains('blacksmith-view')) _startBlacksmithAmbient();
   } else {
     _stopMusicCue();
+    _stopBlacksmithAmbient();
     _cancelBgTrackSwitch();
     _bgMusicFade(0, 400);
   }
@@ -3728,17 +3947,36 @@ function _startBgMusic() {
 }
 
 // ── BACKGROUND — NPC index driven ─────────────────────────
-// Boss 1-10 → bg1 | 11-20 → bg2 | 21-30 → bg3 | 31-40 → bg4 | 41+ → bg5
-const BG_IMAGES = [
-  'images/background1.webp',
-  'images/background2.webp',
-  'images/background3.webp',
-  'images/background4.webp',
-  'images/background5.webp',
+// Boss 1-10 → biome 1 | 11-20 → biome 2 | 21-30 → biome 3 | 31-40 → biome 4 | 41+ → biome 5
+const BG_IMAGE_SETS = [
+  ['images/background1a.webp', 'images/background1b.webp'],
+  ['images/background2a.webp', 'images/background2b.webp'],
+  ['images/background3a.webp', 'images/background3b.webp'],
+  ['images/background4a.webp', 'images/background4b.webp'],
+  ['images/background5a.webp', 'images/background5b.webp'],
 ];
 let _bgImgIdx = 0;
+let _bgLoadToken = 0;
 function _getBgIdxForNpc(npcIdx) {
-  return Math.min(BG_IMAGES.length - 1, Math.floor(npcIdx / 10));
+  return Math.min(BG_IMAGE_SETS.length - 1, Math.floor(npcIdx / 10));
+}
+function _loadBiomeBackground(bgIdx, callback) {
+  const saved = _spBiomeBackgrounds[bgIdx];
+  const candidates = saved
+    ? [saved, ...BG_IMAGE_SETS[bgIdx].filter(path => path !== saved)]
+    : [...BG_IMAGE_SETS[bgIdx]].sort(() => Math.random() - 0.5);
+  const tryCandidate = index => {
+    if (index >= candidates.length) return callback(null);
+    const image = new Image();
+    image.onload = () => {
+      _spBiomeBackgrounds[bgIdx] = candidates[index];
+      if (document.body.classList.contains('game-active')) _spSave();
+      callback(candidates[index]);
+    };
+    image.onerror = () => tryCandidate(index + 1);
+    image.src = candidates[index];
+  };
+  tryCandidate(0);
 }
 function _updateBg(immediate) {
   const target = _getBgIdxForNpc(_spNpcIdx);
@@ -3746,16 +3984,18 @@ function _updateBg(immediate) {
   _bgImgIdx = target;
   const layer = document.getElementById('bg-layer');
   if (!layer) return;
-  if (immediate) {
-    layer.style.backgroundImage = `url('${BG_IMAGES[_bgImgIdx]}')`;
-    layer.style.opacity = '1';
-  } else {
-    layer.style.opacity = '0';
-    setTimeout(() => {
-      layer.style.backgroundImage = `url('${BG_IMAGES[_bgImgIdx]}')`;
+  const loadToken = ++_bgLoadToken;
+  if (!immediate) layer.style.opacity = '0';
+  _loadBiomeBackground(target, imagePath => {
+    if (loadToken !== _bgLoadToken || !imagePath) return;
+    const applyBackground = () => {
+      if (loadToken !== _bgLoadToken) return;
+      layer.style.backgroundImage = `url('${imagePath}')`;
       layer.style.opacity = '1';
-    }, 800);
-  }
+    };
+    if (immediate) applyBackground();
+    else setTimeout(applyBackground, 800);
+  });
 }
 
 // ── PREVENT CONTEXT MENU ──────────────────────────────────
@@ -3774,7 +4014,7 @@ window.addEventListener('load', () => {
   }
 
   const layer = document.getElementById('bg-layer');
-  if (layer) { layer.style.backgroundImage = `url('${BG_IMAGES[0]}')`; layer.style.opacity = '1'; }
+  if (layer) _updateBg(true);
 });
 </script>
 </body>
