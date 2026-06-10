@@ -4031,7 +4031,7 @@ function _tbOnReadyPressed() {
     if (btn) btn.style.display = 'none';
   });
   _bgMusicFade(BG_MUSIC_DUEL, 400); // GO → müziği kıs
-  _startRound();
+  setTimeout(_startRound, 500);    // 500ms bekleme — yanlışlıkla tıklamayı önler
 }
 
 // ── TB: ROUND END ─────────────────────────────────────────

@@ -3269,9 +3269,26 @@ function applyJokerIlkSon() {
   jokerCount[currentGroup]--;
   updateJokerDisplay();
   // İndeksleri kaydet ve açılan harfleri puan kesintisi dışında tut
-  if(!revealedIndices.has(firstIdx)) { ilkSonIndices.add(firstIdx); revealedIndices.add(firstIdx); }
-  if(!revealedIndices.has(lastIdx))  { ilkSonIndices.add(lastIdx);  revealedIndices.add(lastIdx); }
-  buildHexRow(answer); // hexleri yeniden oluştur (açılanlar revealed olacak)
+  const revealQueue = [];
+  if(!revealedIndices.has(firstIdx)) {
+    ilkSonIndices.add(firstIdx);
+    revealedIndices.add(firstIdx);
+    revealQueue.push(firstIdx);
+  }
+  if(!revealedIndices.has(lastIdx)) {
+    ilkSonIndices.add(lastIdx);
+    revealedIndices.add(lastIdx);
+    revealQueue.push(lastIdx);
+  }
+  // İlk ve Son'u aynı anda değil, soldan sağa yarım saniye arayla aç.
+  const questionAtStart = currentQ;
+  const rowAtStart = document.getElementById('hex-row');
+  revealQueue.sort((a, b) => a - b).forEach((idx, order) => {
+    setTimeout(() => {
+      if(currentQ !== questionAtStart || document.getElementById('hex-row') !== rowAtStart) return;
+      revealHexLetter(idx, answer);
+    }, order * 500);
+  });
   updateScoreBadge();
   updateUI();
   showToast('🔡 İlk ve Son joker kullanıldı — puan cezası yok!');
@@ -3950,67 +3967,87 @@ function scheduleHexRowFit() {
      Eski element silinir, yeni element hex-letter ID'sini alır.
      Son tick'te cssText temizlenir → flex child'a döner, hexLetterPop oynar.
 ─────────────────────────────────────────────────────────────────────────────── */
+let _slotRevealSerial = 0;
 function revealHexLetter(idx, answer) {
   const inner = document.getElementById('hex-' + idx);
   if(!inner) return;
 
   const POOL = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
   const finalLetter = (answer[idx] || '').toUpperCase();
+  const revealToken = String(++_slotRevealSerial);
+  inner.dataset.slotRevealToken = revealToken;
+  inner.classList.add('revealed');
+
+  // LITE modda slot makinesi efektini global olarak atla.
+  if(_liteMode) {
+    let ltr = inner.querySelector('#hexltr-' + idx) || inner.querySelector('.hex-letter');
+    inner.querySelectorAll('.hex-letter').forEach(el => { if(el !== ltr) el.remove(); });
+    if(!ltr) {
+      ltr = document.createElement('div');
+      ltr.className = 'hex-letter';
+      inner.appendChild(ltr);
+    }
+    ltr.id = 'hexltr-' + idx;
+    ltr.style.cssText = '';
+    ltr.textContent = finalLetter;
+    return;
+  }
 
   // Tick intervals (ms): hızlı başla, sonda hafif yavaşla
   const intervals = [38, 38, 40, 40, 42, 44, 46, 50, 58, 75, 105];
 
-  inner.classList.add('revealed');
+  function runTick(i) {
+    // Hex satırı yeniden kurulduysa veya aynı hex için yeni reveal başladıysa
+    // eski slot animasyonu yeni DOM'u değiştirmeden sessizce sonlanır.
+    if(!inner.isConnected || inner.dataset.slotRevealToken !== revealToken) return;
 
-  let elapsed = 0;
-  intervals.forEach((dur, i) => {
-    elapsed += dur;
+    const dur      = intervals[i];
     const isLast   = (i === intervals.length - 1);
     const nextChar = isLast ? finalLetter : POOL[Math.floor(Math.random() * POOL.length)];
     const vol      = 0.08 + i * 0.013;
+    const cur      = inner.querySelector('#hexltr-' + idx) || inner.querySelector('.hex-letter');
+    if(!cur) return;
 
-    setTimeout(() => {
-      const cur = document.getElementById('hexltr-' + idx);
-      if(!cur) return;
+    if(isLast) {
+      // Son harf: olası ara elemanları temizle ve flex child'a geri dön.
+      inner.querySelectorAll('.hex-letter').forEach(el => { if(el !== cur) el.remove(); });
+      cur.id              = 'hexltr-' + idx;
+      cur.style.cssText   = '';
+      cur.textContent     = nextChar;
+      cur.style.animation = 'hexLetterPop 0.28s cubic-bezier(.175,.885,.32,1.275) forwards';
+      return;
+    }
 
-      if(isLast) {
-        // Son harf: inline stilleri sıfırla → flex child'a dön, pop animasyonu
-        cur.style.cssText   = '';
-        cur.textContent     = nextChar;
-        cur.style.animation = 'hexLetterPop 0.28s cubic-bezier(.175,.885,.32,1.275) forwards';
-        return;
+    playRapidBeep(vol);
+
+    // Mevcut harf yukarı çıkıyor
+    cur.getAnimations().forEach(a => a.cancel());
+    cur.style.animation  = 'none';
+    cur.style.transition = `transform ${dur}ms linear`;
+    requestAnimationFrame(() => {
+      if(inner.isConnected && inner.dataset.slotRevealToken === revealToken) {
+        cur.style.transform = 'translateY(-54px)';
       }
+    });
 
-      playRapidBeep(vol);
+    // Yeni harf aşağıdan geliyor — keyframe animasyonu (0%'dan başlaması garantili)
+    const nxt = document.createElement('div');
+    nxt.className   = 'hex-letter';
+    nxt.textContent = nextChar;
+    nxt.style.cssText = `position:absolute;inset:0;display:flex;align-items:center;justify-content:center;animation:slotInFromBottom ${dur}ms linear forwards;`;
+    inner.appendChild(nxt);
 
-      // Mevcut harf yukarı çıkıyor
-      cur.getAnimations().forEach(a => a.cancel());
-      cur.style.animation  = 'none';
-      cur.style.transition = `transform ${dur}ms linear`;
-      requestAnimationFrame(() => { cur.style.transform = 'translateY(-54px)'; });
+    // Tick'leri sırayla ilerlet; böylece aynı id'yi kullanan iki ara harf oluşmaz.
+    setTimeout(() => {
+      if(!inner.isConnected || inner.dataset.slotRevealToken !== revealToken) return;
+      cur.remove();
+      nxt.id = 'hexltr-' + idx;
+      nxt.style.transition = '';
+      runTick(i + 1);
+    }, dur);
+  }
 
-      // Yeni harf aşağıdan geliyor — keyframe animasyonu (0%'dan başlaması garantili)
-      const nxt = document.createElement('div');
-      nxt.className   = 'hex-letter';
-      nxt.textContent = nextChar;
-      nxt.style.cssText = `position:absolute;inset:0;display:flex;align-items:center;justify-content:center;animation:slotInFromBottom ${dur}ms linear forwards;`;
-      inner.appendChild(nxt);
-
-      // Tick bitti: eski elementi kaldır, yenisine ID ver
-      // Eğer prevEl zaten kaldırıldıysa (sonraki tick önce koştu) nxt'i de temizle
-      const prevEl = cur;
-      setTimeout(() => {
-        if(prevEl.parentNode) {
-          prevEl.remove();
-          nxt.id = 'hexltr-' + idx;
-          nxt.style.transition = '';
-        } else {
-          if(nxt.parentNode) nxt.remove(); // geride kaldık — bu nxt gereksiz
-        }
-      }, dur);
-
-    }, elapsed);
-  });
+  runTick(0);
 }
 
 function spawnHarfAlPenalty(hexIdx) {
@@ -6818,13 +6855,21 @@ function applyJokerFlood() {
     const j = Math.floor(Math.random() * (i + 1));
     [hidden[i], hidden[j]] = [hidden[j], hidden[i]];
   }
-  const picks = hidden.slice(0, count);
+  const picks = hidden.slice(0, count).sort((a, b) => a - b);
   picks.forEach(idx => {
     if(!revealedIndices.has(idx)) {
       revealedIndices.add(idx);
       jokerFloodIndices.add(idx);
-      revealHexLetter(idx, answer);
     }
+  });
+  // Flood harflerini soldan sağa, yarım saniye arayla aç.
+  const questionAtStart = currentQ;
+  const rowAtStart = document.getElementById('hex-row');
+  picks.forEach((idx, order) => {
+    setTimeout(() => {
+      if(currentQ !== questionAtStart || document.getElementById('hex-row') !== rowAtStart) return;
+      revealHexLetter(idx, answer);
+    }, order * 500);
   });
   updateScoreBadge();
   showToast('🌊 JOKER FLOOD: ' + picks.length + ' harf bedava açıldı!', 2200);

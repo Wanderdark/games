@@ -87,9 +87,11 @@ body.lite .hp-heart{animation:none}
 .sp-weapon-row{display:flex;align-items:center;gap:5px;margin-top:4px;background:rgba(251,191,36,.06);border:1px solid rgba(251,191,36,.18);border-radius:7px;padding:3px 7px}
 .sp-weapon-name{font-family:'Barlow Condensed',sans-serif;font-size:clamp(9px,1vw,11px);font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(253,230,138,.7);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .sp-weapon-val{font-family:'Bebas Neue',sans-serif;font-size:clamp(13px,1.5vw,17px);color:#fbbf24;letter-spacing:.06em;text-shadow:0 0 8px rgba(251,191,36,.4)}
-.sp-gear-list{display:flex;flex-direction:column;gap:3px;margin-top:4px;cursor:pointer}
-.sp-gear-list:hover .sp-gear-row{background:rgba(255,255,255,.09)}
-.sp-gear-row{display:flex;align-items:center;gap:5px;background:rgba(148,163,184,.06);border:1px solid rgba(148,163,184,.16);border-radius:6px;padding:2px 6px;min-width:0}
+.sp-gear-list{display:flex;margin-top:4px;cursor:pointer}
+.sp-gear-list:hover .sp-gear-row{background:rgba(255,255,255,.11);border-color:rgba(125,211,252,.42)}
+.sp-gear-row{width:100%;display:flex;align-items:center;justify-content:space-between;gap:8px;background:rgba(148,163,184,.06);border:1px solid rgba(148,163,184,.16);border-radius:7px;padding:5px 8px;min-width:0;transition:background .15s,border-color .15s}
+.sp-gear-summary-label{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:.12em;color:rgba(203,213,225,.7)}
+.sp-gear-summary-stats{display:flex;align-items:center;gap:10px;font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:.07em}.sp-total-att{color:#fbbf24}.sp-total-def{color:#7dd3fc}
 .sp-gear-row.rarity-1{border-color:rgba(161,161,170,.55)}.sp-gear-row.rarity-1 .sp-gear-name{color:#a1a1aa}
 .sp-gear-row.rarity-2{border-color:rgba(255,255,255,.62)}.sp-gear-row.rarity-2 .sp-gear-name{color:#fff}
 .sp-gear-row.rarity-3{border-color:rgba(59,130,246,.78)}.sp-gear-row.rarity-3 .sp-gear-name{color:#3b82f6}
@@ -128,6 +130,8 @@ body.lite .hp-heart{animation:none}
 #town-overlay.open{display:block}
 #town-overlay.inn-view{background-image:linear-gradient(90deg,rgba(4,12,20,.25),rgba(4,12,20,.06)),url('images/town/inn.webp')}
 #town-overlay.resting-view{background-image:linear-gradient(90deg,rgba(4,12,20,.22),rgba(4,12,20,.04)),url('images/town/inn_resting.webp'),url('images/town/inn.webp')}
+#town-overlay.shop-view{background-image:linear-gradient(180deg,rgba(4,12,20,.08) 0%,rgba(4,12,20,.08) 48%,rgba(4,12,20,.72) 100%),url('images/town/shop.webp'),url('images/town/town.webp')}
+#town-overlay.blacksmith-view{background-image:linear-gradient(180deg,rgba(4,12,20,.08) 0%,rgba(4,12,20,.08) 45%,rgba(4,12,20,.78) 100%),url('images/town/blacksmith.webp'),url('images/town/town.webp')}
 .town-menu{position:absolute;left:24px;top:50%;transform:translateY(-50%);width:min(310px,calc(100vw - 48px));padding:22px;background:rgba(4,10,20,.86);border:1.5px solid rgba(251,191,36,.45);border-radius:20px;backdrop-filter:blur(10px);box-shadow:0 18px 60px rgba(0,0,0,.65);display:flex;flex-direction:column;gap:10px}
 .town-title{font-family:'Bebas Neue',sans-serif;font-size:42px;letter-spacing:.14em;color:#fbbf24;text-align:center;text-shadow:0 0 18px rgba(251,191,36,.5)}
 .town-subtitle{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:.15em;color:rgba(255,255,255,.55);text-align:center;margin-top:-8px;margin-bottom:7px}
@@ -137,6 +141,14 @@ body.lite .hp-heart{animation:none}
 .town-btn.leave{margin-top:8px;border-color:rgba(74,222,128,.42);background:rgba(21,128,61,.28);color:#bbf7d0}
 .town-btn.rest{border-color:rgba(125,211,252,.48);background:rgba(30,64,175,.34);color:#bae6fd}
 .town-status{min-height:20px;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:.09em;color:#fca5a5;text-align:center}
+.town-shop-panel{position:absolute;left:50%;bottom:18px;transform:translateX(-50%);width:min(1040px,calc(100vw - 36px));padding:16px 18px;background:rgba(4,10,20,.88);border:1.5px solid rgba(251,191,36,.5);border-radius:20px;backdrop-filter:blur(10px);box-shadow:0 18px 60px rgba(0,0,0,.7)}
+.town-shop-head{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:12px}.town-shop-title{font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:.14em;color:#fbbf24}.town-shop-gold{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.1em;color:#FFD700}
+.town-shop-items{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.town-shop-item{display:flex;align-items:center;gap:10px;padding:10px;border:1.5px solid rgba(255,255,255,.18);border-radius:13px;background:rgba(0,0,0,.35)}.town-shop-item img{width:62px;height:62px;object-fit:contain}.town-shop-info{flex:1;min-width:0}.town-shop-name{font-family:'Bebas Neue',sans-serif;font-size:19px;letter-spacing:.08em;color:#fff}.town-shop-desc{font-family:'Barlow Condensed',sans-serif;font-size:11px;color:rgba(255,255,255,.55);margin-top:2px}.town-shop-buy{padding:8px 12px;border:0;border-radius:9px;background:linear-gradient(135deg,#92400e,#d97706);color:#fff;font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:.1em;cursor:pointer}.town-shop-buy:disabled{opacity:.32;cursor:not-allowed}.town-shop-leave{margin-top:12px;width:100%;padding:9px;border:1px solid rgba(74,222,128,.42);border-radius:10px;background:rgba(21,128,61,.28);color:#bbf7d0;font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:.13em;cursor:pointer}
+.blacksmith-panel{position:absolute;left:50%;bottom:18px;transform:translateX(-50%);width:min(1180px,calc(100vw - 36px));padding:16px 18px;background:rgba(4,10,20,.9);border:1.5px solid rgba(251,146,60,.58);border-radius:20px;backdrop-filter:blur(10px);box-shadow:0 18px 60px rgba(0,0,0,.75)}
+.blacksmith-head{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:12px}.blacksmith-title{font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:.14em;color:#fdba74}.blacksmith-gold{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.1em;color:#FFD700}
+.blacksmith-items{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}.blacksmith-item{min-width:0;padding:10px;border:2px solid rgba(255,255,255,.18);border-radius:13px;background:rgba(0,0,0,.42);text-align:center}.blacksmith-item.rarity-1{border-color:#a1a1aa}.blacksmith-item.rarity-2{border-color:#fff}.blacksmith-item.rarity-3{border-color:#3b82f6}.blacksmith-item.rarity-4{border-color:#c084fc;box-shadow:0 0 15px rgba(192,132,252,.22)}.blacksmith-item.rarity-5{border-color:#FFD700;box-shadow:0 0 18px rgba(255,215,0,.4)}
+.blacksmith-item img{width:70px;height:70px;object-fit:contain}.blacksmith-slot{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:.15em;color:rgba(255,255,255,.45)}.blacksmith-name{font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:.07em;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.blacksmith-desc{font-family:'Barlow Condensed',sans-serif;font-size:11px;color:rgba(255,255,255,.58);margin:3px 0 8px}.blacksmith-actions{display:grid;grid-template-columns:1fr 1fr;gap:6px}.blacksmith-btn{padding:7px 5px;border:0;border-radius:8px;font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:.07em;cursor:pointer}.blacksmith-btn:disabled{opacity:.28;cursor:not-allowed}.blacksmith-repair{background:rgba(234,88,12,.35);border:1px solid rgba(251,146,60,.45);color:#fed7aa}.blacksmith-sell{background:rgba(21,128,61,.3);border:1px solid rgba(74,222,128,.35);color:#bbf7d0}.blacksmith-empty{opacity:.45}.blacksmith-footer{display:flex;gap:10px;margin-top:12px}.blacksmith-footer button{flex:1;padding:9px;border-radius:10px;font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:.12em;cursor:pointer}.blacksmith-all{border:1px solid rgba(251,146,60,.48);background:rgba(154,52,18,.38);color:#fed7aa}.blacksmith-all:disabled{opacity:.3;cursor:not-allowed}.blacksmith-status{min-height:18px;margin-top:8px;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:.1em;color:#fdba74;text-align:center}
+@media(max-width:800px){.town-shop-items{grid-template-columns:1fr}.town-shop-panel,.blacksmith-panel{max-height:70vh;overflow:auto}.blacksmith-items{grid-template-columns:repeat(2,minmax(0,1fr))}}
 
 /* ── SHOP OVERLAY ── */
 #sp-shop{position:fixed;inset:0;z-index:9670;background:rgba(2,8,20,.97);display:none;align-items:center;justify-content:center;backdrop-filter:blur(14px)}
@@ -190,6 +202,7 @@ body.lite .hp-heart{animation:none}
 .eg-name{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:.07em;color:#94a3b8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .eg-card.rarity-1 .eg-name{color:#a1a1aa}.eg-card.rarity-2 .eg-name{color:#fff}.eg-card.rarity-3 .eg-name{color:#3b82f6}.eg-card.rarity-4 .eg-name{color:#c084fc}.eg-card.rarity-5 .eg-name{color:#FFD700;text-shadow:0 0 9px rgba(255,215,0,.8)}
 .eg-stats{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:.06em;color:rgba(255,255,255,.6);line-height:1.45}
+.eg-potions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:16px}.eg-potion{display:flex;align-items:center;gap:9px;padding:9px 10px;border:1px solid rgba(125,211,252,.24);border-radius:12px;background:rgba(0,0,0,.25)}.eg-potion img{width:42px;height:42px;object-fit:contain}.eg-potion-info{flex:1;min-width:0}.eg-potion-name{font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:.07em;color:#fff}.eg-potion-desc{font-family:'Barlow Condensed',sans-serif;font-size:10px;color:rgba(255,255,255,.5)}.eg-potion-use{padding:7px 10px;border:1px solid rgba(74,222,128,.32);border-radius:8px;background:rgba(21,128,61,.3);color:#bbf7d0;font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:.08em;cursor:pointer}.eg-potion-use:disabled{opacity:.28;cursor:not-allowed}.eg-pause-note{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;color:#fbbf24;text-align:center;margin-top:12px;min-height:14px}
 @media(max-width:800px){.eg-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 
 /* ── WORD BOX ── */
@@ -306,7 +319,7 @@ body.lite .hp-heart{animation:none}
 @keyframes swayPlayer   {0%,100%{transform:translateX(0)}              50%{transform:translateX(10px)}}
 @keyframes swayNpc      {0%,100%{transform:translateX(0)}              50%{transform:translateX(-10px)}}
 @keyframes swayNpcFlying{0%,100%{transform:translate(0,0)}  25%{transform:translate(-8px,-10px)}  50%{transform:translate(-12px,0)}  75%{transform:translate(-8px,10px)}}
-.sp-player-img{max-height:112%;width:clamp(210px,152%,365px);object-fit:contain;display:block;filter:drop-shadow(0 0 18px rgba(74,138,244,.4))}
+.sp-player-img{max-height:min(112%,420px);width:clamp(210px,152%,365px);object-fit:contain;display:block;filter:drop-shadow(0 0 18px rgba(74,138,244,.4))}
 .sp-npc-img{object-fit:contain;display:block;filter:drop-shadow(0 0 18px rgba(239,68,68,.45)) hue-rotate(340deg) saturate(1.2)}
 .sp-npc-img.npc-vertical{max-height:100%;width:clamp(180px,130%,320px)}
 .sp-avatar-sway.npc-landscape-wrap{width:clamp(300px,195%,480px);height:auto;max-height:72%;aspect-ratio:3/2;flex:0 0 auto;align-items:flex-end;left:-32px}
@@ -599,11 +612,13 @@ body.lite .hp-heart{animation:none}
         <span class="sp-gold-lbl">GOLD</span>
       </div>
       <div class="sp-gear-list" id="sp-gear-list" onclick="_openEquippedGear()" title="View equipped gear">
-        <div class="sp-gear-row"><span class="sp-gear-icon">⚔</span><span class="sp-gear-name" id="gear-name-sword">Fists</span><span class="sp-gear-dur" id="gear-dur-sword">ATT 5 · —</span></div>
-        <div class="sp-gear-row"><span class="sp-gear-icon">⛑</span><span class="sp-gear-name" id="gear-name-helmet">Empty</span><span class="sp-gear-dur" id="gear-dur-helmet">DEF 0 · —</span></div>
-        <div class="sp-gear-row"><span class="sp-gear-icon">🛡</span><span class="sp-gear-name" id="gear-name-torso">Empty</span><span class="sp-gear-dur" id="gear-dur-torso">DEF 0 · —</span></div>
-        <div class="sp-gear-row"><span class="sp-gear-icon">🥊</span><span class="sp-gear-name" id="gear-name-gloves">Empty</span><span class="sp-gear-dur" id="gear-dur-gloves">DEF 0 · —</span></div>
-        <div class="sp-gear-row"><span class="sp-gear-icon">🥾</span><span class="sp-gear-name" id="gear-name-foot">Empty</span><span class="sp-gear-dur" id="gear-dur-foot">DEF 0 · —</span></div>
+        <div class="sp-gear-row">
+          <span class="sp-gear-summary-label">EQUIPPED GEAR</span>
+          <span class="sp-gear-summary-stats">
+            <span class="sp-total-att">ATT <span id="sp-total-att">5</span></span>
+            <span class="sp-total-def">DEF <span id="sp-total-def">0</span></span>
+          </span>
+        </div>
       </div>
       <div class="sp-potion-row">
         <span style="font-size:12px;line-height:1">🧪</span>
@@ -616,6 +631,12 @@ body.lite .hp-heart{animation:none}
         <span class="sp-potion-lbl">MANA POTION</span>
         <span class="sp-potion-val empty" id="sp-mana-potion-val">0</span>
         <button class="sp-potion-use" id="sp-mana-potion-use" onclick="event.stopPropagation();_useManaPotion()">USE</button>
+      </div>
+      <div class="sp-potion-row" onclick="_useGreaterHealthPotion()">
+        <span style="font-size:12px;line-height:1">HP+</span>
+        <span class="sp-potion-lbl">GREATER POTION</span>
+        <span class="sp-potion-val empty" id="sp-greater-potion-val">0</span>
+        <button class="sp-potion-use" id="sp-greater-potion-use" onclick="event.stopPropagation();_useGreaterHealthPotion()">USE</button>
       </div>
     </div>
     <div class="sp-streak-box">
@@ -944,8 +965,8 @@ body.lite .hp-heart{animation:none}
     <div class="town-title">TOWN</div>
     <div class="town-subtitle">BIOME CLEARED - PREPARE FOR THE ROAD AHEAD</div>
     <button class="town-btn" onclick="_openInn()">INN</button>
-    <button class="town-btn" disabled>BLACKSMITH - LOCKED</button>
-    <button class="town-btn" disabled>SHOP - LOCKED</button>
+    <button class="town-btn" onclick="_openBlacksmith()">BLACKSMITH</button>
+    <button class="town-btn" onclick="_openTownShop()">SHOP</button>
     <button class="town-btn" disabled>MAGE'S GUILD - LOCKED</button>
     <button class="town-btn" disabled>ADVENTURER'S GUILD - LOCKED</button>
     <button class="town-btn leave" onclick="_leaveTown()">LEAVE</button>
@@ -956,6 +977,26 @@ body.lite .hp-heart{animation:none}
     <button class="town-btn rest" id="inn-rest-btn" onclick="_startInnRest()">REST - 50 GOLD</button>
     <button class="town-btn leave" id="inn-leave-btn" onclick="_leaveInn()">LEAVE</button>
     <div class="town-status" id="inn-status"></div>
+  </div>
+  <div class="town-shop-panel" id="town-shop-panel" style="display:none">
+    <div class="town-shop-head">
+      <div class="town-shop-title">POTION SHOP</div>
+      <div class="town-shop-gold"><span id="town-shop-gold">0</span> GOLD</div>
+    </div>
+    <div class="town-shop-items" id="town-shop-items"></div>
+    <button class="town-shop-leave" onclick="_leaveTownShop()">LEAVE SHOP</button>
+  </div>
+  <div class="blacksmith-panel" id="blacksmith-panel" style="display:none">
+    <div class="blacksmith-head">
+      <div class="blacksmith-title">BLACKSMITH</div>
+      <div class="blacksmith-gold"><span id="blacksmith-gold">0</span> GOLD</div>
+    </div>
+    <div class="blacksmith-items" id="blacksmith-items"></div>
+    <div class="blacksmith-status" id="blacksmith-status"></div>
+    <div class="blacksmith-footer">
+      <button class="blacksmith-all" id="blacksmith-repair-all" onclick="_repairAllEquipment()">REPAIR ALL</button>
+      <button class="town-shop-leave" style="margin-top:0" onclick="_leaveBlacksmith()">LEAVE BLACKSMITH</button>
+    </div>
   </div>
 </div>
 
@@ -1002,6 +1043,8 @@ body.lite .hp-heart{animation:none}
       <button class="eg-close" onclick="_closeEquippedGear()">×</button>
     </div>
     <div class="eg-grid" id="equipped-gear-grid"></div>
+    <div class="eg-potions" id="equipped-gear-potions"></div>
+    <div class="eg-pause-note" id="equipped-gear-pause-note"></div>
   </div>
 </div>
 
@@ -1036,6 +1079,7 @@ const SLOW_SECONDS = 3;
 const INN_REST_COST = 50;
 const INN_REST_HEAL = 75;
 const INN_REST_SECONDS = 10;
+const TOWN_TEST_AFTER_FIRST_ENEMY = true;
 const RANDOM_EVENT_BASE_CHANCE = .10;
 const RANDOM_EVENT_CHANCE_STEP = .08;
 const RANDOM_EVENT_CHANCE_CAP  = .70;
@@ -1130,10 +1174,13 @@ let _spPlayerAtt         = 5;    // base ATT from level progression
 let _spEquipment         = { sword:null, helmet:null, torso:null, gloves:null, foot:null };
 let _spPotions           = 0;    // inventory: health potions (auto-use below 30 HP)
 let _spManaPotions       = 0;
+let _spGreaterPotions    = 0;
 let _spMana              = INITIAL_MANA;
 let _spMaxMana           = INITIAL_MANA;
 let _spEnemySlowed       = false;
 let _spellMenuPausedBattle = false;
+let _gearPauseUsedThisEnemy = false;
+let _gearOverlayPausedBattle = false;
 let _spMaxHP             = 100;  // effective max HP — grows +10 per level
 let _spLevelAtFightStart = 1;    // track level changes per fight
 let _lootTapCount        = 0;
@@ -1149,6 +1196,7 @@ let _pendingTown         = false;
 let _innRestInterval     = null;
 let _innResting          = false;
 let _innRestEndsAt       = 0;
+let _townShopStock      = {};
 let _pendingLootDisposition = '';
 let _pendingChestImage   = 'images/ironchest.webp';
 let _pendingChestOpenImage = 'images/ironchest_open.webp';
@@ -1160,6 +1208,9 @@ const _SHOP_HEALTH_POTION = typeof POTIONS !== 'undefined'
   : null;
 const _SHOP_MANA_POTION = typeof POTIONS !== 'undefined'
   ? POTIONS.find(potion => potion.id === 'mana_potion')
+  : null;
+const _SHOP_GREATER_POTION = typeof POTIONS !== 'undefined'
+  ? POTIONS.find(potion => potion.id === 'greater_health_potion')
   : null;
 
 // ── SETTINGS STATE ────────────────────────────────────────
@@ -1563,6 +1614,10 @@ function _getEquipmentDef() {
   return _ARMOR_SLOTS.reduce((n, slot) => n + (_spEquipment[slot]?.def || 0), 0);
 }
 function _updateEquipmentUI() {
+  const totalAtt = document.getElementById('sp-total-att');
+  const totalDef = document.getElementById('sp-total-def');
+  if (totalAtt) totalAtt.textContent = _spPlayerAtt + _getEquipmentAtt();
+  if (totalDef) totalDef.textContent = _getEquipmentDef();
   _EQUIPMENT_SLOTS.forEach(slot => {
     const item = _spEquipment[slot];
     const nameEl = document.getElementById('gear-name-' + slot);
@@ -1609,13 +1664,47 @@ function _renderEquippedGear() {
       <div class="eg-stats">${statParts.join('<br>')}</div>
     </div>`;
   }).join('');
+  _renderEquippedGearPotions();
+}
+function _renderEquippedGearPotions() {
+  const wrap = document.getElementById('equipped-gear-potions');
+  if (!wrap) return;
+  const potions = [
+    { potion:_SHOP_HEALTH_POTION, count:_spPotions, use:'_useHealthPotion()', disabled:_spPotions <= 0 || _spPlayerHP >= _spMaxHP || _spPlayerHP <= 0 },
+    { potion:_SHOP_GREATER_POTION, count:_spGreaterPotions, use:'_useGreaterHealthPotion()', disabled:_spGreaterPotions <= 0 || _spPlayerHP >= _spMaxHP || _spPlayerHP <= 0 },
+    { potion:_SHOP_MANA_POTION, count:_spManaPotions, use:'_useManaPotion()', disabled:_spManaPotions <= 0 || _spMana >= _spMaxMana },
+  ].filter(entry => entry.potion);
+  wrap.innerHTML = potions.map(entry => {
+    const unit = entry.potion.effect === 'mana' ? 'MP' : 'HP';
+    return `<div class="eg-potion">
+      <img src="${entry.potion.imagePath}" alt="${entry.potion.name}">
+      <div class="eg-potion-info">
+        <div class="eg-potion-name">${entry.potion.name}</div>
+        <div class="eg-potion-desc">RESTORE ${entry.potion.amount} ${unit} - HAVE: ${entry.count}</div>
+      </div>
+      <button class="eg-potion-use" onclick="${entry.use};_renderEquippedGearPotions()"${entry.disabled ? ' disabled' : ''}>USE</button>
+    </div>`;
+  }).join('');
 }
 function _openEquippedGear() {
+  if (document.getElementById('equipped-gear-overlay')?.classList.contains('open')) return;
+  _gearOverlayPausedBattle = false;
+  if (_spRoundActive && !_spClickLocked && !_gearPauseUsedThisEnemy) {
+    _gearPauseUsedThisEnemy = true;
+    _gearOverlayPausedBattle = true;
+    _stopTimer();
+  }
   _renderEquippedGear();
+  const note = document.getElementById('equipped-gear-pause-note');
+  if (note) note.textContent = _gearOverlayPausedBattle
+    ? 'BATTLE PAUSED - PAUSE AVAILABLE ONCE PER ENEMY'
+    : _spRoundActive ? 'BATTLE CONTINUES - PAUSE ALREADY USED FOR THIS ENEMY' : '';
   document.getElementById('equipped-gear-overlay')?.classList.add('open');
 }
-function _closeEquippedGear() {
+function _closeEquippedGear(resumeBattle = true) {
   document.getElementById('equipped-gear-overlay')?.classList.remove('open');
+  if (resumeBattle && _gearOverlayPausedBattle && _spRoundActive) _resumeTimer();
+  _gearOverlayPausedBattle = false;
 }
 function _cloneEquipmentItem(item) {
   return { ...item, currentDur: item.dur };
@@ -1661,6 +1750,14 @@ function _updatePotions() {
     el.className = 'sp-potion-val' + (_spPotions > 0 ? '' : ' empty');
   }
   if (btn) btn.disabled = _spPotions <= 0 || _spPlayerHP >= _spMaxHP || _spPlayerHP <= 0;
+  const greaterEl = document.getElementById('sp-greater-potion-val');
+  const greaterBtn = document.getElementById('sp-greater-potion-use');
+  if (greaterEl) {
+    greaterEl.textContent = _spGreaterPotions;
+    greaterEl.className = 'sp-potion-val' + (_spGreaterPotions > 0 ? '' : ' empty');
+  }
+  if (greaterBtn) greaterBtn.disabled = _spGreaterPotions <= 0 || _spPlayerHP >= _spMaxHP || _spPlayerHP <= 0;
+  if (document.getElementById('equipped-gear-overlay')?.classList.contains('open')) _renderEquippedGearPotions();
 }
 function _useHealthPotion() {
   if (_spPotions <= 0 || _spPlayerHP >= _spMaxHP || _spPlayerHP <= 0) return;
@@ -1674,6 +1771,18 @@ function _useHealthPotion() {
   _playSound('sounds/gulp.mp3', 0.6);
   _spSave();
 }
+function _useGreaterHealthPotion() {
+  if (_spGreaterPotions <= 0 || _spPlayerHP >= _spMaxHP || _spPlayerHP <= 0) return;
+  const healAmount = _SHOP_GREATER_POTION?.amount ?? 60;
+  const restored = Math.min(healAmount, _spMaxHP - _spPlayerHP);
+  _spGreaterPotions--;
+  _spPlayerHP += restored;
+  _updatePlayerHP();
+  _updatePotions();
+  _spawnFloat('+' + restored + ' HP', '#86efac');
+  _playSound('sounds/gulp.mp3', 0.65);
+  _spSave();
+}
 function _updateManaPotions() {
   const el = document.getElementById('sp-mana-potion-val');
   const btn = document.getElementById('sp-mana-potion-use');
@@ -1682,6 +1791,7 @@ function _updateManaPotions() {
     el.className = 'sp-potion-val' + (_spManaPotions > 0 ? '' : ' empty');
   }
   if (btn) btn.disabled = _spManaPotions <= 0 || _spMana >= _spMaxMana;
+  if (document.getElementById('equipped-gear-overlay')?.classList.contains('open')) _renderEquippedGearPotions();
 }
 function _useManaPotion() {
   if (_spManaPotions <= 0 || _spMana >= _spMaxMana) return;
@@ -1956,6 +2066,7 @@ function _startGame() {
   _spEquipment    = { sword:null, helmet:null, torso:null, gloves:null, foot:null };
   _spPotions      = 0;
   _spManaPotions  = 0;
+  _spGreaterPotions = 0;
   _spMaxMana      = INITIAL_MANA;
   _spMana         = _spMaxMana;
   _spEnemySlowed  = false;
@@ -2012,6 +2123,8 @@ function _startGameCore(resumePendingEvent = false, resumeTown = false) {
 function _beginEnemyEncounter() {
   const npc = _getNpc(_spNpcIdx);
   if (!npc) { _showVictory(); return; }
+  _gearPauseUsedThisEnemy = false;
+  _gearOverlayPausedBattle = false;
   _spEnemySlowed = false;
   _updateSpellButton();
   _hideQuestionGrid();
@@ -2159,6 +2272,7 @@ function handleClick(pos) {
 function _showNpcDefeated() {
   _stopTimer();
   _spRoundActive = false;
+  _closeEquippedGear(false);
   _updateSpellButton();
   _closeSpellMenu(false);
   _hideQuestionGrid();
@@ -2355,7 +2469,8 @@ function _spNextEnemy() {
     setTimeout(_showVictory, 400);
     return;
   }
-  if (_spNpcsDefeated > 0 && _spNpcsDefeated % 10 === 0) {
+  if ((TOWN_TEST_AFTER_FIRST_ENEMY && _spNpcsDefeated === 1)
+      || (_spNpcsDefeated > 0 && _spNpcsDefeated % 10 === 0)) {
     setTimeout(_openTown, 350);
     return;
   }
@@ -2372,7 +2487,9 @@ function _continuePostBattleRoute() {
 }
 
 function _openTown() {
+  const enteringTown = !_pendingTown;
   _pendingTown = true;
+  if (enteringTown || !_hasTownShopStock()) _resetTownShopStock();
   _switchToLocationTrack(BG_TOWN_TRACK);
   if (_innRestInterval) { clearInterval(_innRestInterval); _innRestInterval = null; }
   const overlay = document.getElementById('town-overlay');
@@ -2382,10 +2499,12 @@ function _openTown() {
     return;
   }
   _innResting = false;
-  overlay?.classList.remove('inn-view', 'resting-view');
+  overlay?.classList.remove('inn-view', 'resting-view', 'shop-view', 'blacksmith-view');
   overlay?.classList.add('open');
   document.getElementById('town-main-menu').style.display = '';
   document.getElementById('town-inn-menu').style.display = 'none';
+  document.getElementById('town-shop-panel').style.display = 'none';
+  document.getElementById('blacksmith-panel').style.display = 'none';
   _spSave();
 }
 function _openInn() {
@@ -2393,10 +2512,166 @@ function _openInn() {
   _switchToLocationTrack(BG_INN_TRACK);
   const overlay = document.getElementById('town-overlay');
   overlay?.classList.add('inn-view');
-  overlay?.classList.remove('resting-view');
+  overlay?.classList.remove('resting-view', 'shop-view', 'blacksmith-view');
   document.getElementById('town-main-menu').style.display = 'none';
   document.getElementById('town-inn-menu').style.display = '';
+  document.getElementById('town-shop-panel').style.display = 'none';
+  document.getElementById('blacksmith-panel').style.display = 'none';
   _refreshInnUI();
+}
+function _openTownShop() {
+  const overlay = document.getElementById('town-overlay');
+  overlay?.classList.remove('inn-view', 'resting-view', 'blacksmith-view');
+  overlay?.classList.add('shop-view');
+  document.getElementById('town-main-menu').style.display = 'none';
+  document.getElementById('town-inn-menu').style.display = 'none';
+  document.getElementById('town-shop-panel').style.display = '';
+  document.getElementById('blacksmith-panel').style.display = 'none';
+  _renderTownShop();
+}
+function _resetTownShopStock() {
+  _townShopStock = {
+    health_potion: 2,
+    mana_potion: 1,
+    greater_health_potion: 2,
+  };
+}
+function _hasTownShopStock() {
+  return ['health_potion', 'mana_potion', 'greater_health_potion']
+    .every(id => Number.isFinite(_townShopStock[id]) && _townShopStock[id] >= 0);
+}
+function _renderTownShop() {
+  const wrap = document.getElementById('town-shop-items');
+  const gold = document.getElementById('town-shop-gold');
+  if (gold) gold.textContent = _spGold;
+  if (!wrap) return;
+  const offers = [_SHOP_HEALTH_POTION, _SHOP_MANA_POTION, _SHOP_GREATER_POTION].filter(Boolean);
+  wrap.innerHTML = offers.map(potion => {
+    const have = potion.effect === 'mana' ? _spManaPotions
+      : potion.id === 'greater_health_potion' ? _spGreaterPotions : _spPotions;
+    const unit = potion.effect === 'mana' ? 'MP' : 'HP';
+    const stock = Math.max(0, Number(_townShopStock[potion.id]) || 0);
+    const disabled = _spGold < potion.value || stock <= 0 ? ' disabled' : '';
+    return `<div class="town-shop-item rarity-${potion.rarity}">
+      <img src="${potion.imagePath}" alt="${potion.name}">
+      <div class="town-shop-info">
+        <div class="town-shop-name">${potion.name}</div>
+        <div class="town-shop-desc">Restores ${potion.amount} ${unit} - Have: ${have} - Stock: ${stock}</div>
+      </div>
+      <button class="town-shop-buy" onclick="_buyTownPotion('${potion.id}')"${disabled}>${stock > 0 ? potion.value + ' GOLD' : 'OUT OF STOCK'}</button>
+    </div>`;
+  }).join('');
+}
+function _buyTownPotion(potionId) {
+  const potion = typeof POTIONS !== 'undefined' ? POTIONS.find(item => item.id === potionId) : null;
+  if (!potion || _spGold < potion.value || (_townShopStock[potion.id] || 0) <= 0) return;
+  _spGold -= potion.value;
+  _townShopStock[potion.id]--;
+  if (potion.effect === 'mana') _spManaPotions++;
+  else if (potion.id === 'greater_health_potion') _spGreaterPotions++;
+  else _spPotions++;
+  _updateGold();
+  _updatePotions();
+  _updateManaPotions();
+  _spawnFloat('+1 ' + potion.name.toUpperCase(), potion.effect === 'mana' ? '#38bdf8' : '#4ade80');
+  _playSound('sounds/gulp.mp3', 0.5);
+  _spSave();
+  _renderTownShop();
+}
+function _leaveTownShop() {
+  _openTown();
+}
+function _blacksmithRepairCost(item) {
+  if (!item) return 0;
+  const missingDur = Math.max(0, item.dur - item.currentDur);
+  return missingDur > 0 ? Math.max(1, Math.ceil(item.value * 0.5 * missingDur / item.dur)) : 0;
+}
+function _blacksmithSellPrice(item) {
+  return item ? Math.max(1, Math.floor(item.value * 0.5)) : 0;
+}
+function _openBlacksmith() {
+  const overlay = document.getElementById('town-overlay');
+  overlay?.classList.remove('inn-view', 'resting-view', 'shop-view');
+  overlay?.classList.add('blacksmith-view');
+  document.getElementById('town-main-menu').style.display = 'none';
+  document.getElementById('town-inn-menu').style.display = 'none';
+  document.getElementById('town-shop-panel').style.display = 'none';
+  document.getElementById('blacksmith-panel').style.display = '';
+  _renderBlacksmith();
+}
+function _renderBlacksmith(message = '') {
+  const wrap = document.getElementById('blacksmith-items');
+  const gold = document.getElementById('blacksmith-gold');
+  const status = document.getElementById('blacksmith-status');
+  const repairAllBtn = document.getElementById('blacksmith-repair-all');
+  if (gold) gold.textContent = _spGold;
+  if (status) status.textContent = message;
+  if (!wrap) return;
+  const labels = { sword:'WEAPON', helmet:'HELMET', torso:'TORSO', gloves:'GLOVES', foot:'BOOTS' };
+  wrap.innerHTML = _EQUIPMENT_SLOTS.map(slot => {
+    const item = _spEquipment[slot];
+    if (!item) return `<div class="blacksmith-item blacksmith-empty">
+      <div class="blacksmith-slot">${labels[slot]}</div>
+      <div class="blacksmith-name">EMPTY</div>
+      <div class="blacksmith-desc">NO ITEM EQUIPPED</div>
+    </div>`;
+    const repairCost = _blacksmithRepairCost(item);
+    const sellPrice = _blacksmithSellPrice(item);
+    return `<div class="blacksmith-item rarity-${item.rarity}">
+      <div class="blacksmith-slot">${labels[slot]}</div>
+      <img src="${item.imagePath}" alt="${item.name}">
+      <div class="blacksmith-name">${item.name}</div>
+      <div class="blacksmith-desc">DUR ${item.currentDur}/${item.dur} · ATT ${item.att || 0} · DEF ${item.def || 0}</div>
+      <div class="blacksmith-actions">
+        <button class="blacksmith-btn blacksmith-repair" onclick="_repairEquipment('${slot}')"${repairCost <= 0 || _spGold < repairCost ? ' disabled' : ''}>${repairCost > 0 ? 'REPAIR ' + repairCost : 'FULL'}</button>
+        <button class="blacksmith-btn blacksmith-sell" onclick="_sellEquipment('${slot}')">SELL ${sellPrice}</button>
+      </div>
+    </div>`;
+  }).join('');
+  const totalRepairCost = _EQUIPMENT_SLOTS.reduce((sum, slot) => sum + _blacksmithRepairCost(_spEquipment[slot]), 0);
+  if (repairAllBtn) {
+    repairAllBtn.textContent = totalRepairCost > 0 ? 'REPAIR ALL - ' + totalRepairCost + ' GOLD' : 'ALL GEAR FULLY REPAIRED';
+    repairAllBtn.disabled = totalRepairCost <= 0 || _spGold < totalRepairCost;
+  }
+}
+function _repairEquipment(slot) {
+  const item = _spEquipment[slot];
+  const cost = _blacksmithRepairCost(item);
+  if (!item || cost <= 0 || _spGold < cost) return;
+  _spGold -= cost;
+  item.currentDur = item.dur;
+  _updateGold();
+  _updateEquipmentUI();
+  _spSave();
+  _playSound('sounds/punch.mp3', 0.38);
+  _renderBlacksmith(item.name.toUpperCase() + ' REPAIRED FOR ' + cost + ' GOLD');
+}
+function _repairAllEquipment() {
+  const repairable = _EQUIPMENT_SLOTS.map(slot => _spEquipment[slot]).filter(item => _blacksmithRepairCost(item) > 0);
+  const totalCost = repairable.reduce((sum, item) => sum + _blacksmithRepairCost(item), 0);
+  if (!repairable.length || _spGold < totalCost) return;
+  _spGold -= totalCost;
+  repairable.forEach(item => { item.currentDur = item.dur; });
+  _updateGold();
+  _updateEquipmentUI();
+  _spSave();
+  _playSound('sounds/punch.mp3', 0.45);
+  _renderBlacksmith('ALL EQUIPMENT REPAIRED FOR ' + totalCost + ' GOLD');
+}
+function _sellEquipment(slot) {
+  const item = _spEquipment[slot];
+  if (!item) return;
+  const price = _blacksmithSellPrice(item);
+  _spEquipment[slot] = null;
+  _spGold += price;
+  _updateGold();
+  _updateEquipmentUI();
+  _spSave();
+  _playSound('sounds/punch.mp3', 0.35);
+  _renderBlacksmith(item.name.toUpperCase() + ' SOLD FOR ' + price + ' GOLD');
+}
+function _leaveBlacksmith() {
+  _openTown();
 }
 function _refreshInnUI() {
   const restBtn = document.getElementById('inn-rest-btn');
@@ -2429,6 +2704,8 @@ function _resumeInnRest() {
   const leaveBtn = document.getElementById('inn-leave-btn');
   document.getElementById('town-main-menu').style.display = 'none';
   document.getElementById('town-inn-menu').style.display = '';
+  document.getElementById('town-shop-panel').style.display = 'none';
+  document.getElementById('blacksmith-panel').style.display = 'none';
   overlay?.classList.remove('inn-view');
   overlay?.classList.add('resting-view');
   if (restBtn) restBtn.disabled = true;
@@ -2469,7 +2746,7 @@ function _leaveInn() {
 function _leaveTown() {
   if (_innResting) return;
   _pendingTown = false;
-  document.getElementById('town-overlay')?.classList.remove('open', 'inn-view', 'resting-view');
+  document.getElementById('town-overlay')?.classList.remove('open', 'inn-view', 'resting-view', 'shop-view', 'blacksmith-view');
   _spSave();
   _advanceToNextEnemy();
 }
@@ -2842,6 +3119,7 @@ function _resetRunProgress() {
   _lastRandomEventId  = null;
   _pendingTown        = false;
   _innRestEndsAt      = 0;
+  _townShopStock      = {};
   _spNpcsDefeated     = 0;
   _spStreak           = 0;
   _spTotalCorrect     = 0;
@@ -2853,6 +3131,7 @@ function _resetRunProgress() {
 function _showGameOver() {
   _stopTimer();
   _spRoundActive = false;
+  _closeEquippedGear(false);
   _closeSpellMenu(false);
   _updateSpellButton();
   _bgMusicFade(0, 350);
@@ -2913,6 +3192,7 @@ function _spVictoryNewGame() {
 function _showVictory() {
   _stopTimer();
   _spRoundActive = false;
+  _closeEquippedGear(false);
   // Mark save as completed — CONTINUE will be unavailable until new game
   _spSave(true);
   _bgMusicFade(0, 350);
@@ -2943,6 +3223,7 @@ function _spSave(completed) {
       equipment:    _spEquipment,
       potions:      _spPotions,
       manaPotions:  _spManaPotions,
+      greaterPotions:_spGreaterPotions,
       mana:          _spMana,
       maxMana:       _spMaxMana,
       enemyRarities:_spEnemyRarities,
@@ -2951,6 +3232,7 @@ function _spSave(completed) {
       lastRandomEventId: _lastRandomEventId,
       pendingTown:   _pendingTown,
       innRestEndsAt: _innRestEndsAt,
+      townShopStock: _townShopStock,
       npcsDefeated: _spNpcsDefeated,
       bestStreak:   _spBestStreak,
       totalCorrect: _spTotalCorrect,
@@ -2981,6 +3263,7 @@ function _spLoad() {
     }
     if (typeof d.potions      === 'number') _spPotions      = d.potions;
     if (typeof d.manaPotions  === 'number') _spManaPotions  = Math.max(0, d.manaPotions);
+    if (typeof d.greaterPotions === 'number') _spGreaterPotions = Math.max(0, d.greaterPotions);
     if (typeof d.maxMana      === 'number') _spMaxMana      = Math.max(INITIAL_MANA, d.maxMana);
     else _spMaxMana = INITIAL_MANA + Math.max(0, _spLevel - 1) * MANA_PER_LEVEL;
     if (typeof d.mana         === 'number') _spMana         = Math.max(0, Math.min(_spMaxMana, d.mana));
@@ -2990,6 +3273,12 @@ function _spLoad() {
     _lastRandomEventId = _getRandomEvent(d.lastRandomEventId) ? d.lastRandomEventId : null;
     _pendingTown = d.pendingTown === true;
     _innRestEndsAt = typeof d.innRestEndsAt === 'number' ? Math.max(0, d.innRestEndsAt) : 0;
+    if (d.townShopStock && typeof d.townShopStock === 'object') {
+      _townShopStock = {};
+      ['health_potion', 'mana_potion', 'greater_health_potion'].forEach(id => {
+        _townShopStock[id] = Math.max(0, Math.floor(Number(d.townShopStock[id]) || 0));
+      });
+    }
     _spEnemyRarities = {};
     if (d.enemyRarities && typeof d.enemyRarities === 'object') {
       _ENEMY_LIST.forEach(enemy => {
