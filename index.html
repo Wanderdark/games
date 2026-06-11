@@ -641,12 +641,12 @@
     <div class="hub-cards-area">
       <div class="hub-grid">
 
-        <a class="hub-card learn" href="vocab_presenter/index.html">
+        <div class="hub-card learn" onclick="showLearn()">
           <div class="hub-icon">📖</div>
           <div class="hub-title">Learn</div>
           <div class="hub-sub">Vocabulary presenter &amp; flashcard tools for structured learning</div>
           <div class="hub-arrow">&#9654; &nbsp;Open</div>
-        </a>
+        </div>
 
         <div class="hub-card practice" onclick="showPractice()">
           <div class="hub-icon">🎯</div>
@@ -654,6 +654,36 @@
           <div class="hub-sub" id="hub-practice-sub">Interactive classroom activities &amp; vocabulary practice</div>
           <div class="hub-arrow">&#9654; &nbsp;Open</div>
         </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       LEARN HUB VIEW  (Teacher only)
+  ══════════════════════════════════════ -->
+  <div id="learn-hub-view" class="hub-section">
+
+    <div class="back-bar">
+      <button class="back-btn" onclick="showHub()">&#8592; &nbsp;Back</button>
+    </div>
+
+    <div class="hub-cards-area">
+      <div class="hub-grid">
+
+        <a class="hub-card learn" href="vocab_presenter/index.html">
+          <div class="hub-icon">📖</div>
+          <div class="hub-title">Word Presenter</div>
+          <div class="hub-sub">Ünite kelimelerinin flashcard'larla sunumu</div>
+          <div class="hub-arrow">&#9654; &nbsp;Open</div>
+        </a>
+
+        <a class="hub-card practice" href="word_duel/index.html">
+          <div class="hub-icon">🏆</div>
+          <div class="hub-title">Word Tournament</div>
+          <div class="hub-sub">Öğrencilerin öğrendikleri kelimeleri turnuva usulü ile pekiştirmelerini sağlamak üzere bir araç</div>
+          <div class="hub-arrow">&#9654; &nbsp;Open</div>
+        </a>
 
       </div>
     </div>
@@ -846,9 +876,20 @@
       window.scrollTo({ top: 0, behavior: 'instant' });
     }
 
+    function showLearn() {
+      if (currentRole === 'teacher') {
+        document.getElementById('hub-view').style.display = 'none';
+        document.getElementById('learn-hub-view').style.display = 'flex';
+        window.scrollTo({ top: 0, behavior: 'instant' });
+      } else {
+        window.location.href = 'vocab_presenter/index.html';
+      }
+    }
+
     function showHub() {
       document.getElementById('teacher-practice-view').style.display = 'none';
       document.getElementById('student-practice-view').style.display = 'none';
+      document.getElementById('learn-hub-view').style.display = 'none';
       document.getElementById('hub-view').style.display = 'flex';
       window.scrollTo({ top: 0, behavior: 'instant' });
     }
