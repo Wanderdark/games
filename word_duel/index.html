@@ -1,0 +1,2634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WORD TOURNAMENT</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="../word_master/questions.js"></script>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body {
+  height: 100%; overflow: hidden;
+  user-select: none; -webkit-user-select: none;
+  font-family: 'Barlow', sans-serif;
+  background: #080e1a;
+  color: #f1f5f9;
+}
+
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: 9999; pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg, transparent, transparent 2px,
+    rgba(0,0,0,0.04) 2px, rgba(0,0,0,0.04) 4px
+  );
+}
+
+:root {
+  --p1:      #60a5fa;
+  --p1-glow: rgba(96,165,250,0.55);
+  --p2:      #fb923c;
+  --p2-glow: rgba(251,146,60,0.55);
+  --deep:    #080e1a;
+  --gold:    #fbbf24;
+  --white:   #f1f5f9;
+  --muted:   rgba(200,215,255,0.5);
+  --border:  rgba(255,255,255,0.1);
+}
+
+/* ─── BG ─── */
+#mid-line {
+  position: fixed; top: 0; bottom: 0; left: 50%; width: 1px;
+  background: linear-gradient(to bottom, transparent 0%, rgba(255,255,255,.18) 20%, rgba(255,255,255,.18) 80%, transparent 100%);
+  z-index: 0; pointer-events: none;
+}
+#bg {
+  position: fixed; inset: 0; z-index: 0;
+  background: linear-gradient(to right, #0d1b3e 0%, #0d1b3e 35%, #0f1420 50%, #3d1800 65%, #3d1800 100%);
+}
+
+/* ─── SETTINGS ─── */
+#settings-overlay {
+  position: fixed; inset: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: center;
+  padding: 16px;
+}
+.settings-modal {
+  background: linear-gradient(145deg, #0f1c3a, #080e1a);
+  border: 1.5px solid rgba(96,165,250,0.3);
+  border-radius: 28px;
+  padding: 40px 44px 36px;
+  max-width: 540px; width: 100%;
+  max-height: 92vh; overflow-y: auto;
+  text-align: center;
+  box-shadow: 0 0 80px rgba(96,165,250,0.08), 0 24px 64px rgba(0,0,0,0.75);
+  position: relative; z-index: 1;
+}
+.sm-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(58px,9vw,100px);
+  color: var(--p1); letter-spacing: .1em; line-height: .88;
+  text-shadow: 0 0 50px var(--p1-glow);
+}
+.sm-sub {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: clamp(11px,1.3vw,15px); letter-spacing: .3em; text-transform: uppercase;
+  color: var(--muted); margin-top: 6px; margin-bottom: 30px;
+}
+.sm-sec {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase;
+  color: rgba(96,165,250,0.45);
+  border-bottom: 1px solid rgba(96,165,250,0.1); padding-bottom: 5px;
+  margin-bottom: 10px; margin-top: 18px; text-align: left;
+}
+.btn-grid { display: flex; flex-wrap: wrap; gap: 8px; }
+#unit-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+.grade-btn, .unit-btn {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+  padding: 8px 16px;
+  background: rgba(255,255,255,0.04);
+  border: 1.5px solid rgba(96,165,250,0.18);
+  border-radius: 10px; color: rgba(200,215,255,0.6);
+  cursor: pointer; transition: all .15s;
+}
+.grade-btn:hover, .unit-btn:hover:not(:disabled) {
+  border-color: rgba(96,165,250,0.5); color: var(--white); background: rgba(96,165,250,0.08);
+}
+.grade-btn.active, .unit-btn.active {
+  background: linear-gradient(135deg, rgba(59,130,246,.22), rgba(96,165,250,.12));
+  border-color: var(--p1); color: var(--p1);
+  box-shadow: 0 0 12px rgba(96,165,250,.18);
+}
+.unit-btn:disabled { opacity: .3; cursor: not-allowed; }
+#word-count {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px; letter-spacing: .06em;
+  color: var(--muted); margin-top: 14px; margin-bottom: 22px;
+  text-align: left; min-height: 18px;
+}
+.start-btn {
+  width: 100%; padding: 18px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: clamp(20px,2.8vw,28px); font-weight: 700;
+  letter-spacing: .14em; text-transform: uppercase;
+  background: linear-gradient(135deg, #15803d, #22c55e);
+  border: none; border-radius: 14px; color: #fff; cursor: pointer;
+  box-shadow: 0 4px 20px rgba(34,197,94,.32);
+  transition: transform .15s, box-shadow .15s;
+}
+.start-btn:hover:not(:disabled) { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(34,197,94,.5); }
+.start-btn:disabled { opacity: .35; cursor: not-allowed; }
+
+/* ─── STUDENT SELECT SCREEN ─── */
+#screen-student-select {
+  position:fixed; inset:0; z-index:200;
+  display:flex; align-items:center; justify-content:center;
+  padding:20px;
+}
+#screen-student-select.hidden { display:none; }
+.ss-panel {
+  background:linear-gradient(145deg,#0f1c3a,#080e1a);
+  border:1.5px solid rgba(96,165,250,0.28);
+  border-radius:28px; padding:36px 40px 30px;
+  width:min(96vw,1100px); height:min(92vh,820px);
+  display:flex; flex-direction:column; gap:18px; overflow:hidden;
+  box-shadow:0 0 80px rgba(96,165,250,0.07), 0 24px 64px rgba(0,0,0,0.7);
+}
+.ss-logo {
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(36px,5vw,58px); color:var(--p1);
+  letter-spacing:.1em; line-height:.88; text-align:center;
+  text-shadow:0 0 40px var(--p1-glow);
+}
+.ss-heading {
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:clamp(10px,1.2vw,13px); font-weight:700; letter-spacing:.28em;
+  text-transform:uppercase; color:rgba(96,165,250,0.45);
+  text-align:center; margin-top:-4px;
+}
+.ss-sub {
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:clamp(13px,1.6vw,17px); letter-spacing:.08em;
+  color:var(--muted); text-align:center; margin-top:-6px;
+}
+.ss-class-pool {
+  display:flex; flex-wrap:wrap; align-content:flex-start; gap:10px;
+  padding:20px; background:rgba(255,255,255,.025);
+  border:1px solid rgba(255,255,255,.07); border-radius:16px;
+  overflow-y:auto; flex:1; min-height:0;
+}
+.ss-chip {
+  font-family:'Barlow Condensed',sans-serif; font-size:18px; font-weight:700;
+  letter-spacing:.1em; padding:11px 20px; border-radius:11px;
+  border:1.5px solid rgba(255,255,255,.13); background:rgba(255,255,255,.05);
+  color:var(--white); cursor:pointer; transition:all .13s; user-select:none;
+}
+.ss-chip:hover { border-color:rgba(96,165,250,.5); background:rgba(96,165,250,.08); }
+.ss-chip.sel-p1 { border-color:var(--p1); background:rgba(96,165,250,.18); color:var(--p1); }
+.ss-chip.sel-p2 { border-color:var(--p2); background:rgba(251,146,60,.18); color:var(--p2); }
+.ss-count-row {
+  display:flex; align-items:center; justify-content:space-between;
+  gap:14px; flex-shrink:0; flex-wrap:wrap;
+}
+.ss-count {
+  font-family:'Barlow Condensed',sans-serif; font-size:18px; font-weight:700;
+  letter-spacing:.1em; color:var(--muted);
+}
+.ss-count.ready { color:#4ade80; }
+.ss-rename-btn {
+  font-family:'Barlow Condensed',sans-serif; font-size:16px; font-weight:700;
+  letter-spacing:.12em; text-transform:uppercase; padding:11px 20px;
+  background:rgba(96,165,250,.08); border:1.5px solid rgba(96,165,250,.35);
+  border-radius:12px; color:var(--p1); cursor:pointer; transition:all .13s;
+}
+.ss-rename-btn:hover { background:rgba(96,165,250,.2); border-color:var(--p1); }
+.ss-rename-btn.hidden { display:none; }
+.ss-continue-btn {
+  font-family:'Barlow Condensed',sans-serif; font-size:20px; font-weight:700;
+  letter-spacing:.14em; text-transform:uppercase; padding:14px 32px;
+  background:linear-gradient(135deg,#15803d,#22c55e);
+  border:none; border-radius:13px; color:#fff; cursor:pointer;
+  transition:transform .12s, box-shadow .15s;
+  box-shadow:0 4px 18px rgba(34,197,94,.32);
+}
+.ss-continue-btn:disabled { opacity:.35; cursor:not-allowed; transform:none!important; box-shadow:none!important; }
+.ss-continue-btn:not(:disabled):hover { transform:translateY(-2px); box-shadow:0 7px 28px rgba(34,197,94,.5); }
+
+/* ─── RENAME OVERLAY ─── */
+#overlay-rename {
+  position:fixed; inset:0; z-index:9000;
+  display:flex; align-items:center; justify-content:center;
+  background:rgba(0,0,0,0.78); padding:16px;
+}
+#overlay-rename.hidden { display:none; }
+.rn-box {
+  background:linear-gradient(145deg,#0f1c3a,#080e1a);
+  border:1.5px solid rgba(96,165,250,0.3);
+  border-radius:24px; padding:22px 26px 20px;
+  width:min(560px,96vw); display:flex; flex-direction:column;
+  align-items:center; gap:12px;
+}
+.rn-title {
+  font-family:'Barlow Condensed',sans-serif; font-size:13px; font-weight:700;
+  letter-spacing:.22em; color:rgba(200,215,255,0.38); text-transform:uppercase;
+}
+.rn-display-wrap {
+  background:rgba(0,0,0,0.4); border:2px solid rgba(96,165,250,0.22);
+  border-radius:12px; padding:10px 24px; width:100%;
+  text-align:center; min-height:54px; display:flex; align-items:center; justify-content:center;
+}
+#rn-display {
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(26px,4.5vw,42px); letter-spacing:.12em; color:var(--p1);
+}
+#rn-keyboard { display:flex; flex-direction:column; gap:5px; width:100%; }
+.rn-row { display:flex; gap:4px; justify-content:center; }
+.rn-key {
+  font-family:'Barlow Condensed',sans-serif; font-size:15px; font-weight:700;
+  letter-spacing:.04em; min-width:38px; height:38px; border-radius:8px;
+  background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1);
+  color:var(--white); cursor:pointer; transition:background .1s;
+  display:flex; align-items:center; justify-content:center; padding:0 4px;
+}
+.rn-key:active { background:rgba(255,255,255,0.16); transform:scale(.93); }
+.rn-key.rn-space { flex:2; min-width:80px; color:rgba(200,215,255,0.5); font-size:12px; }
+.rn-key.rn-del { background:rgba(251,146,60,0.1); border-color:rgba(251,146,60,0.3); color:var(--p2); min-width:52px; }
+.rn-key.rn-ok { background:rgba(96,165,250,0.18); border-color:rgba(96,165,250,0.5); color:var(--p1); min-width:80px; font-size:14px; }
+.rn-cancel-btn {
+  font-family:'Barlow Condensed',sans-serif; font-size:14px; font-weight:700;
+  letter-spacing:.14em; padding:9px 28px; border-radius:10px;
+  background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.1);
+  color:rgba(200,215,255,0.4); cursor:pointer; transition:all .12s; align-self:flex-end;
+}
+.rn-cancel-btn:hover { background:rgba(255,255,255,0.09); color:rgba(200,215,255,0.7); }
+
+/* ─── GAME SCREEN ─── */
+#game-screen {
+  position: fixed; inset: 0; z-index: 1;
+  display: none; flex-direction: column;
+}
+
+/* ── HEADER ── */
+#game-header {
+  display: flex; align-items: stretch;
+  height: 80px; flex-shrink: 0;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  position: relative;
+}
+.player-header {
+  flex: 1; display: flex; align-items: center;
+  padding: 0 22px; gap: 14px;
+  transition: background .35s;
+  position: relative; overflow: hidden;
+}
+.player-header::after {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
+  transform: scaleX(0);
+  transition: transform .35s cubic-bezier(.34,1.2,.64,1);
+  transform-origin: left;
+}
+.player-header.p2::after { transform-origin: right; }
+/* P1 — navy/blue */
+.player-header.p1 { background: linear-gradient(90deg, rgba(29,78,216,0.07) 0%, transparent 100%); transition: background .35s ease; }
+.player-header.p1::after { background: var(--p1); }
+.player-header.p1.active-player { background: linear-gradient(90deg, rgba(29,78,216,0.55) 0%, rgba(29,78,216,0.12) 100%); }
+.player-header.p1.active-player::after { transform: scaleX(1); }
+/* P2 — orange */
+.player-header.p2 { background: linear-gradient(270deg, rgba(194,65,12,0.07) 0%, transparent 100%); transition: background .35s ease; }
+.player-header.p2::after { background: var(--p2); }
+.player-header.p2.active-player { background: linear-gradient(270deg, rgba(194,65,12,0.55) 0%, rgba(194,65,12,0.12) 100%); }
+.player-header.p2.active-player::after { transform: scaleX(1); }
+.ph-left  { display: flex; flex-direction: column; gap: 2px; }
+.ph-pu-history {
+  display: flex; flex-wrap: wrap; gap: 1px;
+  line-height: 1; min-height: 12px;
+}
+.ph-pu-history span { font-size: 11px; }
+.ph-right { margin-left: auto; flex-shrink: 0; }
+.player-header.p2 .ph-right { margin-left: 0; }
+.player-header.p2 .ph-left  { margin-left: auto; text-align: right; }
+.ph-turn {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase;
+  color: transparent; transition: color .35s;
+  height: 14px; display: flex; align-items: center; gap: 4px;
+}
+.player-header.p1.active-player .ph-turn { color: rgba(96,165,250,0.7); }
+.player-header.p2.active-player .ph-turn { color: rgba(251,146,60,0.7); }
+.ph-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(20px,2.8vw,32px); letter-spacing: .1em;
+  color: rgba(200,215,255,0.4); transition: color .35s; line-height: 1;
+}
+.ph-wins {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: clamp(9px,1vw,12px); font-weight: 700; letter-spacing: .2em;
+  color: rgba(251,191,36,0.55);
+}
+.player-header.p1.active-player .ph-name {
+  color: var(--p1);
+  animation: namePulsate 1.5s ease-in-out infinite;
+}
+.player-header.p2.active-player .ph-name {
+  color: var(--p2);
+  animation: namePulsate 1.5s ease-in-out infinite;
+}
+@keyframes namePulsate {
+  0%, 100% { transform: scale(1); }
+  50%       { transform: scale(1.1); }
+}
+/* ─── PU STAGE ZONES ─── */
+#game-stage { position: relative; }
+.pu-zone {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  width: calc(50vw - min(230px,41vw) - 32px);
+  display: flex; align-items: center; justify-content: center;
+  pointer-events: none;
+}
+.pu-zone-p1 { left: 24px; }
+.pu-zone-p2 { right: 24px; }
+.pu-zone img {
+  width: 100%; max-width: min(200px,18vw); height: auto;
+  max-height: min(200px,28vh); object-fit: contain;
+  opacity: 0; transition: opacity .4s ease;
+}
+.turn-shout {
+  position: absolute; top: 68%;
+  width: calc(50vw - min(230px,41vw) - 32px);
+  display: flex; flex-direction: column; align-items: center;
+  pointer-events: none; text-align: center;
+  opacity: 0; transition: opacity .35s ease;
+}
+.turn-shout.active { opacity: 1; }
+.turn-shout-p1 { left: 24px; }
+.turn-shout-p2 { right: 24px; }
+.ts-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(13px,1.6vw,20px);
+  letter-spacing: .08em; line-height: 1.2;
+}
+.turn-shout-p1 .ts-name { color: var(--p1); }
+.turn-shout-p2 .ts-name { color: var(--p2); }
+.ts-label {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(16px,2.2vw,28px);
+  color: rgba(255,255,255,.85); letter-spacing: .12em; line-height: 1;
+}
+.ph-score {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(36px,5vw,58px);
+  line-height: 1; transition: transform .25s;
+}
+#score-0 { color: var(--p1); }
+#score-1 { color: var(--p2); }
+.ph-score.bump { animation: scoreBump .38s cubic-bezier(.34,1.56,.64,1); }
+@keyframes scoreBump { 0%,100%{transform:scale(1)} 50%{transform:scale(1.45)} }
+.header-mid {
+  flex: 0 0 auto; display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 0 20px;
+  border-left: 1px solid rgba(255,255,255,0.05);
+  border-right: 1px solid rgba(255,255,255,0.05);
+}
+.header-mid-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(14px,1.8vw,20px); letter-spacing: .14em;
+  color: rgba(255,255,255,0.2);
+}
+.header-mid-badge {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px; letter-spacing: .2em; text-transform: uppercase;
+  color: rgba(255,255,255,0.15);
+}
+#fs-btn {
+  position: fixed; bottom: 10px; right: 52px; z-index: 200;
+  width: 32px; height: 32px; border-radius: 50%;
+  background: rgba(80,0,0,.55); border: 1px solid rgba(255,80,80,.35);
+  color: rgba(255,160,160,.7); font-size: 15px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all .15s;
+}
+#fs-btn:hover { background: rgba(180,0,0,.8); color: #fff; border-color: #f87171; }
+.hdr-prog-wrap {
+  position: absolute; bottom: 0; left: 0; width: 50%; height: 3px;
+  background: rgba(255,255,255,0.05); overflow: hidden;
+}
+.hdr-prog-wrap.right { left: 50%; }
+.hdr-prog-bar { height: 100%; transition: width .5s cubic-bezier(.34,1.2,.64,1); }
+#bar-0 { background: var(--p1); }
+#bar-1 { background: var(--p2); }
+
+/* ── STAGE ── */
+#game-stage {
+  flex: 1; display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 14px; padding: 28px 24px; min-height: 0;
+}
+#card-wrap {
+  width: min(460px, 82vw); height: min(240px, 38vh);
+  background: linear-gradient(145deg, #1e293b, #0f172a);
+  border: 2px solid rgba(251,191,36,0.5);
+  border-radius: 24px;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 0 50px rgba(0,0,0,0.5), 0 20px 52px rgba(0,0,0,0.6);
+  transition: border-color .3s, transform .18s ease-in, opacity .18s ease-in;
+  position: relative; overflow: hidden;
+}
+#card-wrap::before {
+  content: '';
+  position: absolute; top: 0; left: 10%; right: 10%; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+}
+/* Double Jeopardy card states */
+#card-wrap.dj-accepted  { border-color: rgba(251,191,36,0.9); box-shadow: 0 0 80px rgba(251,191,36,0.18), 0 20px 52px rgba(0,0,0,0.6); }
+#card-wrap.dj-refused   { border-color: rgba(255,255,255,0.06); }
+
+#card-word {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(32px,6vw,72px);
+  color: var(--white); letter-spacing: .08em; text-align: center;
+  padding: 0 28px; line-height: 1.1;
+}
+#card-word.easy-word { color: #fbbf24; }
+#card-word.italic-sub {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-style: italic; font-size: clamp(22px,4vw,52px);
+  opacity: 0.5; letter-spacing: .04em;
+}
+#card-img {
+  display: none;
+  width: min(420px, 72vw); height: min(420px, 52vh);
+  object-fit: contain; border-radius: 14px;
+}
+#card-wrap.img-mode {
+  width: min(500px, 86vw); height: auto;
+  padding: 14px;
+}
+#card-wrap.img-mode #card-word { display: none; }
+#card-wrap.img-mode #card-img  { display: block; }
+#card-wrap.img-mode.img-reveal-mode { flex-direction: column; gap: 8px; }
+#card-wrap.img-mode.img-reveal-mode #card-img {
+  width: min(340px, 60vw); height: min(280px, 38vh);
+  order: 1;
+}
+#card-wrap.img-mode.img-reveal-mode #card-word {
+  display: block;
+  font-size: clamp(22px, 4vw, 54px);
+  order: 2;
+}
+#card-counter {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: clamp(11px,1.2vw,14px); letter-spacing: .2em; text-transform: uppercase;
+  color: rgba(255,255,255,0.22);
+}
+#win-hint {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: clamp(10px,1.1vw,13px); letter-spacing: .22em; text-transform: uppercase;
+  color: rgba(200,215,255,0.18);
+}
+
+/* ─── COMBO HUD ─── */
+#combo-hud {
+  flex-shrink: 0; display: none;
+  flex-direction: column; align-items: center; gap: 5px;
+  background: rgba(10,14,30,0.85);
+  border: 1.5px solid rgba(251,191,36,.45);
+  border-radius: 14px; padding: 8px 24px 10px;
+}
+.combo-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px; font-weight: 700; letter-spacing: .24em; text-transform: uppercase;
+  color: rgba(251,191,36,.65);
+}
+.combo-dots { display: flex; gap: 10px; }
+.combo-dot {
+  width: 14px; height: 14px; border-radius: 50%;
+  background: #fbbf24; box-shadow: 0 0 8px rgba(251,191,36,.45);
+}
+.combo-dot.used { background: rgba(251,191,36,.15); box-shadow: none; }
+.combo-owner-txt {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
+  color: rgba(251,191,36,.55);
+}
+
+/* ─── DOUBLE JEOPARDY BADGE (below card) ─── */
+#dj-badge {
+  display: none;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase;
+  padding: 5px 14px; border-radius: 8px;
+}
+#dj-badge.accepted {
+  background: rgba(251,191,36,.12); border: 1px solid rgba(251,191,36,.35);
+  color: rgba(251,191,36,.75);
+}
+#dj-badge.refused {
+  background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.1);
+  color: rgba(200,215,255,.4);
+}
+
+/* ─── ACTION ROW ─── */
+#action-row {
+  display: flex; gap: 14px; padding: 14px 24px 22px; flex-shrink: 0;
+}
+.act-btn {
+  flex: 1; padding: 0;
+  height: clamp(68px, 9vh, 96px);
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(22px,3.2vw,38px); letter-spacing: .14em;
+  border: none; border-radius: 18px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  transition: transform .15s, box-shadow .15s, opacity .15s;
+}
+.act-btn:active { transform: scale(0.95) !important; }
+.act-btn:disabled { opacity: .4; cursor: not-allowed; transform: none !important; }
+#wrong-btn {
+  background: linear-gradient(145deg, #7f1d1d 0%, #991b1b 100%);
+  color: #fca5a5;
+  box-shadow: 0 5px 22px rgba(220,38,38,.22), inset 0 1px 0 rgba(255,150,150,0.1);
+}
+#wrong-btn:hover:not(:disabled) { transform: translateY(-4px); box-shadow: 0 10px 30px rgba(220,38,38,.4); }
+#correct-btn {
+  background: linear-gradient(145deg, #14532d 0%, #166534 100%);
+  color: #86efac;
+  box-shadow: 0 5px 22px rgba(34,197,94,.22), inset 0 1px 0 rgba(100,255,150,0.1);
+}
+#correct-btn:hover:not(:disabled) { transform: translateY(-4px); box-shadow: 0 10px 30px rgba(34,197,94,.4); }
+
+/* ─── FROZEN / ZAPPED PLAYER ─── */
+.ph-frozen-img, .ph-zapped-img {
+  position:absolute; inset:0; width:100%; height:100%;
+  object-fit:cover; pointer-events:none;
+  opacity:0; transition:opacity .4s ease;
+  z-index:0;
+}
+.player-header.frozen-player .ph-frozen-img { opacity:.55; }
+.player-header.zapped-player .ph-zapped-img { opacity:.55; }
+.ph-left, .ph-right { position:relative; z-index:1; }
+.player-header.frozen-player { background: rgba(6,182,212,0.07) !important; }
+.player-header.frozen-player .ph-name {
+  color: #22d3ee !important;
+  text-shadow: 0 0 14px rgba(34,211,238,0.65) !important;
+}
+.player-header.frozen-player::after { background: #22d3ee; transform: scaleX(1); }
+.player-header.frozen-player .ph-turn { color: rgba(34,211,238,0.6) !important; }
+
+/* ─── FREEZE HUD ─── */
+#freeze-hud {
+  flex-shrink: 0; display: none;
+  flex-direction: column; align-items: center; gap: 5px;
+  background: rgba(0,20,40,0.85);
+  border: 1.5px solid rgba(34,211,238,.5);
+  border-radius: 14px; padding: 8px 24px 10px;
+}
+.freeze-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px; font-weight: 700; letter-spacing: .24em; text-transform: uppercase;
+  color: rgba(34,211,238,.7);
+}
+.freeze-info {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(16px,2.2vw,22px); color: #67e8f9; letter-spacing: .1em;
+  text-align: center;
+}
+
+/* ─── STUNNED PLAYER ─── */
+.player-header.stunned-player { background: rgba(251,191,36,0.07) !important; }
+.player-header.stunned-player .ph-name {
+  color: #fbbf24 !important;
+  text-shadow: 0 0 14px rgba(251,191,36,0.6) !important;
+}
+.player-header.stunned-player::after { background: #fbbf24; transform: scaleX(1); }
+.player-header.stunned-player .ph-turn { color: rgba(251,191,36,0.6) !important; }
+
+/* ─── STUNNED HUD ─── */
+#stunned-hud {
+  flex-shrink: 0; display: none;
+  flex-direction: column; align-items: center; gap: 5px;
+  background: rgba(30,20,0,0.85);
+  border: 1.5px solid rgba(251,191,36,.55);
+  border-radius: 14px; padding: 8px 24px 10px;
+}
+.stunned-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px; font-weight: 700; letter-spacing: .24em; text-transform: uppercase;
+  color: rgba(251,191,36,.7);
+}
+.stunned-info {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(16px,2.2vw,22px); color: #fde68a; letter-spacing: .1em;
+  text-align: center;
+}
+
+
+/* ─── BUZZ BUTTON ─── */
+#buzz-btn {
+  display: none; flex: 1;
+  height: clamp(68px, 9vh, 96px);
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(26px,4vw,46px); letter-spacing: .18em;
+  background: linear-gradient(145deg, #7a1f00, #c43000);
+  border: none; border-radius: 18px; color: #ffcdb8; cursor: pointer;
+  box-shadow: 0 5px 28px rgba(220,80,0,.35), inset 0 1px 0 rgba(255,180,120,.12);
+  transition: transform .12s, box-shadow .12s;
+  animation: buzzPulse 1.4s ease-in-out infinite;
+}
+#buzz-btn:hover { transform: translateY(-4px); box-shadow: 0 12px 36px rgba(220,80,0,.55); }
+#buzz-btn:active { transform: scale(.96) !important; animation: none; }
+@keyframes buzzPulse {
+  0%,100% { box-shadow: 0 5px 28px rgba(220,80,0,.35); }
+  50%      { box-shadow: 0 5px 40px rgba(255,100,0,.65); }
+}
+#reveal-btn {
+  display: none;
+  position: absolute; bottom: 16px; left: 0; right: 0; margin: 0 auto;
+  width: fit-content;
+  padding: 7px 24px;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(16px, 2.5vw, 28px); letter-spacing: .18em;
+  background: linear-gradient(145deg, #7a5f00, #c4a000);
+  border: none; border-radius: 14px; color: #fff8dc; cursor: pointer;
+  box-shadow: 0 4px 20px rgba(200,160,0,.45);
+  transition: transform .12s, box-shadow .12s;
+  z-index: 2;
+}
+#reveal-btn.visible { display: block; }
+#reveal-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(200,160,0,.6); }
+#reveal-btn:active { transform: scale(.96); }
+
+/* ─── OVERRIDE BTN ─── */
+#override-btn {
+  position: absolute; bottom: 10px; right: 12px;
+  width: 32px; height: 32px; border-radius: 50%;
+  background: rgba(80,0,0,.55); border: 1px solid rgba(255,80,80,.35);
+  color: rgba(255,160,160,.7); font-size: 15px; cursor: pointer;
+  display: none; align-items: center; justify-content: center;
+  padding: 0; line-height: 1; z-index: 50;
+  transition: background .2s, color .2s;
+}
+#override-btn:hover { background: rgba(180,0,0,.8); color: #fff; border-color: #f87171; }
+#override-btn.visible { display: flex; }
+
+/* ─── SIM HUD ─── */
+#sim-hud {
+  flex-shrink: 0; display: none;
+  flex-direction: column; align-items: center; gap: 5px;
+  background: rgba(10,14,30,0.85);
+  border: 1.5px solid rgba(251,146,60,.5);
+  border-radius: 14px; padding: 8px 24px 10px;
+}
+.sim-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px; font-weight: 700; letter-spacing: .24em; text-transform: uppercase;
+  color: rgba(251,146,60,.75);
+}
+.sim-turns {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(22px,3vw,30px); color: var(--p2); letter-spacing: .1em;
+}
+
+/* ─── SIM CHOICE OVERLAY ─── */
+#sim-choice-overlay {
+  position: fixed; inset: 0; z-index: 650;
+  display: none; align-items: center; justify-content: center;
+  background: rgba(4,7,20,0.85);
+}
+.sim-choice-modal {
+  background: linear-gradient(145deg, #0f1c3a, #080e1a);
+  border: 2px solid rgba(251,146,60,.7); border-radius: 24px;
+  padding: 32px 40px 36px;
+  text-align: center; max-width: 420px; width: 92%;
+  box-shadow: 0 0 60px rgba(251,146,60,.15), 0 20px 50px rgba(0,0,0,.7);
+  animation: winPop .35s cubic-bezier(.34,1.56,.64,1);
+}
+.sim-choice-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(22px,3vw,30px); letter-spacing: .14em;
+  color: rgba(251,146,60,.9); margin-bottom: 6px;
+}
+.sim-choice-sub {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase;
+  color: rgba(255,255,255,.3); margin-bottom: 20px;
+}
+.sim-choice-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+}
+.sim-choice-btn {
+  padding: 14px 8px;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(16px,2.2vw,22px); letter-spacing: .08em;
+  border: 1.5px solid rgba(255,255,255,.15);
+  border-radius: 13px; cursor: pointer;
+  transition: transform .12s, box-shadow .12s;
+}
+.sim-choice-btn:active { transform: scale(.96); }
+.sim-btn-p1    { background: linear-gradient(145deg,#1e3a8a,#1d4ed8); color:#93c5fd; border-color:rgba(96,165,250,.3); }
+.sim-btn-p2    { background: linear-gradient(145deg,#7c2d12,#9a3412); color:#fdba74; border-color:rgba(251,146,60,.3); }
+.sim-btn-both  { background: linear-gradient(145deg,#14532d,#166534); color:#86efac; border-color:rgba(34,197,94,.3); }
+.sim-btn-neither { background: linear-gradient(145deg,#1e293b,#0f172a); color:rgba(200,215,255,.5); border-color:rgba(255,255,255,.12); }
+.sim-btn-p1:hover    { transform:translateY(-2px); box-shadow:0 6px 20px rgba(96,165,250,.25); }
+.sim-btn-p2:hover    { transform:translateY(-2px); box-shadow:0 6px 20px rgba(251,146,60,.25); }
+.sim-btn-both:hover  { transform:translateY(-2px); box-shadow:0 6px 20px rgba(34,197,94,.25); }
+.sim-btn-neither:hover { transform:translateY(-2px); }
+
+/* ─── STAMP ─── */
+#word-stamp {
+  position: fixed; inset: 0; z-index: 600;
+  display: flex; align-items: center; justify-content: center;
+  pointer-events: none;
+}
+.stamp-text {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(72px,14vw,130px); letter-spacing: .12em;
+  border: 8px solid; border-radius: 12px; padding: 10px 32px;
+  opacity: 0; transform: scale(1.6) rotate(-12deg);
+  animation: stampDrop .55s cubic-bezier(.2,.85,.4,1.1) forwards;
+}
+.stamp-text.stamp-valid {
+  color: rgba(74,222,128,.92); border-color: rgba(74,222,128,.85);
+  text-shadow: 0 0 40px rgba(74,222,128,.6);
+  box-shadow: 0 0 60px rgba(74,222,128,.25);
+}
+.stamp-text.stamp-invalid {
+  color: rgba(248,113,113,.92); border-color: rgba(248,113,113,.85);
+  text-shadow: 0 0 40px rgba(248,113,113,.6);
+  box-shadow: 0 0 60px rgba(248,113,113,.25);
+}
+@keyframes stampDrop {
+  0%  { opacity:0; transform:scale(1.6) rotate(-12deg) }
+  35% { opacity:1; transform:scale(.95) rotate(-6deg)  }
+  60% { transform:scale(1.04) rotate(-6deg) }
+  80% { transform:scale(.98)  rotate(-6deg) }
+  100%{ opacity:1; transform:scale(1) rotate(-6deg) }
+}
+
+/* ─── POWER-UP OVERLAY ─── */
+#pu-overlay {
+  position: fixed; inset: 0; z-index: 700;
+  display: none; align-items: center; justify-content: center;
+  background: rgba(4,7,20,0.9);
+}
+.pu-modal {
+  background: linear-gradient(145deg, #0f1c3a, #080e1a);
+  border: 2px solid rgba(251,191,36,0.55); border-radius: 24px;
+  padding: 36px 48px 32px;
+  text-align: center; max-width: 420px; width: 90%;
+  box-shadow: 0 0 60px rgba(251,191,36,0.12), 0 20px 50px rgba(0,0,0,0.7);
+  animation: winPop .45s cubic-bezier(.34,1.56,.64,1);
+}
+.pu-badge {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(28px,4vw,46px); letter-spacing: .08em;
+  color: #fff; margin-bottom: 16px; line-height: 1;
+}
+.pu-img-wrap { width: 240px; height: 240px; margin: 0 auto 16px; }
+.pu-img-wrap img { width: 100%; height: 100%; object-fit: contain; }
+.pu-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(22px,3vw,34px); letter-spacing: .1em;
+  color: var(--gold); line-height: 1;
+}
+.pu-desc { display: none; }
+.pu-both { display: none; }
+.pu-continue-btn {
+  width: 100%; margin-top: 20px; padding: 13px;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(18px,2.4vw,24px); letter-spacing: .14em;
+  background: linear-gradient(135deg, #713f12, #92400e);
+  border: 1.5px solid rgba(251,191,36,.45);
+  border-radius: 13px; color: var(--gold); cursor: pointer;
+  box-shadow: 0 4px 16px rgba(251,191,36,.12);
+  transition: transform .12s, box-shadow .12s;
+}
+.pu-continue-btn:hover { transform: translateY(-2px); box-shadow: 0 7px 22px rgba(251,191,36,.25); }
+.pu-continue-btn:active { transform: scale(.97); }
+
+/* ─── DJ CHOICE (inside pu-modal) ─── */
+#dj-choice { display: none; }
+.dj-player-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: clamp(14px,1.8vw,18px); font-weight: 700; letter-spacing: .15em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 16px;
+}
+.dj-btns { display: flex; gap: 12px; margin-top: 20px; }
+.dj-btn {
+  flex: 1; padding: 14px 10px;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(20px,2.8vw,28px); letter-spacing: .1em;
+  border: none; border-radius: 14px; cursor: pointer;
+  transition: transform .15s, box-shadow .15s;
+}
+.dj-btn:active { transform: scale(0.95); }
+#dj-refuse-btn {
+  background: linear-gradient(145deg, #431407, #7c2d12);
+  color: rgba(255,200,150,.7);
+  border: 1.5px solid rgba(251,146,60,.25);
+}
+#dj-refuse-btn:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(251,146,60,.15); }
+#dj-accept-btn {
+  background: linear-gradient(145deg, #1a4d00, #256000);
+  color: #86efac;
+  border: 1.5px solid rgba(34,197,94,.3);
+  box-shadow: 0 4px 16px rgba(34,197,94,.2);
+}
+#dj-accept-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(34,197,94,.4); }
+
+/* ─── WIN OVERLAY ─── */
+#win-overlay {
+  position: fixed; inset: 0; z-index: 800;
+  display: none; align-items: center; justify-content: center;
+  background: rgba(4,7,20,0.94); padding: 16px;
+}
+#win-overlay.open { display: flex; }
+.win-modal {
+  background: linear-gradient(145deg, #0f1c3a, #080e1a);
+  border: 2px solid rgba(251,191,36,0.65); border-radius: 28px;
+  padding: 52px 60px 44px; max-width: 460px; width: 100%;
+  text-align: center;
+  box-shadow: 0 0 100px rgba(251,191,36,0.15), 0 24px 60px rgba(0,0,0,.75);
+  animation: winPop .55s cubic-bezier(.34,1.56,.64,1);
+}
+@keyframes winPop { 0%{transform:scale(.55);opacity:0} 100%{transform:scale(1);opacity:1} }
+.win-trophy { font-size: 52px; line-height: 1; margin-bottom: 10px; }
+#win-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(44px,7.5vw,82px); color: var(--gold);
+  letter-spacing: .06em; line-height: 1;
+  text-shadow: 0 0 40px rgba(251,191,36,.55);
+}
+.win-sub {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: clamp(16px,2.2vw,24px); letter-spacing: .3em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 26px; margin-top: 4px;
+}
+#win-scores {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(30px,4.5vw,52px); color: var(--white);
+  letter-spacing: .04em; margin-bottom: 30px;
+}
+.ws-sep { color: rgba(251,191,36,.4); margin: 0 14px; }
+.win-again {
+  width: 100%; padding: 17px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: clamp(18px,2.2vw,24px); font-weight: 700;
+  letter-spacing: .12em; text-transform: uppercase;
+  background: linear-gradient(135deg, #1d4ed8, #3b82f6);
+  border: none; border-radius: 14px;
+  color: white; cursor: pointer;
+  box-shadow: 0 4px 20px rgba(37,99,235,.3);
+  transition: transform .15s, box-shadow .15s;
+}
+.win-again:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(59,130,246,.5); }
+
+/* ── WELCOME SCREEN ── */
+#screen-welcome { position:fixed; inset:0; z-index:200; display:flex; align-items:center; justify-content:center; padding:20px; }
+#screen-welcome.hidden { display:none; }
+.wc-panel {
+  background:linear-gradient(145deg,#0f1c3a,#080e1a);
+  border:1.5px solid rgba(251,191,36,0.3);
+  border-radius:28px; padding:52px 60px 44px;
+  display:flex; flex-direction:column; align-items:center; gap:28px;
+  min-width:min(380px,90vw);
+}
+.wc-logo {
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(40px,8vw,86px); letter-spacing:.12em;
+  background:linear-gradient(135deg,#fbbf24,#f59e0b);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+  line-height:1;
+}
+.wc-by {
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:clamp(11px,1.4vw,15px); letter-spacing:.2em;
+  color:rgba(255,255,255,0.3); text-transform:uppercase; margin-top:-16px;
+}
+.wc-btns { display:flex; flex-direction:column; gap:12px; width:100%; }
+.wc-btn {
+  width:100%; height:clamp(56px,7vh,76px);
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(22px,3.2vw,38px); letter-spacing:.22em;
+  border:none; border-radius:16px; cursor:pointer;
+  transition:transform .12s, box-shadow .12s;
+}
+.wc-btn:hover { transform:translateY(-3px); }
+.wc-btn:active { transform:scale(.97); }
+.wc-start { background:linear-gradient(135deg,#1d4ed8,#3b82f6); color:#fff; box-shadow:0 5px 24px rgba(59,130,246,.35); }
+.wc-start:hover { box-shadow:0 10px 32px rgba(59,130,246,.55); }
+.wc-tutorial { background:linear-gradient(135deg,#2d3748,#4a5568); color:rgba(255,255,255,.75); box-shadow:0 4px 16px rgba(0,0,0,.3); }
+.wc-tutorial:hover { box-shadow:0 8px 24px rgba(0,0,0,.5); color:#fff; }
+
+/* ── TUTORIAL SCREEN ── */
+#screen-tutorial { position:fixed; inset:0; z-index:200; display:flex; align-items:center; justify-content:center; padding:20px; }
+#screen-tutorial.hidden { display:none; }
+.tut-panel {
+  background:linear-gradient(145deg,#0f1c3a,#080e1a);
+  border:1.5px solid rgba(96,165,250,0.28);
+  border-radius:28px; padding:36px 44px 32px;
+  display:flex; flex-direction:column; align-items:center; gap:18px;
+  min-width:min(420px,92vw); max-width:min(580px,95vw);
+}
+.tut-title {
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(26px,4.5vw,50px); letter-spacing:.16em; color:var(--white);
+}
+.tut-tabs { display:flex; gap:6px; background:rgba(255,255,255,.06); border-radius:12px; padding:4px; }
+.tut-tab {
+  padding:7px 30px;
+  font-family:'Bebas Neue',sans-serif; font-size:clamp(16px,2vw,22px); letter-spacing:.16em;
+  border:none; border-radius:9px; cursor:pointer;
+  background:transparent; color:rgba(255,255,255,.4);
+  transition:background .15s, color .15s;
+}
+.tut-tab.active { background:rgba(251,191,36,.18); color:#fbbf24; }
+.tut-content { width:100%; }
+.tut-content.hidden { display:none; }
+.tut-content ul { list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:14px; }
+.tut-content li {
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:clamp(15px,2.1vw,21px); color:rgba(255,255,255,.82);
+  letter-spacing:.04em; padding-left:22px; position:relative; line-height:1.35;
+}
+.tut-content li::before { content:'▸'; position:absolute; left:0; color:#fbbf24; }
+.tut-back {
+  align-self:flex-start; padding:7px 22px;
+  font-family:'Bebas Neue',sans-serif; font-size:clamp(14px,1.8vw,20px); letter-spacing:.16em;
+  background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.13);
+  border-radius:10px; color:rgba(255,255,255,.55); cursor:pointer;
+  transition:background .12s, color .12s;
+}
+.tut-back:hover { background:rgba(255,255,255,.13); color:rgba(255,255,255,.9); }
+</style>
+</head>
+<body>
+<div id="bg"></div>
+<div id="mid-line"></div>
+
+<!-- ════════ WELCOME SCREEN ════════ -->
+<div id="screen-welcome">
+  <div class="wc-panel">
+    <div class="wc-logo">WORD TOURNAMENT</div>
+    <div class="wc-by">Designed by Adil Fırat Oktav</div>
+    <div class="wc-btns">
+      <button class="wc-btn wc-start"    onclick="showStudentSelect()">▶ &nbsp;START</button>
+      <button class="wc-btn wc-tutorial" onclick="showTutorial()">?  &nbsp;TUTORIAL</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════ TUTORIAL SCREEN ════════ -->
+<div id="screen-tutorial" class="hidden">
+  <div class="tut-panel">
+    <div class="tut-title">HOW TO PLAY</div>
+    <div class="tut-tabs">
+      <button class="tut-tab active" data-lang="en" onclick="switchTutTab('en')">EN</button>
+      <button class="tut-tab"        data-lang="tr" onclick="switchTutTab('tr')">TR</button>
+    </div>
+    <div id="tut-en" class="tut-content">
+      <ul>
+        <li>Two players take turns answering vocabulary words</li>
+        <li>Teacher presses ✓ CORRECT or ✗ WRONG after each answer</li>
+        <li>First player to 10 points wins</li>
+        <li>Random power-ups or downs change the course of the game</li>
+        <li>Power-ups are distributed fairly between both players</li>
+        <li>After renaming a student, double-click their chip to enable easy mode for that specific student</li>
+      </ul>
+    </div>
+    <div id="tut-tr" class="tut-content hidden">
+      <ul>
+        <li>İki oyuncu sırayla kelime sorusunu cevaplar</li>
+        <li>Öğretmen her cevabın ardından ✓ CORRECT veya ✗ WRONG basar</li>
+        <li>İlk 10 puana ulaşan oyuncu kazanır</li>
+        <li>Rastgele güç artırımları veya azaltımları oyunun gidişatını değiştirir</li>
+        <li>Güç artırımları her iki oyuncuya dengeli şekilde dağıtılır</li>
+      </ul>
+    </div>
+    <button class="tut-back" onclick="showWelcome()">&#8592; BACK</button>
+  </div>
+</div>
+
+<!-- ════════ STUDENT SELECT SCREEN ════════ -->
+<div id="screen-student-select" class="hidden">
+  <div class="ss-panel">
+    <div class="ss-logo">WORD TOURNAMENT</div>
+    <div class="ss-heading">OYUNCU SEÇİMİ</div>
+    <div class="ss-sub" id="ss-sub">İki öğrenciye tıkla — ilk seçilen <span style="color:var(--p1)">P1</span>, ikinci seçilen <span style="color:var(--p2)">P2</span></div>
+    <div class="ss-class-pool" id="ss-class-pool"></div>
+    <div class="ss-count-row">
+      <div class="ss-count" id="ss-count">Henüz seçilmedi</div>
+      <button id="ss-rename-btn" class="ss-rename-btn hidden" onclick="openRenameOverlay()">✎ RENAME</button>
+      <button class="ss-continue-btn" id="ss-continue-btn" disabled onclick="proceedToSettings()">DEVAM →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════ RENAME OVERLAY ════════ -->
+<div id="overlay-rename" class="hidden">
+  <div class="rn-box">
+    <div class="rn-title">✎ RENAME</div>
+    <div class="rn-display-wrap">
+      <div id="rn-display">—</div>
+    </div>
+    <div id="rn-keyboard"></div>
+    <button class="rn-cancel-btn" onclick="closeRenameOverlay()">CANCEL</button>
+  </div>
+</div>
+
+<!-- ════════ SETTINGS ════════ -->
+<button id="fs-btn" onclick="toggleFS()" title="Fullscreen">⛶</button>
+
+<div id="settings-overlay">
+  <div class="settings-modal">
+    <div class="sm-logo">WORD<br>DUEL</div>
+    <div class="sm-sec">SINIF SEÇ</div>
+    <div class="btn-grid" id="grade-grid"></div>
+    <div class="sm-sec">ÜNİTE SEÇ</div>
+    <div class="btn-grid" id="unit-grid"></div>
+    <div id="word-count">✓ Ünite seçin…</div>
+    <button class="start-btn" id="start-btn" disabled onclick="startGame()">OYUNU BAŞLAT</button>
+  </div>
+</div>
+
+<!-- ════════ GAME SCREEN ════════ -->
+<div id="game-screen">
+
+  <header id="game-header">
+    <div class="player-header p1 active-player" id="p1-header">
+      <img class="ph-frozen-img" src="images/frozen.webp" alt="">
+      <img class="ph-zapped-img" src="images/zapped.webp" alt="">
+      <div class="ph-left">
+        <div class="ph-turn">▶ TURN</div>
+        <div class="ph-name" id="p1-name">STUDENT 1</div>
+        <div class="ph-wins" id="p1-wins"></div>
+        <div class="ph-pu-history" id="p1-pu-history"></div>
+      </div>
+      <div class="ph-right">
+        <div class="ph-score" id="score-0">0</div>
+      </div>
+    </div>
+
+    <div class="header-mid">
+      <div class="header-mid-logo">WORD TOURNAMENT</div>
+      <div class="header-mid-badge" style="color:#fbbf24">Designed by ADİL FIRAT OKTAV</div>
+    </div>
+
+    <div class="player-header p2" id="p2-header">
+      <img class="ph-frozen-img" src="images/frozen.webp" alt="">
+      <img class="ph-zapped-img" src="images/zapped.webp" alt="">
+      <div class="ph-right">
+        <div class="ph-score" id="score-1">0</div>
+      </div>
+      <div class="ph-left">
+        <div class="ph-turn" style="justify-content:flex-end">TURN ◀</div>
+        <div class="ph-name" id="p2-name">STUDENT 2</div>
+        <div class="ph-wins" id="p2-wins"></div>
+        <div class="ph-pu-history" id="p2-pu-history"></div>
+      </div>
+    </div>
+
+    <div class="hdr-prog-wrap"><div class="hdr-prog-bar" id="bar-0" style="width:0%"></div></div>
+    <div class="hdr-prog-wrap right"><div class="hdr-prog-bar" id="bar-1" style="width:0%"></div></div>
+  </header>
+
+  <div id="game-stage">
+    <div class="pu-zone pu-zone-p1"><img id="p1-pu-img" src="" alt=""></div>
+    <div class="pu-zone pu-zone-p2"><img id="p2-pu-img" src="" alt=""></div>
+    <div class="turn-shout turn-shout-p1" id="turn-shout-p1">
+      <div class="ts-name" id="ts-name-p1"></div>
+      <div class="ts-label">YOUR TURN!</div>
+    </div>
+    <div class="turn-shout turn-shout-p2" id="turn-shout-p2">
+      <div class="ts-name" id="ts-name-p2"></div>
+      <div class="ts-label">YOUR TURN!</div>
+    </div>
+    <div id="card-wrap"><div id="card-word"></div><img id="card-img" src="" alt=""><button id="reveal-btn" onclick="handleReveal()">👁 REVEAL</button></div>
+    <div id="card-counter"></div>
+
+    <div id="combo-hud">
+      <div class="combo-label">3 HIT COMBO</div>
+      <div class="combo-dots" id="combo-dots"></div>
+      <div class="combo-owner-txt" id="combo-owner-txt"></div>
+    </div>
+
+    <div id="dj-badge"></div>
+
+    <!-- Freeze HUD -->
+    <div id="freeze-hud">
+      <div class="freeze-label">❄ FROZEN</div>
+      <div class="freeze-info" id="freeze-info"></div>
+    </div>
+
+    <!-- Stunned HUD -->
+    <div id="stunned-hud">
+      <div class="stunned-label">⚡ STUNNED</div>
+      <div class="stunned-info" id="stunned-info"></div>
+    </div>
+
+    <!-- Blinded HUD -->
+    <!-- Simultaneous mode HUD -->
+    <div id="sim-hud">
+      <div class="sim-label">GET READY — SAME TIME</div>
+      <div class="sim-turns" id="sim-turns">3 TURNS LEFT</div>
+    </div>
+
+  </div>
+
+  <div id="action-row">
+    <button class="act-btn" id="wrong-btn"       onclick="handleAnswer(false)">✗ &nbsp;WRONG</button>
+    <button class="act-btn" id="correct-btn"     onclick="handleAnswer(true)" >✓ &nbsp;CORRECT</button>
+    <button id="buzz-btn"         onclick="buzzPressed()">⚡ BUZZ</button>
+  </div>
+
+  <button id="override-btn" onclick="emergencyOverride()" title="EMERGENCY OVERRIDE — Tüm efektleri iptal et, P1'e geç">⚠</button>
+
+</div>
+
+<!-- Stamp -->
+<div id="word-stamp"></div>
+
+<!-- Power-up overlay -->
+<div id="pu-overlay">
+  <div class="pu-modal">
+    <div class="pu-badge" id="pu-badge"></div>
+    <div class="pu-img-wrap" id="pu-img-wrap"><img id="pu-img" src="" alt=""></div>
+    <div class="pu-name" id="pu-name"></div>
+    <div class="pu-desc" id="pu-desc"></div>
+    <div class="pu-both" id="pu-both">BOTH PLAYERS</div>
+    <button class="pu-continue-btn" id="pu-continue-btn" onclick="puContinue()">CONTINUE</button>
+
+    <!-- Double Jeopardy choice — shown only for DJ -->
+    <div id="dj-choice">
+      <div class="dj-player-label" id="dj-player-label"></div>
+      <div class="dj-btns">
+        <button class="dj-btn" id="dj-refuse-btn" onclick="djChoose(false)">REFUSE</button>
+        <button class="dj-btn" id="dj-accept-btn" onclick="djChoose(true)">ACCEPT</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Simultaneous choice overlay -->
+<div id="sim-choice-overlay">
+  <div class="sim-choice-modal">
+    <div class="sim-choice-title">WHO GOT IT RIGHT?</div>
+    <div class="sim-choice-sub" id="sim-choice-sub">TURN 1 / 3</div>
+    <div class="sim-choice-grid">
+      <button class="sim-choice-btn sim-btn-p1" id="sim-btn-p1" onclick="simultaneousChoice('p1')"></button>
+      <button class="sim-choice-btn sim-btn-p2" id="sim-btn-p2" onclick="simultaneousChoice('p2')"></button>
+      <button class="sim-choice-btn sim-btn-both"    onclick="simultaneousChoice('both')">BOTH ✓</button>
+      <button class="sim-choice-btn sim-btn-neither" onclick="simultaneousChoice('neither')">NEITHER ✗</button>
+    </div>
+  </div>
+</div>
+
+<!-- Win overlay -->
+<div id="win-overlay">
+  <div class="win-modal">
+    <div class="win-trophy">🏆</div>
+    <div id="win-name"></div>
+    <div class="win-sub">WINS!</div>
+    <div id="win-scores"></div>
+    <button class="win-again" id="win-again-btn" onclick="endGame()">END GAME</button>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════
+//  POWER-UP CONFIG
+//  Görseller: F:\oyun_sitesi\word_duel\images\
+// ═══════════════════════════════════════════════════
+const PU_IMAGES = {
+  THREE_HIT_COMBO:      'images/three_hit_combo.webp',
+  DOUBLE_JEOPARDY:      'images/double_jeopardy.webp',
+  MINUS1_IF_WRONG:      'images/minus1_if_wrong.webp',
+  MINUS1_DIRECT:        'images/minus1_direct.webp',
+  GET_READY_SAME_TIME:  'images/get_ready_same_time.webp',
+  FREEZE_2_TURNS:       'images/freeze_2_turns.webp',
+  FREEZE_1_TURN:        'images/freeze_1_turn.webp',
+  PLUS2_IF_CORRECT:     'images/plus2_if_correct.webp',
+  KNOCKBACK_HIT:        'images/knockback_hit.webp',
+  STUNNED_2_TURNS:      'images/stunned_2_turns.webp',
+  TELEPORT:             'images/teleport.webp',
+};
+
+const PU_NAMES = {
+  THREE_HIT_COMBO:     '3 HIT COMBO',
+  DOUBLE_JEOPARDY:     'DOUBLE JEOPARDY!',
+  MINUS1_IF_WRONG:     '-1 POINT IF WRONG',
+  MINUS1_DIRECT:       '−1 POINT',
+  GET_READY_SAME_TIME: 'GET READY!',
+  FREEZE_2_TURNS:      'FREEZE — 2 TURNS',
+  FREEZE_1_TURN:       'FREEZE — 1 TURN',
+  PLUS2_IF_CORRECT:    '+2 IF CORRECT',
+  KNOCKBACK_HIT:       'KNOCKBACK HIT',
+  STUNNED_2_TURNS:     'STUNNED!',
+  TELEPORT:            'TELEPORT!',
+};
+
+const PU_DESCS = {
+  THREE_HIT_COMBO:     'Keep going while correct!\nRemaining hits transfer to opponent on wrong.',
+  DOUBLE_JEOPARDY:     'ACCEPT → Correct: +3 pts  |  Wrong: −2 pts\nREFUSE → Normal round (correct = +1)',
+  MINUS1_IF_WRONG:     'Correct → +1 pt  |  Wrong → −1 pt\nTurn always passes after this round.',
+  MINUS1_DIRECT:       'Lose 1 point immediately.\nTurn passes to opponent.',
+  GET_READY_SAME_TIME: 'Both students answer at the same time!\nTeacher decides who got it right — 3 rounds.',
+  FREEZE_2_TURNS:      'You are frozen for 2 turns!\nOpponent plays 2 rounds in a row.',
+  FREEZE_1_TURN:       'You are frozen for 1 turn!\nOpponent plays the next round.',
+  PLUS2_IF_CORRECT:    'Correct → +2 pts  |  Wrong → 0 pts\nTurn always passes.',
+  KNOCKBACK_HIT:       'Correct → +1 pt  +  opponent −1 pt\nWrong → 0 pts. Turn always passes.',
+  STUNNED_2_TURNS:     'Correct → +1 pt, turn passes.\nWrong → STUNNED for 2 turns!\nOpponent plays 2 rounds in a row.',
+  TELEPORT:            'Correct + trailing → jump to opponent score!\nWrong + leading → drop to opponent score!\n⚡ Once per game.',
+};
+
+const PU_POOL_POSITIVE = ['THREE_HIT_COMBO', 'DOUBLE_JEOPARDY', 'GET_READY_SAME_TIME', 'PLUS2_IF_CORRECT', 'KNOCKBACK_HIT'];
+const PU_POOL_NEGATIVE = ['MINUS1_IF_WRONG', 'MINUS1_DIRECT', 'FREEZE_2_TURNS', 'FREEZE_1_TURN', 'STUNNED_2_TURNS'];
+// Mirror pools for P2 — GET_READY excluded (3-turn commitment complexity)
+const PU_MIRROR_POSITIVE = ['DOUBLE_JEOPARDY', 'PLUS2_IF_CORRECT', 'KNOCKBACK_HIT'];
+const PU_MIRROR_NEGATIVE = ['MINUS1_IF_WRONG', 'MINUS1_DIRECT', 'FREEZE_1_TURN', 'FREEZE_2_TURNS', 'STUNNED_2_TURNS'];
+
+// ═══════════════════════════════════════════════════
+//  SOUNDS
+// ═══════════════════════════════════════════════════
+function playSound(name) {
+  const snd = new Audio('sounds/' + name + '.mp3');
+  snd.volume = 0.55;
+  snd.play().catch(() => {});
+}
+
+// ═══════════════════════════════════════════════════
+//  STATE
+// ═══════════════════════════════════════════════════
+let deck       = [];
+let currentIdx = 0;
+let activePl   = 0;
+let _imgCardCounter = [0, 0]; // per-player: [p1, p2]
+let _easyImgPool       = [];
+let _easyImgIdx        = 0;
+let _isCurrentImgCard  = false;
+let _imgCardWord       = '';
+let _currentEntry      = null;
+let _pendingRevealCb   = null;
+let _easyDeck       = [];
+let _easyDeckIdx    = 0;
+let scores     = [0, 0];
+const WIN      = 10;
+let gameActive = false;
+let busy       = false;
+
+let selectedGrades = new Set();
+let selectedUnits  = new Set();
+
+let _clickLog     = [[], []];
+let _spamLocked   = [false, false];
+let _spamStudents = [new Set(), new Set()];
+
+// ═══════════════════════════════════════════════════
+//  AUDIO
+// ═══════════════════════════════════════════════════
+let _audioCtx = null;
+function _getAudioCtx() {
+  if (!_audioCtx) {
+    _audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    // İlk kullanıcı etkileşiminde context'i uyandır
+    const resume = () => { _audioCtx.resume(); document.removeEventListener('pointerdown', resume); };
+    document.addEventListener('pointerdown', resume);
+  }
+  return _audioCtx;
+}
+
+// Kelime gelişinde rastgele pitch'li kısa "ding"
+const _WORD_FREQS = [261.6, 293.7, 329.6, 369.9, 392.0, 440.0, 493.9, 523.3, 587.3, 659.3, 740.0, 784.0];
+let _lastFreqIdx = -1;
+function _playWordTone() {
+  try {
+    const ctx = _getAudioCtx();
+    const play = () => {
+      let idx;
+      do { idx = Math.floor(Math.random() * _WORD_FREQS.length); } while (idx === _lastFreqIdx);
+      _lastFreqIdx = idx;
+      const freq = _WORD_FREQS[idx];
+      const osc  = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.connect(gain); gain.connect(ctx.destination);
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(freq, ctx.currentTime);
+      gain.gain.setValueAtTime(0, ctx.currentTime);
+      gain.gain.linearRampToValueAtTime(0.55, ctx.currentTime + 0.01);
+      gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.45);
+      osc.start(ctx.currentTime);
+      osc.stop(ctx.currentTime + 0.5);
+    };
+    if (ctx.state === 'suspended') ctx.resume().then(play);
+    else play();
+  } catch(e) {}
+}
+
+// MP3 dosyası çal
+function _playSound(path, vol) {
+  try {
+    const a = new Audio(path);
+    a.volume = vol != null ? vol : 0.7;
+    a.play().catch(() => {});
+  } catch(e) {}
+}
+
+const _PU_POSITIVE = new Set(['THREE_HIT_COMBO','DOUBLE_JEOPARDY','GET_READY_SAME_TIME','PLUS2_IF_CORRECT','KNOCKBACK_HIT','TELEPORT']);
+function _playPuSound(type) {
+  if (_PU_POSITIVE.has(type)) _playSound('sounds/powerup.mp3', 0.75);
+  else _playSound('sounds/powerdown.mp3', 0.75);
+}
+
+// Power-up state
+let p1WordCount   = 0;
+let p1PuPending   = false;
+let mirrorPuType   = null;
+let mirrorPuTarget = -1;
+let mirrorPuDelay  = 0;
+let _ttsTimers       = [];
+let combo            = null;   // { hitsLeft, phase, originalPl }
+let djState          = null;   // { accepted: bool }
+let minus1IfWrong    = false;
+let plus2IfCorrect   = false;
+let knockbackHit     = false;
+let simMode          = null;   // { turnsLeft, originalPl }
+let freezeState      = null;   // { turnsLeft, frozenPl }
+let stunnedPending   = false;  // waiting for answer; wrong → stun activates
+let stunnedState     = null;   // { turnsLeft, stunnedPl }
+let teleportPending  = false;  // waiting for answer
+let teleportUsed     = false;  // once fired, removed from pool for rest of game
+let _puDisabled      = false;  // true after emergency override; resets on new game
+let _puDoneCallback  = null;
+
+// ═══════════════════════════════════════════════════
+//  SETTINGS
+// ═══════════════════════════════════════════════════
+function buildGrades() {
+  const grid = document.getElementById('grade-grid');
+  if (!grid || typeof QUESTIONS === 'undefined') return;
+  grid.innerHTML = '';
+  const gs = [...new Set(QUESTIONS.filter(q=>q[3]!==0).map(q=>q[3]))].sort((a,b)=>a-b);
+  gs.forEach(g => {
+    const cnt = QUESTIONS.filter(q=>q[3]===g).length;
+    const b = document.createElement('button');
+    b.className = 'grade-btn' + (selectedGrades.has(g) ? ' active' : '');
+    b.textContent = g + '. SINIF (' + cnt + ')';
+    b.onclick = () => toggleGrade(g);
+    grid.appendChild(b);
+  });
+}
+
+function buildUnits() {
+  const grid = document.getElementById('unit-grid');
+  if (!grid || typeof QUESTIONS === 'undefined') return;
+  grid.innerHTML = '';
+  const us = [...new Set(
+    QUESTIONS.filter(q=>q[3]!==0&&selectedGrades.has(q[3])).map(q=>q[5])
+  )].sort((a,b)=>a-b);
+  us.forEach(n => {
+    const cnt = QUESTIONS.filter(q=>q[3]!==0&&q[5]===n&&selectedGrades.has(q[3])).length;
+    const b = document.createElement('button');
+    b.className = 'unit-btn' + (selectedUnits.has(n) ? ' active' : '');
+    b.disabled = cnt === 0;
+    b.textContent = 'ÜNİTE ' + n + ' (' + cnt + ')';
+    b.onclick = () => toggleUnit(n);
+    grid.appendChild(b);
+  });
+  updateCount();
+}
+
+function toggleGrade(g) {
+  if (selectedGrades.has(g)) {
+    if (selectedGrades.size <= 1) return;
+    selectedGrades.delete(g);
+    selectedUnits.forEach(u => {
+      if (!QUESTIONS.some(q=>q[3]!==0&&selectedGrades.has(q[3])&&q[5]===u))
+        selectedUnits.delete(u);
+    });
+  } else {
+    selectedGrades.add(g);
+  }
+  buildGrades(); buildUnits(); save();
+}
+
+function toggleUnit(n) {
+  if (selectedUnits.has(n)) {
+    if (selectedUnits.size <= 1) return;
+    selectedUnits.delete(n);
+  } else {
+    selectedUnits.add(n);
+  }
+  buildUnits(); save();
+}
+
+function filteredPool() {
+  if (typeof QUESTIONS === 'undefined') return [];
+  return QUESTIONS.filter(q=>q[3]!==0&&selectedGrades.has(q[3])&&selectedUnits.has(q[5]));
+}
+
+function updateCount() {
+  const el = document.getElementById('word-count');
+  const sb = document.getElementById('start-btn');
+  const n  = filteredPool().length;
+  if (el) {
+    el.textContent = n > 0 ? '✓ ' + n + ' kelime hazır' : '⚠ Seçili filtrelerle kelime bulunamadı';
+    el.style.color = n === 0 ? '#f87171' : '';
+  }
+  if (sb) sb.disabled = n === 0;
+}
+
+function save() {
+  try { localStorage.setItem('vocabDuel_v1', JSON.stringify({g:[...selectedGrades],u:[...selectedUnits]})); } catch(e){}
+}
+function load() {
+  try {
+    const d = JSON.parse(localStorage.getItem('vocabDuel_v1')||'{}');
+    if (Array.isArray(d.g)&&d.g.length) selectedGrades = new Set(d.g.map(Number));
+    if (Array.isArray(d.u)&&d.u.length) selectedUnits  = new Set(d.u.map(Number));
+  } catch(e){}
+}
+
+// ═══════════════════════════════════════════════════
+//  POWER-UP SYSTEM
+// ═══════════════════════════════════════════════════
+function trackP1Word() {
+  if (activePl === 0) {
+    p1WordCount++;
+    if (p1WordCount % 4 === 0) p1PuPending = true;
+  }
+}
+
+function _applyAndShowPu(type, onDone) {
+  const affectedPl = activePl;
+  if (type === 'THREE_HIT_COMBO') {
+    combo = { hitsLeft: 3, phase: 1, originalPl: activePl };
+  } else if (type === 'MINUS1_IF_WRONG') {
+    minus1IfWrong = true;
+  } else if (type === 'MINUS1_DIRECT') {
+    changeScore(activePl, -1);
+    activePl = 1 - activePl;
+  } else if (type === 'GET_READY_SAME_TIME') {
+    simMode = { turnsLeft: 3, originalPl: activePl };
+  } else if (type === 'PLUS2_IF_CORRECT') {
+    plus2IfCorrect = true;
+  } else if (type === 'KNOCKBACK_HIT') {
+    knockbackHit = true;
+  } else if (type === 'FREEZE_2_TURNS' || type === 'FREEZE_1_TURN') {
+    const turns = type === 'FREEZE_2_TURNS' ? 2 : 1;
+    freezeState = { turnsLeft: turns, frozenPl: activePl };
+    activePl = 1 - activePl;
+  } else if (type === 'STUNNED_2_TURNS') {
+    stunnedPending = true;
+  } else if (type === 'TELEPORT') {
+    teleportPending = true;
+  }
+  // PU geçmişi — GET_READY_SAME_TIME her ikisini de etkiler
+  if (type === 'GET_READY_SAME_TIME') {
+    _addPuHistory(0, true); _addPuHistory(1, true);
+  } else {
+    _addPuHistory(affectedPl, _PU_POSITIVE.has(type));
+  }
+  showPowerup(type, affectedPl, onDone);
+}
+
+function _addPuHistory(pl, isPositive) {
+  const el = document.getElementById(pl === 0 ? 'p1-pu-history' : 'p2-pu-history');
+  if (!el) return;
+  const s = document.createElement('span');
+  s.textContent = isPositive ? '🟢' : '🔴';
+  el.appendChild(s);
+}
+
+function showPowerup(type, affectedPl, onDone) {
+  if (window.speechSynthesis) window.speechSynthesis.cancel();
+  _ttsTimers.forEach(t => clearTimeout(t)); _ttsTimers = [];
+  _playPuSound(type);
+
+  const overlay  = document.getElementById('pu-overlay');
+  const imgWrap  = document.getElementById('pu-img-wrap');
+  const imgEl    = document.getElementById('pu-img');
+  const djChoice = document.getElementById('dj-choice');
+
+  document.getElementById('pu-name').textContent = PU_NAMES[type] || type;
+
+  const playerLabel = (type === 'GET_READY_SAME_TIME')
+    ? 'BOTH PLAYERS'
+    : document.getElementById(affectedPl === 0 ? 'p1-name' : 'p2-name').textContent;
+  document.getElementById('pu-badge').textContent = playerLabel;
+
+  imgWrap.style.display = 'none';
+  const imgPath = PU_IMAGES[type];
+  if (imgPath) {
+    imgEl.onload  = () => { imgWrap.style.display = 'block'; };
+    imgEl.onerror = () => { imgWrap.style.display = 'none'; };
+    imgEl.src = imgPath;
+  }
+
+  const contBtn = document.getElementById('pu-continue-btn');
+
+  if (type === 'DOUBLE_JEOPARDY') {
+    djChoice.style.display  = 'block';
+    contBtn.style.display   = 'none';
+    const name = document.getElementById(affectedPl === 0 ? 'p1-name' : 'p2-name').textContent;
+    document.getElementById('dj-player-label').textContent = name + ' — MAKE YOUR CHOICE';
+    _puDoneCallback = onDone;
+    overlay.style.display = 'flex';
+    _delayEnable('dj-accept-btn', 'dj-refuse-btn');
+  } else {
+    djChoice.style.display  = 'none';
+    contBtn.style.display   = '';
+    _puDoneCallback = onDone;
+    overlay.style.display   = 'flex';
+    _delayEnable('pu-continue-btn');
+  }
+}
+
+// ─── ACTION ROW STATE ───────────────────────────────
+function updateActionRow() {
+  const inSim = !!simMode;
+  document.getElementById('wrong-btn').style.display   = inSim ? 'none' : '';
+  document.getElementById('correct-btn').style.display = inSim ? 'none' : '';
+  document.getElementById('buzz-btn').style.display    = inSim ? 'flex' : 'none';
+  const hud = document.getElementById('sim-hud');
+  if (inSim) {
+    hud.style.display = 'flex';
+    document.getElementById('sim-turns').textContent =
+      simMode.turnsLeft + (simMode.turnsLeft === 1 ? ' TURN LEFT' : ' TURNS LEFT');
+  } else {
+    hud.style.display = 'none';
+  }
+}
+
+// ─── BUZZ ────────────────────────────────────────────
+function buzzPressed() {
+  if (!simMode) return;
+  if (window.speechSynthesis) window.speechSynthesis.cancel();
+  const turn = 4 - simMode.turnsLeft;
+  document.getElementById('sim-choice-sub').textContent = 'TURN ' + turn + ' / 3';
+  document.getElementById('sim-btn-p1').textContent =
+    document.getElementById('p1-name').textContent + ' ✓';
+  document.getElementById('sim-btn-p2').textContent =
+    document.getElementById('p2-name').textContent + ' ✓';
+  document.getElementById('sim-choice-overlay').style.display = 'flex';
+  _delayEnable('sim-btn-p1', 'sim-btn-p2');
+}
+
+function simultaneousChoice(who) {
+  document.getElementById('sim-choice-overlay').style.display = 'none';
+
+  if (who === 'p1' || who === 'both') changeScore(0, 1);
+  if (who === 'p2' || who === 'both') changeScore(1, 1);
+
+  // Win check
+  if (scores[0] >= WIN || scores[1] >= WIN) {
+    const winner = scores[0] >= WIN ? 0 : 1;
+    simMode = null; gameActive = false;
+    setBtns(false); updateActionRow();
+    setTimeout(() => showWin(winner), 650);
+    return;
+  }
+
+  simMode.turnsLeft--;
+
+  if (simMode.turnsLeft <= 0) {
+    activePl = simMode.originalPl;
+    simMode = null;
+    currentIdx++;
+    checkAndTriggerPu(() => {
+      setCard(true); renderHeader(); updateComboHud(); updateActionRow();
+    });
+  } else {
+    currentIdx++;
+    updateActionRow();
+    setCard(true);
+    renderHeader();
+  }
+}
+
+function _delayEnable(...ids) {
+  ids.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) { el.disabled = true; setTimeout(() => { el.disabled = false; }, 1000); }
+  });
+}
+
+function puContinue() {
+  document.getElementById('pu-overlay').style.display = 'none';
+  if (_puDoneCallback) { _puDoneCallback(); _puDoneCallback = null; }
+}
+
+// Called by ACCEPT / REFUSE buttons
+function djChoose(accepted) {
+  djState = { accepted };
+  document.getElementById('pu-overlay').style.display = 'none';
+
+  // Show badge on card
+  const badge = document.getElementById('dj-badge');
+  if (accepted) {
+    badge.textContent = '⚡ DOUBLE JEOPARDY — ACCEPTED (+3 / −2)';
+    badge.className = 'accepted';
+  } else {
+    badge.textContent = 'DOUBLE JEOPARDY — REFUSED (normal)';
+    badge.className = 'refused';
+  }
+  badge.style.display = 'block';
+
+  // card border hint
+  document.getElementById('card-wrap').classList.toggle('dj-accepted', accepted);
+  document.getElementById('card-wrap').classList.toggle('dj-refused',  !accepted);
+
+  if (_puDoneCallback) { _puDoneCallback(); _puDoneCallback = null; }
+}
+
+function checkAndTriggerPu(onDone) {
+  if (_puDisabled) { onDone(); return; }
+  if (combo || djState || minus1IfWrong || simMode || freezeState || stunnedPending || stunnedState || teleportPending) { onDone(); return; }
+
+  // Mirror PU: 2 words after P1's PU, on P2's next available turn
+  if (mirrorPuType !== null && mirrorPuDelay <= 0 && activePl === mirrorPuTarget) {
+    const type = mirrorPuType;
+    mirrorPuType = null; mirrorPuTarget = -1; mirrorPuDelay = 0; mirrorPuDelay = 0;
+    _applyAndShowPu(type, onDone);
+    return;
+  }
+
+  // P1 milestone PU (every 4 words: 4, 8, 12, 16, 20…)
+  if (activePl === 0 && p1PuPending && mirrorPuType === null) {
+    p1PuPending = false;
+    let type;
+    if (p1WordCount >= 30 && !teleportUsed) {
+      type = 'TELEPORT';
+      teleportUsed = true;
+    } else {
+      const usePos = Math.random() < 0.5;
+      const pool = [...(usePos ? PU_POOL_POSITIVE : PU_POOL_NEGATIVE)];
+      type = pool[Math.floor(Math.random() * pool.length)];
+      const mirrorPool = usePos ? PU_MIRROR_POSITIVE : PU_MIRROR_NEGATIVE;
+      mirrorPuType   = mirrorPool[Math.floor(Math.random() * mirrorPool.length)];
+      mirrorPuTarget = 1;
+      mirrorPuDelay  = 2;
+    }
+    _applyAndShowPu(type, onDone);
+    return;
+  }
+
+  onDone();
+}
+
+// ═══════════════════════════════════════════════════
+//  COMBO HUD
+// ═══════════════════════════════════════════════════
+function updateComboHud() {
+  const hud = document.getElementById('combo-hud');
+  if (!combo) { hud.style.display = 'none'; return; }
+  hud.style.display = 'flex';
+  const dots = document.getElementById('combo-dots');
+  dots.innerHTML = '';
+  for (let i = 0; i < 3; i++) {
+    const d = document.createElement('div');
+    d.className = 'combo-dot' + (i >= combo.hitsLeft ? ' used' : '');
+    dots.appendChild(d);
+  }
+  const cp   = combo.phase === 1 ? combo.originalPl : 1 - combo.originalPl;
+  const name = document.getElementById(cp === 0 ? 'p1-name' : 'p2-name').textContent;
+  document.getElementById('combo-owner-txt').textContent = name + ' playing';
+}
+
+function updateFreezeHud() {
+  const hud = document.getElementById('freeze-hud');
+  const p1h = document.getElementById('p1-header');
+  const p2h = document.getElementById('p2-header');
+  if (!freezeState) {
+    hud.style.display = 'none';
+    p1h.classList.remove('frozen-player');
+    p2h.classList.remove('frozen-player');
+    return;
+  }
+  hud.style.display = 'flex';
+  const frozenName = document.getElementById(freezeState.frozenPl === 0 ? 'p1-name' : 'p2-name').textContent;
+  document.getElementById('freeze-info').textContent =
+    frozenName + ' — ' + freezeState.turnsLeft + (freezeState.turnsLeft === 1 ? ' TURN LEFT' : ' TURNS LEFT');
+  p1h.classList.toggle('frozen-player', freezeState.frozenPl === 0);
+  p2h.classList.toggle('frozen-player', freezeState.frozenPl === 1);
+}
+
+function updateStunnedHud() {
+  const hud = document.getElementById('stunned-hud');
+  const p1h = document.getElementById('p1-header');
+  const p2h = document.getElementById('p2-header');
+  if (!stunnedState) {
+    hud.style.display = 'none';
+    p1h.classList.remove('stunned-player', 'zapped-player');
+    p2h.classList.remove('stunned-player', 'zapped-player');
+    return;
+  }
+  hud.style.display = 'flex';
+  const stunnedName = document.getElementById(stunnedState.stunnedPl === 0 ? 'p1-name' : 'p2-name').textContent;
+  document.getElementById('stunned-info').textContent =
+    stunnedName + ' — ' + stunnedState.turnsLeft + (stunnedState.turnsLeft === 1 ? ' TURN LEFT' : ' TURNS LEFT');
+  p1h.classList.toggle('stunned-player', stunnedState.stunnedPl === 0);
+  p2h.classList.toggle('stunned-player', stunnedState.stunnedPl === 1);
+  p1h.classList.toggle('zapped-player', stunnedState.stunnedPl === 0);
+  p2h.classList.toggle('zapped-player', stunnedState.stunnedPl === 1);
+}
+
+function clearDjBadge() {
+  const badge = document.getElementById('dj-badge');
+  badge.style.display = 'none';
+  badge.className = '';
+  document.getElementById('card-wrap').classList.remove('dj-accepted', 'dj-refused');
+}
+
+// ═══════════════════════════════════════════════════
+//  TTS
+// ═══════════════════════════════════════════════════
+function speakWord(word) {
+  word = word.toLowerCase();
+  if (!window.speechSynthesis) return;
+  window.speechSynthesis.cancel();
+  _ttsTimers.forEach(t => clearTimeout(t));
+  _ttsTimers = [];
+  function utter() {
+    const u = new SpeechSynthesisUtterance(word);
+    u.lang = 'en-US'; u.rate = 0.88;
+    window.speechSynthesis.speak(u);
+  }
+  _ttsTimers.push(setTimeout(utter, 1000));
+  _ttsTimers.push(setTimeout(utter, 3200));
+}
+
+// ═══════════════════════════════════════════════════
+//  GAME
+// ═══════════════════════════════════════════════════
+function shuffle(a) {
+  for (let i=a.length-1;i>0;i--) {
+    const j=Math.floor(Math.random()*(i+1));
+    [a[i],a[j]]=[a[j],a[i]];
+  }
+  return a;
+}
+function freshDeck() { return shuffle([...filteredPool()]); }
+
+function startGame() {
+  deck = freshDeck();
+  if (!deck.length) return;
+  currentIdx = 0; activePl = 0; scores = [0,0]; _imgCardCounter = [0,0]; _easyImgIdx = 0; _easyDeckIdx = 0; _currentEntry = null; _pendingRevealCb = null;
+  _easyImgPool = shuffle((typeof QUESTIONS !== 'undefined' ? QUESTIONS : []).filter(e => e[4] === 1 && e[6]));
+  const _fp = filteredPool();
+  _easyDeck = [
+    ...shuffle(_fp.filter(e => e[4] === 1)),
+    ...shuffle(_fp.filter(e => e[4] === 2)),
+    ...shuffle(_fp.filter(e => e[4] === 3))
+  ];
+  document.getElementById('p1-name').textContent = playerNames[0];
+  document.getElementById('p2-name').textContent = playerNames[1];
+  document.getElementById('p1-pu-history').innerHTML = '';
+  document.getElementById('p2-pu-history').innerHTML = '';
+  gameActive = true; busy = false;
+  combo = null; djState = null; minus1IfWrong = false; plus2IfCorrect = false; knockbackHit = false;
+  simMode = null; freezeState = null; stunnedPending = false; stunnedState = null;
+  teleportPending = false; teleportUsed = false; _puDoneCallback = null;
+  p1WordCount = 0; p1PuPending = false; mirrorPuType = null; mirrorPuTarget = -1; mirrorPuDelay = 0;
+  _clickLog = [[],[]]; _spamLocked = [false,false]; _spamStudents = [new Set(),new Set()];
+  _puDisabled = false;
+
+  document.getElementById('settings-overlay').style.display = 'none';
+  document.getElementById('win-overlay').classList.remove('open');
+  document.getElementById('combo-hud').style.display    = 'none';
+  document.getElementById('freeze-hud').style.display   = 'none';
+  document.getElementById('stunned-hud').style.display  = 'none';
+  document.getElementById('sim-hud').style.display      = 'none';
+  document.getElementById('buzz-btn').style.display  = 'none';
+  document.getElementById('wrong-btn').style.display  = '';
+  document.getElementById('correct-btn').style.display = '';
+  clearDjBadge();
+  document.getElementById('game-screen').style.display = 'flex';
+  document.getElementById('override-btn').classList.add('visible');
+  setCard(false);
+  setBtns(true);
+  renderHeader();
+}
+
+function setCard(animate, silent) {
+  if (currentIdx >= deck.length) { deck = freshDeck(); currentIdx = 0; }
+  const entry   = deck[currentIdx];
+  const word    = entry[2];
+  const imgPath = entry[6] || null;
+  const wrap    = document.getElementById('card-wrap');
+  const wordEl  = document.getElementById('card-word');
+  const imgEl   = document.getElementById('card-img');
+  const ctr     = document.getElementById('card-counter');
+  ctr.textContent = 'CARD ' + (currentIdx+1) + ' / ' + deck.length;
+
+  _imgCardCounter[activePl]++;
+  const isImgTurn = (_imgCardCounter[activePl] % 8 === 0) && _easyImgPool.length > 0;
+
+  function _apply() {
+    imgEl.onerror = null;
+    if (isImgTurn) {
+      const easyEntry = _easyImgPool[_easyImgIdx % _easyImgPool.length];
+      _easyImgIdx++;
+      const ePath = easyEntry[6];
+      _isCurrentImgCard = true;
+      _imgCardWord = easyEntry[2];
+      _currentEntry = null;
+      imgEl.onerror = () => {
+        _isCurrentImgCard = false;
+        wrap.classList.remove('img-mode');
+        wordEl.textContent = easyEntry[2]; wordEl.classList.add('italic-sub');
+        imgEl.src = ''; imgEl.onerror = null;
+      };
+      imgEl.src = ePath;
+      wrap.classList.remove('img-reveal-mode');
+      wrap.classList.add('img-mode');
+      wordEl.textContent = '';
+      wordEl.classList.remove('italic-sub');
+      // TTS sustur — görsel kartlarda kelimeyi açık etme
+    } else {
+      _isCurrentImgCard = false;
+      _imgCardWord = '';
+      wrap.classList.remove('img-mode', 'img-reveal-mode');
+      imgEl.src = '';
+      // Easy mode öğrencisi ise kendi öncelikli havuzundan çek
+      const useEasy = _easyMode[activePl] && _easyDeck.length > 0;
+      let displayWord, displayDiff;
+      if (useEasy) {
+        const eIdx = _easyDeckIdx % _easyDeck.length;
+        _currentEntry = _easyDeck[eIdx];
+        _easyDeckIdx++;
+        displayWord = _easyDeck[eIdx][2];
+        displayDiff = _easyDeck[eIdx][4];
+      } else {
+        _currentEntry = entry;
+        displayWord = word;
+        displayDiff = entry[4];
+      }
+      wordEl.textContent = displayWord;
+      wordEl.classList.toggle('easy-word', displayDiff === 1);
+      wordEl.classList.remove('italic-sub');
+      if (!silent) speakWord(displayWord);
+    }
+  }
+
+  if (!animate) {
+    _apply();
+    return;
+  }
+
+  if (window.speechSynthesis) window.speechSynthesis.cancel();
+  _ttsTimers.forEach(t => clearTimeout(t)); _ttsTimers = [];
+  busy = true; setBtns(false);
+  wrap.style.transition = 'transform .16s ease-in, opacity .16s ease-in';
+  wrap.style.transform  = 'scaleY(0.08)';
+  wrap.style.opacity    = '0';
+  setTimeout(() => {
+    _apply();
+    if (!silent) setTimeout(_playWordTone, 500);
+    wrap.style.transition = 'transform .28s cubic-bezier(.34,1.56,.64,1), opacity .22s ease-out';
+    wrap.style.transform  = 'scaleY(1)';
+    wrap.style.opacity    = '1';
+    setTimeout(() => { busy = false; setBtns(true); }, 300);
+  }, 175);
+}
+
+function renderHeader() {
+  document.getElementById('p1-header').classList.toggle('active-player', activePl===0);
+  document.getElementById('p2-header').classList.toggle('active-player', activePl===1);
+  document.getElementById('score-0').textContent = scores[0];
+  document.getElementById('score-1').textContent = scores[1];
+  document.getElementById('p1-wins').textContent = 'WINS: ' + _getWins(playerNames[0]);
+  document.getElementById('p2-wins').textContent = 'WINS: ' + _getWins(playerNames[1]);
+  document.getElementById('bar-0').style.width = Math.min(100,Math.max(0,scores[0])/WIN*100)+'%';
+  document.getElementById('bar-1').style.width = Math.min(100,Math.max(0,scores[1])/WIN*100)+'%';
+  document.getElementById('ts-name-p1').textContent = playerNames[0];
+  document.getElementById('ts-name-p2').textContent = playerNames[1];
+  document.getElementById('turn-shout-p1').classList.toggle('active', activePl===0);
+  document.getElementById('turn-shout-p2').classList.toggle('active', activePl===1);
+  updatePuHeaderImages();
+}
+
+function updatePuHeaderImages() {
+  let p1Type = null, p2Type = null;
+  function set(pl, type) { if (pl === 0) p1Type = type; else p2Type = type; }
+
+  if (combo)              { set(activePl, 'THREE_HIT_COMBO'); }
+  else if (djState)       { set(activePl, 'DOUBLE_JEOPARDY'); }
+  else if (minus1IfWrong) { set(activePl, 'MINUS1_IF_WRONG'); }
+  else if (plus2IfCorrect){ set(activePl, 'PLUS2_IF_CORRECT'); }
+  else if (knockbackHit)  { set(activePl, 'KNOCKBACK_HIT'); }
+  else if (simMode)       { p1Type = 'GET_READY_SAME_TIME'; p2Type = 'GET_READY_SAME_TIME'; }
+  else if (freezeState)   {
+    const t = freezeState.turnsLeft === 2 ? 'FREEZE_2_TURNS' : 'FREEZE_1_TURN';
+    set(freezeState.frozenPl, t);
+  }
+  else if (stunnedPending || stunnedState) {
+    set(stunnedState ? stunnedState.stunnedPl : activePl, 'STUNNED_2_TURNS');
+  }
+  else if (teleportPending){ set(activePl, 'TELEPORT'); }
+
+  _setPuZoneImg('p1-pu-img', p1Type);
+  _setPuZoneImg('p2-pu-img', p2Type);
+}
+
+function _setPuZoneImg(id, type) {
+  const img = document.getElementById(id); if (!img) return;
+  if (type && PU_IMAGES[type]) {
+    img.src = PU_IMAGES[type];
+    img.style.opacity = '1';
+  } else {
+    img.style.opacity = '0';
+  }
+}
+
+function setBtns(enabled) {
+  document.getElementById('wrong-btn').disabled   = !enabled;
+  document.getElementById('correct-btn').disabled = !enabled;
+}
+
+function changeScore(pl, delta) {
+  scores[pl] += delta;
+  const se = document.getElementById('score-'+pl);
+  se.classList.remove('bump'); void se.offsetWidth; se.classList.add('bump');
+  setTimeout(() => se.classList.remove('bump'), 400);
+  renderHeader();
+}
+
+function checkWin() {
+  if (scores[activePl] >= WIN) {
+    combo = null; djState = null; minus1IfWrong = false; plus2IfCorrect = false; knockbackHit = false;
+    simMode = null; freezeState = null; stunnedPending = false; stunnedState = null; teleportPending = false; mirrorPuType = null; mirrorPuTarget = -1; mirrorPuDelay = 0; gameActive = false;
+    setBtns(false); updateComboHud(); clearDjBadge();
+    setTimeout(() => showWin(activePl), 650);
+    return true;
+  }
+  return false;
+}
+
+// ─── EMERGENCY OVERRIDE ────────────────────────────────────────────────────
+function emergencyOverride() {
+  if (!gameActive) return;
+  _puDisabled = true;
+  // Tüm aktif PU efektlerini sıfırla
+  combo = null; djState = null; minus1IfWrong = false; plus2IfCorrect = false;
+  knockbackHit = false; simMode = null; freezeState = null;
+  stunnedPending = false; stunnedState = null;
+  teleportPending = false; mirrorPuType = null; mirrorPuTarget = -1; mirrorPuDelay = 0;
+  p1PuPending = false; _puDoneCallback = null; busy = false;
+  // PU overlay varsa kapat
+  document.getElementById('pu-overlay').style.display = 'none';
+  // P1'e geç
+  activePl = 0;
+  // HUD'ları temizle
+  document.getElementById('combo-hud').style.display   = 'none';
+  document.getElementById('freeze-hud').style.display  = 'none';
+  document.getElementById('stunned-hud').style.display = 'none';
+  document.getElementById('sim-hud').style.display     = 'none';
+  clearDjBadge();
+  _setPuZoneImg('p1-pu-img', null); _setPuZoneImg('p2-pu-img', null);
+  const p1h = document.getElementById('p1-header');
+  const p2h = document.getElementById('p2-header');
+  p1h.classList.remove('frozen-player','zapped-player');
+  p2h.classList.remove('frozen-player','zapped-player');
+  // Aksiyon satırını normalize et
+  document.getElementById('wrong-btn').style.display       = '';
+  document.getElementById('correct-btn').style.display     = '';
+  document.getElementById('buzz-btn').style.display = 'none';
+  document.getElementById('reveal-btn').classList.remove('visible');
+  _pendingRevealCb = null;
+  setBtns(true);
+  // Yeni kart
+  currentIdx++;
+  setCard(true);
+  renderHeader();
+  // Kısa flash geri bildirimi
+  const btn = document.getElementById('override-btn');
+  btn.style.background = 'rgba(220,38,38,.9)'; btn.style.color = '#fff';
+  setTimeout(() => { btn.style.background = ''; btn.style.color = ''; }, 600);
+}
+// ───────────────────────────────────────────────────────────────────────────
+
+function endTurn(switchPlayer) {
+  setTimeout(() => {
+    if (switchPlayer) activePl = 1 - activePl;
+    currentIdx++;
+    if (mirrorPuType !== null && mirrorPuDelay > 0) mirrorPuDelay--;
+    checkAndTriggerPu(() => {
+      setCard(true); renderHeader(); updateComboHud(); updateFreezeHud(); updateStunnedHud(); updateActionRow();
+    });
+  }, 320);
+}
+
+// ═══════════════════════════════════════════════════
+//  HANDLE ANSWER
+// ═══════════════════════════════════════════════════
+function handleAnswer(correct) {
+  if (!gameActive || busy) return;
+
+  // Spam guard
+  const now = Date.now();
+  _clickLog[activePl].push(now);
+  _clickLog[activePl] = _clickLog[activePl].filter(t=>now-t<700);
+  if (_clickLog[activePl].length >= 3) {
+    _clickLog[activePl] = [];
+    _spamLocked[activePl] = true;
+    const name = document.getElementById(activePl===0?'p1-name':'p2-name').textContent;
+    if (name) _spamStudents[activePl].add(name);
+    setTimeout(()=>{ _spamLocked[activePl]=false; }, 2500);
+    return;
+  }
+  if (_spamLocked[activePl]) return;
+
+  trackP1Word();
+  playSound(correct ? 'correct' : 'wrong');
+  showFlash(correct);
+
+  // Görsel kart reveal
+  if (_isCurrentImgCard) {
+    _isCurrentImgCard = false;
+    busy = true; setBtns(false);
+    const _revealWord = _imgCardWord;
+    const _wrap = document.getElementById('card-wrap');
+    const _wEl  = document.getElementById('card-word');
+    // 0.5sn: correct/wrong mp3 bitsin
+    setTimeout(() => {
+      // Görsel kalır, kelime altına eklenir
+      _wEl.textContent = _revealWord;
+      _wEl.classList.remove('italic-sub');
+      _wrap.classList.add('img-reveal-mode');
+      // 2 kez doğrudan oku (speakWord'ün 1sn gecikmesini bypass et)
+      function _utter() {
+        const u = new SpeechSynthesisUtterance(_revealWord.toLowerCase());
+        u.lang = 'en-US'; u.rate = 0.88;
+        window.speechSynthesis.speak(u);
+      }
+      if (window.speechSynthesis) {
+        window.speechSynthesis.cancel();
+        _utter();                              // 1. okuma hemen
+        setTimeout(_utter, 1400);             // 2. okuma 1.4sn sonra
+      }
+      // 2. okuma + konuşma süresi bittikten sonra devam et
+      setTimeout(() => {
+        busy = false;
+        if (correct) { changeScore(activePl, 1); if (checkWin()) return; }
+        endTurn(true);
+      }, 3000);
+    }, 500);
+    return;
+  }
+
+  // Post-answer image reveal
+  const _revealPath = _currentEntry && _currentEntry[6] ? _currentEntry[6] : null;
+  if (_revealPath) {
+    busy = true; setBtns(false);
+    if (correct) {
+      setTimeout(() => {
+        _showRevealImg(_revealPath, () => { busy = false; _scoreAndContinue(true); });
+      }, 500);
+    } else {
+      document.getElementById('reveal-btn').classList.add('visible');
+      _pendingRevealCb = () => {
+        document.getElementById('reveal-btn').classList.remove('visible');
+        _showRevealImg(_revealPath, () => { busy = false; _scoreAndContinue(false); });
+      };
+    }
+    return;
+  }
+
+  _scoreAndContinue(correct);
+}
+
+function _scoreAndContinue(correct) {
+  if (combo)                          { handleComboAnswer(correct);         return; }
+  if (djState)                        { handleDjAnswer(correct);            return; }
+  if (minus1IfWrong)                  { handleMinus1IfWrongAnswer(correct); return; }
+  if (plus2IfCorrect)                 { handlePlus2IfCorrectAnswer(correct); return; }
+  if (knockbackHit)                   { handleKnockbackHitAnswer(correct);  return; }
+  if (freezeState)                    { handleFreezeAnswer(correct);        return; }
+  if (stunnedPending || stunnedState) { handleStunnedAnswer(correct);       return; }
+  if (teleportPending)                { handleTeleportAnswer(correct);      return; }
+  if (correct) { changeScore(activePl, 1); if (checkWin()) return; }
+  endTurn(true);
+}
+
+function _showRevealImg(path, cb) {
+  const wrap   = document.getElementById('card-wrap');
+  const imgEl  = document.getElementById('card-img');
+  const wordEl = document.getElementById('card-word');
+  let _done = false;
+  const _finish = () => { if (_done) return; _done = true; imgEl.onerror = null; cb(); };
+  wrap.classList.remove('img-reveal-mode');
+  wrap.classList.add('img-mode');
+  wordEl.textContent = '';
+  imgEl.onerror = () => { wrap.classList.remove('img-mode'); imgEl.src = ''; _finish(); };
+  imgEl.src = path;
+  setTimeout(_finish, 2000);
+}
+
+function handleReveal() {
+  if (_pendingRevealCb) {
+    const cb = _pendingRevealCb;
+    _pendingRevealCb = null;
+    cb();
+  }
+}
+
+// ─── 3 HIT COMBO ────────────────────────────────────
+function handleComboAnswer(correct) {
+  if (correct) {
+    combo.hitsLeft--;
+    changeScore(activePl, 1);
+    if (checkWin()) return;
+    if (combo.hitsLeft <= 0) {
+      combo = null;
+      endTurn(true);
+    } else {
+      setTimeout(() => { currentIdx++; setCard(true); renderHeader(); updateComboHud(); }, 320);
+    }
+  } else {
+    if (combo.phase === 1) {
+      combo.phase = 2;
+      activePl = 1 - activePl;
+      setTimeout(() => { currentIdx++; setCard(true); renderHeader(); updateComboHud(); }, 320);
+    } else {
+      combo = null;
+      endTurn(true);
+    }
+  }
+}
+
+// ─── FREEZE ─────────────────────────────────────────
+function handleFreezeAnswer(correct) {
+  if (correct) {
+    changeScore(activePl, 1);
+    if (checkWin()) return;
+  }
+  freezeState.turnsLeft--;
+  if (freezeState.turnsLeft <= 0) {
+    // Freeze bitti, dondurulmuş oyuncuya geri dön
+    activePl = freezeState.frozenPl;
+    freezeState = null;
+    endTurn(false); // activePl zaten set edildi
+  } else {
+    // Aynı oyuncu devam ediyor
+    setTimeout(() => {
+      currentIdx++;
+      checkAndTriggerPu(() => {
+        setCard(true); renderHeader(); updateFreezeHud();
+      });
+    }, 320);
+  }
+}
+
+// ─── STUNNED ─────────────────────────────────────────
+function handleStunnedAnswer(correct) {
+  if (stunnedPending) {
+    stunnedPending = false;
+    if (correct) {
+      changeScore(activePl, 1);
+      if (checkWin()) return;
+      endTurn(true);
+    } else {
+      // Wrong → stun activates, opponent plays 2 turns
+      stunnedState = { turnsLeft: 2, stunnedPl: activePl };
+      activePl = 1 - activePl;
+      setTimeout(() => {
+        currentIdx++;
+        checkAndTriggerPu(() => {
+          setCard(true); renderHeader(); updateStunnedHud(); updateComboHud(); updateFreezeHud(); updateActionRow();
+        });
+      }, 320);
+    }
+    return;
+  }
+  // stunnedState active — opponent is playing their free turns
+  if (correct) {
+    changeScore(activePl, 1);
+    if (checkWin()) return;
+  }
+  stunnedState.turnsLeft--;
+  if (stunnedState.turnsLeft <= 0) {
+    activePl = stunnedState.stunnedPl;
+    stunnedState = null;
+    endTurn(false);
+  } else {
+    setTimeout(() => {
+      currentIdx++;
+      checkAndTriggerPu(() => {
+        setCard(true); renderHeader(); updateStunnedHud(); updateComboHud(); updateFreezeHud(); updateActionRow();
+      });
+    }, 320);
+  }
+}
+
+// ─── TELEPORT ────────────────────────────────────────
+function handleTeleportAnswer(correct) {
+  teleportPending = false;
+  const opp = 1 - activePl;
+  if (correct && scores[activePl] < scores[opp]) {
+    // Trailing + correct → jump up to opponent's score
+    const delta = scores[opp] - scores[activePl];
+    changeScore(activePl, delta);
+    if (checkWin()) return;
+  } else if (!correct && scores[activePl] > scores[opp]) {
+    // Leading + wrong → drop down to opponent's score
+    const delta = scores[opp] - scores[activePl]; // negative
+    changeScore(activePl, delta);
+  } else if (correct) {
+    changeScore(activePl, 1);
+    if (checkWin()) return;
+  }
+  // wrong + trailing or equal → 0 pts, turn passes
+  endTurn(true);
+}
+
+// ─── +2 IF CORRECT ──────────────────────────────────
+function handlePlus2IfCorrectAnswer(correct) {
+  plus2IfCorrect = false;
+  if (correct) {
+    changeScore(activePl, 2);
+    if (checkWin()) return;
+  }
+  endTurn(true);
+}
+
+// ─── KNOCKBACK HIT ───────────────────────────────────
+function handleKnockbackHitAnswer(correct) {
+  knockbackHit = false;
+  if (correct) {
+    changeScore(activePl, 1);
+    changeScore(1 - activePl, -1);
+    if (checkWin()) return;
+  }
+  endTurn(true);
+}
+
+// ─── -1 POINT IF WRONG ──────────────────────────────
+function handleMinus1IfWrongAnswer(correct) {
+  minus1IfWrong = false;
+  changeScore(activePl, correct ? 1 : -1);
+  if (correct && checkWin()) return;
+  endTurn(true);
+}
+
+// ─── DOUBLE JEOPARDY ────────────────────────────────
+function handleDjAnswer(correct) {
+  const accepted = djState.accepted;
+  djState = null;
+  clearDjBadge();
+
+  if (accepted) {
+    if (correct) {
+      changeScore(activePl, 3);
+    } else {
+      changeScore(activePl, -2);
+    }
+  } else {
+    if (correct) {
+      changeScore(activePl, 1);
+    }
+    // refused + wrong = 0 pts, nothing to do
+  }
+
+  if (correct && accepted && checkWin()) return;
+  if (correct && !accepted && checkWin()) return;
+  endTurn(true);
+}
+
+function showFlash(correct) {
+  const el = document.getElementById('word-stamp');
+  el.innerHTML = '';
+  const s = document.createElement('div');
+  s.className = 'stamp-text ' + (correct ? 'stamp-valid' : 'stamp-invalid');
+  s.textContent = correct ? 'CORRECT' : 'WRONG';
+  el.appendChild(s);
+  setTimeout(() => { el.innerHTML = ''; }, 900);
+}
+
+function playAgain() {
+  // deck + currentIdx korunur — oynanan kelimeler geri gelmez
+  activePl = 0; scores = [0,0]; _imgCardCounter = [0,0]; _easyImgIdx = 0; _easyDeckIdx = 0;
+  document.getElementById('p1-name').textContent = playerNames[0];
+  document.getElementById('p2-name').textContent = playerNames[1];
+  document.getElementById('p1-pu-history').innerHTML = '';
+  document.getElementById('p2-pu-history').innerHTML = '';
+  gameActive = true; busy = false;
+  combo = null; djState = null; minus1IfWrong = false; plus2IfCorrect = false; knockbackHit = false;
+  simMode = null; freezeState = null; stunnedPending = false; stunnedState = null;
+  teleportPending = false; teleportUsed = false; _puDoneCallback = null;
+  p1WordCount = 0; p1PuPending = false; mirrorPuType = null; mirrorPuTarget = -1; mirrorPuDelay = 0;
+  _clickLog = [[],[]]; _spamLocked = [false,false]; _spamStudents = [new Set(),new Set()];
+
+  document.getElementById('win-overlay').classList.remove('open');
+  document.getElementById('combo-hud').style.display    = 'none';
+  document.getElementById('freeze-hud').style.display   = 'none';
+  document.getElementById('stunned-hud').style.display  = 'none';
+  document.getElementById('sim-hud').style.display      = 'none';
+  document.getElementById('buzz-btn').style.display   = 'none';
+  document.getElementById('wrong-btn').style.display  = '';
+  document.getElementById('correct-btn').style.display = '';
+  clearDjBadge();
+  setBtns(true);
+  setCard(true);
+  renderHeader();
+}
+
+function showWin(winner) {
+  _addWin(playerNames[winner]);
+  document.getElementById('override-btn').classList.remove('visible');
+  _delayEnable('win-again-btn');
+  document.getElementById('win-name').textContent = playerNames[winner];
+  document.getElementById('win-scores').innerHTML =
+    scores[0] + '<span class="ws-sep">—</span>' + scores[1];
+  document.getElementById('win-overlay').classList.add('open');
+}
+
+function endGame() {
+  if (window.speechSynthesis) window.speechSynthesis.cancel();
+  _ttsTimers.forEach(t => clearTimeout(t)); _ttsTimers = [];
+  gameActive = false; busy = false;
+  _pendingRevealCb = null;
+  document.getElementById('reveal-btn').classList.remove('visible');
+  document.getElementById('win-overlay').classList.remove('open');
+  document.getElementById('game-screen').style.display = 'none';
+  document.getElementById('override-btn').classList.remove('visible');
+  document.getElementById('screen-student-select').classList.remove('hidden');
+  _easyMode = [false, false];
+  buildStudentPool();
+}
+
+function showWelcome() {
+  document.getElementById('screen-welcome').classList.remove('hidden');
+  document.getElementById('screen-tutorial').classList.add('hidden');
+  document.getElementById('screen-student-select').classList.add('hidden');
+}
+function showStudentSelect() {
+  document.getElementById('screen-welcome').classList.add('hidden');
+  document.getElementById('screen-student-select').classList.remove('hidden');
+}
+function showTutorial() {
+  document.getElementById('screen-welcome').classList.add('hidden');
+  document.getElementById('screen-tutorial').classList.remove('hidden');
+}
+function switchTutTab(lang) {
+  document.querySelectorAll('.tut-tab').forEach(t => t.classList.toggle('active', t.dataset.lang === lang));
+  document.getElementById('tut-en').classList.toggle('hidden', lang !== 'en');
+  document.getElementById('tut-tr').classList.toggle('hidden', lang !== 'tr');
+}
+
+function toggleFS() {
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen().catch(() => {});
+  } else {
+    document.exitFullscreen().catch(() => {});
+  }
+}
+
+// ═══════════════════════════════════════════════════
+//  STUDENT SELECT
+// ═══════════════════════════════════════════════════
+try { CLASSES; } catch(e) { window.CLASSES = []; }
+
+let playerNames   = ['STUDENT 1', 'STUDENT 2'];
+let _easyMode     = [false, false]; // hangi player easy mode'da
+let _easyStudents = new Set();      // easy mode'lu öğrenci adları (all-caps canonical)
+let _ssSelected   = [];   // [{name, slot}]  — max 2, sırasıyla P1/P2
+let _ssLastChip   = null; // son seçilen chip element (rename için)
+let _rnSlot       = null; // rename edilecek slot index (1..18)
+let _rnText       = '';
+let _rnKbHandler  = null;
+
+const _SS_KEY    = 'word_duel_snames';
+const _EASY_KEY  = 'word_duel_easy';
+const _WINS_KEY  = 'word_duel_wins';
+
+function _getWins(name) {
+  try { return (JSON.parse(localStorage.getItem(_WINS_KEY)) || {})[name] || 0; } catch(e) { return 0; }
+}
+function _addWin(name) {
+  try {
+    const w = JSON.parse(localStorage.getItem(_WINS_KEY)) || {};
+    w[name] = (w[name] || 0) + 1;
+    localStorage.setItem(_WINS_KEY, JSON.stringify(w));
+  } catch(e) {}
+}
+
+function _loadSSNames() {
+  try { return JSON.parse(localStorage.getItem(_SS_KEY)) || []; } catch(e) { return []; }
+}
+function _loadEasyStudents() {
+  try { return new Set(JSON.parse(localStorage.getItem(_EASY_KEY)) || []); } catch(e) { return new Set(); }
+}
+function _saveEasyStudents() {
+  try { localStorage.setItem(_EASY_KEY, JSON.stringify([..._easyStudents])); } catch(e) {}
+}
+function _saveSSNames() {
+  const names = Array(18).fill(null);
+  document.querySelectorAll('#ss-class-pool .ss-chip[data-slot]').forEach(c => {
+    const sl = parseInt(c.dataset.slot);
+    if (sl >= 1 && sl <= 18) names[sl - 1] = c.dataset.name;
+  });
+  try { localStorage.setItem(_SS_KEY, JSON.stringify(names)); } catch(e) {}
+}
+
+function buildStudentPool() {
+  _ssSelected = []; _ssLastChip = null;
+  _easyStudents = _loadEasyStudents();
+  const pool = document.getElementById('ss-class-pool');
+  pool.innerHTML = '';
+  const teacherMode = window.CLASSES && CLASSES.length > 0;
+  if (teacherMode) {
+    // names.js yüklendi — sınıf listesini direkt göster (tüm sınıfların öğrencileri)
+    CLASSES.forEach(cls => {
+      cls.students.forEach(s => {
+        const chip = document.createElement('button');
+        chip.className = 'ss-chip';
+        chip.textContent = s.name;
+        chip.dataset.name = s.name;
+        chip.onclick = () => _ssToggle({ name: s.name, slot: null }, chip);
+        pool.appendChild(chip);
+      });
+    });
+  } else {
+    const saved = _loadSSNames();
+    for (let i = 1; i <= 18; i++) {
+      const nm = saved[i - 1] || `STUDENT ${i}`;
+      const chip = document.createElement('button');
+      chip.className = 'ss-chip';
+      chip.textContent = _easyStudents.has(nm) ? _toTitleCase(nm) : nm;
+      chip.dataset.name = nm;
+      chip.dataset.slot = i;
+      chip.onclick = () => _ssToggle({ name: chip.dataset.name, slot: i }, chip);
+      chip.ondblclick = () => _toggleEasyMode(chip);
+      pool.appendChild(chip);
+    }
+  }
+  _updateSSCount();
+}
+
+function _ssToggle(s, chip) {
+  const idx = _ssSelected.findIndex(x => x.slot !== null ? x.slot === s.slot : x.name === s.name);
+  if (idx >= 0) {
+    // Deselect
+    _ssSelected.splice(idx, 1);
+    chip.classList.remove('sel-p1', 'sel-p2');
+    if (_ssLastChip === chip) { _ssLastChip = null; }
+    // Renumber remaining
+    _ssRefreshColors();
+  } else {
+    if (_ssSelected.length >= 2) return; // max 2
+    _ssSelected.push(s);
+    _ssLastChip = chip;
+    _ssRefreshColors();
+  }
+  _updateSSCount();
+}
+
+function _ssRefreshColors() {
+  // Tüm chip'leri sıfırla
+  document.querySelectorAll('#ss-class-pool .ss-chip').forEach(c => c.classList.remove('sel-p1', 'sel-p2'));
+  _ssSelected.forEach((s, i) => {
+    const chip = s.slot !== null
+      ? document.querySelector(`#ss-class-pool .ss-chip[data-slot="${s.slot}"]`)
+      : document.querySelector(`#ss-class-pool .ss-chip[data-name="${s.name}"]`);
+    if (chip) chip.classList.add(i === 0 ? 'sel-p1' : 'sel-p2');
+  });
+}
+
+function _updateSSCount() {
+  const n = _ssSelected.length;
+  const el = document.getElementById('ss-count');
+  const teacherMode = window.CLASSES && CLASSES.length > 0;
+  if (n === 0) el.textContent = 'Henüz seçilmedi';
+  else if (n === 1) el.innerHTML = `<span style="color:var(--p1)">${_ssSelected[0].name}</span> seçildi — bir kişi daha seç`;
+  else el.innerHTML = `<span style="color:var(--p1)">${_ssSelected[0].name}</span> vs <span style="color:var(--p2)">${_ssSelected[1].name}</span>`;
+  el.className = 'ss-count' + (n === 2 ? ' ready' : '');
+  document.getElementById('ss-continue-btn').disabled = (n !== 2);
+  // RENAME butonu: sadece web modunda, son seçilen chip varsa
+  const rnBtn = document.getElementById('ss-rename-btn');
+  if (rnBtn) {
+    const canRename = !teacherMode && _ssLastChip !== null;
+    rnBtn.classList.toggle('hidden', !canRename);
+  }
+}
+
+function proceedToSettings() {
+  if (_ssSelected.length !== 2) return;
+  _easyMode = [
+    _easyStudents.has(_ssSelected[0].name),
+    _easyStudents.has(_ssSelected[1].name)
+  ];
+  playerNames = [
+    _easyMode[0] ? _toTitleCase(_ssSelected[0].name) : _ssSelected[0].name,
+    _easyMode[1] ? _toTitleCase(_ssSelected[1].name) : _ssSelected[1].name
+  ];
+  document.getElementById('screen-student-select').classList.add('hidden');
+  document.getElementById('settings-overlay').style.display = 'flex';
+}
+
+// ── RENAME OVERLAY ───────────────────────────────────────
+function openRenameOverlay() {
+  if (!_ssLastChip) return;
+  _rnSlot = parseInt(_ssLastChip.dataset.slot) || null;
+  _rnText = (_ssLastChip.dataset.name.startsWith('STUDENT ') ? '' : _ssLastChip.dataset.name);
+  _buildRnKb();
+  _updateRnDisplay();
+  document.getElementById('overlay-rename').classList.remove('hidden');
+  _rnKbHandler = function(e) {
+    if (document.getElementById('overlay-rename').classList.contains('hidden')) return;
+    if (e.key === 'Escape') { e.preventDefault(); closeRenameOverlay(); return; }
+    if (e.key === 'Backspace') { e.preventDefault(); _rnOnKey('⌫'); return; }
+    if (e.key === 'Enter') { e.preventDefault(); _rnOnKey('OK'); return; }
+    if (e.key === ' ') { e.preventDefault(); _rnOnKey(' '); return; }
+    if (e.key.length === 1 && /[a-zA-ZçÇğĞıİöÖşŞüÜ\-]/.test(e.key)) _rnOnKey(e.key.toUpperCase());
+  };
+  document.addEventListener('keydown', _rnKbHandler);
+}
+
+function closeRenameOverlay() {
+  document.getElementById('overlay-rename').classList.add('hidden');
+  if (_rnKbHandler) { document.removeEventListener('keydown', _rnKbHandler); _rnKbHandler = null; }
+}
+
+function _updateRnDisplay() {
+  document.getElementById('rn-display').textContent = _rnText || '—';
+}
+
+function _rnOnKey(k) {
+  if (k === '⌫') { _rnText = _rnText.slice(0, -1); }
+  else if (k === 'OK') { _applyRename(); return; }
+  else { if (_rnText.length < 16) _rnText += k; }
+  _updateRnDisplay();
+}
+
+function _applyRename() {
+  const newName = _rnText.trim().toUpperCase();
+  if (!newName) { closeRenameOverlay(); return; }
+  const oldName = _ssLastChip.dataset.name;
+  _ssLastChip.textContent = newName;
+  _ssLastChip.dataset.name = newName;
+  // selectedPlayers içinde de güncelle
+  _ssSelected.forEach(s => { if (s.name === oldName) s.name = newName; });
+  _saveSSNames();
+  _updateSSCount();
+  closeRenameOverlay();
+}
+
+function _toTitleCase(s) {
+  return s.toLowerCase().replace(/(^|\s|-)\S/g, c => c.toUpperCase());
+}
+
+function _toggleEasyMode(chip) {
+  const name = chip.dataset.name;
+  if (/^STUDENT \d+$/.test(name)) return; // sadece rename edilmiş öğrencilerde çalışır
+  if (_easyStudents.has(name)) {
+    _easyStudents.delete(name);
+    chip.textContent = name; // geri all-caps
+  } else {
+    _easyStudents.add(name);
+    chip.textContent = _toTitleCase(name); // Title Case = gizli easy işareti
+  }
+  _saveEasyStudents();
+}
+
+function _buildRnKb() {
+  const rows = [
+    ['Q','W','E','R','T','Y','U','I','O','P'],
+    ['A','S','D','F','G','H','J','K','L','İ'],
+    ['Z','X','C','V','B','N','M','�?','Ü','�?'],
+    ['Ç','Ö',' ','⌫','OK']
+  ];
+  const kb = document.getElementById('rn-keyboard');
+  kb.innerHTML = '';
+  rows.forEach(row => {
+    const rowDiv = document.createElement('div');
+    rowDiv.className = 'rn-row';
+    row.forEach(k => {
+      const btn = document.createElement('button');
+      if (k === ' ') { btn.className = 'rn-key rn-space'; btn.textContent = 'SPACE'; btn.onclick = () => _rnOnKey(' '); }
+      else if (k === '⌫') { btn.className = 'rn-key rn-del'; btn.textContent = '⌫'; btn.onclick = () => _rnOnKey('⌫'); }
+      else if (k === 'OK') { btn.className = 'rn-key rn-ok'; btn.textContent = 'ONAYLA ✓'; btn.onclick = () => _rnOnKey('OK'); }
+      else { btn.className = 'rn-key'; btn.textContent = k; btn.onclick = () => _rnOnKey(k); }
+      rowDiv.appendChild(btn);
+    });
+    kb.appendChild(rowDiv);
+  });
+}
+
+function openSettings() {
+  if (window.speechSynthesis) window.speechSynthesis.cancel();
+  gameActive = false; combo = null; djState = null; minus1IfWrong = false; plus2IfCorrect = false;
+  knockbackHit = false; simMode = null; freezeState = null; stunnedPending = false; stunnedState = null; teleportPending = false; mirrorPuType = null; mirrorPuTarget = -1; mirrorPuDelay = 0;
+  document.getElementById('win-overlay').classList.remove('open');
+  document.getElementById('game-screen').style.display = 'none';
+  // Öğrenci seçim ekranına geri dön
+  _ssSelected = []; _ssLastChip = null;
+  buildStudentPool();
+  document.getElementById('screen-student-select').classList.remove('hidden');
+  document.getElementById('settings-overlay').style.display = 'none';
+}
+
+// ═══════════════════════════════════════════════════
+//  INIT
+// ═══════════════════════════════════════════════════
+(function init() {
+  // Settings gizli başlıyor — önce öğrenci seçimi
+  document.getElementById('settings-overlay').style.display = 'none';
+  buildStudentPool();
+  if (typeof QUESTIONS === 'undefined') {
+    document.getElementById('word-count').textContent = '⚠ questions.js yüklenemedi';
+    return;
+  }
+  const allGrades = [...new Set(QUESTIONS.filter(q=>q[3]!==0).map(q=>q[3]))];
+  selectedGrades  = new Set(allGrades);
+  const allUnits  = [...new Set(QUESTIONS.filter(q=>q[3]!==0).map(q=>q[5]))];
+  selectedUnits   = new Set([allUnits[0]]);
+  load(); buildGrades(); buildUnits();
+})();
+</script>
+</body>
+</html>
+
+
