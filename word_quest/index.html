@@ -169,8 +169,8 @@ body.lite .hp-heart{animation:none}
 
 /* ── WORLD MAP ── */
 #world-map-overlay{position:fixed;inset:0;z-index:10015;display:none;overflow:hidden;background:url('images/world_map.webp') center/cover no-repeat}
-#world-map-overlay.open{display:block}.world-map-shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(2,8,20,.12),rgba(2,8,20,.3));pointer-events:none}.world-map-regions{position:absolute;inset:0;z-index:1;width:100%;height:100%;pointer-events:auto}.world-map-region{fill:rgba(255,255,255,0);stroke:transparent;cursor:pointer;transition:fill .22s ease,filter .22s ease}.world-map-region:hover,.world-map-region.hovered{fill:rgba(251,191,36,.13);filter:drop-shadow(0 0 16px rgba(251,191,36,.42))}.world-map-region.unlocked:hover,.world-map-region.unlocked.hovered{fill:rgba(74,222,128,.14);filter:drop-shadow(0 0 18px rgba(74,222,128,.48))}.world-map-controls{position:absolute;left:0;top:0;z-index:2;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:7px}.world-map-name{font-family:'Bebas Neue',sans-serif;font-size:clamp(25px,3.5vw,43px);letter-spacing:.14em;color:#fff;text-shadow:0 2px 5px #000,0 0 18px rgba(255,215,0,.72)}.world-map-actions{display:flex;gap:7px}.world-map-btn{padding:8px 17px;border:1.5px solid rgba(255,255,255,.42);border-radius:10px;background:rgba(3,10,20,.82);color:#fff;font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:.12em;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,.55)}.world-map-btn.enter{border-color:rgba(74,222,128,.65);color:#bbf7d0}.world-map-btn.info{width:38px;padding:8px 0;color:#fde68a;border-color:rgba(251,191,36,.62)}.world-map-btn:disabled{opacity:.48;cursor:not-allowed;filter:grayscale(.65)}.world-map-lock{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:800;letter-spacing:.13em;color:#fca5a5;text-shadow:0 2px 4px #000}
-#biome-info-overlay{position:absolute;inset:0;z-index:3;display:none;align-items:center;justify-content:center;padding:24px;background:rgba(2,6,18,.84);backdrop-filter:blur(10px)}#biome-info-overlay.open{display:flex}.biome-info-modal{width:min(1150px,96vw);max-height:90vh;overflow:auto;padding:20px;border:1.5px solid rgba(251,191,36,.48);border-radius:20px;background:rgba(6,13,25,.95);box-shadow:0 24px 70px rgba(0,0,0,.8)}.biome-info-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}.biome-info-title{font-family:'Bebas Neue',sans-serif;font-size:38px;letter-spacing:.14em;color:#fde68a}.biome-info-close{width:38px;height:38px;border-radius:9px;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.08);color:#fff;font-size:22px;cursor:pointer}.biome-bestiary{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}.biome-creature{min-width:0;padding:9px;border:1.5px solid rgba(255,255,255,.18);border-radius:13px;background:rgba(0,0,0,.3);text-align:center}.biome-creature.boss{border-color:rgba(251,191,36,.65);box-shadow:0 0 18px rgba(251,191,36,.18)}.biome-creature.undefeated{filter:grayscale(1);opacity:.48}.biome-creature img{width:100%;height:105px;object-fit:contain}.biome-creature-name{font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:.07em;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.biome-creature-tier{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:800;letter-spacing:.1em;color:#c4b5fd}.biome-creature-state{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:800;letter-spacing:.1em;color:#4ade80;margin-top:3px}.biome-creature.undefeated .biome-creature-state{color:#fca5a5}@media(max-width:800px){.biome-bestiary{grid-template-columns:repeat(2,minmax(0,1fr))}.world-map-name{font-size:24px}.world-map-btn{font-size:14px;padding:6px 11px}}
+#world-map-overlay.open{display:block}.world-map-shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(2,8,20,.08),rgba(2,8,20,.2));pointer-events:none}.world-map-controls{position:absolute;left:0;top:0;z-index:2;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:6px}.world-map-name{font-family:'Bebas Neue',sans-serif;font-size:clamp(19px,2.5vw,30px);letter-spacing:.14em;color:#fff;text-shadow:0 2px 5px #000,0 0 15px rgba(255,215,0,.68)}.world-map-actions{display:flex;gap:6px}.world-map-btn{padding:7px 14px;border:1.5px solid rgba(255,255,255,.42);border-radius:10px;background:rgba(3,10,20,.84);color:#fff;font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:.12em;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,.55)}.world-map-btn.enter{border-color:rgba(74,222,128,.65);color:#bbf7d0}.world-map-btn.info{width:36px;padding:7px 0;color:#fde68a;border-color:rgba(251,191,36,.62)}.world-map-btn:disabled{opacity:.48;cursor:not-allowed;filter:grayscale(.65)}.world-map-lock{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:800;letter-spacing:.11em;color:#fca5a5;text-shadow:0 2px 4px #000;white-space:nowrap}
+#biome-info-overlay{position:absolute;inset:0;z-index:3;display:none;align-items:center;justify-content:center;padding:24px;background:rgba(2,6,18,.84);backdrop-filter:blur(10px)}#biome-info-overlay.open{display:flex}.biome-info-modal{width:min(1150px,96vw);max-height:90vh;overflow:auto;padding:20px;border:1.5px solid rgba(251,191,36,.48);border-radius:20px;background:rgba(6,13,25,.95);box-shadow:0 24px 70px rgba(0,0,0,.8)}.biome-info-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}.biome-info-title{font-family:'Bebas Neue',sans-serif;font-size:38px;letter-spacing:.14em;color:#fde68a}.biome-info-close{width:38px;height:38px;border-radius:9px;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.08);color:#fff;font-size:22px;cursor:pointer}.biome-bestiary{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}.biome-creature{min-width:0;padding:9px;border:1.5px solid rgba(255,255,255,.18);border-radius:13px;background:rgba(0,0,0,.3);text-align:center}.biome-creature.boss{border-color:rgba(251,191,36,.65);box-shadow:0 0 18px rgba(251,191,36,.18)}.biome-creature.undefeated{filter:grayscale(1);opacity:.48}.biome-creature.unknown{opacity:.62}.biome-creature-unknown{height:105px;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:84px;line-height:1;color:#94a3b8;text-shadow:0 0 20px rgba(148,163,184,.3)}.biome-creature img{width:100%;height:105px;object-fit:contain}.biome-creature-name{font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:.07em;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.biome-creature-tier{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:800;letter-spacing:.1em;color:#c4b5fd}.biome-creature-state{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:800;letter-spacing:.1em;color:#4ade80;margin-top:3px}.biome-creature.undefeated .biome-creature-state,.biome-creature.unknown .biome-creature-state{color:#fca5a5}@media(max-width:800px){.biome-bestiary{grid-template-columns:repeat(2,minmax(0,1fr))}.world-map-name{font-size:24px}.world-map-btn{font-size:14px;padding:6px 11px}}
 
 /* ── SHOP OVERLAY ── */
 #sp-shop{position:fixed;inset:0;z-index:9670;background-image:linear-gradient(180deg,rgba(2,8,20,.06) 0%,rgba(2,8,20,.08) 45%,rgba(2,8,20,.82) 100%),var(--field-shop-bg,linear-gradient(145deg,#172033,#07111f));background-position:center;background-size:cover;background-repeat:no-repeat;display:none;align-items:flex-end;justify-content:center;padding:18px}
@@ -264,6 +264,19 @@ body.lite .hp-heart{animation:none}
 .img-cell.correct-flash img{filter:brightness(1.1)}
 .img-cell.dim-wrong{opacity:.35}
 .img-cell.dim-wrong img{opacity:0!important}
+.img-cell.shatter-exit{opacity:0;transform:scale(.88);border-color:transparent;transition:opacity .08s ease,transform .14s ease,border-color .08s}
+.grid-shatter-layer{position:fixed;pointer-events:none;z-index:5400;overflow:visible}
+.grid-shatter-piece{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;animation:gridShatterOut .38s cubic-bezier(.22,.61,.36,1) forwards;will-change:transform,opacity;filter:brightness(.9)}
+.grid-shatter-piece:nth-child(1){clip-path:polygon(0 0,45% 0,29% 34%,0 45%);--sx:-22px;--sy:-18px;--sr:-18deg}
+.grid-shatter-piece:nth-child(2){clip-path:polygon(45% 0,100% 0,100% 28%,68% 39%,29% 34%);--sx:18px;--sy:-24px;--sr:15deg}
+.grid-shatter-piece:nth-child(3){clip-path:polygon(0 45%,29% 34%,43% 64%,13% 76%,0 69%);--sx:-28px;--sy:2px;--sr:-25deg}
+.grid-shatter-piece:nth-child(4){clip-path:polygon(29% 34%,68% 39%,62% 69%,43% 64%);--sx:4px;--sy:-4px;--sr:12deg}
+.grid-shatter-piece:nth-child(5){clip-path:polygon(68% 39%,100% 28%,100% 70%,62% 69%);--sx:28px;--sy:4px;--sr:24deg}
+.grid-shatter-piece:nth-child(6){clip-path:polygon(0 69%,13% 76%,36% 100%,0 100%);--sx:-24px;--sy:24px;--sr:-16deg}
+.grid-shatter-piece:nth-child(7){clip-path:polygon(13% 76%,43% 64%,62% 69%,72% 100%,36% 100%);--sx:-2px;--sy:30px;--sr:18deg}
+.grid-shatter-piece:nth-child(8){clip-path:polygon(62% 69%,100% 70%,100% 100%,72% 100%);--sx:25px;--sy:24px;--sr:28deg}
+@keyframes gridShatterOut{0%{opacity:1;transform:translate(0,0) scale(1) rotate(0)}35%{opacity:.95}100%{opacity:0;transform:translate(var(--sx),var(--sy)) scale(.82) rotate(var(--sr))}}
+body.lite .grid-shatter-layer{display:none}
 .img-broken-ph{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;background:rgba(0,0,0,.75);border-radius:6px;pointer-events:none}
 .ibph-word{font-family:'Bebas Neue',sans-serif;font-size:clamp(13px,1.6vw,20px);color:#FFE600;letter-spacing:.06em;text-align:center;padding:0 4px}
 @keyframes imgShake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-10px)}40%,80%{transform:translateX(10px)}}
@@ -978,14 +991,11 @@ body.lite .hp-heart{animation:none}
 <!-- World Map -->
 <div id="world-map-overlay">
   <div class="world-map-shade"></div>
-  <svg class="world-map-regions" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-    <polygon id="world-map-region-plains" class="world-map-region" points="443,629 1325,672 1746,1012 202,962"></polygon>
-    <polygon id="world-map-region-forest" class="world-map-region" points="49,137 706,345 80,885"></polygon>
-    <polygon id="world-map-region-lava" class="world-map-region" points="1220,340 1600,105 1910,343 1872,789 1310,695"></polygon>
-  </svg>
   <div class="world-map-controls" id="world-map-control-plains"></div>
   <div class="world-map-controls" id="world-map-control-forest"></div>
   <div class="world-map-controls" id="world-map-control-lava"></div>
+  <div class="world-map-controls" id="world-map-control-frost"></div>
+  <div class="world-map-controls" id="world-map-control-celestial"></div>
   <div id="biome-info-overlay">
     <div class="biome-info-modal">
       <div class="biome-info-head">
@@ -1366,6 +1376,7 @@ let _pendingTown         = false;
 let _pendingWorldMap     = false;
 let _spUnlockedBiome     = 0;
 let _spDefeatedEnemyTiers = [];
+let _spEncounteredEnemyTiers = [];
 let _innRestInterval     = null;
 let _innResting          = false;
 let _innRestEndsAt       = 0;
@@ -1400,6 +1411,7 @@ const BG_MUSIC_FULL = 0.35;
 const BG_MUSIC_BATTLE = BG_MUSIC_FULL * 0.5;
 const BG_MENU_TRACK = 'sounds/mainmenu.mp3';
 const BG_TOWN_TRACK = 'sounds/town.mp3';
+const BG_WORLD_MAP_TRACK = 'sounds/worldmap.mp3';
 const BG_INN_TRACK  = 'sounds/inn.mp3';
 const BLACKSMITH_AMBIENT_TRACK = 'sounds/blacksmith.mp3';
 const BG_MAGES_GUILD_TRACK = 'sounds/magesguild.mp3';
@@ -2328,6 +2340,7 @@ function _startGame() {
   _pendingWorldMap = true;
   _spUnlockedBiome = 0;
   _spDefeatedEnemyTiers = [];
+  _spEncounteredEnemyTiers = [];
   _innRestEndsAt = 0;
   _townShopStock = {};
   _blacksmithTradeOffers = [];
@@ -2411,6 +2424,9 @@ function _startGameCore(resumePendingEvent = false, resumeTown = false, resumeWa
 function _beginEnemyEncounter(resumeBattle = null) {
   const npc = _getNpc(_spNpcIdx);
   if (!npc) { _showVictory(); return; }
+  const encounterKey = npc.id + ':tier' + Math.max(1, Math.min(3, Number(npc.tier) || 1));
+  const newEncounter = !_spEncounteredEnemyTiers.includes(encounterKey);
+  if (newEncounter) _spEncounteredEnemyTiers.push(encounterKey);
   _spBattleStarted = true;
   _gearPauseUsedThisEnemy = false;
   _gearOverlayPausedBattle = false;
@@ -2425,6 +2441,7 @@ function _beginEnemyEncounter(resumeBattle = null) {
     _updateTimerUI();
     _spSavedBattleState = null;
   }
+  if (newEncounter) _spSave();
   _showOpponentIntro(npc);
 }
 function _showOpponentIntro(npc) {
@@ -2494,6 +2511,32 @@ async function _startRound() {
 }
 
 // ── CLICK HANDLER ─────────────────────────────────────────
+function _shatterGridCell(cell) {
+  if (!cell) return;
+  const img = cell.querySelector('img');
+  const imageSrc = img?.currentSrc || img?.src;
+  if (!imageSrc || img?.style.display === 'none' || document.body.classList.contains('lite')) {
+    cell.classList.add('shatter-exit');
+    return;
+  }
+  const rect = cell.getBoundingClientRect();
+  const layer = document.createElement('div');
+  layer.className = 'grid-shatter-layer';
+  layer.style.left = rect.left + 'px';
+  layer.style.top = rect.top + 'px';
+  layer.style.width = rect.width + 'px';
+  layer.style.height = rect.height + 'px';
+  for (let i = 0; i < 8; i++) {
+    const piece = document.createElement('img');
+    piece.className = 'grid-shatter-piece';
+    piece.src = imageSrc;
+    piece.alt = '';
+    layer.appendChild(piece);
+  }
+  document.body.appendChild(layer);
+  cell.classList.add('shatter-exit');
+  setTimeout(() => layer.remove(), 420);
+}
 function handleClick(pos) {
   if (!_spRoundActive || _spClickLocked) return;
   const cell = document.getElementById('cell-sp-' + pos);
@@ -2522,7 +2565,7 @@ function handleClick(pos) {
       _playSound('sounds/punch.mp3', 0.7);
     });
     for (let p = 0; p < 4; p++) {
-      if (p !== pos) document.getElementById('cell-sp-' + p)?.classList.add('dim-wrong');
+      if (p !== pos) _shatterGridCell(document.getElementById('cell-sp-' + p));
     }
     if (_spStreak >= 3) {
       _spawnStreakBanner(_spStreak + ' STREAK!');
@@ -2532,7 +2575,7 @@ function handleClick(pos) {
     } else {
       setTimeout(() => {
         cell.classList.remove('correct-flash');
-        for (let p = 0; p < 4; p++) document.getElementById('cell-sp-' + p)?.classList.remove('dim-wrong');
+        for (let p = 0; p < 4; p++) document.getElementById('cell-sp-' + p)?.classList.remove('shatter-exit');
         _startRound();
       }, SP_BETWEEN_MS);
     }
@@ -3338,9 +3381,11 @@ function _leaveInn() {
   _openTown();
 }
 const WORLD_MAP_BIOMES = [
-  { id:'plains', name:'PLAINS', index:0, center:[950,893] },
-  { id:'forest', name:'FOREST', index:1, center:[278,456] },
-  { id:'lava', name:'LAVA', index:2, center:[1580,520] },
+  { id:'plains', name:'PLAINS', index:0, center:[281,950] },
+  { id:'forest', name:'FOREST', index:1, center:[445,665] },
+  { id:'lava', name:'LAVA', index:2, center:[1520,555] },
+  { id:'frost', name:'FROST', index:3, center:[1370,210] },
+  { id:'celestial', name:'CELESTIAL', index:4, center:[960,357] },
 ];
 function _positionWorldMapControl(controlId, x, y) {
   const overlay = document.getElementById('world-map-overlay');
@@ -3356,17 +3401,17 @@ function _renderWorldMap() {
   WORLD_MAP_BIOMES.forEach(biome => {
     const unlocked = biome.index <= _spUnlockedBiome;
     const control = document.getElementById('world-map-control-' + biome.id);
-    const region = document.getElementById('world-map-region-' + biome.id);
-    region?.classList.toggle('unlocked', unlocked);
     if (control) {
+      control.style.display = unlocked ? 'flex' : 'none';
+      if (!unlocked) {
+        control.innerHTML = '';
+        return;
+      }
       control.innerHTML = `<div class="world-map-name">${biome.name}</div>
         <div class="world-map-actions">
-          <button class="world-map-btn enter" onclick="_enterBiome(${biome.index})"${unlocked ? '' : ' disabled'}>ENTER</button>
+          <button class="world-map-btn enter" onclick="_enterBiome(${biome.index})">ENTER</button>
           <button class="world-map-btn info" onclick="_showBiomeInfo(${biome.index})">?</button>
-        </div>
-        ${unlocked ? '' : '<div class="world-map-lock">LOCKED - DEFEAT PREVIOUS BIOME BOSS</div>'}`;
-      control.onmouseenter = () => region?.classList.add('hovered');
-      control.onmouseleave = () => region?.classList.remove('hovered');
+        </div>`;
     }
     _positionWorldMapControl('world-map-control-' + biome.id, biome.center[0], biome.center[1]);
   });
@@ -3380,7 +3425,7 @@ function _openWorldMap() {
   _pendingWorldMap = true;
   document.getElementById('town-overlay')?.classList.remove('open', 'inn-view', 'resting-view', 'shop-view', 'blacksmith-view', 'mages-guild-view');
   document.getElementById('world-map-overlay')?.classList.add('open');
-  _switchToLocationTrack(BG_TOWN_TRACK);
+  _switchToLocationTrack(BG_WORLD_MAP_TRACK);
   _renderWorldMap();
   _spSave();
 }
@@ -3418,12 +3463,16 @@ function _showBiomeInfo(biomeIndex) {
       const defeated = boss
         ? _spDefeatedEnemyTiers.some(key => key.startsWith(enemy.id + ':tier'))
         : _spDefeatedEnemyTiers.includes(enemy.id + ':tier' + tier);
+      const encountered = boss
+        ? _spEncounteredEnemyTiers.some(key => key.startsWith(enemy.id + ':tier'))
+        : _spEncounteredEnemyTiers.includes(enemy.id + ':tier' + tier);
       const tierLabel = boss ? 'BIOME BOSS' : tier === 1 ? 'TIER 1 · COMMON / UNCOMMON' : tier === 2 ? 'TIER 2 · RARE' : 'TIER 3 · EPIC / LEGENDARY';
+      if (!encountered) return '<div class="biome-creature unknown"><div class="biome-creature-unknown">?</div></div>';
       return `<div class="biome-creature${boss ? ' boss' : ''}${defeated ? '' : ' undefeated'}">
-        ${image ? `<img src="${image}" alt="${name}">` : ''}
+        ${image ? `<img src="${image}" alt="${name}">` : '<div class="biome-creature-unknown">?</div>'}
         <div class="biome-creature-name">${name}</div>
         <div class="biome-creature-tier">${tierLabel}</div>
-        <div class="biome-creature-state">${defeated ? 'DEFEATED' : 'NOT DEFEATED'}</div>
+        <div class="biome-creature-state">${defeated ? 'DEFEATED' : 'ENCOUNTERED'}</div>
       </div>`;
     });
   }).join('');
@@ -3960,6 +4009,7 @@ function _spSave(completed) {
       pendingWorldMap:_pendingWorldMap,
       unlockedBiome: _spUnlockedBiome,
       defeatedEnemyTiers:_spDefeatedEnemyTiers,
+      encounteredEnemyTiers:_spEncounteredEnemyTiers,
       innRestEndsAt: _innRestEndsAt,
       townShopStock: _townShopStock,
       blacksmithTradeOffers: _blacksmithTradeOffers.map(offer => ({ id:offer.item.id, sold:!!offer.sold })),
@@ -4037,6 +4087,16 @@ function _spLoad() {
           return /^tier[1-3]$/.test(tierKey || '') && _ENEMY_LIST.some(enemy => enemy.id === enemyId);
         })
       : [];
+    _spEncounteredEnemyTiers = Array.isArray(d.encounteredEnemyTiers)
+      ? d.encounteredEnemyTiers.filter(key => {
+          if (typeof key !== 'string') return false;
+          const [enemyId, tierKey] = key.split(':');
+          return /^tier[1-3]$/.test(tierKey || '') && _ENEMY_LIST.some(enemy => enemy.id === enemyId);
+        })
+      : [];
+    _spDefeatedEnemyTiers.forEach(key => {
+      if (!_spEncounteredEnemyTiers.includes(key)) _spEncounteredEnemyTiers.push(key);
+    });
     _innRestEndsAt = typeof d.innRestEndsAt === 'number' ? Math.max(0, d.innRestEndsAt) : 0;
     if (d.townShopStock && typeof d.townShopStock === 'object') {
       _townShopStock = {};
