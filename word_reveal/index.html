@@ -137,8 +137,11 @@ html,body{user-select:none;-webkit-user-select:none}
 
 /* ══════════ GAME AREA ══════════ */
 #game-area{position:fixed;inset:0;display:none;flex-direction:column;padding:10px 14px 12px;gap:8px}
-#game-header{display:flex;gap:8px;flex-shrink:0;align-items:center}
-.g-score-card{flex:1;background:var(--panel-bg);border:1.5px solid var(--panel-border);border-radius:12px;padding:5px 10px;display:flex;flex-direction:row;align-items:center;gap:0;transition:border-color .3s,background .3s;position:relative;overflow:hidden}
+#game-header{display:flex;gap:8px;flex-shrink:0;align-items:stretch}
+#header-brand{flex:0 0 auto;width:min(130px,11vw);background:var(--panel-bg);border:1.5px solid var(--panel-border);border-radius:12px;padding:6px 10px;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:2px}
+#hb-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(13px,1.5vw,19px);letter-spacing:.1em;color:#fff;line-height:1}
+#hb-sub{font-family:'Barlow Condensed',sans-serif;font-size:clamp(7px,0.7vw,9px);font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--gold);opacity:.75;line-height:1.2}
+.g-score-card{flex:1;background:var(--panel-bg);border:1.5px solid var(--panel-border);border-radius:12px;padding:5px 8px;display:flex;flex-direction:row;align-items:center;gap:0;transition:border-color .3s,background .3s;position:relative;overflow:hidden}
 .g-score-card.active{border-color:var(--accent2);background:rgba(30,16,80,.95)}
 .g-score-card.active::before{content:'▶';position:absolute;top:3px;right:5px;font-size:8px;color:var(--accent2);letter-spacing:.1em}
 .g-sc-left{flex:1;min-width:0;padding-right:9px;border-right:1px solid rgba(255,255,255,.07);margin-right:9px;display:flex;flex-direction:column;align-items:flex-start;justify-content:center}
@@ -702,6 +705,10 @@ body.game-active #lite-btn{display:flex!important}
 <!-- ═══════════ GAME AREA ═══════════ -->
 <div id="game-area">
   <div id="game-header">
+    <div id="header-brand">
+      <div id="hb-title">WORD REVEAL</div>
+      <div id="hb-sub">Designed by ADİL FIRAT OKTAV</div>
+    </div>
     <div class="g-score-card active" id="sc-0">
       <div class="g-sc-left">
         <div class="g-sc-next-label">next ›</div>
