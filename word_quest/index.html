@@ -113,7 +113,7 @@ body.lite .hp-heart{animation:none}
 .sp-mana-potion-row .sp-potion-val.empty{color:rgba(56,189,248,.25)}
 .sp-potion-use{border:1px solid rgba(125,211,252,.32);border-radius:5px;background:rgba(37,99,235,.18);color:#bae6fd;font-family:'Bebas Neue',sans-serif;font-size:10px;letter-spacing:.08em;cursor:pointer;padding:1px 5px}
 .sp-potion-use:disabled{opacity:.3;cursor:not-allowed}
-.sp-cast-btn{flex:1;min-width:0;padding:8px 4px;border-radius:9px;border:1.5px solid rgba(56,189,248,.5);background:linear-gradient(135deg,rgba(30,64,175,.9),rgba(14,116,144,.9));color:#e0f2fe;font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:.1em;cursor:pointer;box-shadow:0 0 18px rgba(56,189,248,.22)}
+.sp-cast-btn{position:relative;z-index:51;pointer-events:auto;flex:1;min-width:0;padding:8px 4px;border-radius:9px;border:1.5px solid rgba(56,189,248,.5);background:linear-gradient(135deg,rgba(30,64,175,.9),rgba(14,116,144,.9));color:#e0f2fe;font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:.1em;cursor:pointer;box-shadow:0 0 18px rgba(56,189,248,.22)}
 .sp-cast-btn:disabled{opacity:.28;filter:grayscale(.7);cursor:not-allowed;box-shadow:none}
 
 #spell-overlay{position:fixed;inset:0;z-index:10020;background:rgba(2,8,30,.92);display:none;align-items:center;justify-content:center;backdrop-filter:blur(12px)}
@@ -350,7 +350,7 @@ body.lite .grid-shatter-layer{display:none}
 .sp-hdr-name.nm-npc{color:var(--npc-c);text-shadow:0 0 16px rgba(239,68,68,.55)}
 
 /* ── STREAK DISPLAY ── */
-.sp-streak-box{flex-shrink:0;background:rgba(0,0,0,.45);border-radius:10px;padding:6px 8px;border:1.5px solid rgba(255,215,0,.15);display:flex;align-items:center;gap:8px;transform:translateY(-4px);margin-bottom:4px}
+.sp-streak-box{position:relative;z-index:50;flex-shrink:0;background:rgba(0,0,0,.45);border-radius:10px;padding:6px 8px;border:1.5px solid rgba(255,215,0,.15);display:flex;align-items:center;gap:8px;transform:translateY(-4px);margin-bottom:4px}
 .sp-streak-info{width:72px;flex-shrink:0;text-align:center}
 .sp-streak-num{font-family:'Bebas Neue',sans-serif;font-size:30px;color:#FFD700;line-height:.9;text-shadow:0 0 20px rgba(255,215,0,.5)}
 .sp-streak-lbl{font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.4)}
@@ -1181,7 +1181,6 @@ body.lite .grid-shatter-layer{display:none}
 <div id="sp-shop">
   <div class="spsh-modal">
     <div class="spsh-title">🏪 SHOP</div>
-    <div class="spsh-subtitle">Spend your gold wisely</div>
     <div class="spsh-top-actions">
       <div class="spsh-gold-info">💰 <span id="spsh-gold-display">0</span> GOLD</div>
       <button class="spsh-gear-btn" onclick="_openEquippedGear()">CHARACTER</button>
@@ -2385,7 +2384,6 @@ function _tryAutoPotion() {
 function _handlePlayerDamage(rawDmg) {
   _spPlayerHP = Math.max(0, _spPlayerHP - rawDmg);
   _updatePlayerHP();
-  if (rawDmg > 0) _showTutorialOnce('guard');
   // Guard 1: lethal hit — potion saves from death immediately
   if (_spPlayerHP <= 0 && _spPotions > 0) {
     const healAmount = _SHOP_HEALTH_POTION?.amount ?? 30;
@@ -2681,7 +2679,7 @@ function _updateTimerUI() {
 const TUTORIALS = {
   guard: {
     title:'GUARD',
-    target:'#sp-timer-wrap',
+    target:'.guard-modal',
     description:'When the enemy attack timer reaches zero, your <strong>Guard</strong> may activate before the hit lands. Answer the Opposite or Synonym question within <strong>5 seconds</strong>. A correct answer lets you <strong>take half damage</strong>. A wrong answer or timeout deals normal damage.',
   },
   spell_cast: {
@@ -2753,7 +2751,8 @@ function _showTutorialOnce(tutorialId) {
 function _closeTutorial(resumeBattle = true) {
   document.getElementById('tutorial-overlay')?.classList.remove('open');
   _tutorialTargetElement = null;
-  if (resumeBattle && _spRoundActive) _resumeTimer();
+  if (resumeBattle && _guardActive && _guardQuestion) _armGuardQuestion();
+  else if (resumeBattle && _spRoundActive) _resumeTimer();
   _tutorialPausedBattle = false;
 }
 function _extractGuardPairArray(source, name) {
@@ -2839,6 +2838,15 @@ async function _openGuard() {
   document.getElementById('guard-options').innerHTML = question.options.map((option, index) =>
     `<button class="guard-option" onclick="_answerGuard(${index})" disabled>${option}</button>`
   ).join('');
+  document.getElementById('guard-seconds').textContent = 'READY...';
+  if (!_spTutorialsSeen.guard) {
+    _showTutorialOnce('guard');
+    return;
+  }
+  _armGuardQuestion();
+}
+function _armGuardQuestion() {
+  if (!_guardActive || !_spRoundActive || !_guardQuestion || _guardArmTimer || _guardTimerInterval) return;
   document.getElementById('guard-seconds').textContent = 'READY...';
   _guardArmTimer = setTimeout(() => {
     _guardArmTimer = null;
@@ -4639,7 +4647,7 @@ function _leaveInn() {
 const WORLD_MAP_BIOMES = [
   { id:'plains', name:'PLAINS', index:0, center:[281,950] },
   { id:'forest', name:'FOREST', index:1, center:[445,665] },
-  { id:'frost', name:'FROST', index:2, center:[1370,210] },
+  { id:'frost', name:'FROST', index:2, center:[740,320] },
   { id:'lava', name:'LAVA', index:3, center:[1520,555] },
   { id:'celestial', name:'CELESTIAL', index:4, center:[960,357] },
 ];

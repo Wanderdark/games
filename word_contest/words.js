@@ -505,7 +505,7 @@ const WORD_BANK = [
   { en:'HORN', tr:'BOYNUZ', grade:7, diff:2, unit:4, img:'../images/7/4/35.webp' },
   { en:'AMPHIBIAN', tr:'İKİYASAMLI', grade:7, diff:3, unit:4, img:'../images/7/4/36.webp' },
   { en:'IVORY', tr:'FİL DİŞİ', grade:7, diff:3, unit:4, img:'../images/7/4/37.webp' },
-  { en:'REPTILE', tr:'SÜRÜNGEN', grade:7, diff:2, unit:4, img:'../images/7/4/38.webp' },
+  { en:'REPTILE', tr:'SÜRÜNGEN', grade:7, diff:2, unit:4, img:'../images/7/4/37.webp' },
 
   // ─── GRADE 7 UNIT 5 ──────────────────────────────────────────────────────────
   { en:'APPEAR', tr:'GÖRÜNMEK', grade:7, diff:3, unit:5, img:'../images/7/5/1.webp' },
@@ -670,7 +670,7 @@ const WORD_BANK = [
   { en:'UNPLUG', tr:'FİŞİ ÇEKMEK', grade:7, diff:2, unit:9, img:'../images/7/9/21.webp' },
   { en:'DESTROY', tr:'YOK ETMEK', grade:7, diff:2, unit:9, img:'../images/7/9/22.webp' },
   { en:'RUBBISH', tr:'ÇÖP', grade:7, diff:1, unit:9, img:'../images/7/9/23.webp' },
-  { en:'GARBAGE', tr:'ÇÖP', grade:7, diff:1, unit:9, img:'../images/7/9/24.webp' },
+  { en:'GARBAGE', tr:'ÇÖP', grade:7, diff:1, unit:9, img:'../images/7/9/23.webp' },
   { en:'ENVIRONMENT', tr:'ÇEVRE', grade:7, diff:2, unit:9, img:'../images/7/9/25.webp' },
   { en:'PESTICIDE', tr:'BÖCEK İLACI', grade:7, diff:3, unit:9, img:'../images/7/9/26.webp' },
   { en:'REDUCE', tr:'AZALTMAK', grade:7, diff:2, unit:9, img:'../images/7/9/27.webp' },
@@ -688,7 +688,7 @@ const WORD_BANK = [
   { en:'MOON', tr:'AY', grade:7, diff:1, unit:10, img:'../images/7/10/1.webp' },
   { en:'RING', tr:'HALKA', grade:7, diff:2, unit:10, img:'../images/7/10/2.webp' },
   { en:'ORBIT', tr:'YÖRÜNGE', grade:7, diff:3, unit:10, img:'../images/7/10/3.webp' },
-  { en:'PLANET', tr:'GEZEGEN', grade:7, diff:2, unit:10, img:'../images/7/10/4.webp' },
+  { en:'PLANET', tr:'GEZEGEN', grade:7, diff:2, unit:10, img:'../images/7/10/3.webp' },
   { en:'RESCUE', tr:'KURTARMAK', grade:7, diff:3, unit:10, img:'../images/7/10/5.webp' },
   { en:'SHUTTLE', tr:'UZAY MEKİĞİ', grade:7, diff:2, unit:10, img:'../images/7/10/6.webp' },
   { en:'UNIVERSE', tr:'EVREN', grade:7, diff:3, unit:10, img:'../images/7/10/7.webp' },
@@ -1052,7 +1052,7 @@ const WORD_BANK = [
   { en:'HANG GLIDING', tr:'YELKEN KANAT', grade:8, diff:3, unit:6, img:'../images/8/6/15.webp' }, // EKLENDİ
   { en:'PARKOUR RUNNING', tr:'PARKUR', grade:8, diff:3, unit:6, img:'../images/8/6/16.webp' }, // EKLENDİ
   { en:'KAYAKING', tr:'KANO / KAYAK', grade:8, diff:2, unit:6, img:'../images/8/6/17.webp' }, // EKLENDİ
-  { en:'BASE JUMPING', tr:'BAZA ATLAMA', grade:8, diff:3, unit:6, img:'../images/8/6/18.webp' }, // EKLENDİ
+  { en:'BASE JUMPING', tr:'BAZA ATLAMA', grade:8, diff:3, unit:6, img:'../images/8/6/5.webp' }, // EKLENDİ
   { en:'MOTOR RACING', tr:'MOTOR YARIŞI', grade:8, diff:2, unit:6, img:'../images/8/6/7.webp' }, // EKLENDİ
   { en:'ROCK CLIMBING', tr:'KAYA TIRMANIŞI', grade:8, diff:2, unit:6, img:'../images/8/6/20.webp' }, // EKLENDİ
   { en:'SKATEBOARDING', tr:'KAYKAY', grade:8, diff:2, unit:6, img:'../images/8/6/21.webp' }, // EKLENDİ
