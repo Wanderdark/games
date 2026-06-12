@@ -169,6 +169,7 @@ body::before {
 .ss-chip:hover { border-color:rgba(96,165,250,.5); background:rgba(96,165,250,.08); }
 .ss-chip.sel-p1 { border-color:var(--p1); background:rgba(96,165,250,.18); color:var(--p1); }
 .ss-chip.sel-p2 { border-color:var(--p2); background:rgba(251,146,60,.18); color:var(--p2); }
+.ss-chip.sel-tournament { border-color:#fbbf24; background:rgba(251,191,36,.16); color:#fbbf24; }
 .ss-count-row {
   display:flex; align-items:center; justify-content:space-between;
   gap:14px; flex-shrink:0; flex-wrap:wrap;
@@ -539,6 +540,19 @@ body::before {
   box-shadow: 0 5px 22px rgba(34,197,94,.22), inset 0 1px 0 rgba(100,255,150,0.1);
 }
 #correct-btn:hover:not(:disabled) { transform: translateY(-4px); box-shadow: 0 10px 30px rgba(34,197,94,.4); }
+#ready-btn {
+  display:none; flex:1;
+  align-items:center; justify-content:center; text-align:center;
+  height:clamp(68px,9vh,96px);
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(26px,4vw,46px); letter-spacing:.18em;
+  background:linear-gradient(145deg,#92400e,#d97706);
+  border:none; border-radius:18px; color:#fff7d6; cursor:pointer;
+  box-shadow:0 5px 28px rgba(217,119,6,.35), inset 0 1px 0 rgba(255,220,140,.15);
+  transition:transform .12s, box-shadow .12s;
+}
+#ready-btn:hover { transform:translateY(-4px); box-shadow:0 12px 36px rgba(217,119,6,.58); }
+#ready-btn:active { transform:scale(.96); }
 
 /* ─── FROZEN / ZAPPED PLAYER ─── */
 .ph-frozen-img, .ph-zapped-img {
@@ -900,8 +914,102 @@ body::before {
 .wc-btn:active { transform:scale(.97); }
 .wc-start { background:linear-gradient(135deg,#1d4ed8,#3b82f6); color:#fff; box-shadow:0 5px 24px rgba(59,130,246,.35); }
 .wc-start:hover { box-shadow:0 10px 32px rgba(59,130,246,.55); }
+.wc-tournament { background:linear-gradient(135deg,#92400e,#d97706); color:#fff7d6; box-shadow:0 5px 24px rgba(217,119,6,.35); }
+.wc-tournament:hover { box-shadow:0 10px 32px rgba(217,119,6,.55); }
 .wc-tutorial { background:linear-gradient(135deg,#2d3748,#4a5568); color:rgba(255,255,255,.75); box-shadow:0 4px 16px rgba(0,0,0,.3); }
 .wc-tutorial:hover { box-shadow:0 8px 24px rgba(0,0,0,.5); color:#fff; }
+
+/* ── TOURNAMENT CHART ── */
+#screen-tournament { position:fixed; inset:0; z-index:200; display:flex; align-items:center; justify-content:center; padding:18px; }
+#screen-tournament.hidden { display:none; }
+.tr-panel {
+  width:min(1180px,97vw); height:min(930px,96vh);
+  background:linear-gradient(145deg,#111c35,#080e1a);
+  border:1.5px solid rgba(251,191,36,.35); border-radius:26px;
+  padding:24px 28px; display:flex; flex-direction:column; gap:14px;
+  box-shadow:0 24px 70px rgba(0,0,0,.65);
+}
+.tr-head { display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:16px; }
+.tr-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(30px,5vw,58px); letter-spacing:.14em; color:#fbbf24; text-align:center; }
+.tr-sub { font-family:'Barlow Condensed',sans-serif; font-size:15px; letter-spacing:.08em; color:var(--muted); text-align:center; }
+.tr-back {
+  justify-self:start;
+  padding:9px 18px; border-radius:10px; border:1px solid rgba(255,255,255,.15);
+  background:rgba(255,255,255,.06); color:rgba(255,255,255,.65); cursor:pointer;
+  font-family:'Barlow Condensed',sans-serif; font-weight:700; letter-spacing:.12em;
+}
+.tr-reset {
+  justify-self:end; padding:9px 18px; border-radius:10px; cursor:pointer;
+  border:1px solid rgba(248,113,113,.38); background:rgba(127,29,29,.28); color:#fca5a5;
+  font-family:'Barlow Condensed',sans-serif; font-weight:700; letter-spacing:.1em;
+}
+.tr-reset.confirming { border-color:#ef4444; background:#991b1b; color:#fff; box-shadow:0 0 16px rgba(239,68,68,.35); }
+#tournament-matches { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; overflow-y:auto; min-height:0; padding:2px; }
+.tr-continue {
+  display:none; flex-shrink:0; width:100%; padding:14px 20px; border:0; border-radius:13px; cursor:pointer;
+  background:linear-gradient(135deg,#92400e,#d97706); color:#fff7d6;
+  font-family:'Bebas Neue',sans-serif; font-size:clamp(21px,3vw,30px); letter-spacing:.14em;
+  box-shadow:0 5px 24px rgba(217,119,6,.35); transition:transform .12s,box-shadow .12s;
+}
+.tr-continue:hover { transform:translateY(-2px); box-shadow:0 9px 30px rgba(217,119,6,.55); }
+.tr-match {
+  display:grid; grid-template-columns:minmax(0,1fr); align-items:center; gap:7px;
+  padding:10px; border:1px solid rgba(255,255,255,.09); border-radius:14px; background:rgba(255,255,255,.035);
+}
+.tr-player, .tr-opponent {
+  min-height:48px; display:flex; align-items:center; justify-content:center; text-align:center;
+  padding:8px; border-radius:10px; font-family:'Barlow Condensed',sans-serif; font-size:16px; font-weight:700; letter-spacing:.05em;
+}
+.tr-player-name { flex:1; min-width:0; }
+.tr-score {
+  min-width:38px; padding:5px 7px; margin-left:8px; border-radius:8px;
+  background:rgba(0,0,0,.34); border:1px solid rgba(255,255,255,.16);
+  color:#fff; font-family:'Bebas Neue',sans-serif; font-size:21px; line-height:1;
+}
+.tr-player { background:rgba(96,165,250,.12); border:1px solid rgba(96,165,250,.3); color:#93c5fd; }
+.tr-opponent { background:rgba(251,146,60,.1); border:1px dashed rgba(251,146,60,.42); color:#fdba74; cursor:pointer; }
+.tr-opponent.hidden-opponent { color:rgba(251,191,36,.75); font-size:22px; }
+.tr-opponent.revealed { border-style:solid; cursor:default; animation:trReveal .35s cubic-bezier(.34,1.56,.64,1); }
+.tr-player.tr-winner, .tr-opponent.tr-winner {
+  border-color:#fbbf24; color:#fde68a; background:rgba(251,191,36,.16);
+  box-shadow:0 0 18px rgba(251,191,36,.52), inset 0 0 14px rgba(251,191,36,.08);
+}
+.tr-winner .tr-score { border-color:#fbbf24; color:#fbbf24; box-shadow:0 0 10px rgba(251,191,36,.35); }
+.tr-player.tr-eliminated, .tr-opponent.tr-eliminated {
+  border-color:rgba(148,163,184,.2); background:rgba(71,85,105,.16); color:rgba(148,163,184,.42);
+  box-shadow:none; filter:grayscale(1);
+}
+.tr-eliminated .tr-score { color:rgba(148,163,184,.45); border-color:rgba(148,163,184,.18); background:rgba(0,0,0,.2); }
+.tr-vs { font-family:'Bebas Neue',sans-serif; font-size:22px; color:rgba(255,255,255,.25); text-align:center; }
+.tr-play {
+  padding:10px 8px; border:0; border-radius:9px; cursor:pointer; background:#16a34a; color:white;
+  font-family:'Bebas Neue',sans-serif; font-size:18px; letter-spacing:.08em;
+}
+.tr-play:disabled { opacity:.22; cursor:not-allowed; }
+.tr-match.completed { border-color:rgba(251,191,36,.38); }
+@keyframes trReveal { from { opacity:0; transform:scale(.7) rotateX(75deg); } to { opacity:1; transform:none; } }
+@media(max-width:800px) {
+  #tournament-matches { grid-template-columns:repeat(2,minmax(0,1fr)); }
+}
+@media(max-width:480px) { #tournament-matches { grid-template-columns:1fr; } }
+
+#tournament-champion {
+  position:fixed; inset:0; z-index:950; display:none; align-items:center; justify-content:center;
+  overflow:hidden; background:radial-gradient(circle at center,rgba(120,70,0,.38),rgba(4,7,20,.97) 62%);
+}
+#tournament-champion.open { display:flex; }
+.tc-modal {
+  position:relative; z-index:2; width:min(560px,92vw); padding:55px 35px 42px; text-align:center;
+  border:2px solid #fbbf24; border-radius:30px; background:linear-gradient(145deg,#211502,#080e1a);
+  box-shadow:0 0 100px rgba(251,191,36,.42); animation:winPop .55s cubic-bezier(.34,1.56,.64,1);
+}
+.tc-crown { font-size:78px; animation:namePulsate 1.5s ease-in-out infinite; }
+.tc-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(42px,7vw,76px); color:#fbbf24; letter-spacing:.12em; text-shadow:0 0 35px rgba(251,191,36,.8); }
+.tc-name { font-family:'Bebas Neue',sans-serif; font-size:clamp(34px,6vw,64px); color:#fff; letter-spacing:.08em; margin:12px 0 25px; }
+.tc-close { padding:14px 34px; border:0; border-radius:12px; cursor:pointer; background:#b45309; color:#fff7d6; font-family:'Bebas Neue',sans-serif; font-size:22px; letter-spacing:.12em; }
+.tc-confetti { position:absolute; top:-12vh; width:10px; height:18px; animation:tcFall linear infinite; }
+@keyframes tcFall { to { transform:translateY(120vh) rotate(900deg); } }
+.champ-badge { color:#fbbf24; margin-left:5px; text-shadow:0 0 8px rgba(251,191,36,.6); }
 
 /* ── TUTORIAL SCREEN ── */
 #screen-tutorial { position:fixed; inset:0; z-index:200; display:flex; align-items:center; justify-content:center; padding:20px; }
@@ -956,6 +1064,7 @@ body::before {
     <div class="wc-by">Designed by Adil Fırat Oktav</div>
     <div class="wc-btns">
       <button class="wc-btn wc-start"    onclick="showStudentSelect()">▶ &nbsp;START</button>
+      <button class="wc-btn wc-tournament" onclick="showTournamentSelect()">TOURNAMENT CHART</button>
       <button class="wc-btn wc-tutorial" onclick="showTutorial()">?  &nbsp;TUTORIAL</button>
     </div>
   </div>
@@ -996,14 +1105,38 @@ body::before {
 <div id="screen-student-select" class="hidden">
   <div class="ss-panel">
     <div class="ss-logo">WORD TOURNAMENT</div>
-    <div class="ss-heading">OYUNCU SEÇİMİ</div>
+    <div class="ss-heading" id="ss-heading">OYUNCU SEÇİMİ</div>
     <div class="ss-sub" id="ss-sub">İki öğrenciye tıkla — ilk seçilen <span style="color:var(--p1)">P1</span>, ikinci seçilen <span style="color:var(--p2)">P2</span></div>
     <div class="ss-class-pool" id="ss-class-pool"></div>
     <div class="ss-count-row">
       <div class="ss-count" id="ss-count">Henüz seçilmedi</div>
       <button id="ss-rename-btn" class="ss-rename-btn hidden" onclick="openRenameOverlay()">✎ RENAME</button>
-      <button class="ss-continue-btn" id="ss-continue-btn" disabled onclick="proceedToSettings()">DEVAM →</button>
+      <button class="ss-continue-btn" id="ss-continue-btn" disabled onclick="proceedStudentSelection()">DEVAM →</button>
     </div>
+  </div>
+</div>
+
+<!-- TOURNAMENT CHART -->
+<div id="screen-tournament" class="hidden">
+  <div class="tr-panel">
+    <div class="tr-head">
+      <button class="tr-back" onclick="closeTournament()">&#8592; ANA EKRAN</button>
+      <div class="tr-title">TOURNAMENT CHART</div>
+      <button class="tr-reset" id="tr-reset-btn" onclick="resetTournament()">RESET TOURNAMENT</button>
+    </div>
+    <div class="tr-sub" id="tournament-sub">Boş rakip slotlarına tıklayarak eşleşmeleri tek tek açıkla.</div>
+    <div id="tournament-matches"></div>
+    <button class="tr-continue" id="tr-continue-btn" onclick="continueTournament()">CONTINUE</button>
+  </div>
+</div>
+
+<div id="tournament-champion">
+  <div id="tc-confetti-layer"></div>
+  <div class="tc-modal">
+    <div class="tc-crown">👑</div>
+    <div class="tc-title">TOURNAMENT CHAMPION</div>
+    <div class="tc-name" id="tc-name"></div>
+    <button class="tc-close" onclick="closeTournamentChampion()">VIEW TOURNAMENT</button>
   </div>
 </div>
 
@@ -1121,6 +1254,7 @@ body::before {
   <div id="action-row">
     <button class="act-btn" id="wrong-btn"       onclick="handleAnswer(false)">✗ &nbsp;WRONG</button>
     <button class="act-btn" id="correct-btn"     onclick="handleAnswer(true)" >✓ &nbsp;CORRECT</button>
+    <button id="ready-btn" onclick="handleImageReady()">READY</button>
     <button id="buzz-btn"         onclick="buzzPressed()">⚡ BUZZ</button>
   </div>
 
@@ -1250,6 +1384,7 @@ let _easyImgPool       = [];
 let _easyImgIdx        = 0;
 let _isCurrentImgCard  = false;
 let _imgCardWord       = '';
+let _imgReadyPending   = false;
 let _currentEntry      = null;
 let _pendingRevealCb   = null;
 let _easyDeck       = [];
@@ -1529,8 +1664,10 @@ function showPowerup(type, affectedPl, onDone) {
 // ─── ACTION ROW STATE ───────────────────────────────
 function updateActionRow() {
   const inSim = !!simMode;
-  document.getElementById('wrong-btn').style.display   = inSim ? 'none' : '';
-  document.getElementById('correct-btn').style.display = inSim ? 'none' : '';
+  const waitingForImgReady = _isCurrentImgCard && _imgReadyPending;
+  document.getElementById('wrong-btn').style.display   = (inSim || waitingForImgReady) ? 'none' : '';
+  document.getElementById('correct-btn').style.display = (inSim || waitingForImgReady) ? 'none' : '';
+  document.getElementById('ready-btn').style.display   = waitingForImgReady ? 'flex' : 'none';
   document.getElementById('buzz-btn').style.display    = inSim ? 'flex' : 'none';
   const hud = document.getElementById('sim-hud');
   if (inSim) {
@@ -1752,12 +1889,55 @@ function shuffle(a) {
 }
 function freshDeck() { return shuffle([...filteredPool()]); }
 
+function resetDuelState() {
+  if (window.speechSynthesis) window.speechSynthesis.cancel();
+  _ttsTimers.forEach(t => clearTimeout(t)); _ttsTimers = [];
+
+  activePl = 0; scores = [0,0]; currentIdx = 0;
+  deck = []; _easyImgPool = []; _easyDeck = [];
+  _imgCardCounter = [0,0]; _easyImgIdx = 0; _easyDeckIdx = 0;
+  _isCurrentImgCard = false; _imgCardWord = ''; _imgReadyPending = false; _currentEntry = null; _pendingRevealCb = null;
+  gameActive = false; busy = false;
+  combo = null; djState = null; minus1IfWrong = false; plus2IfCorrect = false; knockbackHit = false;
+  simMode = null; freezeState = null; stunnedPending = false; stunnedState = null;
+  teleportPending = false; teleportUsed = false; _puDoneCallback = null;
+  p1WordCount = 0; p1PuPending = false; mirrorPuType = null; mirrorPuTarget = -1; mirrorPuDelay = 0;
+  _clickLog = [[],[]]; _spamLocked = [false,false]; _spamStudents = [new Set(),new Set()];
+  _puDisabled = false;
+
+  document.getElementById('pu-overlay').style.display = 'none';
+  document.getElementById('sim-choice-overlay').style.display = 'none';
+  document.getElementById('combo-hud').style.display = 'none';
+  document.getElementById('freeze-hud').style.display = 'none';
+  document.getElementById('stunned-hud').style.display = 'none';
+  document.getElementById('sim-hud').style.display = 'none';
+  document.getElementById('buzz-btn').style.display = 'none';
+  document.getElementById('ready-btn').style.display = 'none';
+  document.getElementById('wrong-btn').style.display = '';
+  document.getElementById('correct-btn').style.display = '';
+  document.getElementById('reveal-btn').classList.remove('visible');
+  document.getElementById('word-stamp').innerHTML = '';
+  document.getElementById('p1-pu-history').innerHTML = '';
+  document.getElementById('p2-pu-history').innerHTML = '';
+  document.getElementById('p1-header').classList.remove('frozen-player','stunned-player','zapped-player');
+  document.getElementById('p2-header').classList.remove('frozen-player','stunned-player','zapped-player');
+  document.getElementById('card-wrap').classList.remove('img-mode','img-reveal-mode','dj-accepted','dj-refused');
+  document.getElementById('card-img').src = '';
+  _setPuZoneImg('p1-pu-img', null); _setPuZoneImg('p2-pu-img', null);
+  clearDjBadge();
+  updateActionRow();
+}
+
 function startGame() {
+  resetDuelState();
   deck = freshDeck();
   if (!deck.length) return;
   currentIdx = 0; activePl = 0; scores = [0,0]; _imgCardCounter = [0,0]; _easyImgIdx = 0; _easyDeckIdx = 0; _currentEntry = null; _pendingRevealCb = null;
-  _easyImgPool = shuffle((typeof QUESTIONS !== 'undefined' ? QUESTIONS : []).filter(e => e[4] === 1 && e[6]));
   const _fp = filteredPool();
+  _easyImgPool = [
+    ...shuffle(_fp.filter(e => e[4] === 1 && e[6])),
+    ...shuffle(_fp.filter(e => e[4] === 2 && e[6]))
+  ];
   _easyDeck = [
     ...shuffle(_fp.filter(e => e[4] === 1)),
     ...shuffle(_fp.filter(e => e[4] === 2)),
@@ -1782,6 +1962,7 @@ function startGame() {
   document.getElementById('stunned-hud').style.display  = 'none';
   document.getElementById('sim-hud').style.display      = 'none';
   document.getElementById('buzz-btn').style.display  = 'none';
+  document.getElementById('ready-btn').style.display = 'none';
   document.getElementById('wrong-btn').style.display  = '';
   document.getElementById('correct-btn').style.display = '';
   clearDjBadge();
@@ -1793,6 +1974,8 @@ function startGame() {
 }
 
 function setCard(animate, silent) {
+  // Freeze aktifken kart hiçbir koşulda dondurulmuş oyuncuya verilmemeli.
+  if (freezeState && activePl === freezeState.frozenPl) activePl = 1 - freezeState.frozenPl;
   if (currentIdx >= deck.length) { deck = freshDeck(); currentIdx = 0; }
   const entry   = deck[currentIdx];
   const word    = entry[2];
@@ -1814,22 +1997,27 @@ function setCard(animate, silent) {
       const ePath = easyEntry[6];
       _isCurrentImgCard = true;
       _imgCardWord = easyEntry[2];
+      _imgReadyPending = true;
       _currentEntry = null;
       imgEl.onerror = () => {
         _isCurrentImgCard = false;
+        _imgReadyPending = false;
         wrap.classList.remove('img-mode');
         wordEl.textContent = easyEntry[2]; wordEl.classList.add('italic-sub');
         imgEl.src = ''; imgEl.onerror = null;
+        updateActionRow();
       };
       imgEl.src = ePath;
       wrap.classList.remove('img-reveal-mode');
       wrap.classList.add('img-mode');
       wordEl.textContent = '';
       wordEl.classList.remove('italic-sub');
+      updateActionRow();
       // TTS sustur — görsel kartlarda kelimeyi açık etme
     } else {
       _isCurrentImgCard = false;
       _imgCardWord = '';
+      _imgReadyPending = false;
       wrap.classList.remove('img-mode', 'img-reveal-mode');
       imgEl.src = '';
       // Easy mode öğrencisi ise kendi öncelikli havuzundan çek
@@ -1850,6 +2038,7 @@ function setCard(animate, silent) {
       wordEl.classList.toggle('easy-word', displayDiff === 1);
       wordEl.classList.remove('italic-sub');
       if (!silent) speakWord(displayWord);
+      updateActionRow();
     }
   }
 
@@ -1879,8 +2068,10 @@ function renderHeader() {
   document.getElementById('p2-header').classList.toggle('active-player', activePl===1);
   document.getElementById('score-0').textContent = scores[0];
   document.getElementById('score-1').textContent = scores[1];
-  document.getElementById('p1-wins').textContent = 'WINS: ' + _getWins(playerNames[0]);
-  document.getElementById('p2-wins').textContent = 'WINS: ' + _getWins(playerNames[1]);
+  const p1Champs = _getChampionships(playerNames[0]);
+  const p2Champs = _getChampionships(playerNames[1]);
+  document.getElementById('p1-wins').innerHTML = 'WINS: ' + _getWins(playerNames[0]) + (p1Champs ? '<span class="champ-badge">🏆 ' + p1Champs + '</span>' : '');
+  document.getElementById('p2-wins').innerHTML = 'WINS: ' + _getWins(playerNames[1]) + (p2Champs ? '<span class="champ-badge">🏆 ' + p2Champs + '</span>' : '');
   document.getElementById('bar-0').style.width = Math.min(100,Math.max(0,scores[0])/WIN*100)+'%';
   document.getElementById('bar-1').style.width = Math.min(100,Math.max(0,scores[1])/WIN*100)+'%';
   document.getElementById('ts-name-p1').textContent = playerNames[0];
@@ -1975,6 +2166,7 @@ function emergencyOverride() {
   // Aksiyon satırını normalize et
   document.getElementById('wrong-btn').style.display       = '';
   document.getElementById('correct-btn').style.display     = '';
+  document.getElementById('ready-btn').style.display       = 'none';
   document.getElementById('buzz-btn').style.display = 'none';
   document.getElementById('reveal-btn').classList.remove('visible');
   _pendingRevealCb = null;
@@ -2004,8 +2196,20 @@ function endTurn(switchPlayer) {
 // ═══════════════════════════════════════════════════
 //  HANDLE ANSWER
 // ═══════════════════════════════════════════════════
+function handleImageReady() {
+  if (!gameActive || busy || !_isCurrentImgCard || !_imgReadyPending) return;
+  _imgReadyPending = false;
+  const wrap = document.getElementById('card-wrap');
+  const wordEl = document.getElementById('card-word');
+  wordEl.textContent = _imgCardWord;
+  wordEl.classList.remove('italic-sub');
+  wrap.classList.add('img-reveal-mode');
+  updateActionRow();
+}
+
 function handleAnswer(correct) {
   if (!gameActive || busy) return;
+  if (_isCurrentImgCard && _imgReadyPending) return;
 
   // Spam guard
   const now = Date.now();
@@ -2028,6 +2232,7 @@ function handleAnswer(correct) {
   // Görsel kart reveal
   if (_isCurrentImgCard) {
     _isCurrentImgCard = false;
+    _imgReadyPending = false;
     busy = true; setBtns(false);
     const _revealWord = _imgCardWord;
     const _wrap = document.getElementById('card-wrap');
@@ -2052,8 +2257,7 @@ function handleAnswer(correct) {
       // 2. okuma + konuşma süresi bittikten sonra devam et
       setTimeout(() => {
         busy = false;
-        if (correct) { changeScore(activePl, 1); if (checkWin()) return; }
-        endTurn(true);
+        _scoreAndContinue(correct);
       }, 3000);
     }, 500);
     return;
@@ -2141,6 +2345,8 @@ function handleComboAnswer(correct) {
 
 // ─── FREEZE ─────────────────────────────────────────
 function handleFreezeAnswer(correct) {
+  // Savunma katmanı: freeze aktifken cevabı yalnızca donmamış oyuncu verebilir.
+  if (activePl === freezeState.frozenPl) activePl = 1 - freezeState.frozenPl;
   if (correct) {
     changeScore(activePl, 1);
     if (checkWin()) return;
@@ -2307,6 +2513,7 @@ function playAgain() {
   document.getElementById('stunned-hud').style.display  = 'none';
   document.getElementById('sim-hud').style.display      = 'none';
   document.getElementById('buzz-btn').style.display   = 'none';
+  document.getElementById('ready-btn').style.display  = 'none';
   document.getElementById('wrong-btn').style.display  = '';
   document.getElementById('correct-btn').style.display = '';
   clearDjBadge();
@@ -2317,6 +2524,16 @@ function playAgain() {
 
 function showWin(winner) {
   _addWin(playerNames[winner]);
+  if (_tournamentActiveMatch !== null && !_tournamentResultSaved) {
+    const match = _tournamentMatches[_tournamentActiveMatch];
+    if (match) {
+      match.score = [scores[0], scores[1]];
+      match.winner = winner === 0 ? match.p1 : match.p2;
+      match.winnerSide = winner;
+      _tournamentResultSaved = true;
+      _saveTournamentState();
+    }
+  }
   document.getElementById('override-btn').classList.remove('visible');
   _delayEnable('win-again-btn');
   document.getElementById('win-name').textContent = playerNames[winner];
@@ -2326,14 +2543,18 @@ function showWin(winner) {
 }
 
 function endGame() {
-  if (window.speechSynthesis) window.speechSynthesis.cancel();
-  _ttsTimers.forEach(t => clearTimeout(t)); _ttsTimers = [];
-  gameActive = false; busy = false;
-  _pendingRevealCb = null;
-  document.getElementById('reveal-btn').classList.remove('visible');
   document.getElementById('win-overlay').classList.remove('open');
   document.getElementById('game-screen').style.display = 'none';
   document.getElementById('override-btn').classList.remove('visible');
+  resetDuelState();
+  if (_tournamentActiveMatch !== null) {
+    _tournamentActiveMatch = null;
+    _tournamentResultSaved = false;
+    _saveTournamentState();
+    document.getElementById('screen-tournament').classList.remove('hidden');
+    renderTournamentChart();
+    return;
+  }
   document.getElementById('screen-student-select').classList.remove('hidden');
   _easyMode = [false, false];
   buildStudentPool();
@@ -2343,10 +2564,29 @@ function showWelcome() {
   document.getElementById('screen-welcome').classList.remove('hidden');
   document.getElementById('screen-tutorial').classList.add('hidden');
   document.getElementById('screen-student-select').classList.add('hidden');
+  document.getElementById('screen-tournament').classList.add('hidden');
 }
 function showStudentSelect() {
+  _ssMode = 'duel';
+  buildStudentPool();
   document.getElementById('screen-welcome').classList.add('hidden');
   document.getElementById('screen-student-select').classList.remove('hidden');
+}
+function showTournamentSelect() {
+  _ssMode = 'tournament';
+  _loadTournamentState();
+  document.getElementById('screen-welcome').classList.add('hidden');
+  if (_tournamentMatches.length) {
+    document.getElementById('screen-tournament').classList.remove('hidden');
+    renderTournamentChart();
+    if (_tournamentChampion) showTournamentChampion();
+  } else {
+    buildStudentPool();
+    _ssSelected = _tournamentSavedSelection.map(s => ({ name: s.name, slot: s.slot }));
+    _ssRefreshColors();
+    _updateSSCount();
+    document.getElementById('screen-student-select').classList.remove('hidden');
+  }
 }
 function showTutorial() {
   document.getElementById('screen-welcome').classList.add('hidden');
@@ -2375,14 +2615,81 @@ let playerNames   = ['STUDENT 1', 'STUDENT 2'];
 let _easyMode     = [false, false]; // hangi player easy mode'da
 let _easyStudents = new Set();      // easy mode'lu öğrenci adları (all-caps canonical)
 let _ssSelected   = [];   // [{name, slot}]  — max 2, sırasıyla P1/P2
+let _ssMode       = 'duel';
 let _ssLastChip   = null; // son seçilen chip element (rename için)
 let _rnSlot       = null; // rename edilecek slot index (1..18)
 let _rnText       = '';
 let _rnKbHandler  = null;
+let _tournamentMatches = [];
+let _tournamentRounds = { first: [], quarter: [], semi: [], final: [] };
+let _tournamentRound = 'first';
+let _tournamentChampion = null;
+let _tournamentActiveMatch = null;
+let _tournamentResultSaved = false;
+let _tournamentSavedSelection = [];
+let _tournamentResetConfirm = false;
 
 const _SS_KEY    = 'word_duel_snames';
 const _EASY_KEY  = 'word_duel_easy';
 const _WINS_KEY  = 'word_duel_wins';
+const _TOURNAMENT_KEY = 'word_duel_tournament';
+const _CHAMPIONS_KEY = 'word_duel_champions';
+const _ROUND_ORDER = ['first', 'quarter', 'semi', 'final'];
+const _ROUND_TITLES = { first:'TOURNAMENT CHART', quarter:'QUARTER FINALS', semi:'SEMI FINALS', final:'FINAL' };
+
+function _saveTournamentState() {
+  try {
+    localStorage.setItem(_TOURNAMENT_KEY, JSON.stringify({
+      version: 2,
+      selected: _ssMode === 'tournament' && !_tournamentMatches.length
+        ? _ssSelected.map(s => ({ name: s.name, slot: s.slot }))
+        : _tournamentSavedSelection,
+      matches: _tournamentMatches,
+      rounds: _tournamentRounds,
+      round: _tournamentRound,
+      champion: _tournamentChampion,
+      updatedAt: Date.now()
+    }));
+  } catch(e) {}
+}
+
+function _loadTournamentState() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(_TOURNAMENT_KEY));
+    if (!saved) return;
+    _tournamentSavedSelection = Array.isArray(saved.selected) ? saved.selected : [];
+    if (saved.version === 1) {
+      _tournamentRounds = { first: Array.isArray(saved.matches) ? saved.matches : [], quarter: [], semi: [], final: [] };
+      _tournamentRound = 'first';
+      _tournamentChampion = null;
+    } else {
+      _tournamentRounds = { first: [], quarter: [], semi: [], final: [], ...(saved.rounds || {}) };
+      _tournamentRound = saved.round || 'first';
+      _tournamentChampion = saved.champion || null;
+    }
+    _tournamentMatches = _tournamentRounds[_tournamentRound] || [];
+    _tournamentActiveMatch = null;
+    _tournamentResultSaved = false;
+  } catch(e) {
+    _tournamentSavedSelection = [];
+    _tournamentMatches = [];
+    _tournamentRounds = { first: [], quarter: [], semi: [], final: [] };
+    _tournamentRound = 'first';
+    _tournamentChampion = null;
+  }
+}
+
+function _getChampionships(name) {
+  try { return (JSON.parse(localStorage.getItem(_CHAMPIONS_KEY)) || {})[name] || 0; } catch(e) { return 0; }
+}
+
+function _addChampionship(name) {
+  try {
+    const champs = JSON.parse(localStorage.getItem(_CHAMPIONS_KEY)) || {};
+    champs[name] = (champs[name] || 0) + 1;
+    localStorage.setItem(_CHAMPIONS_KEY, JSON.stringify(champs));
+  } catch(e) {}
+}
 
 function _getWins(name) {
   try { return (JSON.parse(localStorage.getItem(_WINS_KEY)) || {})[name] || 0; } catch(e) { return 0; }
@@ -2458,22 +2765,27 @@ function _ssToggle(s, chip) {
     // Renumber remaining
     _ssRefreshColors();
   } else {
-    if (_ssSelected.length >= 2) return; // max 2
+    const maxSelected = _ssMode === 'tournament' ? 16 : 2;
+    if (_ssSelected.length >= maxSelected) return;
     _ssSelected.push(s);
     _ssLastChip = chip;
     _ssRefreshColors();
   }
   _updateSSCount();
+  if (_ssMode === 'tournament') {
+    _tournamentSavedSelection = _ssSelected.map(x => ({ name: x.name, slot: x.slot }));
+    _saveTournamentState();
+  }
 }
 
 function _ssRefreshColors() {
   // Tüm chip'leri sıfırla
-  document.querySelectorAll('#ss-class-pool .ss-chip').forEach(c => c.classList.remove('sel-p1', 'sel-p2'));
+  document.querySelectorAll('#ss-class-pool .ss-chip').forEach(c => c.classList.remove('sel-p1', 'sel-p2', 'sel-tournament'));
   _ssSelected.forEach((s, i) => {
     const chip = s.slot !== null
       ? document.querySelector(`#ss-class-pool .ss-chip[data-slot="${s.slot}"]`)
       : document.querySelector(`#ss-class-pool .ss-chip[data-name="${s.name}"]`);
-    if (chip) chip.classList.add(i === 0 ? 'sel-p1' : 'sel-p2');
+    if (chip) chip.classList.add(_ssMode === 'tournament' ? 'sel-tournament' : (i === 0 ? 'sel-p1' : 'sel-p2'));
   });
 }
 
@@ -2481,16 +2793,33 @@ function _updateSSCount() {
   const n = _ssSelected.length;
   const el = document.getElementById('ss-count');
   const teacherMode = window.CLASSES && CLASSES.length > 0;
-  if (n === 0) el.textContent = 'Henüz seçilmedi';
+  const tournamentMode = _ssMode === 'tournament';
+  document.getElementById('ss-heading').textContent = tournamentMode ? 'TURNUVA OYUNCU SEÇİMİ' : 'OYUNCU SEÇİMİ';
+  document.getElementById('ss-sub').innerHTML = tournamentMode
+    ? 'Turnuvaya katılacak <span style="color:#fbbf24">2, 4, 8 veya 16 öğrenci</span> seç'
+    : 'İki öğrenciye tıkla — ilk seçilen <span style="color:var(--p1)">P1</span>, ikinci seçilen <span style="color:var(--p2)">P2</span>';
+  if (tournamentMode) {
+    const startRound = { 2:'FINAL', 4:'SEMI FINALS', 8:'QUARTER FINALS', 16:'FIRST ROUND' }[n];
+    el.textContent = n + ' / 16 öğrenci seçildi' + (startRound ? ' — ' + startRound + ' hazır' : '');
+  } else if (n === 0) el.textContent = 'Henüz seçilmedi';
   else if (n === 1) el.innerHTML = `<span style="color:var(--p1)">${_ssSelected[0].name}</span> seçildi — bir kişi daha seç`;
   else el.innerHTML = `<span style="color:var(--p1)">${_ssSelected[0].name}</span> vs <span style="color:var(--p2)">${_ssSelected[1].name}</span>`;
-  el.className = 'ss-count' + (n === 2 ? ' ready' : '');
-  document.getElementById('ss-continue-btn').disabled = (n !== 2);
+  const ready = tournamentMode ? [2,4,8,16].includes(n) : n === 2;
+  el.className = 'ss-count' + (ready ? ' ready' : '');
+  document.getElementById('ss-continue-btn').disabled = !ready;
   // RENAME butonu: sadece web modunda, son seçilen chip varsa
   const rnBtn = document.getElementById('ss-rename-btn');
   if (rnBtn) {
-    const canRename = !teacherMode && _ssLastChip !== null;
+    const canRename = !teacherMode && !tournamentMode && _ssLastChip !== null;
     rnBtn.classList.toggle('hidden', !canRename);
+  }
+}
+
+function proceedStudentSelection() {
+  if (_ssMode === 'tournament') {
+    createTournamentDraw();
+  } else {
+    proceedToSettings();
   }
 }
 
@@ -2509,6 +2838,230 @@ function proceedToSettings() {
 }
 
 // ── RENAME OVERLAY ───────────────────────────────────────
+function createTournamentDraw() {
+  const playerCount = _ssSelected.length;
+  const startRound = { 2:'final', 4:'semi', 8:'quarter', 16:'first' }[playerCount];
+  if (!startRound) return;
+  const entrants = shuffle(_ssSelected.map(s => ({
+    name: s.name,
+    displayName: _easyStudents.has(s.name) ? _toTitleCase(s.name) : s.name,
+    easy: _easyStudents.has(s.name)
+  })));
+  _tournamentRound = startRound;
+  _tournamentChampion = null;
+  _tournamentRounds = { first: [], quarter: [], semi: [], final: [] };
+  _tournamentRounds[startRound] = _createRoundMatches(entrants, startRound === 'final');
+  _tournamentMatches = _tournamentRounds[startRound];
+  _tournamentActiveMatch = null;
+  _tournamentResultSaved = false;
+  _tournamentSavedSelection = _ssSelected.map(s => ({ name: s.name, slot: s.slot }));
+  _saveTournamentState();
+  document.getElementById('screen-student-select').classList.add('hidden');
+  document.getElementById('screen-tournament').classList.remove('hidden');
+  renderTournamentChart();
+}
+
+function _createRoundMatches(players, revealImmediately) {
+  const shuffled = shuffle([...players]);
+  const half = shuffled.length / 2;
+  return shuffled.slice(0, half).map((p1, i) => ({
+    p1,
+    p2: shuffled[i + half],
+    revealed: !!revealImmediately,
+    score: null,
+    winner: null,
+    winnerSide: null
+  }));
+}
+
+function _advanceTournamentIfReady() {
+  if (!_tournamentMatches.length || !_tournamentMatches.every(m => m.winner)) return;
+  if (_tournamentRound === 'final') {
+    if (!_tournamentChampion) {
+      _tournamentChampion = _tournamentMatches[0].winner;
+      _addChampionship(_tournamentChampion.displayName);
+    }
+    return;
+  }
+  const nextRound = _ROUND_ORDER[_ROUND_ORDER.indexOf(_tournamentRound) + 1];
+  if (!_tournamentRounds[nextRound].length) {
+    _tournamentRounds[nextRound] = _createRoundMatches(_tournamentMatches.map(m => m.winner), nextRound === 'final');
+  }
+  _tournamentRound = nextRound;
+  _tournamentMatches = _tournamentRounds[nextRound];
+}
+
+function continueTournament() {
+  if (!_tournamentMatches.length || !_tournamentMatches.every(m => m.winner)) return;
+  _advanceTournamentIfReady();
+  _saveTournamentState();
+  renderTournamentChart();
+  if (_tournamentChampion) showTournamentChampion();
+}
+
+function renderTournamentChart() {
+  _tournamentResetConfirm = false;
+  const resetBtn = document.getElementById('tr-reset-btn');
+  resetBtn.textContent = 'RESET TOURNAMENT';
+  resetBtn.classList.remove('confirming');
+  document.querySelector('.tr-title').textContent = _ROUND_TITLES[_tournamentRound];
+  if (_tournamentRound === 'final') {
+    const hadHiddenFinalist = _tournamentMatches.some(match => !match.revealed);
+    _tournamentMatches.forEach(match => { match.revealed = true; });
+    if (hadHiddenFinalist) _saveTournamentState();
+  }
+  const root = document.getElementById('tournament-matches');
+  const continueBtn = document.getElementById('tr-continue-btn');
+  root.innerHTML = '';
+  _tournamentMatches.forEach((match, index) => {
+    const row = document.createElement('div');
+    row.className = 'tr-match' + (match.winner ? ' completed' : '');
+    const p1Won = match.winnerSide === 0 || (match.winnerSide === undefined && match.winner && match.winner.name === match.p1.name);
+    const p2Won = match.winnerSide === 1 || (match.winnerSide === undefined && match.winner && match.winner.name === match.p2.name);
+    const p1Eliminated = !!match.winner && !p1Won;
+    const p2Eliminated = !!match.winner && !p2Won;
+
+    const p1 = document.createElement('div');
+    p1.className = 'tr-player' + (p1Won ? ' tr-winner' : '') + (p1Eliminated ? ' tr-eliminated' : '');
+    const p1Name = document.createElement('span');
+    p1Name.className = 'tr-player-name';
+    p1Name.textContent = match.p1.displayName;
+    p1.appendChild(p1Name);
+    if (match.score) {
+      const p1Score = document.createElement('span');
+      p1Score.className = 'tr-score';
+      p1Score.textContent = match.score[0];
+      p1.appendChild(p1Score);
+    }
+
+    const vs = document.createElement('div');
+    vs.className = 'tr-vs';
+    vs.textContent = 'VS';
+
+    const p2 = document.createElement('button');
+    p2.className = 'tr-opponent ' + (match.revealed ? 'revealed' : 'hidden-opponent') + (p2Won ? ' tr-winner' : '') + (p2Eliminated ? ' tr-eliminated' : '');
+    if (match.revealed) {
+      const p2Name = document.createElement('span');
+      p2Name.className = 'tr-player-name';
+      p2Name.textContent = match.p2.displayName;
+      p2.appendChild(p2Name);
+      if (match.score) {
+        const p2Score = document.createElement('span');
+        p2Score.className = 'tr-score';
+        p2Score.textContent = match.score[1];
+        p2.appendChild(p2Score);
+      }
+    } else {
+      p2.textContent = '?';
+    }
+    p2.disabled = match.revealed;
+    p2.onclick = () => revealTournamentOpponent(index);
+
+    const play = document.createElement('button');
+    play.className = 'tr-play';
+    play.textContent = match.winner ? 'DONE' : 'PLAY';
+    play.disabled = !match.revealed || !!match.winner;
+    play.onclick = () => startTournamentMatch(index);
+
+    row.append(p1, vs, p2, play);
+    root.appendChild(row);
+  });
+  const completed = _tournamentMatches.filter(m => m.winner).length;
+  const roundComplete = _tournamentMatches.length > 0 && completed === _tournamentMatches.length;
+  const nextRound = _ROUND_ORDER[_ROUND_ORDER.indexOf(_tournamentRound) + 1];
+  continueBtn.style.display = roundComplete && !_tournamentChampion ? 'block' : 'none';
+  continueBtn.textContent = _tournamentRound === 'final'
+    ? 'ANNOUNCE CHAMPION'
+    : 'CONTINUE TO ' + _ROUND_TITLES[nextRound];
+  document.getElementById('tournament-sub').textContent = _tournamentChampion
+    ? _tournamentChampion.displayName + ' TOURNAMENT CHAMPION'
+    : roundComplete
+      ? _ROUND_TITLES[_tournamentRound] + ' COMPLETED — REVIEW THE RESULTS'
+      : _tournamentRound === 'final'
+        ? 'FINALISTS READY — START THE CHAMPIONSHIP MATCH'
+        : 'Boş rakip slotlarına tıklayarak eşleşmeleri tek tek açıkla. Tamamlanan maç: ' + completed + ' / ' + _tournamentMatches.length;
+}
+
+function revealTournamentOpponent(index) {
+  const match = _tournamentMatches[index];
+  if (!match || match.revealed) return;
+  match.revealed = true;
+  _saveTournamentState();
+  renderTournamentChart();
+}
+
+function startTournamentMatch(index) {
+  const match = _tournamentMatches[index];
+  if (!match || !match.revealed || match.winner) return;
+  _tournamentActiveMatch = index;
+  _tournamentResultSaved = false;
+  _saveTournamentState();
+  playerNames = [match.p1.displayName, match.p2.displayName];
+  _easyMode = [match.p1.easy, match.p2.easy];
+  document.getElementById('screen-tournament').classList.add('hidden');
+  document.getElementById('settings-overlay').style.display = 'flex';
+}
+
+function closeTournament() {
+  _tournamentActiveMatch = null;
+  _tournamentResultSaved = false;
+  document.getElementById('screen-tournament').classList.add('hidden');
+  showWelcome();
+}
+
+let _tournamentFinalAudio = null;
+
+function showTournamentChampion() {
+  if (!_tournamentChampion) return;
+  document.getElementById('tc-name').textContent = _tournamentChampion.displayName;
+  const layer = document.getElementById('tc-confetti-layer');
+  layer.innerHTML = '';
+  const colors = ['#fbbf24','#60a5fa','#fb923c','#4ade80','#f472b6','#fff'];
+  for (let i = 0; i < 90; i++) {
+    const piece = document.createElement('i');
+    piece.className = 'tc-confetti';
+    piece.style.left = Math.random() * 100 + 'vw';
+    piece.style.background = colors[i % colors.length];
+    piece.style.animationDuration = (2.8 + Math.random() * 3) + 's';
+    piece.style.animationDelay = (-Math.random() * 5) + 's';
+    layer.appendChild(piece);
+  }
+  document.getElementById('tournament-champion').classList.add('open');
+  if (_tournamentFinalAudio) { _tournamentFinalAudio.pause(); _tournamentFinalAudio.currentTime = 0; }
+  _tournamentFinalAudio = new Audio('sounds/final.mp3');
+  _tournamentFinalAudio.volume = .65;
+  _tournamentFinalAudio.play().catch(() => {});
+}
+
+function closeTournamentChampion() {
+  document.getElementById('tournament-champion').classList.remove('open');
+  if (_tournamentFinalAudio) { _tournamentFinalAudio.pause(); _tournamentFinalAudio.currentTime = 0; }
+}
+
+function resetTournament() {
+  const btn = document.getElementById('tr-reset-btn');
+  if (!_tournamentResetConfirm) {
+    _tournamentResetConfirm = true;
+    btn.textContent = 'ARE YOU SURE?';
+    btn.classList.add('confirming');
+    return;
+  }
+  try { localStorage.removeItem(_TOURNAMENT_KEY); } catch(e) {}
+  _tournamentMatches = [];
+  _tournamentRounds = { first: [], quarter: [], semi: [], final: [] };
+  _tournamentRound = 'first';
+  _tournamentChampion = null;
+  _tournamentSavedSelection = [];
+  _tournamentActiveMatch = null;
+  _tournamentResultSaved = false;
+  _tournamentResetConfirm = false;
+  _ssSelected = [];
+  _ssMode = 'duel';
+  closeTournamentChampion();
+  document.getElementById('screen-tournament').classList.add('hidden');
+  showWelcome();
+}
+
 function openRenameOverlay() {
   if (!_ssLastChip) return;
   _rnSlot = parseInt(_ssLastChip.dataset.slot) || null;
@@ -2630,5 +3183,3 @@ function openSettings() {
 </script>
 </body>
 </html>
-
-
