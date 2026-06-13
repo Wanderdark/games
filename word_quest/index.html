@@ -2669,6 +2669,20 @@ function _canCastSpell(spellId) {
   if (spellId === 'healing_light') return _spPlayerHP < _spMaxHP;
   return true;
 }
+function _isPreparedSpellStreakReady(spellId) {
+  const spell = SPELLS[spellId];
+  return !!spell && _spLearnedSpells.includes(spellId) && _isSpellPrepared(spellId) && _spStreak >= spell.streak;
+}
+function _getSpellUnavailableReason(spellId) {
+  const spell = SPELLS[spellId];
+  if (!spell || !_spLearnedSpells.includes(spellId) || !_isSpellPrepared(spellId)) return 'NOT PREPARED';
+  if (_spStreak < spell.streak) return 'NEED ' + spell.streak + ' STREAK';
+  if (_spMana < _getSpellManaCost(spellId)) return 'NOT ENOUGH MANA';
+  if (spell.type === 'major' && _spMajorSpellsUsed.includes(spellId)) return 'ALREADY CAST THIS BATTLE';
+  if (spellId === 'slow' && _spEnemySlowed) return 'ENEMY ALREADY SLOWED';
+  if (spellId === 'healing_light' && _spPlayerHP >= _spMaxHP) return 'HP ALREADY FULL';
+  return _spRoundActive && !_spClickLocked ? '' : 'WAIT FOR THE NEXT QUESTION';
+}
 function _renderSpellMenu() {
   const wrap = document.getElementById('spell-list');
   if (!wrap) return;
@@ -2676,6 +2690,7 @@ function _renderSpellMenu() {
     const spell = SPELLS[spellId];
     if (!spell) return '';
     const disabled = _canCastSpell(spellId) ? '' : ' disabled';
+    const unavailableReason = _getSpellUnavailableReason(spellId);
     return `<button class="spell-card" onclick="_castSpell('${spellId}')"${disabled}>
       <span class="spell-icon">
         <span>${spell.icon}</span>
@@ -2683,7 +2698,7 @@ function _renderSpellMenu() {
       </span>
       <span class="spell-info">
         <span class="spell-name">${spell.name}</span>
-        <span class="spell-desc">${_getSpellDescription(spellId)}</span>
+        <span class="spell-desc">${unavailableReason || _getSpellDescription(spellId)}</span>
       </span>
       <span class="spell-cost">${_getSpellManaCost(spellId)} MP</span>
     </button>`;
@@ -2691,13 +2706,13 @@ function _renderSpellMenu() {
 }
 function _updateSpellButton() {
   const btn = document.getElementById('sp-cast-btn');
-  if (btn) btn.disabled = !_spPreparedSpells.some(_canCastSpell);
+  if (btn) btn.disabled = !_spRoundActive || _spClickLocked || !_spPreparedSpells.some(_isPreparedSpellStreakReady);
   _renderSpellMenu();
 }
 function _openSpellMenu() {
-  if (!_spPreparedSpells.some(_canCastSpell)) return;
-  _spellMenuPausedBattle = _spRoundActive;
-  _stopTimer();
+  if (!_spRoundActive || _spClickLocked || !_spPreparedSpells.some(_isPreparedSpellStreakReady)) return;
+  _spellMenuPausedBattle = _spPreparedSpells.some(_canCastSpell);
+  if (_spellMenuPausedBattle) _stopTimer();
   document.getElementById('spell-overlay')?.classList.add('open');
   _updateMana();
   _renderSpellMenu();

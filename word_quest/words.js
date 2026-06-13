@@ -285,7 +285,6 @@ const QUESTIONS = [
   ["mechanic",6,6,"REPAIR","FIX","../images/6/6/8.webp"],
   ["housewife",6,6,"../images/6/6/9.webp"],
   ["driver",6,6,"../images/6/6/10.webp"],
-  ["salesman",6,6,"SALESWOMAN","../images/6/6/11.webp"],
   ["saleswoman",6,6,"SALESMAN","../images/6/6/11.webp"],
   ["retired",6,6,"../images/6/6/12.webp"],
   ["engineer",6,6,"../images/6/6/13.webp"],
