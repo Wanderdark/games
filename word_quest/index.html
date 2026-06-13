@@ -136,15 +136,15 @@ body.lite .hp-heart{animation:none}
 #town-overlay.blacksmith-view{background-image:linear-gradient(180deg,rgba(4,12,20,.08) 0%,rgba(4,12,20,.08) 45%,rgba(4,12,20,.78) 100%),url('images/town/blacksmith.webp'),url('images/town/town.webp')}
 #town-overlay.mages-guild-view{background-image:linear-gradient(180deg,rgba(8,5,30,.12) 0%,rgba(8,5,30,.18) 42%,rgba(8,5,30,.82) 100%),url('images/town/mages_guild.webp'),url('images/town/town.webp')}
 #town-overlay.adventurers-guild-view{background-image:linear-gradient(180deg,rgba(6,15,12,.12) 0%,rgba(6,15,12,.18) 42%,rgba(6,15,12,.82) 100%),url('images/town/adv_guild.webp'),url('images/town/town.webp')}
-.mages-scene-fx,.inn-scene-fx,.resting-scene-fx,.adventurers-scene-fx{position:absolute;inset:0;overflow:hidden;pointer-events:none;display:none;z-index:0}.mages-guild-view .mages-scene-fx,.inn-view .inn-scene-fx,.resting-view .resting-scene-fx,.adventurers-guild-view .adventurers-scene-fx{display:block}.mages-scene-light{position:absolute;left:0;top:0;transform:translate(-50%,-50%);will-change:transform,opacity;width:var(--fx-size);height:var(--fx-size);border-radius:50%;background:radial-gradient(circle,rgba(255,250,190,.74) 0%,rgba(255,195,65,.4) 18%,rgba(255,140,22,.16) 44%,rgba(255,110,10,0) 74%);mix-blend-mode:screen;filter:blur(3px);animation:magesLightPulse 2.8s ease-in-out infinite}.mages-scene-light::after{content:'';position:absolute;inset:38%;border-radius:50%;background:rgba(255,249,204,.78);box-shadow:0 0 14px 6px rgba(255,214,102,.5);animation:magesLightCore 1.8s ease-in-out infinite alternate}
+.mages-scene-fx,.inn-scene-fx,.resting-scene-fx,.adventurers-scene-fx{position:absolute;inset:0;overflow:hidden;pointer-events:none;display:none;z-index:0}.mages-guild-view .mages-scene-fx,.inn-view .inn-scene-fx,.resting-view .resting-scene-fx,.adventurers-guild-view .adventurers-scene-fx{display:block}.fireplace-sprite-canvas{position:absolute;transform:translate(-50%,-100%);image-rendering:auto;filter:drop-shadow(0 0 8px rgba(255,118,15,.72))}.mages-scene-light{position:absolute;left:0;top:0;transform:translate(-50%,-50%);will-change:transform,opacity;width:var(--fx-size);height:var(--fx-size);border-radius:50%;background:radial-gradient(circle,rgba(255,250,190,.74) 0%,rgba(255,195,65,.4) 18%,rgba(255,140,22,.16) 44%,rgba(255,110,10,0) 74%);mix-blend-mode:screen;filter:blur(3px);animation:magesLightPulse 2.8s ease-in-out infinite}.mages-scene-light::after{content:'';position:absolute;inset:38%;border-radius:50%;background:rgba(255,249,204,.78);box-shadow:0 0 14px 6px rgba(255,214,102,.5);animation:magesLightCore 1.8s ease-in-out infinite alternate}
 .inn-fireplace-glow{position:absolute;left:0;top:0;width:var(--fx-size);height:calc(var(--fx-size) * .72);border-radius:50%;transform:translate(-50%,-50%);background:radial-gradient(ellipse,rgba(255,244,174,.56) 0%,rgba(255,153,35,.3) 25%,rgba(255,92,10,.11) 52%,transparent 76%);mix-blend-mode:screen;filter:blur(4px);will-change:transform,opacity;animation:innFireGlow 1.65s ease-in-out infinite alternate}.inn-fireplace-glow::after{content:'';position:absolute;inset:25% 33%;border-radius:48% 48% 42% 42%;background:rgba(255,224,125,.38);box-shadow:0 0 18px 7px rgba(255,132,27,.34);animation:innFireCore .72s ease-in-out infinite alternate}.inn-fire-embers{position:absolute;left:0;top:0;width:var(--fx-size);height:var(--fx-size);transform:translate(-50%,-50%)}.inn-fire-embers span{position:absolute;left:50%;top:62%;width:var(--ember-size);height:var(--ember-size);border-radius:50%;background:#fff3a3;box-shadow:0 0 5px 2px rgba(255,112,20,.75);opacity:0;animation:innEmberRise 2.5s ease-out infinite}.inn-fire-embers span:nth-child(2){animation-delay:.8s}.inn-fire-embers span:nth-child(3){animation-delay:1.55s}.inn-fire-embers span:nth-child(4){animation-delay:2.05s}
 .resting-scene-fx .inn-fireplace-glow{background:radial-gradient(ellipse,rgba(255,250,194,.78) 0%,rgba(255,166,42,.48) 27%,rgba(255,83,8,.2) 54%,transparent 78%);filter:blur(3px);animation-name:restingFireGlow}.resting-scene-fx .inn-fireplace-glow::after{background:rgba(255,235,140,.58);box-shadow:0 0 23px 10px rgba(255,125,20,.52)}.resting-scene-fx .inn-fire-embers span{box-shadow:0 0 7px 3px rgba(255,112,20,.92)}
 .resting-warm-light{position:absolute;left:0;top:0;width:var(--fx-size);height:var(--fx-size);border-radius:50%;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(255,251,205,.78) 0%,rgba(255,177,51,.43) 30%,rgba(255,98,10,.15) 58%,transparent 78%);mix-blend-mode:screen;filter:blur(2px);animation:restingLightPulse 2.15s ease-in-out infinite alternate}.resting-candle-light{background:radial-gradient(circle,rgba(255,255,225,.94) 0%,rgba(255,199,70,.58) 28%,rgba(255,119,20,.22) 58%,transparent 79%);filter:blur(1px);animation-name:restingCandlePulse;animation-duration:1.55s}
 .adventurers-lantern-light{position:absolute;left:0;top:0;width:var(--fx-size);height:var(--fx-size);border-radius:50%;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(255,255,225,.78) 0%,rgba(255,207,75,.52) 20%,rgba(255,130,24,.25) 48%,rgba(255,85,10,.08) 68%,transparent 82%);mix-blend-mode:screen;filter:blur(3px);animation:restingCandlePulse 1.55s ease-in-out infinite alternate}
 @keyframes magesLightPulse{0%,100%{opacity:.48;transform:translate(-50%,-50%) scale(.96)}50%{opacity:.76;transform:translate(-50%,-50%) scale(1.07)}}@keyframes magesLightCore{from{opacity:.54;transform:scale(.9)}to{opacity:.82;transform:scale(1.08)}}@keyframes innFireGlow{0%{opacity:.52;transform:translate(-50%,-50%) scale(.96)}45%{opacity:.72;transform:translate(-50%,-50%) scale(1.03)}100%{opacity:.6;transform:translate(-50%,-50%) scale(1)}}@keyframes restingFireGlow{0%{opacity:.7;transform:translate(-50%,-50%) scale(.95)}45%{opacity:.94;transform:translate(-50%,-50%) scale(1.05)}100%{opacity:.8;transform:translate(-50%,-50%) scale(1)}}@keyframes innFireCore{from{opacity:.45;transform:scale(.88) translateY(2%)}to{opacity:.72;transform:scale(1.08) translateY(-3%)}}@keyframes innEmberRise{0%{opacity:0;transform:translate(-12px,8px) scale(.35)}18%{opacity:.9}70%{opacity:.35}100%{opacity:0;transform:translate(18px,-78px) scale(.1)}}@keyframes restingLightPulse{from{opacity:.68;transform:translate(-50%,-50%) scale(.93)}to{opacity:.96;transform:translate(-50%,-50%) scale(1.08)}}@keyframes restingCandlePulse{from{opacity:.78;transform:translate(-50%,-50%) scale(.92)}to{opacity:1;transform:translate(-50%,-50%) scale(1.1)}}body.lite .mages-scene-fx,body.lite .inn-scene-fx,body.lite .resting-scene-fx,body.lite .adventurers-scene-fx{display:none!important}
 .town-menu{position:absolute;left:24px;top:50%;transform:translateY(-50%);width:min(310px,calc(100vw - 48px));padding:22px;background:rgba(4,10,20,.86);border:1.5px solid rgba(251,191,36,.45);border-radius:20px;backdrop-filter:blur(10px);box-shadow:0 18px 60px rgba(0,0,0,.65);display:flex;flex-direction:column;gap:10px}
-#town-overlay.inn-view #town-inn-menu{top:24px;transform:none}
-#town-overlay.resting-view #town-inn-menu{left:auto;right:24px;top:24px;transform:none}
+#town-overlay.inn-view #town-inn-menu{left:auto;right:24px;top:auto;bottom:24px;transform:none}
+#town-overlay.resting-view #town-inn-menu{left:auto;right:24px;top:24px;bottom:auto;transform:none}
 .town-title{font-family:'Bebas Neue',sans-serif;font-size:42px;letter-spacing:.14em;color:#fbbf24;text-align:center;text-shadow:0 0 18px rgba(251,191,36,.5)}
 .town-subtitle{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:.15em;color:rgba(255,255,255,.55);text-align:center;margin-top:-8px;margin-bottom:7px}
 .town-btn{width:100%;padding:12px 14px;border-radius:11px;border:1.5px solid rgba(251,191,36,.38);background:rgba(120,53,15,.28);color:#fde68a;font-family:'Bebas Neue',sans-serif;font-size:21px;letter-spacing:.13em;cursor:pointer;transition:transform .12s,background .12s}
@@ -300,7 +300,7 @@ body.lite .grid-shatter-layer{display:none}
 @keyframes streakAnim{0%{opacity:0;transform:translateX(-50%) translateY(6px) scale(.7)}12%{opacity:1;transform:translateX(-50%) translateY(-4px) scale(1.12)}25%{opacity:1;transform:translateX(-50%) translateY(0) scale(1)}85%{opacity:1;transform:translateX(-50%) translateY(-6px)}100%{opacity:0;transform:translateX(-50%) translateY(-38px)}}
 
 /* ── FLOAT TEXT ── */
-.sp-float{position:fixed;font-family:'Bebas Neue',sans-serif;font-size:clamp(18px,2.5vw,32px);letter-spacing:.08em;pointer-events:none;z-index:9100;text-shadow:0 0 14px currentColor;transform:translateX(-50%);animation:spFloatAnim 1.8s ease-out forwards}
+.sp-float{position:fixed;font-family:'Bebas Neue',sans-serif;font-size:clamp(18px,2.5vw,32px);letter-spacing:.08em;pointer-events:none;z-index:9100;text-shadow:0 0 14px currentColor;transform:translateX(-50%);animation:spFloatAnim 1.8s ease-out forwards}.sp-float.keen-insight-float{color:#172554;text-shadow:-2px -2px 0 #000,2px -2px 0 #000,-2px 2px 0 #000,2px 2px 0 #000,0 0 14px rgba(30,58,138,.9)}
 @keyframes spFloatAnim{0%{opacity:1;transform:translateX(-50%) translateY(0) scale(1)}60%{opacity:.9;transform:translateX(-50%) translateY(-50px) scale(1.06)}100%{opacity:0;transform:translateX(-50%) translateY(-100px) scale(.85)}}
 
 /* ── DAMAGE FLASH ── */
@@ -1104,22 +1104,24 @@ body.lite .grid-shatter-layer{display:none}
     <div class="mages-scene-light" id="mages-scene-light"></div>
   </div>
   <div class="inn-scene-fx" id="inn-scene-fx">
+    <canvas class="fireplace-sprite-canvas" id="inn-fireplace-canvas" width="60" height="86"></canvas>
     <div class="inn-fireplace-glow" id="inn-fireplace-glow"></div>
     <div class="inn-fire-embers" id="inn-fire-embers">
       <span></span><span></span><span></span><span></span>
     </div>
   </div>
   <div class="resting-scene-fx" id="resting-scene-fx">
+    <canvas class="fireplace-sprite-canvas" id="resting-fireplace-canvas" width="60" height="86"></canvas>
     <div class="inn-fireplace-glow" id="resting-fireplace-glow"></div>
     <div class="inn-fire-embers" id="resting-fire-embers">
       <span></span><span></span><span></span><span></span>
     </div>
-    <div class="resting-warm-light" id="resting-lantern-light"></div>
     <div class="resting-warm-light resting-candle-light" id="resting-candle-light-1"></div>
     <div class="resting-warm-light resting-candle-light" id="resting-candle-light-2"></div>
     <div class="resting-warm-light resting-candle-light" id="resting-candle-light-3"></div>
   </div>
   <div class="adventurers-scene-fx" id="adventurers-scene-fx">
+    <canvas class="fireplace-sprite-canvas" id="adventurers-fireplace-canvas" width="60" height="86"></canvas>
     <div class="inn-fireplace-glow" id="adventurers-fireplace-glow"></div>
     <div class="inn-fire-embers" id="adventurers-fire-embers">
       <span></span><span></span><span></span><span></span>
@@ -1142,6 +1144,7 @@ body.lite .grid-shatter-layer{display:none}
     <div class="town-subtitle" id="inn-stats"></div>
     <button class="town-btn rest" id="inn-rest-btn" onclick="_startInnRest()">REST - 50 GOLD</button>
     <button class="town-btn" id="inn-inquire-btn" onclick="_toggleInnInquire()" disabled>INQUIRE</button>
+    <button class="town-btn" onclick="_openRestingRoomTest()">TEST RESTING ROOM</button>
     <button class="town-btn leave" id="inn-leave-btn" onclick="_leaveInn()">LEAVE</button>
     <div class="town-status" id="inn-status"></div>
   </div>
@@ -1629,6 +1632,7 @@ let _guardQuestion       = null;
 let _guardDeadline       = 0;
 let _guardTimerInterval  = null;
 let _guardArmTimer       = null;
+let _adventurersFireplaceTimer = null;
 let _guardPairPoolPromise = null;
 let _swordSoundIndex     = 0;
 let _innRestInterval     = null;
@@ -2005,7 +2009,7 @@ async function _buildGrid(correctQ) {
     if (eliminatedCell) {
       await new Promise(resolve => setTimeout(resolve, 260));
       if (loadToken !== _spGridLoadToken) return false;
-      _spawnFloat('KEEN INSIGHT!', '#FFD700', 'cell-sp-' + eliminatedPos);
+      _spawnFloat('KEEN INSIGHT!', '#172554', 'cell-sp-' + eliminatedPos, 'keen-insight-float');
       eliminatedCell.classList.add('locked');
       _shatterGridCell(eliminatedCell);
       _spGridImages[eliminatedPos] = null;
@@ -3936,22 +3940,67 @@ function _positionInnEffects() {
   _positionCoverEffect(overlay, 1920, 1080, 'inn-fireplace-glow', 261, 537, 310);
   _positionCoverEffect(overlay, 1920, 1080, 'inn-fire-embers', 261, 537, 155);
   _positionCoverEffect(overlay, 1920, 1080, 'inn-rumor-bubble', 1610, 335, 0);
+  _positionFireplaceCanvas('inn-fireplace-canvas', 270, 620, 145, 208);
   _positionInnInquirePanel();
+}
+function _positionFireplaceCanvas(id, x, y, width, height) {
+  const overlay = document.getElementById('town-overlay');
+  const canvas = document.getElementById(id);
+  if (!overlay || !canvas) return;
+  const scale = Math.max(overlay.clientWidth / 1920, overlay.clientHeight / 1080);
+  const offsetX = (overlay.clientWidth - 1920 * scale) / 2;
+  const offsetY = (overlay.clientHeight - 1080 * scale) / 2;
+  canvas.style.left = (offsetX + x * scale) + 'px';
+  canvas.style.top = (offsetY + y * scale) + 'px';
+  canvas.style.width = (width * scale) + 'px';
+  canvas.style.height = (height * scale) + 'px';
 }
 function _positionInnRestingEffects() {
   const overlay = document.getElementById('town-overlay');
-  _positionCoverEffect(overlay, 1920, 1080, 'resting-fireplace-glow', 215, 521, 290);
+  _positionCoverEffect(overlay, 1920, 1080, 'resting-fireplace-glow', 235, 551, 350);
   _positionCoverEffect(overlay, 1920, 1080, 'resting-fire-embers', 215, 521, 145);
-  _positionCoverEffect(overlay, 1920, 1080, 'resting-lantern-light', 39, 640, 125);
-  _positionCoverEffect(overlay, 1920, 1080, 'resting-candle-light-1', 336, 258, 75);
+  _positionFireplaceCanvas('resting-fireplace-canvas', 236, 610, 145, 208);
+// _positionCoverEffect(overlay, 1920, 1080, 'resting-candle-light-1', 336, 258, 75);
   _positionCoverEffect(overlay, 1920, 1080, 'resting-candle-light-2', 1419, 475, 75);
   _positionCoverEffect(overlay, 1920, 1080, 'resting-candle-light-3', 1883, 533, 75);
 }
 function _positionAdventurersGuildEffects() {
   const overlay = document.getElementById('town-overlay');
-  _positionCoverEffect(overlay, 1920, 1080, 'adventurers-fireplace-glow', 1805, 605, 330);
+  _positionCoverEffect(overlay, 1920, 1080, 'adventurers-fireplace-glow', 1790, 605, 330);
   _positionCoverEffect(overlay, 1920, 1080, 'adventurers-fire-embers', 1805, 605, 165);
   _positionCoverEffect(overlay, 1920, 1080, 'adventurers-lantern-light', 122, 678, 210);
+  const canvas = document.getElementById('adventurers-fireplace-canvas');
+  if (overlay && canvas) {
+    const scale = Math.max(overlay.clientWidth / 1920, overlay.clientHeight / 1080);
+    const offsetX = (overlay.clientWidth - 1920 * scale) / 2;
+    const offsetY = (overlay.clientHeight - 1080 * scale) / 2;
+    canvas.style.left = (offsetX + 1790 * scale) + 'px';
+    canvas.style.top = (offsetY + 680 * scale) + 'px';
+    canvas.style.width = (120 * scale) + 'px';
+    canvas.style.height = (172 * scale) + 'px';
+  }
+}
+function _initAdventurersFireplaceAnimation() {
+  if (_adventurersFireplaceTimer) return;
+  const canvases = ['inn-fireplace-canvas', 'resting-fireplace-canvas', 'adventurers-fireplace-canvas']
+    .map(id => document.getElementById(id))
+    .filter(Boolean);
+  if (!canvases.length) return;
+  const sheet = new Image();
+  let frameIndex = 0;
+  sheet.onload = () => {
+    const draw = () => {
+      canvases.forEach(canvas => {
+        const ctx = canvas.getContext('2d');
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(sheet, frameIndex * 60, 0, 60, 86, 0, 0, 60, 86);
+      });
+      frameIndex = (frameIndex + 1) % 9;
+    };
+    draw();
+    _adventurersFireplaceTimer = setInterval(draw, 110);
+  };
+  sheet.src = 'images/spritesheets/fireplace.png';
 }
 function _openTownShop() {
   _stopBlacksmithAmbient();
@@ -5013,11 +5062,11 @@ function _positionInnInquirePanel() {
   const panel = document.getElementById('inn-inquire-panel');
   if (!menu || !panel || panel.style.display === 'none') return;
   const overlay = document.getElementById('town-overlay');
-  const top = menu.offsetTop + menu.offsetHeight + 10;
+  const top = Math.max(24, menu.offsetTop - panel.offsetHeight - 10);
   panel.style.left = menu.offsetLeft + 'px';
   panel.style.top = top + 'px';
   panel.style.width = menu.offsetWidth + 'px';
-  panel.style.maxHeight = Math.max(120, (overlay?.clientHeight || window.innerHeight) - top - 24) + 'px';
+  panel.style.maxHeight = Math.max(120, menu.offsetTop - 34) + 'px';
   panel.style.overflowY = 'auto';
 }
 function _renderInnInquirePanel(targets = _getInnInquireTargets()) {
@@ -5051,6 +5100,16 @@ function _startInnRest() {
   _innRestEndsAt = Date.now() + INN_REST_SECONDS * 1000;
   _spSave();
   _resumeInnRest();
+}
+function _openRestingRoomTest() {
+  if (_innResting) return;
+  const overlay = document.getElementById('town-overlay');
+  overlay?.classList.remove('inn-view', 'adventurers-guild-view', 'mages-guild-view', 'shop-view', 'blacksmith-view');
+  overlay?.classList.add('resting-view');
+  document.getElementById('inn-inquire-panel').style.display = 'none';
+  document.getElementById('inn-rumor-bubble').style.display = 'none';
+  document.getElementById('inn-status').textContent = 'TEST MODE - NO GOLD OR TIME USED';
+  _positionInnRestingEffects();
 }
 function _resumeInnRest() {
   _innResting = true;
@@ -6290,9 +6349,9 @@ function _flashDmg(color) {
   el.classList.add('show');
   setTimeout(() => el.classList.remove('show'), 200);
 }
-function _spawnFloat(text, color, areaId) {
+function _spawnFloat(text, color, areaId, className = '') {
   const el       = document.createElement('div');
-  el.className   = 'sp-float';
+  el.className   = 'sp-float' + (className ? ' ' + className : '');
   el.textContent = text;
   el.style.color = color || '#fff';
   const area = document.getElementById(areaId || 'sp-player-avatar-area');
@@ -6704,6 +6763,7 @@ window.addEventListener('resize', () => {
 // ── STARTUP ───────────────────────────────────────────────
 window.addEventListener('load', () => {
   _loadSettings();
+  _initAdventurersFireplaceAnimation();
   const audio = document.getElementById('bg-music');
   if (audio) { audio.src = BG_MENU_TRACK; audio.loop = true; audio.volume = 0; audio.load(); }
 
