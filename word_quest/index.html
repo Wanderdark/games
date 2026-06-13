@@ -240,7 +240,8 @@ body.lite .hp-heart{animation:none}
 @media(max-width:800px){.eg-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.eg-main-quest-list,.eg-quest-list,.eg-skill-grid,.eg-spell-grid{grid-template-columns:1fr}.eg-title-wrap{align-items:flex-start;flex-direction:column;gap:6px}.eg-head{align-items:flex-start}.eg-total-stat{font-size:16px;padding:4px 8px}}
 
 /* ── WORD BOX ── */
-.word-box{background:var(--panel-bg);border:1.5px solid var(--panel-border);border-radius:14px;padding:12px 14px;text-align:center;width:100%;backdrop-filter:blur(8px)}
+.word-box{position:relative;background:var(--panel-bg);border:1.5px solid var(--panel-border);border-radius:14px;padding:12px 88px;text-align:center;width:100%;backdrop-filter:blur(8px)}
+.word-settings-btn{position:absolute;right:10px;top:50%;transform:translateY(-50%);padding:6px 9px;border:1px solid rgba(251,191,36,.36);border-radius:8px;background:rgba(120,53,15,.28);color:#fde68a;font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:.1em;cursor:pointer}.word-settings-btn:hover{border-color:#fbbf24;background:rgba(180,83,9,.35)}
 .wb-label{font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
 .wb-word{font-family:'Bebas Neue',sans-serif;font-size:clamp(22px,3vw,36px);color:var(--gold);letter-spacing:.1em;text-shadow:0 0 30px var(--gold-glow);line-height:1.15;min-height:1.2em;transition:opacity .3s;white-space:nowrap;overflow:hidden}
 .wb-word.word-listening{opacity:0;user-select:none;pointer-events:none}
@@ -513,6 +514,7 @@ body.lite .grid-shatter-layer{display:none}
 .sc-mode-btn{flex:1;padding:9px 12px;font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;border-radius:10px;cursor:pointer;background:rgba(255,255,255,.05);border:1.5px solid rgba(255,140,0,.2);color:var(--muted);transition:all .15s}
 .sc-mode-btn.active{background:linear-gradient(135deg,#15803d,#1DB954);border-color:#4ade80;color:#fff;box-shadow:0 0 12px rgba(29,185,84,.35)}
 .sc-mode-btn:hover:not(.active){border-color:rgba(255,140,0,.5);color:var(--gold)}
+.sc-volume-row{display:grid;grid-template-columns:1fr 58px;gap:12px;align-items:center}.sc-volume-slider{width:100%;accent-color:#f59e0b;cursor:pointer}.sc-volume-value{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.08em;color:#fbbf24;text-align:right}.sc-note{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:.08em;color:rgba(255,255,255,.38)}
 .sc-save-btn{padding:13px;font-family:'Barlow Condensed',sans-serif;font-size:17px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;background:linear-gradient(135deg,#CC5500,var(--gold));border:none;border-radius:12px;color:#fff;cursor:pointer;transition:transform .12s}
 .sc-save-btn:hover{transform:scale(1.02)}
 
@@ -542,8 +544,8 @@ body.lite .grid-shatter-layer{display:none}
 /* ── NPC DEFEAT OVERLAY ── */
 #sp-npc-defeat{position:fixed;inset:0;z-index:9640;background:rgba(2,8,30,.93);display:none;align-items:center;justify-content:center;backdrop-filter:blur(12px)}
 #sp-npc-defeat.open{display:flex}
-.spnd-modal{background:linear-gradient(145deg,#1a3a1a,#0a1f0a);border:1.5px solid rgba(34,197,94,.5);border-radius:26px;padding:32px 38px 28px;text-align:center;width:min(92vw,520px);display:flex;flex-direction:column;gap:14px;align-items:center;box-shadow:0 0 80px rgba(34,197,94,.15),0 24px 60px rgba(0,0,0,.7);animation:modalIn .35s cubic-bezier(.175,.885,.32,1.275)}
-.spnd-banner{font-family:'Bebas Neue',sans-serif;font-size:clamp(30px,4.5vw,48px);color:#4ade80;text-shadow:0 0 30px rgba(74,222,128,.7);letter-spacing:.08em;line-height:1}
+.spnd-modal{background:linear-gradient(145deg,#1a3a1a,#0a1f0a);border:1.5px solid rgba(34,197,94,.5);border-radius:26px;padding:32px 38px 28px;text-align:center;width:min(92vw,520px);max-height:94vh;overflow-y:auto;display:flex;flex-direction:column;gap:14px;align-items:center;box-shadow:0 0 80px rgba(34,197,94,.15),0 24px 60px rgba(0,0,0,.7);animation:modalIn .35s cubic-bezier(.175,.885,.32,1.275)}
+.spnd-banner{font-family:'Bebas Neue',sans-serif;font-size:clamp(18px,2.4vw,27px);color:#4ade80;text-shadow:0 0 20px rgba(74,222,128,.55);letter-spacing:.11em;line-height:1}
 .spnd-npc-name{font-family:'Barlow Condensed',sans-serif;font-size:clamp(13px,1.7vw,17px);font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.55)}
 .spnd-divider{width:80%;height:1px;background:linear-gradient(90deg,transparent,rgba(34,197,94,.4),transparent)}
 .spnd-stats{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
@@ -565,6 +567,7 @@ body.lite .grid-shatter-layer{display:none}
 .spnd-loot-chip{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:.08em;color:rgba(255,255,255,.74);background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:6px;padding:3px 7px}
 .spnd-loot-result{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:.15em;color:#4ade80;text-transform:uppercase}
 .spnd-quest-complete{display:none;width:100%;padding:11px 14px;border:1.5px solid rgba(250,204,21,.55);border-radius:12px;background:rgba(120,53,15,.3);color:#fde68a;text-align:center}.spnd-quest-complete.show{display:block}.spnd-quest-title{font-family:'Bebas Neue',sans-serif;font-size:19px;letter-spacing:.12em;color:#facc15}.spnd-quest-detail{margin-top:3px;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:.08em;color:#fef3c7}.spnd-quest-claim-note{margin-top:5px;font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:.12em;color:#86efac}
+.spnd-broken-report{display:none;width:100%;padding:10px 14px;border:1.5px solid rgba(248,113,113,.58);border-radius:12px;background:rgba(127,29,29,.28);text-align:left}.spnd-broken-report.show{display:block}.spnd-broken-title{margin-bottom:7px;font-family:'Bebas Neue',sans-serif;font-size:19px;letter-spacing:.13em;color:#f87171;text-align:center}.spnd-broken-list{display:flex;flex-direction:column;gap:7px}.spnd-broken-item{display:grid;grid-template-columns:58px 1fr;gap:10px;align-items:center;padding:7px;border:1px solid rgba(248,113,113,.25);border-radius:9px;background:rgba(0,0,0,.22)}.spnd-broken-item img{width:58px;height:58px;object-fit:contain;border-radius:7px;background:rgba(0,0,0,.25)}.spnd-broken-name{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:.08em;color:#fecaca}.spnd-broken-meta{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:.08em;color:rgba(255,255,255,.65)}
 .spnd-actions{display:flex;width:100%;gap:10px;justify-content:center}
 .spnd-gear-btn{font-family:'Bebas Neue',sans-serif;font-size:clamp(16px,2.2vw,23px);letter-spacing:.14em;padding:13px 22px;border-radius:14px;border:1.5px solid rgba(125,211,252,.48);background:rgba(30,58,95,.72);color:#7dd3fc;cursor:pointer;box-shadow:0 4px 18px rgba(37,99,235,.2);transition:transform .12s}
 .spnd-gear-btn:hover{transform:scale(1.04)}
@@ -595,9 +598,9 @@ body.lite .grid-shatter-layer{display:none}
 @keyframes modalIn{0%{opacity:0;transform:scale(.88)}100%{opacity:1;transform:scale(1)}}
 
 /* ── VICTORY OVERLAY ── */
-#sp-victory{position:fixed;inset:0;z-index:9660;background:rgba(8,5,0,.97);display:none;align-items:center;justify-content:center;backdrop-filter:blur(14px)}
+#sp-victory{position:fixed;inset:0;z-index:9660;background:rgba(8,5,0,.34);display:none;align-items:center;justify-content:center;backdrop-filter:blur(2px)}
 #sp-victory.open{display:flex}
-.spvc-modal{background:linear-gradient(145deg,#2a1a00,#3d2700);border:2px solid rgba(255,215,0,.55);border-radius:28px;padding:30px 38px 26px;text-align:center;width:min(94vw,500px);display:flex;flex-direction:column;gap:14px;align-items:center;box-shadow:0 0 100px rgba(255,215,0,.2),0 0 40px rgba(255,140,0,.15),0 28px 70px rgba(0,0,0,.8);animation:modalIn .45s cubic-bezier(.175,.885,.32,1.275)}
+.spvc-modal{background:linear-gradient(145deg,rgba(42,26,0,.72),rgba(61,39,0,.68));border:2px solid rgba(255,215,0,.65);border-radius:28px;padding:30px 38px 26px;text-align:center;width:min(94vw,500px);display:flex;flex-direction:column;gap:14px;align-items:center;box-shadow:0 0 100px rgba(255,215,0,.2),0 0 40px rgba(255,140,0,.15),0 28px 70px rgba(0,0,0,.68);backdrop-filter:blur(6px);animation:modalIn .45s cubic-bezier(.175,.885,.32,1.275)}
 .spvc-crown{font-size:clamp(48px,8vw,72px);line-height:1;animation:crownBob 1.8s ease-in-out infinite}
 @keyframes crownBob{0%,100%{transform:translateY(0) rotate(-4deg)}50%{transform:translateY(-8px) rotate(4deg)}}
 .spvc-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(36px,6vw,58px);background:linear-gradient(135deg,#FFD700,#FF8C00,#FFD700);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:.06em;line-height:1;text-shadow:none}
@@ -614,6 +617,18 @@ body.lite .grid-shatter-layer{display:none}
 .spvc-btn-again:hover{transform:scale(1.04)}
 .spvc-btn-menu{flex:0 0 auto;font-family:'Bebas Neue',sans-serif;font-size:clamp(14px,2vw,20px);letter-spacing:.12em;padding:13px 22px;border-radius:12px;background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.2);color:rgba(255,255,255,.7);cursor:pointer;transition:all .15s}
 .spvc-btn-menu:hover{background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.4);color:#fff}
+
+/* ── FINAL SCENE ── */
+#final-scene-overlay{position:fixed;inset:0;z-index:9650;display:none;overflow:hidden;background:#000;cursor:default}
+#final-scene-overlay.open{display:block}
+.final-scene-image{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.final-scene-shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.04),rgba(0,0,0,.18) 62%,rgba(0,0,0,.72))}
+.final-scene-ending{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;opacity:0;pointer-events:none;transition:opacity 1.5s ease}
+#final-scene-overlay.ready{cursor:pointer}
+#final-scene-overlay.ready .final-scene-ending{opacity:1;pointer-events:auto}
+.final-scene-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(76px,16vw,180px);letter-spacing:.18em;color:#fff;text-shadow:0 0 18px rgba(255,255,255,.75),0 0 55px rgba(255,215,0,.38),0 8px 28px #000}
+.final-scene-continue{font-family:'Barlow Condensed',sans-serif;font-size:clamp(12px,1.8vw,18px);font-weight:700;letter-spacing:.28em;color:rgba(255,255,255,.72);text-shadow:0 2px 12px #000;animation:finalPromptPulse 1.6s ease-in-out infinite}
+@keyframes finalPromptPulse{0%,100%{opacity:.42}50%{opacity:1}}
 .training-skill-grid{grid-column:1/-1;width:100%;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.training-skill-grid .shield-training-card{min-width:0;max-width:none;display:flex;flex-direction:column}.training-skill-grid .shield-training-name{font-size:clamp(22px,1.8vw,30px);letter-spacing:.08em;line-height:1.05;overflow-wrap:anywhere}.training-skill-grid .shield-training-effect{flex:1}.training-skill-grid .shield-training-buy{margin-top:auto}.skill-training-visual{width:100%;height:125px;margin-bottom:10px;border-radius:13px;background:rgba(0,0,0,.28);display:flex;align-items:center;justify-content:center;overflow:hidden}.skill-training-visual img{width:100%;height:100%;object-fit:contain}.rank-stars{font-family:Arial,sans-serif;font-size:20px;letter-spacing:4px;line-height:1;color:#facc15;text-shadow:0 0 10px rgba(250,204,21,.42)}.rank-stars .empty{color:rgba(255,255,255,.22);text-shadow:none}.eg-skill-card{display:grid;grid-template-columns:88px 1fr;gap:13px;align-items:center}.eg-skill-card.no-visual{grid-template-columns:1fr}.eg-skill-visual{width:88px;height:88px;border-radius:12px;background:rgba(0,0,0,.28);display:flex;align-items:center;justify-content:center;overflow:hidden}.eg-skill-visual img{width:100%;height:100%;object-fit:contain}@media(max-width:1200px){.training-skill-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:800px){.training-skill-grid{grid-template-columns:1fr}}
 </style>
 </head>
@@ -626,7 +641,7 @@ body.lite .grid-shatter-layer{display:none}
     <div class="mm-word1">WORD</div>
     <div class="mm-word2">QUEST</div>
     <div class="mm-credit">Designed by ADİL FIRAT OKTAV</div>
-    <div class="mm-early-access">⚠ Early Access · v<span id="game-version"></span></div>
+    <div class="mm-early-access">VERSION <span id="game-version"></span></div>
   </div>
   <div class="mm-btns">
     <button class="mm-play" onclick="_menuStart()">▶ &nbsp;PLAY</button>
@@ -712,6 +727,7 @@ body.lite .grid-shatter-layer{display:none}
     <div class="word-box">
       <div class="wb-label" id="wb-label">WHAT IS THIS?</div>
       <div class="wb-word" id="cur-word">—</div>
+      <button class="word-settings-btn" onclick="_openSettingsFromGame()">SETTINGS</button>
     </div>
     <div id="sp-timer-wrap">
       <div id="sp-timer-fill"></div>
@@ -855,6 +871,25 @@ body.lite .grid-shatter-layer{display:none}
 <div id="settings-overlay" onclick="if(event.target===this)closeSettings()">
   <div class="sc-modal">
     <div class="sc-title">⚙ SETTINGS</div>
+    <div class="sc-section">
+      <div class="sc-section-label">MUSIC</div>
+      <div class="sc-mode-row">
+        <button class="sc-mode-btn" id="sc-music-on" onclick="setMusicEnabled(true)">MUSIC ON</button>
+        <button class="sc-mode-btn" id="sc-music-off" onclick="setMusicEnabled(false)">MUSIC OFF</button>
+      </div>
+      <div class="sc-volume-row">
+        <input class="sc-volume-slider" id="sc-music-volume" type="range" min="0" max="100" step="1" oninput="setMusicVolume(this.value)">
+        <div class="sc-volume-value" id="sc-music-volume-value">35%</div>
+      </div>
+      <div class="sc-note">Music volume only. Sound effects are unaffected.</div>
+    </div>
+    <div class="sc-section">
+      <div class="sc-section-label">PERFORMANCE</div>
+      <div class="sc-mode-row">
+        <button class="sc-mode-btn" id="sc-lite-on" onclick="setLiteMode(true)">LITE MODE ON</button>
+        <button class="sc-mode-btn" id="sc-lite-off" onclick="setLiteMode(false)">LITE MODE OFF</button>
+      </div>
+    </div>
     <button class="sc-save-btn" onclick="closeSettings()">✓ CLOSE</button>
   </div>
 </div>
@@ -913,6 +948,7 @@ body.lite .grid-shatter-layer{display:none}
     <div class="spnd-banner" id="spnd-banner">⭐ ENEMY DEFEATED! ⭐</div>
     <div class="spnd-npc-name" id="spnd-npc-name"></div>
     <div class="spnd-quest-complete" id="spnd-quest-complete"></div>
+    <div class="spnd-broken-report" id="spnd-broken-report"></div>
     <div class="spnd-divider"></div>
     <div class="spnd-stats">
       <div class="spnd-stat">
@@ -1003,6 +1039,16 @@ body.lite .grid-shatter-layer{display:none}
       <button class="spgo-btn-again" onclick="_spPlayAgain()">↺ TRY AGAIN</button>
       <button class="spgo-btn-menu"  onclick="_spGoMenu()">⌂ MENU</button>
     </div>
+  </div>
+</div>
+
+<!-- Final Scene -->
+<div id="final-scene-overlay" onclick="_continueFinalScene()">
+  <img class="final-scene-image" src="images/final.webp" alt="The End">
+  <div class="final-scene-shade"></div>
+  <div class="final-scene-ending">
+    <div class="final-scene-title">THE END</div>
+    <div class="final-scene-continue">PRESS ANY KEY OR CLICK TO CONTINUE</div>
   </div>
 </div>
 
@@ -1131,7 +1177,7 @@ body.lite .grid-shatter-layer{display:none}
   <div class="town-menu mages-guild-menu" id="mages-guild-menu" style="display:none">
     <div class="town-title">MAGE'S GUILD</div>
     <button class="town-btn" id="mages-learn-tab" onclick="_toggleMagesLearnSpells()">LEARN SPELLS</button>
-    <button class="town-btn" disabled>PREPARE SPELLS - LOCKED</button>
+    <button class="town-btn" id="mages-prepare-tab" onclick="_togglePrepareSpells()">PREPARE SPELLS</button>
     <button class="town-btn" id="mages-training-tab" onclick="_toggleArcaneTraining()">ARCANE TRAINING</button>
     <button class="town-btn leave" onclick="_leaveMagesGuild()">LEAVE</button>
   </div>
@@ -1277,7 +1323,7 @@ body.lite .grid-shatter-layer{display:none}
 <script src="guard_pairs.js"></script>
 <script src="taunt.js"></script>
 <script>
-const GAME_VERSION = '0.7';
+const GAME_VERSION = '1.01';
 document.getElementById('game-version').textContent = GAME_VERSION;
 
 // ══════════════════════════════════════════════════════════
@@ -1302,15 +1348,23 @@ const SLOW_SECONDS = 3;
 const SPELLS = {
   slow: {
     id:'slow', name:'SLOW', icon:'\u2726', imagePath:'images/spells/slow.webp', manaCost:15, streak:3,
-    description:'Adds 3 seconds to the enemy attack timer for this battle. Cannot stack.',
+    type:'minor', description:'Adds 3 seconds to the enemy attack timer for this battle. Cannot stack.',
   },
   magic_missile: {
     id:'magic_missile', name:'MAGIC MISSILE', icon:'\u2737', imagePath:'images/spells/missile.webp',
-    manaCost:10, streak:3, price:100, description:'Deals Level x 5 arcane damage.',
+    type:'minor', manaCost:10, streak:3, price:100, description:'Deals Level x 5 arcane damage.',
   },
   healing_light: {
     id:'healing_light', name:'HEALING LIGHT', icon:'\u2727', imagePath:'images/spells/healinglight.webp',
-    manaCost:20, streak:3, price:175, description:'Restores Level x 4 HP.',
+    type:'minor', manaCost:20, streak:3, price:175, description:'Restores Level x 4 HP.',
+  },
+  fireball: {
+    id:'fireball', name:'FIREBALL', icon:'\u2739', imagePath:'images/spells/fireball.webp',
+    type:'major', manaCost:30, streak:5, price:300, description:'Deals Level x 10 fire damage. Can be cast once per battle.',
+  },
+  time_stop: {
+    id:'time_stop', name:'TIME STOP', icon:'\u231B', imagePath:'images/spells/timestop.webp',
+    type:'major', manaCost:35, streak:5, price:400, description:'Adds 10 seconds to the enemy attack timer. Can be cast once per battle.',
   },
 };
 const ARCANE_TRAINING_MAX_RANK = 5;
@@ -1344,6 +1398,13 @@ const ARCANE_TRAININGS = {
   missile_mastery: {
     name:'MISSILE MASTERY',
     description:'Adds Level x 1 damage to Magic Missile.',
+  },
+  arcane_memory: {
+    name:'ARCANE MEMORY',
+    description:'Increases the number of spells that can be prepared.',
+    maxRank:2,
+    levels:[8, 15],
+    costs:[25, 60],
   },
 };
 const INN_REST_COST = 50;
@@ -1504,9 +1565,11 @@ let _spGreaterPotions    = 0;
 let _spMana              = INITIAL_MANA;
 let _spMaxMana           = INITIAL_MANA;
 let _spEnemySlowed       = false;
+let _spMajorSpellsUsed   = [];
 let _spellMenuPausedBattle = false;
 let _spLearnedSpells     = ['slow'];
-let _spArcaneTraining    = { mana_capacity:0, mana_efficiency:0, healing_mastery:0, missile_mastery:0 };
+let _spPreparedSpells    = ['slow'];
+let _spArcaneTraining    = { mana_capacity:0, mana_efficiency:0, healing_mastery:0, missile_mastery:0, arcane_memory:0 };
 let _gearPauseUsedThisEnemy = false;
 let _gearOverlayPausedBattle = false;
 let _spMaxHP             = 100;  // effective max HP — grows +10 per level
@@ -1559,6 +1622,7 @@ let _blacksmithMode     = 'repair';
 let _blacksmithTradeOffers = [];
 let _legendarySellConfirmSlot = null;
 let _pendingLootDisposition = '';
+let _spBrokenItemsThisBattle = [];
 let _pendingChestImage   = 'images/ironchest.webp';
 let _pendingChestOpenImage = 'images/ironchest_open.webp';
 let _shopOffers          = [];
@@ -1579,11 +1643,12 @@ let usedQIdx       = new Set();
 let _listeningMode = true;
 let _musicEnabled  = true;
 let _liteMode      = false;
+let _musicVolumePercent = 35;
 let _timerAudioCtx = null;
 
 // ── AUDIO ─────────────────────────────────────────────────
-const BG_MUSIC_FULL = 0.35;
-const BG_MUSIC_BATTLE = BG_MUSIC_FULL * 0.5;
+let BG_MUSIC_FULL = _musicVolumePercent / 100;
+let BG_MUSIC_BATTLE = BG_MUSIC_FULL * 0.5;
 const BG_MENU_TRACK = 'sounds/mainmenu.mp3';
 const BG_TOWN_TRACK = 'sounds/town.mp3';
 const BG_WORLD_MAP_TRACK = 'sounds/worldmap.mp3';
@@ -1597,6 +1662,8 @@ let   _musicCueTimer = null;
 let   _menuMusicResetTimer = null;
 let   _battleMusicDucked = false;
 let   _blacksmithAmbientAudio = null;
+let   _finalSceneTimer = null;
+let   _finalSceneReady = false;
 
 function _cancelBgTrackSwitch() {
   const a = document.getElementById('bg-music');
@@ -1620,7 +1687,8 @@ function _playMusicCue(src, vol, delay) {
     if (!_musicEnabled) return;
     const cue = new Audio(src);
     _musicCueAudio = cue;
-    cue.volume = vol ?? 0.7;
+    cue._baseVolume = vol ?? 0.7;
+    cue.volume = Math.min(1, cue._baseVolume * (_musicVolumePercent / 100));
     cue.addEventListener('ended', () => {
       if (_musicCueAudio === cue) _musicCueAudio = null;
     }, { once: true });
@@ -1702,7 +1770,7 @@ function _startBlacksmithAmbient() {
   if (!_blacksmithAmbientAudio) {
     _blacksmithAmbientAudio = new Audio(BLACKSMITH_AMBIENT_TRACK);
     _blacksmithAmbientAudio.loop = true;
-    _blacksmithAmbientAudio.volume = 0.55;
+    _blacksmithAmbientAudio.volume = 0.55 * (_musicVolumePercent / 100);
   }
   _blacksmithAmbientAudio.play().catch(() => {});
 }
@@ -1740,9 +1808,14 @@ function toggleFullscreen() {
   else document.exitFullscreen?.();
 }
 function toggleLite() {
-  _liteMode = !_liteMode;
+  setLiteMode(!_liteMode);
+}
+function setLiteMode(on) {
+  _liteMode = !!on;
   document.body.classList.toggle('lite', _liteMode);
   document.getElementById('lite-btn')?.classList.toggle('lite-on', _liteMode);
+  document.getElementById('sc-lite-on')?.classList.toggle('active', _liteMode);
+  document.getElementById('sc-lite-off')?.classList.toggle('active', !_liteMode);
 }
 
 // ── QUESTION SYSTEM ───────────────────────────────────────
@@ -2151,7 +2224,7 @@ function _renderCharacterSkills() {
         </div>
         <div>
         <div class="eg-spell-name">${spell.name}</div>
-        <div class="eg-spell-meta">${spell.streak} STREAK · ${_getSpellManaCost(spellId)} MP</div>
+        <div class="eg-spell-meta">${_isSpellPrepared(spellId) ? 'PREPARED' : 'NOT PREPARED'} · ${spell.type === 'major' ? 'MAJOR' : 'MINOR'} · ${spell.streak} STREAK · ${_getSpellManaCost(spellId)} MP</div>
         <div class="eg-spell-desc">${_getSpellDescription(spellId)}</div>
         </div>
       </div>`;
@@ -2163,7 +2236,7 @@ function _renderCharacterSkills() {
       return `<div class="eg-skill-card no-visual">
         <div>
           <div class="eg-skill-name">${training.name}</div>
-          <div class="eg-skill-rank">${_rankStars(rank, ARCANE_TRAINING_MAX_RANK)}</div>
+          <div class="eg-skill-rank">${_rankStars(rank, _getArcaneTrainingMaxRank(trainingId))}</div>
           <div class="eg-skill-desc">${_getArcaneTrainingSummary(trainingId)}</div>
         </div>
       </div>`;
@@ -2294,15 +2367,21 @@ function _equipLootItem(item) {
   _updateEquipmentUI();
 }
 function _damageEquipment(slots) {
+  let equipmentBroke = false;
   slots.forEach(slot => {
     const item = _spEquipment[slot];
     if (!item || item.indestructible) return;
     item.currentDur--;
     if (item.currentDur <= 0) {
       _spEquipment[slot] = null;
+      if (!_spBrokenItemsThisBattle.some(broken => broken?.id === item.id)) {
+        _spBrokenItemsThisBattle.push({ ...item, currentDur:0 });
+      }
+      equipmentBroke = true;
       _spawnFloat('BROKEN: ' + item.name, '#f87171');
     }
   });
+  if (equipmentBroke) _playSound('sounds/broken.mp3', 0.8);
   _updateEquipmentUI();
   _spSave();
 }
@@ -2433,15 +2512,34 @@ function _getMagicMissileDamage() {
 function _getHealingLightAmount() {
   return _spLevel * (4 + (_spArcaneTraining.healing_mastery || 0));
 }
+function _getFireballDamage() {
+  return _spLevel * 10;
+}
+function _getPreparedSpellLimit() {
+  return 2 + Math.max(0, Math.min(2, _spArcaneTraining.arcane_memory || 0));
+}
+function _isSpellPrepared(spellId) {
+  return _spPreparedSpells.includes(spellId);
+}
+function _sanitizePreparedSpells() {
+  const learned = new Set(_spLearnedSpells);
+  _spPreparedSpells = [...new Set(_spPreparedSpells)]
+    .filter(spellId => learned.has(spellId) && SPELLS[spellId])
+    .slice(0, _getPreparedSpellLimit());
+  if (!_spPreparedSpells.length && learned.has('slow')) _spPreparedSpells = ['slow'];
+}
 function _getSpellDescription(spellId) {
   if (spellId === 'magic_missile') return 'Deals Level x ' + (5 + (_spArcaneTraining.missile_mastery || 0)) + ' arcane damage.';
   if (spellId === 'healing_light') return 'Restores Level x ' + (4 + (_spArcaneTraining.healing_mastery || 0)) + ' HP.';
+  if (spellId === 'fireball') return 'Deals Level x 10 fire damage. Can be cast once per battle.';
+  if (spellId === 'time_stop') return 'Adds 10 seconds to the enemy attack timer. Can be cast once per battle.';
   return SPELLS[spellId]?.description || '';
 }
 function _canCastSpell(spellId) {
   const spell = SPELLS[spellId];
-  if (!spell || !_spLearnedSpells.includes(spellId)) return false;
+  if (!spell || !_spLearnedSpells.includes(spellId) || !_isSpellPrepared(spellId)) return false;
   if (!_spRoundActive || _spClickLocked || _spStreak < spell.streak || _spMana < _getSpellManaCost(spellId)) return false;
+  if (spell.type === 'major' && _spMajorSpellsUsed.includes(spellId)) return false;
   if (spellId === 'slow') return !_spEnemySlowed;
   if (spellId === 'healing_light') return _spPlayerHP < _spMaxHP;
   return true;
@@ -2449,7 +2547,7 @@ function _canCastSpell(spellId) {
 function _renderSpellMenu() {
   const wrap = document.getElementById('spell-list');
   if (!wrap) return;
-  wrap.innerHTML = _spLearnedSpells.map(spellId => {
+  wrap.innerHTML = _spPreparedSpells.map(spellId => {
     const spell = SPELLS[spellId];
     if (!spell) return '';
     const disabled = _canCastSpell(spellId) ? '' : ' disabled';
@@ -2468,11 +2566,11 @@ function _renderSpellMenu() {
 }
 function _updateSpellButton() {
   const btn = document.getElementById('sp-cast-btn');
-  if (btn) btn.disabled = !_spLearnedSpells.some(_canCastSpell);
+  if (btn) btn.disabled = !_spPreparedSpells.some(_canCastSpell);
   _renderSpellMenu();
 }
 function _openSpellMenu() {
-  if (!_spLearnedSpells.some(_canCastSpell)) return;
+  if (!_spPreparedSpells.some(_canCastSpell)) return;
   _spellMenuPausedBattle = _spRoundActive;
   _stopTimer();
   document.getElementById('spell-overlay')?.classList.add('open');
@@ -2510,11 +2608,22 @@ function _castSpell(spellId) {
     _updatePlayerHP();
     _showHitEffect('sp-player-avatar-area', '+' + restored + ' HP', '#4ade80', '#dcfce7');
     _playSound('sounds/healing.mp3', 0.75);
+  } else if (spellId === 'fireball') {
+    const damage = _getFireballDamage();
+    _spNpcHP = Math.max(0, _spNpcHP - damage);
+    _updateNpcHP();
+    _showHitEffect('sp-npc-avatar-area', '-' + damage + ' FIRE', '#fb923c', '#ffedd5');
+    _playSound('sounds/missile.mp3', 0.75);
+  } else if (spellId === 'time_stop') {
+    _spTimerLeft += 10;
+    _updateTimerUI();
+    _showHitEffect('sp-npc-avatar-area', 'TIME STOPPED +10s', '#e0e7ff', '#ffffff');
   }
+  if (spell.type === 'major') _spMajorSpellsUsed.push(spellId);
   _updateMana();
   _updateStreakUI();
   _spawnFloat(spell.name + ' CAST', '#a78bfa');
-  const defeated = spellId === 'magic_missile' && _spNpcHP <= 0;
+  const defeated = (spellId === 'magic_missile' || spellId === 'fireball') && _spNpcHP <= 0;
   if (defeated) {
     _spRoundActive = false;
     _spClickLocked = true;
@@ -2692,8 +2801,14 @@ const TUTORIALS = {
     target:'#sp-character-summary',
     description:'Select your <strong>character summary</strong> or the ATT / DEF panel below it to manage Gear, Skills, Spells, and your Quest Journal. Opening Character Management during battle also pauses the enemy timer <strong>once per enemy</strong>.',
   },
+  extraordinary_opponent: {
+    title:'EXTRAORDINARY OPPONENT',
+    target:'#sp-panel-npc',
+    description:'You encountered an <strong>extraordinary opponent</strong>. These types of enemies are rare to encounter and are always stronger. They give <strong>better loot</strong>, too.',
+  },
 };
 let _tutorialTargetElement = null;
+let _activeTutorialId = null;
 function _positionTutorialBubble() {
   const modal = document.getElementById('tutorial-modal');
   const highlight = document.getElementById('tutorial-highlight');
@@ -2739,6 +2854,7 @@ function _positionTutorialBubble() {
 function _showTutorialOnce(tutorialId) {
   if (_spTutorialsSeen[tutorialId] || !TUTORIALS[tutorialId]) return;
   _spTutorialsSeen[tutorialId] = true;
+  _activeTutorialId = tutorialId;
   _tutorialPausedBattle = _spRoundActive;
   _stopTimer();
   document.getElementById('tutorial-title').textContent = TUTORIALS[tutorialId].title;
@@ -2749,11 +2865,16 @@ function _showTutorialOnce(tutorialId) {
   _spSave();
 }
 function _closeTutorial(resumeBattle = true) {
+  const closedTutorialId = _activeTutorialId;
   document.getElementById('tutorial-overlay')?.classList.remove('open');
   _tutorialTargetElement = null;
+  _activeTutorialId = null;
   if (resumeBattle && _guardActive && _guardQuestion) _armGuardQuestion();
   else if (resumeBattle && _spRoundActive) _resumeTimer();
   _tutorialPausedBattle = false;
+  if (closedTutorialId === 'extraordinary_opponent' && _spNpcIdx === 3 && !_spTutorialsSeen.character_management) {
+    setTimeout(() => _showTutorialOnce('character_management'), 150);
+  }
 }
 function _extractGuardPairArray(source, name) {
   const markerAt = source.indexOf('const ' + name);
@@ -2971,10 +3092,12 @@ function _startGame() {
   _spMaxMana      = INITIAL_MANA;
   _spMana         = _spMaxMana;
   _spEnemySlowed  = false;
+  _spMajorSpellsUsed = [];
   _spBattleStarted = false;
   _spSavedBattleState = null;
   _spLearnedSpells = ['slow'];
-  _spArcaneTraining = { mana_capacity:0, mana_efficiency:0, healing_mastery:0, missile_mastery:0 };
+  _spPreparedSpells = ['slow'];
+  _spArcaneTraining = { mana_capacity:0, mana_efficiency:0, healing_mastery:0, missile_mastery:0, arcane_memory:0 };
   _spNpcsDefeated = 0;
   _spTotalCorrect = 0;
   _spTotalWrong   = 0;
@@ -3039,19 +3162,36 @@ function _startGameCore(resumePendingEvent = false, resumeTown = false, resumeWa
 function _beginEnemyEncounter(resumeBattle = null) {
   const npc = _getNpc(_spNpcIdx);
   if (!npc) { _showVictory(); return; }
+  if (!resumeBattle) _spBrokenItemsThisBattle = [];
   const encounterKey = npc.id + ':tier' + Math.max(1, Math.min(3, Number(npc.tier) || 1));
   const newEncounter = !_spEncounteredEnemyTiers.includes(encounterKey);
   if (newEncounter) _spEncounteredEnemyTiers.push(encounterKey);
   _spBattleStarted = true;
   _gearPauseUsedThisEnemy = false;
   _gearOverlayPausedBattle = false;
-  if (!resumeBattle) _spEnemySlowed = false;
+  if (!resumeBattle) {
+    _spEnemySlowed = false;
+    _spMajorSpellsUsed = [];
+  }
   _updateSpellButton();
   _hideQuestionGrid();
   _renderNpc(npc);
   if (resumeBattle) {
     _spNpcHP = Math.max(1, Math.min(npc.maxHp, resumeBattle.npcHp));
-    _spTimerLeft = Math.max(0, Math.min(_getEnemyAttackSpeed(), resumeBattle.timerLeft));
+    _spTimerLeft = Math.max(0, resumeBattle.timerLeft);
+    _spMajorSpellsUsed = Array.isArray(resumeBattle.majorSpellsUsed)
+      ? resumeBattle.majorSpellsUsed.filter(id => SPELLS[id]?.type === 'major')
+      : [];
+    _spBrokenItemsThisBattle = Array.isArray(resumeBattle.brokenItems)
+      ? resumeBattle.brokenItems.map(saved => {
+          if (saved && typeof saved === 'object' && saved.id) {
+            const definition = ITEMS.find(item => item.id === saved.id);
+            return definition ? { ...definition, ...saved, currentDur:0 } : null;
+          }
+          const definition = typeof saved === 'string' ? ITEMS.find(item => item.name === saved) : null;
+          return definition ? { ...definition, currentDur:0 } : null;
+        }).filter(Boolean)
+      : [];
     _updateNpcHP();
     _updateTimerUI();
     _spSavedBattleState = null;
@@ -3123,7 +3263,12 @@ async function _startRound() {
     _spRoundActive = true;
     _updateSpellButton();
     _resumeTimer();
-    if (_spNpcIdx === 3) _showTutorialOnce('character_management');
+    const npc = _getNpc(_spNpcIdx);
+    if ((npc?.rarity?.stars || 1) >= 3 && !_spTutorialsSeen.extraordinary_opponent) {
+      _showTutorialOnce('extraordinary_opponent');
+    } else if (_spNpcIdx === 3) {
+      _showTutorialOnce('character_management');
+    }
   }, 200);
 }
 
@@ -3438,13 +3583,29 @@ function _showDefeatSummary(npc) {
   document.getElementById('spnd-banner').textContent  = isLast
     ? '👑 FINAL BOSS DEFEATED! 👑'
     : '⭐ ' + npc.name + ' DEFEATED! ⭐';
-  document.getElementById('spnd-npc-name').textContent = 'ENEMY #' + (_spNpcIdx + 1) + '  ·  LEVEL ' + npc.level + '  ·  ' + (npc.rarity?.name || 'COMMON') + ' ' + '\u2605'.repeat(npc.rarity?.stars || 1);
+  document.getElementById('spnd-npc-name').textContent = 'LEVEL ' + npc.level + '  ·  ' + (npc.rarity?.name || 'COMMON') + ' ' + '\u2605'.repeat(npc.rarity?.stars || 1);
   document.getElementById('spnd-xp').textContent      = '+' + npc.xpReward;
   document.getElementById('spnd-gold').textContent    = '+' + _pendingLootGold;
   document.getElementById('spnd-streak').textContent  = _spBestStreak;
   document.getElementById('spnd-correct').textContent = _spTotalCorrect;
   _updateDefeatLootCard();
   _renderQuestCompletionReport();
+  const brokenReport = document.getElementById('spnd-broken-report');
+  if (brokenReport) {
+    const rarityNames = ['','COMMON','UNCOMMON','RARE','EPIC','LEGENDARY'];
+    brokenReport.classList.toggle('show', _spBrokenItemsThisBattle.length > 0);
+    brokenReport.innerHTML = _spBrokenItemsThisBattle.length
+      ? '<div class="spnd-broken-title">EQUIPMENT BROKEN</div><div class="spnd-broken-list">'
+        + _spBrokenItemsThisBattle.map(item => `<div class="spnd-broken-item">
+            <img src="${item.imagePath || ''}" alt="${item.name || 'Broken equipment'}">
+            <div>
+              <div class="spnd-broken-name">${item.name || 'BROKEN EQUIPMENT'}</div>
+              <div class="spnd-broken-meta">${rarityNames[item.rarity] || 'UNKNOWN'} · ${String(item.slot || '').toUpperCase()} · ATT ${item.att || 0} · DEF ${item.def || 0} · DUR 0 / ${item.dur || 0}</div>
+            </div>
+          </div>`).join('')
+        + '</div>'
+      : '';
+  }
   // Level-up announcement
   const luEl     = document.getElementById('spnd-levelup');
   const luDetail = document.getElementById('spnd-levelup-detail');
@@ -3489,7 +3650,7 @@ function _spNextEnemy() {
   document.getElementById('sp-npc-defeat').classList.remove('open');
   // If this was the last enemy, trigger victory
   if (_isLastEnemy(_spNpcIdx)) {
-    setTimeout(_showVictory, 400);
+    setTimeout(_showFinalScene, 400);
     return;
   }
   if ((TOWN_TEST_AFTER_FIRST_ENEMY && _spNpcsDefeated === 1)
@@ -3704,6 +3865,7 @@ function _openMagesGuild() {
   document.getElementById('mages-guild-menu').style.display = '';
   document.getElementById('mages-guild-panel').style.display = 'none';
   document.getElementById('mages-learn-tab')?.classList.remove('active');
+  document.getElementById('mages-prepare-tab')?.classList.remove('active');
   document.getElementById('mages-training-tab')?.classList.remove('active');
   document.getElementById('adventurers-guild-menu').style.display = 'none';
   document.getElementById('adventurers-guild-panel').style.display = 'none';
@@ -3714,7 +3876,7 @@ function _positionMagesGuildEffects() {
   _positionCoverEffect(overlay, 1672, 941, 'mages-scene-light', 211, 100, 150);
 }
 function _showMagesLearnSpells(message = '') {
-  const spells = [SPELLS.healing_light, SPELLS.magic_missile];
+  const spells = Object.values(SPELLS).filter(spell => spell.id !== 'slow');
   const panel = document.getElementById('mages-guild-panel');
   const title = document.getElementById('mages-guild-title');
   const wrap = document.getElementById('mages-spells');
@@ -3723,6 +3885,7 @@ function _showMagesLearnSpells(message = '') {
   const status = document.getElementById('mages-guild-status');
   if (panel) panel.style.display = '';
   document.getElementById('mages-learn-tab')?.classList.add('active');
+  document.getElementById('mages-prepare-tab')?.classList.remove('active');
   document.getElementById('mages-training-tab')?.classList.remove('active');
   if (title) title.textContent = 'LEARN SPELLS';
   if (gold) gold.textContent = _spGold;
@@ -3738,7 +3901,7 @@ function _showMagesLearnSpells(message = '') {
       </div>
       <div>
         <div class="mages-spell-name">${spell.name}</div>
-        <div class="mages-spell-meta">MINOR SPELL · ${spell.streak} STREAK · ${_getSpellManaCost(spell.id)} MP</div>
+        <div class="mages-spell-meta">${spell.type === 'major' ? 'MAJOR SPELL' : 'MINOR SPELL'} · ${spell.streak} STREAK · ${_getSpellManaCost(spell.id)} MP</div>
         <div class="mages-spell-desc">${_getSpellDescription(spell.id)}</div>
         <button class="mages-spell-buy" onclick="_learnSpell('${spell.id}')"${learned || _spGold < spell.price ? ' disabled' : ''}>${learned ? 'LEARNED' : 'LEARN - ' + spell.price + ' GOLD'}</button>
       </div>
@@ -3755,9 +3918,77 @@ function _toggleMagesLearnSpells() {
   }
   _showMagesLearnSpells();
 }
+function _showPrepareSpells(message = '') {
+  _sanitizePreparedSpells();
+  const panel = document.getElementById('mages-guild-panel');
+  const title = document.getElementById('mages-guild-title');
+  const wrap = document.getElementById('mages-spells');
+  const gold = document.getElementById('mages-guild-gold');
+  const essence = document.getElementById('mages-guild-essence');
+  const status = document.getElementById('mages-guild-status');
+  const limit = _getPreparedSpellLimit();
+  if (panel) panel.style.display = '';
+  document.getElementById('mages-learn-tab')?.classList.remove('active');
+  document.getElementById('mages-prepare-tab')?.classList.add('active');
+  document.getElementById('mages-training-tab')?.classList.remove('active');
+  if (title) title.textContent = 'PREPARE SPELLS';
+  if (gold) gold.textContent = _spGold;
+  if (essence) essence.textContent = _spEssence;
+  if (status) status.textContent = message || ('PREPARED ' + _spPreparedSpells.length + ' / ' + limit + ' · LOADOUT LOCKS WHEN YOU LEAVE TOWN');
+  if (!wrap) return;
+  wrap.innerHTML = _spLearnedSpells.map(spellId => {
+    const spell = SPELLS[spellId];
+    if (!spell) return '';
+    const prepared = _isSpellPrepared(spellId);
+    const slotsFull = !prepared && _spPreparedSpells.length >= limit;
+    return `<div class="mages-spell-card${prepared ? ' learned' : ''}">
+      <div class="mages-spell-visual">
+        <span class="mages-spell-fallback">${spell.icon}</span>
+        <img src="${spell.imagePath}" alt="${spell.name}" onload="this.previousElementSibling.style.display='none'" onerror="this.style.display='none'">
+      </div>
+      <div>
+        <div class="mages-spell-name">${spell.name}</div>
+        <div class="mages-spell-meta">${spell.type === 'major' ? 'MAJOR SPELL' : 'MINOR SPELL'} · ${spell.streak} STREAK · ${_getSpellManaCost(spell.id)} MP</div>
+        <div class="mages-spell-desc">${_getSpellDescription(spell.id)}</div>
+        <button class="mages-spell-buy" onclick="_togglePreparedSpell('${spell.id}')"${slotsFull ? ' disabled' : ''}>${prepared ? 'REMOVE' : slotsFull ? 'SLOTS FULL' : 'PREPARE'}</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+function _togglePrepareSpells() {
+  const panel = document.getElementById('mages-guild-panel');
+  const title = document.getElementById('mages-guild-title');
+  if (panel?.style.display !== 'none' && title?.textContent === 'PREPARE SPELLS') {
+    panel.style.display = 'none';
+    document.getElementById('mages-prepare-tab')?.classList.remove('active');
+    return;
+  }
+  _showPrepareSpells();
+}
+function _togglePreparedSpell(spellId) {
+  if (!_spLearnedSpells.includes(spellId) || !SPELLS[spellId]) return;
+  if (_isSpellPrepared(spellId)) {
+    _spPreparedSpells = _spPreparedSpells.filter(id => id !== spellId);
+  } else {
+    if (_spPreparedSpells.length >= _getPreparedSpellLimit()) return;
+    _spPreparedSpells.push(spellId);
+  }
+  _sanitizePreparedSpells();
+  _spSave();
+  _showPrepareSpells(SPELLS[spellId].name + (_isSpellPrepared(spellId) ? ' PREPARED' : ' REMOVED'));
+}
+function _getArcaneTrainingMaxRank(trainingId) {
+  return ARCANE_TRAININGS[trainingId]?.maxRank || ARCANE_TRAINING_MAX_RANK;
+}
+function _getArcaneTrainingLevels(trainingId) {
+  return ARCANE_TRAININGS[trainingId]?.levels || ARCANE_TRAINING_LEVELS;
+}
+function _getArcaneTrainingCosts(trainingId) {
+  return ARCANE_TRAININGS[trainingId]?.costs || ARCANE_TRAINING_ESSENCE_COSTS;
+}
 function _getArcaneTrainingPrice(trainingId) {
   const rank = _spArcaneTraining[trainingId] || 0;
-  return ARCANE_TRAININGS[trainingId] ? (ARCANE_TRAINING_ESSENCE_COSTS[rank] || 0) : 0;
+  return ARCANE_TRAININGS[trainingId] ? (_getArcaneTrainingCosts(trainingId)[rank] || 0) : 0;
 }
 function _getArcaneTrainingSummary(trainingId) {
   const rank = _spArcaneTraining[trainingId] || 0;
@@ -3765,6 +3996,7 @@ function _getArcaneTrainingSummary(trainingId) {
   if (trainingId === 'mana_efficiency') return 'Current bonus: -' + rank + ' mana cost on all spells.';
   if (trainingId === 'healing_mastery') return 'Healing Light currently restores Level x ' + (4 + rank) + ' HP.';
   if (trainingId === 'missile_mastery') return 'Magic Missile currently deals Level x ' + (5 + rank) + ' damage.';
+  if (trainingId === 'arcane_memory') return 'Prepared spell slots: ' + _getPreparedSpellLimit() + '.';
   return '';
 }
 function _showArcaneTraining(message = '') {
@@ -3776,6 +4008,7 @@ function _showArcaneTraining(message = '') {
   const status = document.getElementById('mages-guild-status');
   if (panel) panel.style.display = '';
   document.getElementById('mages-learn-tab')?.classList.remove('active');
+  document.getElementById('mages-prepare-tab')?.classList.remove('active');
   document.getElementById('mages-training-tab')?.classList.add('active');
   if (title) title.textContent = 'ARCANE TRAINING';
   if (gold) gold.textContent = _spGold;
@@ -3784,15 +4017,16 @@ function _showArcaneTraining(message = '') {
   if (!wrap) return;
   wrap.innerHTML = Object.entries(ARCANE_TRAININGS).map(([trainingId, training]) => {
     const rank = _spArcaneTraining[trainingId] || 0;
-    const maxed = rank >= ARCANE_TRAINING_MAX_RANK;
-    const requiredLevel = maxed ? 0 : ARCANE_TRAINING_LEVELS[rank];
+    const maxRank = _getArcaneTrainingMaxRank(trainingId);
+    const maxed = rank >= maxRank;
+    const requiredLevel = maxed ? 0 : _getArcaneTrainingLevels(trainingId)[rank];
     const price = _getArcaneTrainingPrice(trainingId);
     const locked = !maxed && _spLevel < requiredLevel;
     const disabled = maxed || locked || _spEssence < price;
     const buttonText = maxed ? 'MAX RANK' : locked ? 'REQUIRES LEVEL ' + requiredLevel : 'TRAIN - ' + price + ' ESSENCE';
     return `<div class="arcane-training-card${maxed ? ' maxed' : ''}">
       <div class="mages-spell-name">${training.name}</div>
-      <div class="arcane-training-rank">${_rankStars(rank, ARCANE_TRAINING_MAX_RANK)}</div>
+      <div class="arcane-training-rank">${_rankStars(rank, maxRank)}</div>
       <div class="arcane-training-effect">${training.description}<br>${_getArcaneTrainingSummary(trainingId)}</div>
       <button class="mages-spell-buy" onclick="_buyArcaneTraining('${trainingId}')"${disabled ? ' disabled' : ''}>${buttonText}</button>
     </div>`;
@@ -3811,8 +4045,8 @@ function _toggleArcaneTraining() {
 function _buyArcaneTraining(trainingId) {
   const training = ARCANE_TRAININGS[trainingId];
   const rank = _spArcaneTraining[trainingId] || 0;
-  if (!training || rank >= ARCANE_TRAINING_MAX_RANK) return;
-  const requiredLevel = ARCANE_TRAINING_LEVELS[rank];
+  if (!training || rank >= _getArcaneTrainingMaxRank(trainingId)) return;
+  const requiredLevel = _getArcaneTrainingLevels(trainingId)[rank];
   const price = _getArcaneTrainingPrice(trainingId);
   if (_spLevel < requiredLevel || _spEssence < price) return;
   _spEssence -= price;
@@ -4739,6 +4973,7 @@ function _enterBiome(biomeIndex) {
   _spNpcsDefeated = _spNpcIdx;
   _spStreak = 0;
   _spEnemySlowed = false;
+  _spMajorSpellsUsed = [];
   _spTimerLeft = _getEnemyAttackSpeed();
   document.getElementById('biome-info-overlay')?.classList.remove('open');
   document.getElementById('world-map-overlay')?.classList.remove('open');
@@ -4981,6 +5216,7 @@ function _advanceToNextEnemy() {
   _spSavedBattleState = null;
   _spNpcIdx++;
   _spEnemySlowed = false;
+  _spMajorSpellsUsed = [];
   const npc = _getNpc(_spNpcIdx);
   if (!npc) { setTimeout(_showVictory, 400); return; } // safety
   _spStreak = 0; _updateStreakUI();
@@ -5219,6 +5455,7 @@ function _resetRunProgress() {
   _spTotalCorrect     = 0;
   _spTotalWrong       = 0;
   _spEnemySlowed      = false;
+  _spMajorSpellsUsed  = [];
   _spBattleStarted    = false;
   _spSavedBattleState = null;
   usedQIdx.clear();
@@ -5268,6 +5505,11 @@ function _spGoMenu() {
   _closeSpellMenu(false);
   document.getElementById('sp-gameover').classList.remove('open');
   document.getElementById('sp-victory').classList.remove('open');
+  document.getElementById('final-scene-overlay')?.classList.remove('open', 'ready');
+  clearTimeout(_finalSceneTimer);
+  _finalSceneTimer = null;
+  _finalSceneReady = false;
+  document.removeEventListener('keydown', _handleFinalSceneKey);
   document.body.classList.remove('game-active');
   document.getElementById('main-menu').classList.remove('hidden');
   _stopMusicCue();
@@ -5283,10 +5525,62 @@ function _spGoMenu() {
 
 function _spVictoryNewGame() {
   document.getElementById('sp-victory').classList.remove('open');
+  document.getElementById('final-scene-overlay')?.classList.remove('open', 'ready');
+  clearTimeout(_finalSceneTimer);
+  _finalSceneTimer = null;
+  _finalSceneReady = false;
+  document.removeEventListener('keydown', _handleFinalSceneKey);
   _startGame(); // keeps name and avatar, resets all progress
 }
 
 // ── VICTORY ───────────────────────────────────────────────
+function _playFinalMusic() {
+  _stopMusicCue();
+  _cancelBgTrackSwitch();
+  const audio = document.getElementById('bg-music');
+  if (!audio) return;
+  clearInterval(audio._fadeTimer);
+  audio.pause();
+  audio.src = 'sounds/final.mp3';
+  audio.loop = true;
+  audio.volume = BG_MUSIC_FULL;
+  audio.load();
+  audio._wkStarted = true;
+  if (_musicEnabled) audio.play().catch(() => {});
+}
+function _handleFinalSceneKey() {
+  _continueFinalScene();
+}
+function _showFinalScene() {
+  _stopTimer();
+  _closeGuard();
+  _closeEquippedGear(false);
+  _closeSpellMenu(false);
+  _spRoundActive = false;
+  _spSave(true);
+  _playFinalMusic();
+  const overlay = document.getElementById('final-scene-overlay');
+  overlay?.classList.remove('ready');
+  overlay?.classList.add('open');
+  _finalSceneReady = false;
+  clearTimeout(_finalSceneTimer);
+  document.removeEventListener('keydown', _handleFinalSceneKey);
+  document.addEventListener('keydown', _handleFinalSceneKey);
+  _finalSceneTimer = setTimeout(() => {
+    _finalSceneTimer = null;
+    _finalSceneReady = true;
+    overlay?.classList.add('ready');
+  }, 5000);
+}
+function _continueFinalScene() {
+  if (!_finalSceneReady) return;
+  _finalSceneReady = false;
+  clearTimeout(_finalSceneTimer);
+  _finalSceneTimer = null;
+  document.removeEventListener('keydown', _handleFinalSceneKey);
+  document.getElementById('final-scene-overlay')?.classList.remove('ready');
+  _showVictory();
+}
 function _showVictory() {
   _stopTimer();
   _closeGuard();
@@ -5294,8 +5588,7 @@ function _showVictory() {
   _closeEquippedGear(false);
   // Mark save as completed — CONTINUE will be unavailable until new game
   _spSave(true);
-  _bgMusicFade(0, 350);
-  _playMusicCue('sounds/finalcheer.mp3', 0.75, 320);
+  _playSound('sounds/finalcheer_b.mp3', 0.8);
   document.getElementById('vc-name').textContent    = _spPlayerName || 'HERO';
   document.getElementById('vc-level').textContent   = _spLevel;
   document.getElementById('vc-xp').textContent      = _spXP;
@@ -5328,6 +5621,7 @@ function _spSave(completed) {
       mana:          _spMana,
       maxMana:       _spMaxMana,
       learnedSpells: _spLearnedSpells,
+      preparedSpells:_spPreparedSpells,
       arcaneTraining:_spArcaneTraining,
       shieldTrainingRank:_spShieldTrainingRank,
       knockbackHitsRank:_spKnockbackHitsRank,
@@ -5369,6 +5663,8 @@ function _spSave(completed) {
         npcHp:        _spNpcHP,
         timerLeft:    _spTimerLeft,
         enemySlowed:  _spEnemySlowed,
+        majorSpellsUsed:_spMajorSpellsUsed,
+        brokenItems:   _spBrokenItemsThisBattle,
       } : null,
       completed:    !!completed,
       maxHp:        _spMaxHP,
@@ -5419,10 +5715,12 @@ function _spLoad() {
     _spArcaneTraining = {};
     Object.keys(ARCANE_TRAININGS).forEach(trainingId => {
       _spArcaneTraining[trainingId] = Math.max(0, Math.min(
-        ARCANE_TRAINING_MAX_RANK,
+        _getArcaneTrainingMaxRank(trainingId),
         Math.floor(Number(d.arcaneTraining?.[trainingId]) || 0)
       ));
     });
+    _spPreparedSpells = Array.isArray(d.preparedSpells) ? d.preparedSpells : ['slow'];
+    _sanitizePreparedSpells();
     _spShieldTrainingRank = Math.max(0, Math.min(3, Math.floor(Number(d.shieldTrainingRank) || 0)));
     _spKnockbackHitsRank = Math.max(0, Math.min(3, Math.floor(Number(d.knockbackHitsRank) || 0)));
     _spKeenInsightRank = Math.max(0, Math.min(3, Math.floor(Number(d.keenInsightRank) || 0)));
@@ -5432,6 +5730,7 @@ function _spLoad() {
           guard:d.tutorialsSeen.guard === true,
           spell_cast:d.tutorialsSeen.spell_cast === true,
           character_management:d.tutorialsSeen.character_management === true,
+          extraordinary_opponent:d.tutorialsSeen.extraordinary_opponent === true,
         }
       : {};
     _randomEventCounter = typeof d.randomEventCounter === 'number' ? Math.max(0, d.randomEventCounter) : 0;
@@ -5458,6 +5757,14 @@ function _spLoad() {
     _spDefeatedEnemyTiers.forEach(key => {
       if (!_spEncounteredEnemyTiers.includes(key)) _spEncounteredEnemyTiers.push(key);
     });
+    const highestDefeatedBossOrder = _ENEMY_LIST
+      .filter(enemy => enemy.order % 10 === 0
+        && _spDefeatedEnemyTiers.some(key => key.startsWith(enemy.id + ':tier')))
+      .reduce((highest, enemy) => Math.max(highest, enemy.order), 0);
+    _spUnlockedBiome = Math.max(
+      _spUnlockedBiome,
+      Math.min(WORLD_MAP_BIOMES.length - 1, Math.floor(highestDefeatedBossOrder / 10))
+    );
     _spEnemyRarityWins = {};
     if (d.enemyRarityWins && typeof d.enemyRarityWins === 'object') {
       _ENEMY_LIST.forEach(enemy => {
@@ -5585,6 +5892,8 @@ function _spLoad() {
           npcHp: Math.max(1, savedBattle.npcHp),
           timerLeft: Math.max(0, savedBattle.timerLeft),
           enemySlowed: savedBattle.enemySlowed === true,
+          majorSpellsUsed: Array.isArray(savedBattle.majorSpellsUsed) ? savedBattle.majorSpellsUsed : [],
+          brokenItems: Array.isArray(savedBattle.brokenItems) ? savedBattle.brokenItems : [],
         }
       : null;
     _spPlayerHP = Math.min(_spMaxHP, _spPlayerHP);
@@ -5925,10 +6234,14 @@ function _modeContinue() {
 const _TC_LS_KEY = 'wr_sp_settings_v1';
 
 function openSettings() {
-  document.getElementById('sc-listen-on') .classList.toggle('active',  _listeningMode);
-  document.getElementById('sc-listen-off').classList.toggle('active', !_listeningMode);
   document.getElementById('sc-music-on') .classList.toggle('active',  _musicEnabled);
   document.getElementById('sc-music-off').classList.toggle('active', !_musicEnabled);
+  document.getElementById('sc-lite-on')?.classList.toggle('active', _liteMode);
+  document.getElementById('sc-lite-off')?.classList.toggle('active', !_liteMode);
+  const volume = document.getElementById('sc-music-volume');
+  if (volume) volume.value = _musicVolumePercent;
+  const volumeValue = document.getElementById('sc-music-volume-value');
+  if (volumeValue) volumeValue.textContent = _musicVolumePercent + '%';
   [10, 50, 100, 200].forEach(v => {
     document.getElementById('sc-hp-' + v)?.classList.toggle('active', v === INITIAL_HP);
   });
@@ -5951,29 +6264,31 @@ function _openSettingsFromMode() {
   window._settingsReturn = 'mode';
   openSettings();
 }
+function _openSettingsFromGame() {
+  window._settingsReturn = 'game';
+  openSettings();
+}
 function _loadSettings() {
   try {
     const raw = localStorage.getItem(_TC_LS_KEY);
     if (!raw) return;
     const d = JSON.parse(raw);
-    if (typeof d.listeningMode === 'boolean') setListeningMode(d.listeningMode);
+    _listeningMode = true;
     if ([10, 50, 100, 200].includes(d.initialHP)) setInitialHP(d.initialHP);
     if (typeof d.musicEnabled === 'boolean') _musicEnabled = d.musicEnabled;
+    if (Number.isFinite(Number(d.musicVolumePercent))) setMusicVolume(d.musicVolumePercent, false);
+    if (typeof d.liteMode === 'boolean') setLiteMode(d.liteMode);
   } catch(e) {}
 }
 function _saveSettings() {
   try {
     localStorage.setItem(_TC_LS_KEY, JSON.stringify({
-      listeningMode: _listeningMode,
       musicEnabled:  _musicEnabled,
+      musicVolumePercent:_musicVolumePercent,
+      liteMode:      _liteMode,
       initialHP:     INITIAL_HP,
     }));
   } catch(e) {}
-}
-function setListeningMode(on) {
-  _listeningMode = on;
-  document.getElementById('sc-listen-on') .classList.toggle('active',  on);
-  document.getElementById('sc-listen-off').classList.toggle('active', !on);
 }
 function setInitialHP(val) {
   INITIAL_HP = val;
@@ -5999,6 +6314,20 @@ function setMusicEnabled(on) {
     _stopBlacksmithAmbient();
     _cancelBgTrackSwitch();
     _bgMusicFade(0, 400);
+  }
+}
+function setMusicVolume(value, applyNow = true) {
+  _musicVolumePercent = Math.max(0, Math.min(100, Math.round(Number(value) || 0)));
+  BG_MUSIC_FULL = _musicVolumePercent / 100;
+  BG_MUSIC_BATTLE = BG_MUSIC_FULL * 0.5;
+  const slider = document.getElementById('sc-music-volume');
+  if (slider) slider.value = _musicVolumePercent;
+  const label = document.getElementById('sc-music-volume-value');
+  if (label) label.textContent = _musicVolumePercent + '%';
+  if (applyNow && _musicEnabled) {
+    _bgMusicFade(_battleMusicDucked ? BG_MUSIC_BATTLE : BG_MUSIC_FULL, 120);
+    if (_musicCueAudio) _musicCueAudio.volume = Math.min(1, (_musicCueAudio._baseVolume ?? 0.7) * (_musicVolumePercent / 100));
+    if (_blacksmithAmbientAudio) _blacksmithAmbientAudio.volume = 0.55 * (_musicVolumePercent / 100);
   }
 }
 

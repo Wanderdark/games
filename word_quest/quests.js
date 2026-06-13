@@ -70,7 +70,7 @@ const QUESTS = [
     enemyId: 'boar',
     target: 1,
     minLevel: 2,
-    runsNeeded: 2,
+    runsNeeded: 0,
     repeatable: 0,
     reward: { gold: 45, essence: 1 },
   },

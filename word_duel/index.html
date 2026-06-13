@@ -59,7 +59,7 @@ body::before {
   border: 1.5px solid rgba(96,165,250,0.3);
   border-radius: 28px;
   padding: 40px 44px 36px;
-  max-width: 540px; width: 100%;
+  max-width: 680px; width: 100%;
   max-height: 92vh; overflow-y: auto;
   text-align: center;
   box-shadow: 0 0 80px rgba(96,165,250,0.08), 0 24px 64px rgba(0,0,0,0.75);
@@ -67,9 +67,10 @@ body::before {
 }
 .sm-logo {
   font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(58px,9vw,100px);
+  font-size: clamp(58px,8vw,92px);
   color: var(--p1); letter-spacing: .1em; line-height: .88;
   text-shadow: 0 0 50px var(--p1-glow);
+  white-space: nowrap;
 }
 .sm-sub {
   font-family: 'Barlow Condensed', sans-serif;
@@ -94,6 +95,11 @@ body::before {
   border-radius: 10px; color: rgba(200,215,255,0.6);
   cursor: pointer; transition: all .15s;
 }
+.filter-btn-label, .filter-btn-count { display:block; }
+.filter-btn-count {
+  margin-top:3px; font-size:10px; font-weight:600;
+  letter-spacing:.06em; opacity:.62;
+}
 .grade-btn:hover, .unit-btn:hover:not(:disabled) {
   border-color: rgba(96,165,250,0.5); color: var(--white); background: rgba(96,165,250,0.08);
 }
@@ -103,6 +109,36 @@ body::before {
   box-shadow: 0 0 12px rgba(96,165,250,.18);
 }
 .unit-btn:disabled { opacity: .3; cursor: not-allowed; }
+.difficulty-grid {
+  display:grid; grid-template-columns:repeat(3,1fr); gap:10px;
+}
+.difficulty-btn {
+  font-family:'Barlow Condensed',sans-serif;
+  padding:10px 8px 8px; border-radius:11px;
+  background:rgba(255,255,255,.04);
+  border:1.5px solid rgba(255,255,255,.12);
+  color:rgba(200,215,255,.48); cursor:pointer;
+  transition:all .15s;
+}
+.difficulty-name {
+  display:block; font-size:15px; font-weight:800;
+  letter-spacing:.12em; text-transform:uppercase;
+}
+.difficulty-count {
+  display:block; margin-top:3px; font-size:11px;
+  font-weight:600; letter-spacing:.07em; opacity:.65;
+}
+.difficulty-btn:hover:not(:disabled) {
+  color:var(--white); border-color:rgba(96,165,250,.5);
+}
+.difficulty-btn.active {
+  color:var(--p1); border-color:var(--p1);
+  background:linear-gradient(135deg,rgba(59,130,246,.22),rgba(96,165,250,.1));
+  box-shadow:0 0 12px rgba(96,165,250,.16);
+}
+.difficulty-btn:disabled {
+  cursor:not-allowed; opacity:1;
+}
 #word-count {
   font-family: 'Barlow Condensed', sans-serif;
   font-size: 13px; letter-spacing: .06em;
@@ -1157,11 +1193,26 @@ body::before {
 
 <div id="settings-overlay">
   <div class="settings-modal">
-    <div class="sm-logo">WORD<br>DUEL</div>
+    <div class="sm-logo">WORD DUEL</div>
     <div class="sm-sec">SINIF SEÇ</div>
     <div class="btn-grid" id="grade-grid"></div>
     <div class="sm-sec">ÜNİTE SEÇ</div>
     <div class="btn-grid" id="unit-grid"></div>
+    <div class="sm-sec">ZORLUK SEÇ</div>
+    <div class="difficulty-grid" id="difficulty-grid">
+      <button class="difficulty-btn active" id="difficulty-1" disabled>
+        <span class="difficulty-name">EASY</span>
+        <span class="difficulty-count" id="difficulty-count-1"></span>
+      </button>
+      <button class="difficulty-btn active" id="difficulty-2" onclick="toggleDifficulty(2)">
+        <span class="difficulty-name">MEDIUM</span>
+        <span class="difficulty-count" id="difficulty-count-2"></span>
+      </button>
+      <button class="difficulty-btn active" id="difficulty-3" onclick="toggleDifficulty(3)">
+        <span class="difficulty-name">HARD</span>
+        <span class="difficulty-count" id="difficulty-count-3"></span>
+      </button>
+    </div>
     <div id="word-count">✓ Ünite seçin…</div>
     <button class="start-btn" id="start-btn" disabled onclick="startGame()">OYUNU BAŞLAT</button>
   </div>
@@ -1396,6 +1447,7 @@ let busy       = false;
 
 let selectedGrades = new Set();
 let selectedUnits  = new Set();
+let selectedDifficulties = new Set([1, 2, 3]);
 
 let _clickLog     = [[], []];
 let _spamLocked   = [false, false];
@@ -1477,6 +1529,7 @@ let teleportPending  = false;  // waiting for answer
 let teleportUsed     = false;  // once fired, removed from pool for rest of game
 let _puDisabled      = false;  // true after emergency override; resets on new game
 let _puDoneCallback  = null;
+let fairFinishState  = null;   // { phase:'orange-response'|'pair', pair:[bool|null,bool|null], pendingImagePl:number|null }
 
 // ═══════════════════════════════════════════════════
 //  SETTINGS
@@ -1490,7 +1543,9 @@ function buildGrades() {
     const cnt = QUESTIONS.filter(q=>q[3]===g).length;
     const b = document.createElement('button');
     b.className = 'grade-btn' + (selectedGrades.has(g) ? ' active' : '');
-    b.textContent = g + '. SINIF (' + cnt + ')';
+    b.innerHTML =
+      '<span class="filter-btn-label">' + g + '. SINIF</span>' +
+      '<span class="filter-btn-count">(' + cnt + ')</span>';
     b.onclick = () => toggleGrade(g);
     grid.appendChild(b);
   });
@@ -1508,7 +1563,9 @@ function buildUnits() {
     const b = document.createElement('button');
     b.className = 'unit-btn' + (selectedUnits.has(n) ? ' active' : '');
     b.disabled = cnt === 0;
-    b.textContent = 'ÜNİTE ' + n + ' (' + cnt + ')';
+    b.innerHTML =
+      '<span class="filter-btn-label">ÜNİTE ' + n + '</span>' +
+      '<span class="filter-btn-count">(' + cnt + ')</span>';
     b.onclick = () => toggleUnit(n);
     grid.appendChild(b);
   });
@@ -1539,9 +1596,36 @@ function toggleUnit(n) {
   buildUnits(); save();
 }
 
+function buildDifficulties() {
+  [1,2,3].forEach(d => {
+    const btn = document.getElementById('difficulty-' + d);
+    const count = document.getElementById('difficulty-count-' + d);
+    if (btn) btn.classList.toggle('active', selectedDifficulties.has(d));
+    if (count) {
+      const total = QUESTIONS.filter(q => q[3] !== 0 && q[4] === d).length;
+      count.textContent = total + ' KELİME';
+    }
+  });
+}
+
+function toggleDifficulty(d) {
+  if (d === 1) return;
+  if (selectedDifficulties.has(d)) selectedDifficulties.delete(d);
+  else selectedDifficulties.add(d);
+  selectedDifficulties.add(1);
+  buildDifficulties();
+  updateCount();
+  save();
+}
+
 function filteredPool() {
   if (typeof QUESTIONS === 'undefined') return [];
-  return QUESTIONS.filter(q=>q[3]!==0&&selectedGrades.has(q[3])&&selectedUnits.has(q[5]));
+  return QUESTIONS.filter(q =>
+    q[3] !== 0 &&
+    selectedGrades.has(q[3]) &&
+    selectedUnits.has(q[5]) &&
+    selectedDifficulties.has(q[4])
+  );
 }
 
 function updateCount() {
@@ -1556,13 +1640,21 @@ function updateCount() {
 }
 
 function save() {
-  try { localStorage.setItem('vocabDuel_v1', JSON.stringify({g:[...selectedGrades],u:[...selectedUnits]})); } catch(e){}
+  try {
+    localStorage.setItem('vocabDuel_v1', JSON.stringify({
+      g:[...selectedGrades],
+      u:[...selectedUnits],
+      d:[...selectedDifficulties]
+    }));
+  } catch(e){}
 }
 function load() {
   try {
     const d = JSON.parse(localStorage.getItem('vocabDuel_v1')||'{}');
     if (Array.isArray(d.g)&&d.g.length) selectedGrades = new Set(d.g.map(Number));
     if (Array.isArray(d.u)&&d.u.length) selectedUnits  = new Set(d.u.map(Number));
+    if (Array.isArray(d.d)) selectedDifficulties = new Set(d.d.map(Number).filter(n=>n>=1&&n<=3));
+    selectedDifficulties.add(1);
   } catch(e){}
 }
 
@@ -1701,10 +1793,12 @@ function simultaneousChoice(who) {
 
   // Win check
   if (scores[0] >= WIN || scores[1] >= WIN) {
-    const winner = scores[0] >= WIN ? 0 : 1;
-    simMode = null; gameActive = false;
-    setBtns(false); updateActionRow();
-    setTimeout(() => showWin(winner), 650);
+    if (scores[0] === scores[1]) {
+      _startFairFinishFromTie();
+      return;
+    }
+    activePl = scores[0] >= WIN ? 0 : 1;
+    if (checkWin()) return;
     return;
   }
 
@@ -1900,7 +1994,7 @@ function resetDuelState() {
   gameActive = false; busy = false;
   combo = null; djState = null; minus1IfWrong = false; plus2IfCorrect = false; knockbackHit = false;
   simMode = null; freezeState = null; stunnedPending = false; stunnedState = null;
-  teleportPending = false; teleportUsed = false; _puDoneCallback = null;
+  teleportPending = false; teleportUsed = false; _puDoneCallback = null; fairFinishState = null;
   p1WordCount = 0; p1PuPending = false; mirrorPuType = null; mirrorPuTarget = -1; mirrorPuDelay = 0;
   _clickLog = [[],[]]; _spamLocked = [false,false]; _spamStudents = [new Set(),new Set()];
   _puDisabled = false;
@@ -1950,7 +2044,7 @@ function startGame() {
   gameActive = true; busy = false;
   combo = null; djState = null; minus1IfWrong = false; plus2IfCorrect = false; knockbackHit = false;
   simMode = null; freezeState = null; stunnedPending = false; stunnedState = null;
-  teleportPending = false; teleportUsed = false; _puDoneCallback = null;
+  teleportPending = false; teleportUsed = false; _puDoneCallback = null; fairFinishState = null;
   p1WordCount = 0; p1PuPending = false; mirrorPuType = null; mirrorPuTarget = -1; mirrorPuDelay = 0;
   _clickLog = [[],[]]; _spamLocked = [false,false]; _spamStudents = [new Set(),new Set()];
   _puDisabled = false;
@@ -1987,11 +2081,15 @@ function setCard(animate, silent) {
   ctr.textContent = 'CARD ' + (currentIdx+1) + ' / ' + deck.length;
 
   _imgCardCounter[activePl]++;
-  const isImgTurn = (_imgCardCounter[activePl] % 8 === 0) && _easyImgPool.length > 0;
+  const regularImgTurn = (_imgCardCounter[activePl] % 8 === 0) && _easyImgPool.length > 0;
+  const isImgTurn = fairFinishState
+    ? fairFinishState.pendingImagePl === activePl && _easyImgPool.length > 0
+    : regularImgTurn;
 
   function _apply() {
     imgEl.onerror = null;
     if (isImgTurn) {
+      if (fairFinishState) fairFinishState.pendingImagePl = null;
       const easyEntry = _easyImgPool[_easyImgIdx % _easyImgPool.length];
       _easyImgIdx++;
       const ePath = easyEntry[6];
@@ -2127,7 +2225,72 @@ function changeScore(pl, delta) {
   renderHeader();
 }
 
+function _clearEffectsForFairFinish() {
+  _puDisabled = true;
+  combo = null; djState = null; minus1IfWrong = false; plus2IfCorrect = false; knockbackHit = false;
+  simMode = null; freezeState = null; stunnedPending = false; stunnedState = null;
+  teleportPending = false; mirrorPuType = null; mirrorPuTarget = -1; mirrorPuDelay = 0;
+  p1PuPending = false; _puDoneCallback = null;
+  document.getElementById('pu-overlay').style.display = 'none';
+  document.getElementById('sim-choice-overlay').style.display = 'none';
+  document.getElementById('combo-hud').style.display = 'none';
+  document.getElementById('freeze-hud').style.display = 'none';
+  document.getElementById('stunned-hud').style.display = 'none';
+  document.getElementById('sim-hud').style.display = 'none';
+  document.getElementById('p1-header').classList.remove('frozen-player','stunned-player','zapped-player');
+  document.getElementById('p2-header').classList.remove('frozen-player','stunned-player','zapped-player');
+  _setPuZoneImg('p1-pu-img', null); _setPuZoneImg('p2-pu-img', null);
+  clearDjBadge();
+  updateActionRow();
+}
+
+function _goToFairFinishTurn(pl) {
+  activePl = pl;
+  setTimeout(() => {
+    currentIdx++;
+    setCard(true); renderHeader(); updateComboHud(); updateFreezeHud(); updateStunnedHud(); updateActionRow();
+  }, 320);
+}
+
+function _newFairFinishState(phase) {
+  const blueImgCount = Math.floor(_imgCardCounter[0] / 8);
+  const orangeImgCount = Math.floor(_imgCardCounter[1] / 8);
+  return {
+    phase,
+    pair:[null,null],
+    pendingImagePl: blueImgCount > orangeImgCount && _easyImgPool.length > 0 ? 1 : null
+  };
+}
+
+function _startFairFinish() {
+  // Power-up kaynaklı fazla puanı da adil bitiriş başlangıcında 10'a normalize et.
+  scores[0] = 10;
+  fairFinishState = _newFairFinishState('orange-response');
+  _clearEffectsForFairFinish();
+  renderHeader();
+  _goToFairFinishTurn(1);
+}
+
+function _startFairFinishFromTie() {
+  fairFinishState = _newFairFinishState('pair');
+  _clearEffectsForFairFinish();
+  renderHeader();
+  _goToFairFinishTurn(0);
+}
+
+function _finishFairMatch(winner) {
+  fairFinishState = null;
+  gameActive = false;
+  setBtns(false);
+  setTimeout(() => showWin(winner), 650);
+}
+
 function checkWin() {
+  if (fairFinishState) return false;
+  if (activePl === 0 && scores[1] === 9 && scores[0] >= 10) {
+    _startFairFinish();
+    return true;
+  }
   if (scores[activePl] >= WIN) {
     combo = null; djState = null; minus1IfWrong = false; plus2IfCorrect = false; knockbackHit = false;
     simMode = null; freezeState = null; stunnedPending = false; stunnedState = null; teleportPending = false; mirrorPuType = null; mirrorPuTarget = -1; mirrorPuDelay = 0; gameActive = false;
@@ -2285,6 +2448,7 @@ function handleAnswer(correct) {
 }
 
 function _scoreAndContinue(correct) {
+  if (fairFinishState)                 { handleFairFinishAnswer(correct);   return; }
   if (combo)                          { handleComboAnswer(correct);         return; }
   if (djState)                        { handleDjAnswer(correct);            return; }
   if (minus1IfWrong)                  { handleMinus1IfWrongAnswer(correct); return; }
@@ -2295,6 +2459,38 @@ function _scoreAndContinue(correct) {
   if (teleportPending)                { handleTeleportAnswer(correct);      return; }
   if (correct) { changeScore(activePl, 1); if (checkWin()) return; }
   endTurn(true);
+}
+
+function handleFairFinishAnswer(correct) {
+  const answeringPl = activePl;
+  if (correct) changeScore(answeringPl, 1);
+
+  if (fairFinishState.phase === 'orange-response') {
+    if (!correct) {
+      _finishFairMatch(0);
+      return;
+    }
+    fairFinishState.phase = 'pair';
+    fairFinishState.pair = [null, null];
+    _goToFairFinishTurn(0);
+    return;
+  }
+
+  fairFinishState.pair[answeringPl] = correct;
+  if (answeringPl === 0) {
+    _goToFairFinishTurn(1);
+    return;
+  }
+
+  const blueScored = fairFinishState.pair[0];
+  const orangeScored = fairFinishState.pair[1];
+  if (blueScored !== orangeScored) {
+    _finishFairMatch(blueScored ? 0 : 1);
+    return;
+  }
+
+  fairFinishState.pair = [null, null];
+  _goToFairFinishTurn(0);
 }
 
 function _showRevealImg(path, cb) {
@@ -2503,9 +2699,10 @@ function playAgain() {
   gameActive = true; busy = false;
   combo = null; djState = null; minus1IfWrong = false; plus2IfCorrect = false; knockbackHit = false;
   simMode = null; freezeState = null; stunnedPending = false; stunnedState = null;
-  teleportPending = false; teleportUsed = false; _puDoneCallback = null;
+  teleportPending = false; teleportUsed = false; _puDoneCallback = null; fairFinishState = null;
   p1WordCount = 0; p1PuPending = false; mirrorPuType = null; mirrorPuTarget = -1; mirrorPuDelay = 0;
   _clickLog = [[],[]]; _spamLocked = [false,false]; _spamStudents = [new Set(),new Set()];
+  _puDisabled = false;
 
   document.getElementById('win-overlay').classList.remove('open');
   document.getElementById('combo-hud').style.display    = 'none';
@@ -2523,6 +2720,7 @@ function playAgain() {
 }
 
 function showWin(winner) {
+  fairFinishState = null;
   _addWin(playerNames[winner]);
   if (_tournamentActiveMatch !== null && !_tournamentResultSaved) {
     const match = _tournamentMatches[_tournamentActiveMatch];
@@ -3178,7 +3376,7 @@ function openSettings() {
   selectedGrades  = new Set(allGrades);
   const allUnits  = [...new Set(QUESTIONS.filter(q=>q[3]!==0).map(q=>q[5]))];
   selectedUnits   = new Set([allUnits[0]]);
-  load(); buildGrades(); buildUnits();
+  load(); buildGrades(); buildUnits(); buildDifficulties();
 })();
 </script>
 </body>
