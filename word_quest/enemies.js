@@ -22,6 +22,10 @@
 
 // Enemy rarity stat sets are stored here so balancing stays in enemies.js.
 // Boss encounters (every 5th enemy) roll Rare or better in the game logic.
+// Minimum player POWER required before Common/Uncommon enemies in each biome
+// can appear as duos: Plains, Forest, Frost, Lava, Celestial.
+const DUO_POWER_THRESHOLDS = [100, 180, 280, 400, 550];
+
 function enemyRarityVersions(hp, att, speed, xpReward, goldReward) {
   const gold = Array.isArray(goldReward) ? goldReward : [goldReward, goldReward];
   const scaleRange = mult => gold.map(value => Math.max(1, Math.round(value * mult)));

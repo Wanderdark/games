@@ -375,7 +375,7 @@ body.lite .grid-shatter-layer{display:none}
 .sp-npc-img.npc-landscape{width:100%;height:100%;object-fit:contain;object-position:center bottom}
 .sp-avatar-sway.npc-oversized:not(.npc-landscape-wrap){width:130%;height:115%;flex:0 0 auto}
 .sp-avatar-sway.npc-oversized:not(.npc-landscape-wrap) .sp-npc-img.npc-vertical{max-height:115%;width:clamp(220px,160%,400px)}
-.sp-avatar-sway.npc-landscape-wrap.npc-oversized{width:clamp(360px,235%,580px);max-height:88%}
+.sp-avatar-sway.npc-landscape-wrap.npc-oversized{width:clamp(600px,360%,880px);max-height:none;left:+100px}
 .sp-avatar-sway.duo-front{z-index:3;left:-38px!important;bottom:0}.sp-avatar-sway.duo-rear{position:absolute!important;right:-32%;left:auto!important;bottom:13%;width:82%!important;height:82%!important;z-index:1;pointer-events:none;animation-delay:-1.1s}.sp-avatar-sway.duo-rear.npc-landscape-wrap{right:-46%;bottom:12%;width:150%!important;height:auto!important}.sp-avatar-sway.duo-fall{animation:duoEnemyFall .48s ease-in forwards!important}@keyframes duoEnemyFall{to{opacity:0;transform:translate(35px,28px) rotate(12deg) scale(.72);filter:brightness(.2)}}
 .sp-npc-placeholder{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px}
 .sp-npc-emoji{font-size:clamp(80px,10vw,130px);line-height:1;filter:drop-shadow(0 0 24px rgba(239,68,68,.6))}
@@ -1085,6 +1085,7 @@ body.lite .grid-shatter-layer{display:none}
   <div class="world-map-controls" id="world-map-control-lava"></div>
   <div class="world-map-controls" id="world-map-control-frost"></div>
   <div class="world-map-controls" id="world-map-control-celestial"></div>
+  <div class="world-map-controls" id="world-map-control-town"></div>
   <div id="biome-info-overlay">
     <div class="biome-info-modal">
       <div class="biome-info-head">
@@ -1144,7 +1145,6 @@ body.lite .grid-shatter-layer{display:none}
     <div class="town-subtitle" id="inn-stats"></div>
     <button class="town-btn rest" id="inn-rest-btn" onclick="_startInnRest()">REST - 50 GOLD</button>
     <button class="town-btn" id="inn-inquire-btn" onclick="_toggleInnInquire()" disabled>INQUIRE</button>
-    <button class="town-btn" onclick="_openRestingRoomTest()">TEST RESTING ROOM</button>
     <button class="town-btn leave" id="inn-leave-btn" onclick="_leaveInn()">LEAVE</button>
     <div class="town-status" id="inn-status"></div>
   </div>
@@ -1391,7 +1391,6 @@ const CRITICAL_HIT_LEVELS = [5, 10, 15];
 const CRAFTSMANSHIP_DURABILITY_BONUSES = [0, 2, 4, 6];
 const CRAFTSMANSHIP_ESSENCE_COSTS = [10, 25, 50];
 const CRAFTSMANSHIP_LEVELS = [5, 10, 15];
-const DUO_POWER_THRESHOLDS = [100, 180, 280, 400, 550];
 const DUO_BASE_CHANCE = 25;
 const DUO_POWER_CHANCE_STEP = .25;
 const DUO_CHANCE_CAP = 75;
@@ -3872,12 +3871,12 @@ function _continuePostBattleRoute() {
   }
 }
 
-function _openTown() {
+function _openTown(refreshTownStock = true) {
   _stopBlacksmithAmbient();
   const enteringTown = !_pendingTown;
   _pendingTown = true;
-  if (enteringTown) _blacksmithTradeOffers = [];
-  if (enteringTown || !_hasTownShopStock()) _resetTownShopStock();
+  if (enteringTown && refreshTownStock) _blacksmithTradeOffers = [];
+  if (refreshTownStock && (enteringTown || !_hasTownShopStock())) _resetTownShopStock();
   _switchToLocationTrack(BG_TOWN_TRACK);
   if (_innRestInterval) { clearInterval(_innRestInterval); _innRestInterval = null; }
   const overlay = document.getElementById('town-overlay');
@@ -5101,16 +5100,6 @@ function _startInnRest() {
   _spSave();
   _resumeInnRest();
 }
-function _openRestingRoomTest() {
-  if (_innResting) return;
-  const overlay = document.getElementById('town-overlay');
-  overlay?.classList.remove('inn-view', 'adventurers-guild-view', 'mages-guild-view', 'shop-view', 'blacksmith-view');
-  overlay?.classList.add('resting-view');
-  document.getElementById('inn-inquire-panel').style.display = 'none';
-  document.getElementById('inn-rumor-bubble').style.display = 'none';
-  document.getElementById('inn-status').textContent = 'TEST MODE - NO GOLD OR TIME USED';
-  _positionInnRestingEffects();
-}
 function _resumeInnRest() {
   _innResting = true;
   _switchToLocationTrack(BG_INN_TRACK);
@@ -5241,6 +5230,17 @@ function _renderWorldMap() {
     }
     _positionWorldMapControl('world-map-control-' + biome.id, biome.center[0], biome.center[1]);
   });
+  const townControl = document.getElementById('world-map-control-town');
+  if (townControl) {
+    townControl.style.display = _spCompletedRuns > 0 ? 'flex' : 'none';
+    townControl.innerHTML = _spCompletedRuns > 0
+      ? `<div class="world-map-name">TOWN</div>
+        <div class="world-map-actions">
+          <button class="world-map-btn enter" onclick="_enterTownFromWorldMap()">ENTER</button>
+        </div>`
+      : '';
+  }
+  _positionWorldMapControl('world-map-control-town', 960, 890);
 }
 function _openWorldMap() {
   _stopTimer();
@@ -5272,6 +5272,13 @@ function _enterBiome(biomeIndex) {
   _updateBg(true);
   _spSave();
   setTimeout(_beginEnemyEncounter, 250);
+}
+function _enterTownFromWorldMap() {
+  if (_spCompletedRuns <= 0) return;
+  _pendingWorldMap = false;
+  document.getElementById('biome-info-overlay')?.classList.remove('open');
+  document.getElementById('world-map-overlay')?.classList.remove('open');
+  _openTown(false);
 }
 function _showBiomeInfo(biomeIndex) {
   const biome = WORLD_MAP_BIOMES.find(entry => entry.index === biomeIndex);
